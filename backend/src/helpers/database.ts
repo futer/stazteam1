@@ -3,7 +3,7 @@ import * as env from "../environments/environments";
 mongoose.set("useFindAndModify", false);
 
 export function connect() {
-  let db = mongoose.createConnection(env.MONGODB_CONN_URI, {
+  const db = mongoose.createConnection(env.MONGODB_CONN_URI, {
     useNewUrlParser: true
   });
   
