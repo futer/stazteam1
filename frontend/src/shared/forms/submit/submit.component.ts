@@ -6,7 +6,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./submit.component.scss']
 })
 export class SubmitComponent {
-  @Input() value: string;
   @Input() buttonStyle: string;
   @Input() type?: string;
   @Input() disabled?: boolean;
