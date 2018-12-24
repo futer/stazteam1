@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { SharedModule } from '../shared/shared.module';
 
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
@@ -20,7 +21,7 @@ import { Example2Component } from './examples/example2/example2.component';
     GraphQLModule,
     HttpClientModule,
     routing,
-
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
