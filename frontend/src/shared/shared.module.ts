@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SubmitComponent } from './forms/submit/submit.component';
+import { SubmitBtnComponent } from './forms/submit-btn/submit-btn.component';
 
 @NgModule({
-  declarations: [SubmitComponent],
+  declarations: [SubmitBtnComponent],
   imports: [
     CommonModule
   ]
