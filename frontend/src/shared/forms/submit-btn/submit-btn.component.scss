@@ -1,0 +1,24 @@
+@import '../../../assets/main-style.scss';
+
+button{
+    background: $btn-color;
+    border: none;
+    border-radius: 0.5em;
+    color: $main-font-color;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0.5em;
+    padding: 1em;
+    transition: 0.07s all ease-in-out, 0.06s transform ease-in-out;
+    &:hover{
+        transform: scale(1.1);
+    }       
+    &:disabled{
+        background: $back-color;
+        color: grey;
+    }     
+}
+
+.login-form__submit{
+
+}
