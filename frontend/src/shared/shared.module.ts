@@ -1,11 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SubmitComponent } from './forms/submit/submit.component';
+import { SubmitBtnComponent } from './forms/submit-btn/submit-btn.component';
+import { InputComponent } from './forms/input/input.component';
+import { RouterBTNComponent } from './components/routerBTN/router-btn/router-btn.component';
 
 @NgModule({
-  declarations: [SubmitComponent],
+  declarations: [
+    SubmitBtnComponent,
+    InputComponent,
+    RouterBTNComponent,
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+  ],
+  exports: [
+    SubmitBtnComponent,
+    InputComponent,
+    RouterBTNComponent,
   ]
 })
 export class SharedModule { }
