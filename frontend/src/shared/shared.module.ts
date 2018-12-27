@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SubmitComponent } from './forms/submit/submit.component';
+import { SubmitBtnComponent } from './forms/submit-btn/submit-btn.component';
 import { InputComponent } from './forms/input/input.component';
 import { RouterBTNComponent } from './components/routerBTN/router-btn/router-btn.component';
 
 @NgModule({
   declarations: [
-    SubmitComponent,
+    SubmitBtnComponent,
     InputComponent,
     RouterBTNComponent,
   ],
@@ -14,7 +14,7 @@ import { RouterBTNComponent } from './components/routerBTN/router-btn/router-btn
     CommonModule,
   ],
   exports: [
-    SubmitComponent,
+    SubmitBtnComponent,
     InputComponent,
     RouterBTNComponent,
   ]
