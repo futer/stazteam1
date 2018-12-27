@@ -1,10 +1,8 @@
 @import '../../assets/main-style.scss';
 
-.login-form{
-    // temp
-    
-    height:300px;  
+.login-form{  
     background-color: $sec-back-color;
     border-radius: 2em;
+    padding: 2em;
     width: 100%;
 }
