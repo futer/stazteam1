@@ -6,9 +6,11 @@ import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReviewModule } from 'src/review/review.module';
-import { routing } from './examples/example.routing';
 import { Example1Component } from './examples/example1/example1.component';
 import { Example2Component } from './examples/example2/example2.component';
+
+import { routing } from './examples/example.routing';
+import { CoreRoutingModule } from '../core/core-routing.module';
 
 @NgModule({
   declarations: [
@@ -20,8 +22,9 @@ import { Example2Component } from './examples/example2/example2.component';
     BrowserModule,
     GraphQLModule,
     HttpClientModule,
+    SharedModule,
     routing,
-    SharedModule
+    CoreRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
