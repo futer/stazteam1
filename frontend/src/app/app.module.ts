@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReviewModule } from 'src/review/review.module';
+import { CoreModule } from '../core/core.module';
 import { Example1Component } from './examples/example1/example1.component';
 import { Example2Component } from './examples/example2/example2.component';
 
@@ -23,6 +24,7 @@ import { CoreRoutingModule } from '../core/core-routing.module';
     GraphQLModule,
     HttpClientModule,
     SharedModule,
+    CoreModule,
     routing,
     CoreRoutingModule,
   ],
