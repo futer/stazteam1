@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SubmitComponent } from './forms/submit/submit.component';
 import { InputComponent } from './forms/input/input.component';
 import { RouterBTNComponent } from './components/routerBTN/router-btn/router-btn.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { RouterBTNComponent } from './components/routerBTN/router-btn/router-btn
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
   ],
   exports: [
     SubmitComponent,
