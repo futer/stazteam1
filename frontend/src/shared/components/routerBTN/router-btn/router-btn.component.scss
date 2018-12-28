@@ -5,7 +5,7 @@ a{
     border-radius: 0.5em;
     color: $main-font-color;
     display: inline-block;
-    font-size: 14px;
+    font-size: $btn-font-size;
     padding: 1em;
     text-decoration: none;
     transition: 0.07s all ease-in-out, 0.06s transform ease-in-out;

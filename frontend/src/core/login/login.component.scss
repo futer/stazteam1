@@ -4,5 +4,15 @@
     background-color: $sec-back-color;
     border-radius: 2em;
     padding: 2em;
-    width: 100%;
+    .login-form__part{
+        box-sizing: border-box;
+        display: inline-block;
+        padding: 1em;
+        width: 50%;
+        @media screen and (max-width: $desktop) {
+            display:block;
+            padding: 0.5em;
+            width: 100%;
+        }
+    }
 }

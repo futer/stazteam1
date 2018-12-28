@@ -16,14 +16,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.loginFormBuilder.group({
-      email: ['', [Validators.required, Validators.pattern(/^[A-z]+$/)]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(5)]],
   }, {
   });
   }
 
   onSubmit() {
-    // TODO, send submitted data further
+    console.log('this submit works!');
   }
 
 }

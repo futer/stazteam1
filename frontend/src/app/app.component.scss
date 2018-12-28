@@ -1,3 +1,5 @@
+@import '../assets/main-style.scss';
+
 header{
     align-self: center;
     grid-column: 1/9;
@@ -5,5 +7,9 @@ header{
     app-nav{
         display: flex;
         justify-content: space-around;
+        @media screen and (max-width: $tablet) {
+            flex-direction: column;
+            align-items:center;
+        }
     }
 }
