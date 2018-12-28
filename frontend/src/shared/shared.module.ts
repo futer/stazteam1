@@ -4,7 +4,7 @@ import { SubmitBtnComponent } from './forms/submit-btn/submit-btn.component';
 import { InputComponent } from './forms/input/input.component';
 import { RouterBTNComponent } from './components/routerBTN/router-btn/router-btn.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LabelComponent } from './forms/label/label.component';
+import { LabelComponent } from './components/label/label.component';
 
 @NgModule({
   declarations: [
