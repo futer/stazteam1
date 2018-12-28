@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    // TODO, send submitted data further
+    console.log('this submit works!');
   }
 
 }

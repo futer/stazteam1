@@ -5,4 +5,10 @@
     border-radius: 2em;
     padding: 2em;
     width: 100%;
+    .login-form__part{
+        box-sizing: border-box;
+        display: inline-block;
+        padding: 1em;
+        width: 50%;
+    }
 }
