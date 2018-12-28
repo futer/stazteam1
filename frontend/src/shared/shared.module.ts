@@ -21,7 +21,11 @@ import { LabelComponent } from './components/label/label.component';
     SubmitBtnComponent,
     InputComponent,
     RouterBTNComponent,
+<<<<<<< HEAD
     LabelComponent,
+=======
+    LabelComponent
+>>>>>>> master
   ]
 })
 export class SharedModule { }
