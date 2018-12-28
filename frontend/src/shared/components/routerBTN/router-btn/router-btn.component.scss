@@ -1,0 +1,19 @@
+@import '../../../../assets/main-style.scss';
+
+a{
+    background: $main-color;
+    border-radius: 0.5em;
+    color: $main-font-color;
+    display: inline-block;
+    font-size: 14px;
+    padding: 1em;
+    text-decoration: none;
+    transition: 0.07s all ease-in-out, 0.06s transform ease-in-out;
+    &:hover{
+        transform: scale(1.1);
+    }  
+}
+
+.login-form__reg{
+
+}
