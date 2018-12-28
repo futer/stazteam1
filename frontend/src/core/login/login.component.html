@@ -1,9 +1,10 @@
 <form class="login-form" [formGroup] = "loginForm" (ngSubmit)="onSubmit()">
     <section class="login-form__part">
+        <app-label>Email:</app-label>
         <app-input 
             [formInputStyle]="'login-form__input'"
             [controlName]="loginForm.controls.email"
-            [placeholder]="'Email'"
+            [placeholder]="'example@mail.com'"
         ></app-input>
     
         <app-submit-btn [buttonStyle]="'login-form__submit'" [type]="'submit'">Sign In</app-submit-btn>
