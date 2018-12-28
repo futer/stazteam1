@@ -1,0 +1,9 @@
+header{
+    align-self: center;
+    grid-column: 1/9;
+    grid-row: 1/2;
+    app-nav{
+        display: flex;
+        justify-content: space-around;
+    }
+}
