@@ -24,10 +24,7 @@ import { LogoComponent } from './components/logo/logo.component';
     InputComponent,
     RouterBTNComponent,
     LabelComponent,
-<<<<<<< HEAD
     LogoComponent,
-=======
->>>>>>> master
   ]
 })
 export class SharedModule { }
