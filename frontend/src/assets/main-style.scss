@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
+
+//colors and fonts
 $main-font: 'Roboto', sans-serif;
 
 $back-color: #373F46;
@@ -9,3 +11,10 @@ $main-color: #E0A905;
 $main-font-color: #FEFEFA;
 
 $btn-color: #31ABED;
+
+$btn-font-size: 14px;
+
+//media screens
+$phone: 320px;
+$tablet: 768px;
+$desktop: 1024px;
