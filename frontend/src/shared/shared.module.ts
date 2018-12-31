@@ -5,7 +5,6 @@ import { InputComponent } from './forms/input/input.component';
 import { RouterBTNComponent } from './components/routerBTN/router-btn/router-btn.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from './components/label/label.component';
-import { LogoComponent } from './components/logo/logo.component';
 import { ImageComponent } from './components/image/image.component';
 
 @NgModule({
