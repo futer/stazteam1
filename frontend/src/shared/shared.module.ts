@@ -6,6 +6,7 @@ import { RouterBTNComponent } from './components/routerBTN/router-btn/router-btn
 import { ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from './components/label/label.component';
 import { LogoComponent } from './components/logo/logo.component';
+import { ImageComponent } from './components/image/image.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import { LogoComponent } from './components/logo/logo.component';
     InputComponent,
     RouterBTNComponent,
     LabelComponent,
-    LogoComponent,
+    ImageComponent,
   ],
   imports: [
     CommonModule,
@@ -24,7 +25,7 @@ import { LogoComponent } from './components/logo/logo.component';
     InputComponent,
     RouterBTNComponent,
     LabelComponent,
-    LogoComponent,
+    ImageComponent,
   ]
 })
 export class SharedModule { }
