@@ -1,9 +1,14 @@
 @import '../../../assets/main-style.scss';
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
 
 button{
     background: $btn-color;
     border: none;
-    border-radius: 0.5em;
+    // border-radius: 0.5em;
     color: $main-font-color;
     cursor: pointer;
     display: inline-block;
@@ -21,5 +26,17 @@ button{
 }
 
 .login-form__submit{
+    
 
+}
+
+.register-form__submit{
+    font-weight: bold;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    margin: 0;
+    background-color: $main-color;
+    padding: 1em 2em;
+    width: 100%;
+    text-transform: uppercase;
 }

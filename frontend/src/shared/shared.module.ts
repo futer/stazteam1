@@ -12,15 +12,18 @@ import { LabelComponent } from './components/label/label.component';
     InputComponent,
     RouterBTNComponent,
     LabelComponent,
+
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
+
   ],
   exports: [
     SubmitBtnComponent,
     InputComponent,
     RouterBTNComponent,
+
   ]
 })
 export class SharedModule { }

@@ -1,3 +1,94 @@
-<p>
-  register works!
-</p>
+<div class="container">
+  <div class="register-wrapper">
+    <form class="register-form" 
+      [formGroup] = "registerForm">
+      <div class="input-group">
+        <app-input 
+          [formInputStyle]="'register-form__input'" 
+          [type]="'email'" [placeholder]="'Email'" 
+          [controlName]="registerForm.controls.email">
+        </app-input>
+        <i class="fa fa-envelope input-icon"></i>
+        <span class="error-msg"
+         *ngIf="registerForm.get('email').errors?.required && registerForm.get('email').touched">
+          {{validationMessages.required}}
+        </span>
+        <span class="error-msg"
+         *ngIf="registerForm.get('email').errors?.email && registerForm.get('email').touched">
+           {{validationMessages.email}}
+        </span>
+      </div>
+      <div formGroupName="passwordGroup">
+        <div class="input-group">
+          <app-input 
+            [formInputStyle]="'register-form__input'" 
+            [type]="'password'" 
+            [placeholder]="'Password'" 
+            [controlName]="registerForm.controls.passwordGroup.controls.password">
+          </app-input>
+          <i class="fa fa-unlock-alt input-icon"></i>
+          <span class="error-msg"
+          *ngIf="registerForm.get('passwordGroup.password').errors?.required && registerForm.get('passwordGroup.password').touched">
+            {{validationMessages.required}}
+         </span>
+         <span class="error-msg"
+         *ngIf="registerForm.get('passwordGroup.password').errors?.minlength && registerForm.get('passwordGroup.password').touched">
+            {{validationMessages.password}}
+        </span>
+        </div>
+        <div class="input-group">
+          <app-input 
+            [formInputStyle]="'register-form__input'" 
+            [type]="'password'" 
+            [placeholder]="'Repeat Password'" 
+            [controlName]="registerForm.controls.passwordGroup.controls.repeatPassword">
+          </app-input>
+          <i class="fa fa-unlock-alt input-icon"></i>
+          <span class="error-msg"
+          *ngIf="registerForm.get('passwordGroup.repeatPassword').errors?.required && registerForm.get('passwordGroup.repeatPassword').touched">
+            {{validationMessages.required}}
+         </span>
+         <span class="error-msg"
+         *ngIf="registerForm.get('passwordGroup').errors?.match">
+         {{validationMessages.matchingPassword}}
+        </span>
+        </div>
+      </div>
+        
+        <div class="input-group">
+            <app-input 
+              [formInputStyle]="'register-form__input'" 
+              [type]="'text'" 
+              [placeholder]="'First Name'" 
+              [controlName]="registerForm.controls.firstName">
+            </app-input>
+            <i class="fa fa-user input-icon"></i>
+            <span class="error-msg"
+            *ngIf="registerForm.get('firstName').errors?.required && registerForm.get('firstName').touched">
+            {{validationMessages.required}}
+           </span>
+          </div><div class="input-group">
+              <app-input 
+                [formInputStyle]="'register-form__input'" 
+                [type]="'text'" 
+                [placeholder]="'Last Name'" 
+                [controlName]="registerForm.controls.lastName">
+              </app-input>
+              <i class="fa fa-user input-icon"></i>
+              <span class="error-msg"
+              *ngIf="registerForm.get('lastName').errors?.required && registerForm.get('lastName').touched">
+              {{validationMessages.required}}
+             </span>
+            </div>
+      <app-submit-btn
+        [buttonStyle]="'register-form__submit'"
+        [type]="'submit'"
+        [disabled]="registerForm.invalid">
+        Sign Up
+      </app-submit-btn>
+    </form>
+  </div>
+  <div class="login-wrapper">
+    <p>already have an account? <a href="#">log in</a></p>
+  </div>
+</div>

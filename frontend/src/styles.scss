@@ -1,6 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import './assets/main-style.scss';
 
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body{
     background-repeat: no-repeat;
     background-color: $back-color;
@@ -10,9 +17,14 @@ body{
         font-family: $main-font;
         grid-template-columns: repeat(8,1fr);
         grid-template-rows: 5rem auto 5rem;
-        app-login{
+        app-login, {
             grid-column: 3/7;
             grid-row: 2/3;
         }  
+        app-register{
+            grid-column: 3/7;
+            grid-row: 2/3;
+        }
+
     }
 }
