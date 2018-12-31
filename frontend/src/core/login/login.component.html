@@ -1,13 +1,14 @@
 <form class="login-form" [formGroup] = "loginForm" (ngSubmit)="onSubmit()">
+    <app-label [labelStyle]="'login-form__title'">SIGN IN</app-label>
+
     <section class="login-form__part">
-        <app-label>Email:</app-label>
+        
         <app-input 
             [formInputStyle]="'login-form__input'"
             [controlName]="loginForm.controls.email"
-            [placeholder]="'example@mail.com'"
+            [placeholder]="'Email'"
         ></app-input>
 
-        <app-label>Password:</app-label>
         <app-input 
             [formInputStyle]="'login-form__input'"
             [controlName]="loginForm.controls.password"
@@ -17,7 +18,7 @@
     
         <app-submit-btn [buttonStyle]="'login-form__submit'" [type]="'submit'">Sign In</app-submit-btn>
         
-        <app-label>No Account Yet?</app-label>
+        <app-label [labelStyle]="'login-form__subtitle'">No Account Yet?</app-label>
         <app-router-btn [class]="'login-form__reg'" [routerLink]="'/register'">Sign Up</app-router-btn>
     </section>
 

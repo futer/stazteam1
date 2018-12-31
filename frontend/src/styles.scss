@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import './assets/main-style.scss';
 
+* { box-sizing: border-box }
+
 body{
     background-repeat: no-repeat;
     background-color: $back-color;
