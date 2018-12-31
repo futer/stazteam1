@@ -2,6 +2,7 @@
 @import './assets/main-style.scss';
 
 
+
 *{
     margin: 0;
     padding: 0;
@@ -16,10 +17,13 @@ body{
         color: $main-font-color;
         font-family: $main-font;
         grid-template-columns: repeat(8,1fr);
-        grid-template-rows: 5rem auto 5rem;
-        app-login, {
+        grid-template-rows: 20% auto 20%;
+        app-login{
             grid-column: 3/7;
             grid-row: 2/3;
+            @media screen and (max-width: $tablet) {
+                grid-column:1/9;
+            }
         }  
         app-register{
             grid-column: 3/7;

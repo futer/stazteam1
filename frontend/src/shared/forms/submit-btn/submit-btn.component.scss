@@ -12,15 +12,16 @@ button{
     color: $main-font-color;
     cursor: pointer;
     display: inline-block;
-    font-size: 14px;
+    font-size: $btn-font-size;
     margin: 0.5em;
     padding: 1em;
-    transition: 0.07s all ease-in-out, 0.06s transform ease-in-out;
+    transition: 0.1s all ease-in-out, 0.1s transform ease-in-out;
     &:hover{
-        transform: scale(1.1);
+        transform: scale(1.025);
     }       
     &:disabled{
-        background: $back-color;
+        background: darken(#fff, 70%);
+        cursor: not-allowed;
         color: grey;
     }     
 }
@@ -38,5 +39,7 @@ button{
     background-color: $main-color;
     padding: 1em 2em;
     width: 100%;
+    display: block;
     text-transform: uppercase;
+    margin: 2em auto;
 }

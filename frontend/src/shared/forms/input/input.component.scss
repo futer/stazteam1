@@ -34,3 +34,16 @@
       text-indent: 25px;
     }
 }
+input{
+    background-color: transparent;
+    border: none;
+    border: 1px solid #A5B1BE;
+    color: white;
+    padding: 1.5em;
+}
+
+.login-form__input{
+    height: 2em;
+    margin: 0.5em 0;
+    width: 100%;
+}
