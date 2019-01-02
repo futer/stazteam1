@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./router-btn.component.scss']
 })
 export class RouterBTNComponent {
-  @Input() routerLink: string;
+  @Input() link: string;
   @Input() class: string;
 
   constructor() { }
