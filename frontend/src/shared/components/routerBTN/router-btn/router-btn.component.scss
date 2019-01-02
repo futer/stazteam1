@@ -1,17 +1,18 @@
 @import '../../../../assets/main-style.scss';
 
-a{
+a {
     color: $main-color;
     display: inline-block;
     font-size: $btn-font-size;
     text-decoration: none;
 }
 
-.login-form__reg{
+.login-form__reg {
     font-size: 16px;
     margin: 0 0.5em;
     text-transform: uppercase;
-    &:hover{
+
+    &:hover {
         color: $btn-color;
     }
 }
