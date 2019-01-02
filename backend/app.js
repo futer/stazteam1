@@ -9,7 +9,7 @@ const swaggerDocument = require('./swagger.json');
  
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const usersRouter = require('./controllers/user.controller');
 
 const app = express();
 
