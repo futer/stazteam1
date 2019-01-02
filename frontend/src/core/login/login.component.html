@@ -1,28 +1,36 @@
-<form class="login-form" [formGroup] = "loginForm" (ngSubmit)="onSubmit()">
-    <app-label [labelStyle]="'login-form__title'">SIGN IN</app-label>
+<form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <section class="login-form__part login-form__part--first">
+    <app-input
+      [formInputStyle]="'login-form__input'"
+      [controlName]="loginForm.controls.email"
+      [placeholder]="'Email'"
+    ></app-input>
 
-    <section class="login-form__part">
-        
-        <app-input 
-            [formInputStyle]="'login-form__input'"
-            [controlName]="loginForm.controls.email"
-            [placeholder]="'Email'"
-        ></app-input>
+    <app-input
+      [formInputStyle]="'login-form__input'"
+      [controlName]="loginForm.controls.password"
+      [placeholder]="'Password'"
+      [type]="'password'"
+    ></app-input>
 
-        <app-input 
-            [formInputStyle]="'login-form__input'"
-            [controlName]="loginForm.controls.password"
-            [placeholder]="'Password'"
-            [type]="'password'"
-        ></app-input>
-    
-        <app-submit-btn [buttonStyle]="'login-form__submit'" [type]="'submit'">Sign In</app-submit-btn>
-        
-        <app-label [labelStyle]="'login-form__subtitle'">No Account Yet?</app-label>
-        <app-router-btn [class]="'login-form__reg'" [routerLink]="'/register'">Sign Up</app-router-btn>
-    </section>
+    <app-submit-btn [buttonStyle]="'login-form__submit'" [type]="'submit'"
+      >Sign In</app-submit-btn
+    >
 
-    <section class="login-form__part">
+    <div class="login-form__regRoute">
+      <app-label [labelStyle]="'login-form__subtitle'"
+        >No Account Yet?</app-label
+      >
+      <app-router-btn [class]="'login-form__reg'" [routerLink]="'/register'"
+        >Sign Up</app-router-btn
+      >
+    </div>
+  </section>
 
-    </section>
+  <section class="login-form__part login-form__part--last">
+    <button class="login-form__FB">
+      <i class="fa fa-facebook-official"></i>
+      <p class="login-form__FB--text">Log In With Facebook</p>
+    </button>
+  </section>
 </form>
