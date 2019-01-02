@@ -1,0 +1,89 @@
+@import '../../assets/main-style.scss';
+
+
+.container {
+    height: 100%;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    .register-wrapper{
+        background-color: $sec-back-color;
+        width: 300px;
+        border-radius: 10px;
+        padding: 2em;
+        @media(min-width:640px){
+            width: 420px;
+        }
+       
+        .register-form{
+            text-transform: capitalize;
+            font-family: $main-font;
+            text-align: center;
+
+            .input-group{
+                position: relative;
+
+                .input-icon{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #AFAFAF;
+                    @media(min-width:640px){
+                        width: 50px;
+                        height: 50px;
+                    }
+                    }
+                .error-msg{
+                    background-color: rgba(248,000,000,0.5);
+                    padding: 10px;
+                    display: inline-block;
+                    color: #FFF;
+                    margin-bottom: 10px;
+                    font-size: 0.8em;
+                    position: relative;
+                }
+
+                .error-msg:before{
+                    content: '';
+                    display: inline-block;
+                    position: absolute;
+                    width: 0px;
+                    height: 0px;
+                    border-right: 10px solid transparent;
+                    border-bottom: 10px solid rgba(248,000,000,0.5);
+                    border-left: 10px solid transparent;
+                    text-align: center;
+                    top:-10px;
+                    left: 50%;
+                }      
+            }
+        } 
+    }
+
+      .login-wrapper{
+        text-align: center;
+        margin-top: 8px;
+        font-size: 0.9rem;
+
+            & a{
+                text-decoration: none;
+                margin-left: 4px;
+                letter-spacing: 1px;
+                color: $main-color;
+                transition: 0.4s;
+            }
+             
+            & a:hover{
+                color: #b2890c ;
+            }
+            
+        }
+    }

@@ -18,6 +18,7 @@ import { ImageComponent } from './components/image/image.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
+
   ],
   exports: [
     SubmitBtnComponent,

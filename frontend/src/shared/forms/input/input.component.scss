@@ -1,3 +1,34 @@
+@import '../../../assets//main-style.scss';
+
+.register-form__input{
+    background-color: $sec-back-color;
+    color: $main-font-color;
+    width: 100%;
+    margin-bottom: 15px;
+    border: 1px solid #AFAFAF;
+    padding: 10px 25px;
+    font-size: 0.9rem;
+    transition: 0.4s;
+    position: relative;
+    text-indent: 1rem;
+
+        &::placeholder{
+            color: #AFAFAF;
+            letter-spacing: 1px;
+        }
+
+        &:focus{
+            border: 1px solid $main-color;
+            outline: none;
+        }
+}
+
+@media(min-width:640px){
+    .register-form__input{
+      padding: 15px 20px;
+      text-indent: 25px;
+    }
+}
 input{
     background-color: transparent;
     border: none;
