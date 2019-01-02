@@ -46,6 +46,7 @@
         background: #4267b2;
         color: $main-font-color; 
         padding: 1em;
+        margin: 0.5em 0;
         width: 100%;
         transition: 0.1s all ease-in-out, 0.1s transform ease-in-out;
         
@@ -59,6 +60,36 @@
         }
 
         .fa-facebook-official {
+            font-size: 2em;        
+            width: 25%;
+        }
+
+        &--text {
+            text-align:left;
+            line-height: 2em;
+            width: 75%;
+        }
+    }
+
+    &__GM {
+        border: 0.25em solid #dd5347;
+        background: #fff;
+        color: #4a4a4a; 
+        padding: 1em;
+        margin: 0.5em 0;
+        width: 100%;
+        transition: 0.1s all ease-in-out, 0.1s transform ease-in-out;
+        
+        &:hover {
+            border: 0.5em solid #dd5347;
+        }
+
+        * {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .fa-google {
             font-size: 2em;        
             width: 25%;
         }
