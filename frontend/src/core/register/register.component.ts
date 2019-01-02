@@ -18,6 +18,9 @@ private validationMessages = {
   matchingPassword: 'Password doesnt match',
 };
 
+pictureUrl;
+
+
   constructor(
     private registerFormBuilder: FormBuilder,
   ) { }
@@ -31,7 +34,19 @@ private validationMessages = {
       }, {validator: passwordMatcher}),
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      picture: '',
     });
+
+  }
+
+  pictureUpload(event) {
+    this.pictureUrl = event.target.files[0];
+    console.log(this.pictureUrl);
+    const reader = new FileReader;
+    reader.onload = () => {
+      this.pictureUrl = reader.result;
+    };
+    reader.readAsDataURL(this.pictureUrl);
 
   }
 

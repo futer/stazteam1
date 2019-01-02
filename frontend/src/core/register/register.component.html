@@ -3,6 +3,7 @@
     <form class="register-form" [formGroup] = "registerForm">
       <div class="input-group">
         <app-input 
+          [id]="'email'"
           [formInputStyle]="'register-form__input'" 
           [type]="'email'" 
           [placeholder]="'Email'" 
@@ -21,6 +22,7 @@
       <div formGroupName="passwordGroup">
         <div class="input-group">
           <app-input 
+            [id] = "'password'"
             [formInputStyle]="'register-form__input'" 
             [type]="'password'" 
             [placeholder]="'Password'" 
@@ -38,6 +40,7 @@
         </div>
         <div class="input-group">
           <app-input 
+            [id]="'rePassword'"
             [formInputStyle]="'register-form__input'" 
             [type]="'password'" 
             [placeholder]="'Repeat Password'" 
@@ -54,9 +57,9 @@
         </span>
         </div>
       </div>
-        
         <div class="input-group">
             <app-input 
+              [id]="'fistName'"
               [formInputStyle]="'register-form__input'" 
               [type]="'text'" 
               [placeholder]="'First Name'" 
@@ -67,8 +70,10 @@
             *ngIf="registerForm.get('firstName').errors?.required && registerForm.get('firstName').touched">
             {{validationMessages.required}}
            </span>
-          </div><div class="input-group">
+          </div>
+          <div class="input-group">
               <app-input 
+                [id]="'lastName'"
                 [formInputStyle]="'register-form__input'" 
                 [type]="'text'" 
                 [placeholder]="'Last Name'" 
@@ -79,6 +84,26 @@
               *ngIf="registerForm.get('lastName').errors?.required && registerForm.get('lastName').touched">
               {{validationMessages.required}}
              </span>
+          </div>
+          <div class="input_file">
+            <app-label 
+              [for]="'file'" 
+              [labelStyle]="'register-form--file'">
+                  <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                  Select your profile image
+              </app-label>
+              <app-input
+                  [id]="'file'"
+                  [formInputStyle]="'register-form__file'" 
+                  [type]="'file'" 
+                  [controlName]="registerForm.controls.picture"
+                  [accept]="'image/*'"
+                  (change)="pictureUpload($event)">
+              </app-input>
+              <app-image *ngIf ="!pictureUrl" [url]="'../../assets/img/avatar.png'" [className]="'profile-img'"></app-image>
+              <app-image *ngIf ="pictureUrl" [url]="pictureUrl" [className]="'profile-img'"></app-image>
+              <!-- <img *ngIf ="!pictureUrl" src='../../assets/img/avatar.png' class="profile-img">
+              <img *ngIf ="pictureUrl" [src]="pictureUrl" class="profile-img"> -->
             </div>
       <app-submit-btn
         [buttonStyle]="'register-form__submit'"

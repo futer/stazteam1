@@ -3,7 +3,6 @@
 button{
     background: $btn-color;
     border: none;
-    // border-radius: 0.5em;
     color: $main-font-color;
     cursor: pointer;
     display: inline-block;
@@ -15,7 +14,7 @@ button{
     &:hover{
         transform: scale(1.025);
     }    
-       
+
     &:disabled{
         background: darken(#fff, 70%);
         cursor: not-allowed;
