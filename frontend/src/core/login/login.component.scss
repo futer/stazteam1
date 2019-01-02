@@ -1,16 +1,59 @@
 @import '../../assets/main-style.scss';
 
-.login-form{  
+.login-form{
     background-color: $sec-back-color;
     border-radius: 1em;
+    display: flex;
     padding: 1em;
+    @media screen and (max-width: $tablet) {
+        display:block;
+        width: 100%;
+    }
     &__part{
         display: inline-block;
+        flex: 1;
         padding: 0.5em;
         width: 50%;
         @media screen and (max-width: $desktop) {
             display:block;
             width: 100%;
+        }
+        &--first{
+            border-right: 1px solid $main-font-color;
+            @media screen and (max-width: $tablet) {
+                border-right: none;
+                border-bottom: 1px solid $main-font-color;
+            }
+        }
+        &--last{
+            align-self: center;
+        }
+    }
+    &__regRoute{
+        display: flex;
+        justify-content: center;
+    }
+    &__FB{
+        border: 0.25em solid #1d336c;
+        background: #4267b2;
+        color: $main-font-color;
+        //display: flex;
+        //justify-content: space-around;
+        padding: 1em;
+        width: 100%;
+        transition: 0.1s all ease-in-out, 0.1s transform ease-in-out;
+        &:hover{
+            border: 0.5em solid #1d336c;
+        }
+        *{
+            display: inline-block;
+        }
+        .fa-facebook-f{          
+            width: 25%;
+        }
+        &--text{
+            text-align:left;
+            width: 75%;
         }
     }
 }
