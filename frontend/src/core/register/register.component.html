@@ -1,11 +1,11 @@
 <div class="container">
   <div class="register-wrapper">
-    <form class="register-form" 
-      [formGroup] = "registerForm">
+    <form class="register-form" [formGroup] = "registerForm">
       <div class="input-group">
         <app-input 
           [formInputStyle]="'register-form__input'" 
-          [type]="'email'" [placeholder]="'Email'" 
+          [type]="'email'" 
+          [placeholder]="'Email'" 
           [controlName]="registerForm.controls.email">
         </app-input>
         <i class="fa fa-envelope input-icon"></i>

@@ -1,19 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {passwordMatcher} from '../../shared/reusable-functions/passwordMatcher';
 
-function passwordMatcher( c: AbstractControl): { [key: string]: boolean} | null {
-  const passwordControl = c.get('password');
-  const repeatControl = c.get('repeatPassword');
-
-  if (passwordControl.pristine || repeatControl.pristine) {
-    return null;
-  }
-
-  if (passwordControl.value === repeatControl.value) {
-    return null;
-  }
-  return { 'match': true };
-}
 
 @Component({
   selector: 'app-register',
@@ -26,12 +14,12 @@ export class RegisterComponent implements OnInit {
 private validationMessages = {
   required: 'The field is required',
   email: 'Please enter a valid email address',
-  password: 'Password must be longer than 5 characters',
-  matchingPassword: 'Password doesnt match'
+  password: 'Password must be longer then 5 characters',
+  matchingPassword: 'Password doesnt match',
 };
 
   constructor(
-    private registerFormBuilder: FormBuilder
+    private registerFormBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {

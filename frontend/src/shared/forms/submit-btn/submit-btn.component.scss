@@ -1,9 +1,4 @@
 @import '../../../assets/main-style.scss';
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-}
 
 button{
     background: $btn-color;
@@ -16,9 +11,11 @@ button{
     margin: 0.5em;
     padding: 1em;
     transition: 0.1s all ease-in-out, 0.1s transform ease-in-out;
+
     &:hover{
         transform: scale(1.025);
-    }       
+    }    
+       
     &:disabled{
         background: darken(#fff, 70%);
         cursor: not-allowed;
@@ -41,5 +38,4 @@ button{
     width: 100%;
     display: block;
     text-transform: uppercase;
-    margin: 2em auto;
 }
