@@ -1,33 +1,17 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
 import { RegisterModel } from '../../../app/models/register.model';
-import { HttpClient } from '@angular/common/http';
-=======
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
->>>>>>> 28648730273a132db1070563baf7c174e05fc166
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-<<<<<<< HEAD
-  private url = 'http://localhost:5000/users/register';
 
-  constructor(private http: HttpClient) { }
-
-  createUser(user: RegisterModel) {
-    const data = {...user, ...user.passwordGroup};
-    delete data.passwordGroup;
-    delete data.repeatPassword;
-
-    return this.http.post<RegisterModel>(this.url, data);
-=======
   adress = 'http://localhost:5000/';
-
   jwtHelper: JwtHelperService;
 
   constructor(
@@ -35,6 +19,14 @@ export class AuthService {
     private router: Router,
   ) {
     this.jwtHelper = new JwtHelperService();
+  }
+
+  createUser(user: RegisterModel) {
+    const data = {...user, ...user.passwordGroup};
+    delete data.passwordGroup;
+    delete data.repeatPassword;
+
+    return this.http.post<RegisterModel>(this.adress + 'users/register', data);
   }
 
   isAuthenticated(): boolean {
@@ -60,6 +52,5 @@ export class AuthService {
 
   mainNavigate() {
     this.router.navigate(['/main']);
->>>>>>> 28648730273a132db1070563baf7c174e05fc166
   }
 }
