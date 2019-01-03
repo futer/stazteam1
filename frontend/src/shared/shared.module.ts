@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from './components/label/label.component';
 import { ImageComponent } from './components/image/image.component';
 import { RouterModule } from '@angular/router';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { RouterModule } from '@angular/router';
     RouterBTNComponent,
     LabelComponent,
     ImageComponent,
+    ErrorComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { RouterModule } from '@angular/router';
     RouterBTNComponent,
     LabelComponent,
     ImageComponent,
+    ErrorComponent
   ]
 })
 export class SharedModule { }
