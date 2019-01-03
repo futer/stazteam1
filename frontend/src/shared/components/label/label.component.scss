@@ -13,3 +13,23 @@
     display: inline-block;
     text-transform: uppercase;
 }
+
+.register-form--file {
+    width: 115px;
+    font-size: 0.75rem;
+    display: block;
+    background-color: $main-color;
+    text-align: center;
+    padding: 1em;
+    transition: all 0.3s ease-in-out;
+
+    @media(min-width:640px) {
+        font-size: 0.9rem;
+        width: 198px;
+    }
+
+    &:hover {
+       background-color:  #e08505
+    }
+
+}

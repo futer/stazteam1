@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {passwordMatcher} from '../../shared/reusable-functions/passwordMatcher';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,8 +18,11 @@ private validationMessages = {
   matchingPassword: 'Password doesnt match',
 };
 
+pictureUrl;
+
   constructor(
     private registerFormBuilder: FormBuilder,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -31,9 +34,27 @@ private validationMessages = {
       }, {validator: passwordMatcher}),
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
+      picture: '',
     });
 
   }
+
+  pictureUpload(event) {
+    this.pictureUrl = event.target.files[0];
+    console.log(this.pictureUrl);
+    const reader = new FileReader;
+    reader.onload = () => {
+      this.pictureUrl = reader.result;
+    };
+    reader.readAsDataURL(this.pictureUrl);
+
+  }
+
+  navigate(): void {
+    this.router.navigate(['login']);
+  }
+
+
 
 
 }

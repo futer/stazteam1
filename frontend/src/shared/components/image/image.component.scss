@@ -1,0 +1,17 @@
+.profile-img {
+    margin-left: 24px;
+    width: 95px;
+    height: 95px;
+    margin-bottom: 15px;
+
+    @media(min-width:640px) {
+        margin-left: 27px;
+        width: 130px;
+        height: 130px;
+    }
+}
+
+.navbar{
+    width: 100px;
+    height: 80px;
+}

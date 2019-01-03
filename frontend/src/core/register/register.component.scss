@@ -9,39 +9,42 @@
     align-items: center;
     justify-content: center;
     
-    .register-wrapper{
+    .register-wrapper {
         background-color: $sec-back-color;
         width: 300px;
         border-radius: 10px;
         padding: 2em;
-        @media(min-width:640px){
+
+        @media(min-width:640px) {
             width: 420px;
         }
        
-        .register-form{
+        .register-form  {
             text-transform: capitalize;
             font-family: $main-font;
             text-align: center;
 
-            .input-group{
+            .input-group {
                 position: relative;
 
-                .input-icon{
+                .input-icon {
                     position: absolute;
                     top: 0;
                     left: 0;
-                    width: 40px;
-                    height: 40px;
+                    height: 38px;
+                    margin-left: 15px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     color: #AFAFAF;
-                    @media(min-width:640px){
-                        width: 50px;
-                        height: 50px;
+
+                    @media(min-width:640px) {
+                        margin-left: 15px;
+                        height: 48px;
                     }
-                    }
-                .error-msg{
+
+                }
+                .error-msg {
                     background-color: rgba(248,000,000,0.5);
                     padding: 10px;
                     display: inline-block;
@@ -51,7 +54,7 @@
                     position: relative;
                 }
 
-                .error-msg:before{
+                .error-msg:before {
                     content: '';
                     display: inline-block;
                     position: absolute;
@@ -62,28 +65,38 @@
                     border-left: 10px solid transparent;
                     text-align: center;
                     top:-10px;
-                    left: 50%;
+                    left: calc(50% - 10px);
                 }      
+            
             }
-        } 
+            .input_file {
+                display: flex;               
+                align-items: center;
+            }
+            
+      
+        }
     }
 
       .login-wrapper{
         text-align: center;
-        margin-top: 8px;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
         font-size: 0.9rem;
-
+      
             & a{
                 text-decoration: none;
                 margin-left: 4px;
                 letter-spacing: 1px;
                 color: $main-color;
                 transition: 0.4s;
+                cursor: pointer;
             }
              
             & a:hover{
-                color: #b2890c ;
+                color: #e09705 ;
             }
             
         }
     }
+    
