@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
       console.log(false);
       return;
     }
-
     this.auth.login(this.loginForm.value).subscribe(
       (res: JWT) => {
         this.auth.setToken(res.token);

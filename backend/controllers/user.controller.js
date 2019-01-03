@@ -21,11 +21,10 @@ const router = express.Router();
 
 router.post('/register', register);
 router.get('/getbyid', getById);
-router.get('/authenticate', authenticate)
+router.post('/authenticate', authenticate)
 module.exports = router;
 
 function register(req,res,next){
-    console.log(req.body)
     userService.registrationLocal(req.body)
     .then(() => res.json({}))
     .catch((err) => {

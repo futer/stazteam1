@@ -4,29 +4,41 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const router = require('express').Router();
+const config = require('./enviromental/enviroments')
+//SWAGGER
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
- 
+//GRAPHQL
 const graphqlHTTP = require('express-graphql');
 const { GraphQLSchema, } = require('graphql');
-
 const RootType = require('./graphql/types/root.type');
+//CORS
+const cors = require('cors');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./controllers/user.controller');
 
 const app = express();
-
+//CORS
+app.use(cors());
+const corsOptions = {
+  origin: config.CORS_ADDRESS,
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+app.options(corsOptions, cors());
 const schema = new GraphQLSchema({
   query: RootType,
 });
 
+//GRAPHQL
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   graphiql: true,
 }));
 
-
+//SWAGGER
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // view engine setup
