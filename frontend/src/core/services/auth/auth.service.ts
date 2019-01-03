@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { RegisterModel } from '../../../app/models/register.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,10 @@ import { Observable } from 'rxjs';
 
 export class AuthService {
 
+
   adress = 'http://localhost:5000/';
   jwtHelper: JwtHelperService;
+
 
   constructor(
     private http: HttpClient,
@@ -26,7 +29,8 @@ export class AuthService {
     delete data.passwordGroup;
     delete data.repeatPassword;
 
-    return this.http.post<RegisterModel>(this.adress + 'users/register', data);
+    return this.http.post<RegisterModel>(this.adress + 'users/register', data)
+     .pipe(catchError(this.errorHandler));
   }
 
   isAuthenticated(): boolean {
@@ -52,5 +56,10 @@ export class AuthService {
 
   mainNavigate() {
     this.router.navigate(['/main']);
+  }
+
+  errorHandler(error: HttpErrorResponse) {
+    return throwError(error);
+
   }
 }

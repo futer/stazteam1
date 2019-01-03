@@ -61,9 +61,14 @@ error: HttpErrorResponse;
   }
 
   register(form): void {
-    this.authService.createUser(form.value).subscribe(res => {
-
-    });
+    this.authService.createUser(form.value).subscribe(data => {
+      console.log(data);
+    },
+    err => {
+      console.log(err);
+      this.error = err;
+    }
+    );
   }
 
 }

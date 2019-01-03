@@ -5,12 +5,15 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const router = require('express').Router();
 const config = require('./enviromental/enviroments')
+
 //SWAGGER
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
  
 //GRAPHQL
 const { GraphQLSchema, } = require('graphql');
+const RootType = require('./graphql/types/root.type');
+const graphqlHTTP = require('express-graphql');
 //CORS
 const cors = require('cors');
 

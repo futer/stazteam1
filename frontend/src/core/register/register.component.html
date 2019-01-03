@@ -102,7 +102,6 @@
               </app-input>
               <app-image *ngIf ="!pictureUrl" [url]="'../../assets/img/avatar.png'" [className]="'profile-img'"></app-image>
               <app-image *ngIf ="pictureUrl" [url]="pictureUrl" [className]="'profile-img'"></app-image>
-       
             </div>
       <app-submit-btn
         [buttonStyle]="'register-form__submit'"
@@ -111,6 +110,9 @@
         Sign Up
       </app-submit-btn>
     </form>
+    <p class="error-response" *ngIf="error">
+        {{error.error.message}}
+    </p>
   </div>
   <div class="login-wrapper">
     <p>already have an account? <a (click)="navigate()">log in</a></p>
