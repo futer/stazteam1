@@ -1,16 +1,24 @@
 const User = require('../models/user.model');
 const database = require('../helpers/database');
+const jwt = require('jsonwebtoken');
+const config = require('../enviromental/enviroments');
 
 module.exports = {
     registrationLocal,
+    getById,
+    authenticate
 };
 
 async function registrationLocal(userParam){
+<<<<<<< HEAD
     console.log(userParam);
     database.connect();
+=======
+    database.connect();
+
+>>>>>>> 28648730273a132db1070563baf7c174e05fc166
     if (await User.findOne({ email: userParam.email })) {
-        console.log("error")
-        value = 'Email "' + userParam.username + '" is already registered';
+        value = 'Email "' + userParam.email + '" is already registered';
         const err = new Error(value);
         err.status = 500;
         err.name = "Email already registered";
@@ -25,7 +33,35 @@ async function registrationLocal(userParam){
         pic: userParam.pic,
         registered: 'LOCAL'
     })
-
+    
     await user.save();
     database.disconnect();
+}
+
+async function getById(id){
+    database.connect();
+    const u = await User.findById(id.id)
+    database.disconnect();
+    return u;
+}
+
+async function authenticate({email,password}) {
+    database.connect();
+    user = await User.findOne({email: email});
+    if (user === null) {
+        value = 'Email "' + email + '" is not registered';
+        const err = new Error(value);
+        err.status = 500;
+        err.name = "Email is not registered";
+        throw err;
+    }
+
+    if (password === user.password) {
+        const { password, ...userWithoutPass } = user.toObject();
+        const token = jwt.sign({sub: userWithoutPass}, config.JWT_SECRET);
+        database.disconnect();
+        return {
+            token
+        };
+    }   
 }

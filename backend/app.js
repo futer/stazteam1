@@ -8,6 +8,10 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const cors = require('cors');
  
+const graphqlHTTP = require('express-graphql');
+const { GraphQLSchema, } = require('graphql');
+
+const RootType = require('./graphql/types/root.type');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./controllers/user.controller');
@@ -23,6 +27,15 @@ const corsOptions = {
   credentials: true,
 };
 app.options(corsOptions, cors());
+const schema = new GraphQLSchema({
+  query: RootType,
+});
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  graphiql: true,
+}));
+
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

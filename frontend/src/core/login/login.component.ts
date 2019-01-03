@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth/auth.service';
+
+import { JWT } from '../models/jwt.model';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginFormBuilder: FormBuilder,
+    private auth: AuthService,
   ) { }
 
   ngOnInit() {
@@ -23,7 +27,19 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('this submit works!');
-  }
+    if (this.loginForm.invalid) {
+      console.log(false);
+      return;
+    }
+
+    this.auth.login(this.loginForm.value).subscribe(
+      (res: JWT) => {
+        this.auth.setToken(res.token);
+        this.auth.mainNavigate();
+      },
+      err => {
+        console.log(err);
+      });
+   }
 
 }
