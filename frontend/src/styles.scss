@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import './assets/main-style.scss';
 
-
-
 *{
     margin: 0;
     padding: 0;
@@ -21,7 +19,7 @@ body{
         app-login{
             grid-column: 3/7;
             grid-row: 2/3;
-            @media screen and (max-width: $tablet) {
+            @media screen and (max-width: $desktop) {
                 grid-column:1/9;
             }
         }  

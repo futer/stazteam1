@@ -1,6 +1,6 @@
 @import '../../../assets/main-style.scss';
 
-button{
+button {
     background: $btn-color;
     border: none;
     color: $main-font-color;
@@ -11,23 +11,25 @@ button{
     padding: 1em;
     transition: 0.1s all ease-in-out, 0.1s transform ease-in-out;
 
-    &:hover{
+    &:hover {
         transform: scale(1.025);
     }    
-
-    &:disabled{
+       
+    &:disabled {
         background: darken(#fff, 70%);
         cursor: not-allowed;
         color: grey;
     }     
 }
 
-.login-form__submit{
-    
-
+.login-form__submit {
+    display: block;
+    text-transform: uppercase;
+    margin: 2em auto;
+    width: 100%;
 }
 
-.register-form__submit{
+.register-form__submit {
     font-weight: bold;
     font-size: 1.1em;
     letter-spacing: 1px;

@@ -1,0 +1,9 @@
+{
+    "swaggerDefinition": {
+      "info": {
+        "title": "My sample api",
+        "version": "1.0.0"
+      }
+    },
+    "apis": ["app.js"]
+  }
