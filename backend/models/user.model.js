@@ -40,7 +40,7 @@ const UserModel = new Schema({
     },
     isBanned: {
         type: Boolean,
-        default: true,
+        default: false,
     }
 });
 
