@@ -6,12 +6,14 @@ import { NavComponent } from './nav/nav.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    NavComponent
+    NavComponent,
+    MainComponent
   ],
   imports: [
     CommonModule,
