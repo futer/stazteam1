@@ -7,6 +7,7 @@ import { NavComponent } from './nav/nav.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { MainComponent } from './main/main.component';
+import { DocumentModule } from 'src/document/document.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MainComponent } from './main/main.component';
     CommonModule,
     ReactiveFormsModule,
     SharedModule,
+    DocumentModule
   ],
   exports: [
     NavComponent
