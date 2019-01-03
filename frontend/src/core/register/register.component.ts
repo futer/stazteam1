@@ -33,13 +33,13 @@ error: HttpErrorResponse;
 
   ngOnInit() {
     this.registerForm = this.registerFormBuilder.group({
-      email: ['mgosk@com.pl', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       passwordGroup: this.registerFormBuilder.group({
-        password: ['1qaz2wsx', [Validators.required, Validators.minLength(5)]],
-        repeatPassword: ['1qaz2wsx', Validators.required]
+        password: ['', [Validators.required, Validators.minLength(5)]],
+        repeatPassword: ['', Validators.required]
       }, {validator: passwordMatcher}),
-      firstName: ['martyna', Validators.required],
-      lastName: ['gosk', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       picture: '',
     });
 
@@ -62,10 +62,8 @@ error: HttpErrorResponse;
 
   register(form): void {
     this.authService.createUser(form.value).subscribe(res => {
-      console.log(res);
+
     });
   }
-
-
 
 }
