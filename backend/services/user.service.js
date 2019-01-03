@@ -47,10 +47,9 @@ async function authenticate({email,password}) {
 
     if (password === user.password) {
         const { password, ...userWithoutPass } = user.toObject();
-        const token = jwt.sign({sub: user.id}, config.JWT_SECRET);
+        const token = jwt.sign({sub: userWithoutPass}, config.JWT_SECRET);
         database.disconnect();
         return {
-            ...userWithoutPass,
             token
         };
     }   
