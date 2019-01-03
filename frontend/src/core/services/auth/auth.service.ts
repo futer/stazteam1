@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { RegisterModel } from '../../../app/models/register.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -7,9 +8,10 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  adress = 'http://localhost:5000/';
 
+export class AuthService {
+
+  adress = 'http://localhost:5000/';
   jwtHelper: JwtHelperService;
 
   constructor(
@@ -17,6 +19,14 @@ export class AuthService {
     private router: Router,
   ) {
     this.jwtHelper = new JwtHelperService();
+  }
+
+  createUser(user: RegisterModel) {
+    const data = {...user, ...user.passwordGroup};
+    delete data.passwordGroup;
+    delete data.repeatPassword;
+
+    return this.http.post<RegisterModel>(this.adress + 'users/register', data);
   }
 
   isAuthenticated(): boolean {

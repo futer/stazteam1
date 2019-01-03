@@ -8,10 +8,9 @@ const config = require('./enviromental/enviroments')
 //SWAGGER
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+ 
 //GRAPHQL
-const graphqlHTTP = require('express-graphql');
 const { GraphQLSchema, } = require('graphql');
-const RootType = require('./graphql/types/root.type');
 //CORS
 const cors = require('cors');
 
