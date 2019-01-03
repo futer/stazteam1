@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,14 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   adress = 'http://localhost:5000/';
 
+  jwtHelper: JwtHelperService;
+
   constructor(
     private http: HttpClient,
     private router: Router,
-    private jwtHelper: JwtHelperService,
-  ) { }
+  ) {
+    this.jwtHelper = new JwtHelperService();
+  }
 
   isAuthenticated(): boolean {
 
@@ -28,11 +32,15 @@ export class AuthService {
     localStorage.setItem('token', JWtoken);
   }
 
-  login(data) {
+  login(data): Observable<Object> {
     return this.http.post(this.adress + 'authenticate', data);
   }
 
   loginNavigate() {
     this.router.navigate(['/login']);
+  }
+
+  mainNavigate() {
+    this.router.navigate(['/main']);
   }
 }
