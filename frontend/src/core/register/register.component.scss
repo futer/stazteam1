@@ -72,20 +72,6 @@
             .input_file {
                 display: flex;               
                 align-items: center;
-
-                // .profile-img {
-                //     margin-left: 24px;
-                //     width: 95px;
-                //     height: 95px;
-                //     margin-bottom: 15px;
-
-                //     @media(min-width:640px) {
-                //         margin-left: 25px;
-                //         width: 130px;
-                //         height: 130px;
-                //     }
-                // }
-
             }
             
       
@@ -104,6 +90,7 @@
                 letter-spacing: 1px;
                 color: $main-color;
                 transition: 0.4s;
+                cursor: pointer;
             }
              
             & a:hover{

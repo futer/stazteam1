@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {passwordMatcher} from '../../shared/reusable-functions/passwordMatcher';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -20,9 +20,9 @@ private validationMessages = {
 
 pictureUrl;
 
-
   constructor(
     private registerFormBuilder: FormBuilder,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -49,6 +49,12 @@ pictureUrl;
     reader.readAsDataURL(this.pictureUrl);
 
   }
+
+  navigate(): void {
+    this.router.navigate(['login']);
+  }
+
+
 
 
 }
