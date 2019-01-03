@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   login(data): Observable<Object> {
-    return this.http.post(this.adress + 'authenticate', data);
+    return this.http.post(this.adress + 'users/authenticate', data);
   }
 
   loginNavigate() {

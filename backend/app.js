@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const router = require('express').Router();
+const config = require('./enviromental/enviroments')
 //SWAGGER
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
@@ -21,7 +22,7 @@ const app = express();
 //CORS
 app.use(cors());
 const corsOptions = {
-  origin: 'http://localhost:4200',
+  origin: config.CORS_ADDRESS,
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
