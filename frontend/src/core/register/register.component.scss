@@ -8,6 +8,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+  
     
     .register-wrapper {
         background-color: $sec-back-color;
@@ -73,9 +75,20 @@
                 display: flex;               
                 align-items: center;
             }
-            
-      
         }
+        // .error-response{
+        //     text-align: center;
+        //     margin-top: 1rem;
+        //     font-size: 0.6rem;
+        //     padding: 0.3rem;
+        //     background-color:  rgba(248,000,000,0.5);
+
+        //     @media(min-width:640px) {
+        //         font-size: 0.8rem;
+        //         padding: 0.5rem;
+        //     }
+        // }
+  
     }
 
       .login-wrapper{
