@@ -6,12 +6,23 @@ const logger = require('morgan');
 const router = require('express').Router();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const cors = require('cors');
  
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./controllers/user.controller');
 
 const app = express();
+
+app.use(cors());
+
+const corsOptions = {
+  origin: 'http://localhost:4200',
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+};
+app.options(corsOptions, cors());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

@@ -6,6 +6,7 @@ import { NavComponent } from './nav/nav.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     ReactiveFormsModule,
     SharedModule,
+    HttpClientModule
   ],
   exports: [
     NavComponent

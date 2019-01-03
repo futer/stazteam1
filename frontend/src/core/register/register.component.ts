@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {passwordMatcher} from '../../shared/reusable-functions/passwordMatcher';
 import { Router } from '@angular/router';
+import {RegisterModel} from '../../app/models/register.model';
+import { AuthService } from '../services/auth/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -19,21 +22,24 @@ private validationMessages = {
 };
 
 pictureUrl;
+user: RegisterModel;
+error: HttpErrorResponse;
 
   constructor(
     private registerFormBuilder: FormBuilder,
     private router: Router,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
     this.registerForm = this.registerFormBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['mgosk@com.pl', [Validators.required, Validators.email]],
       passwordGroup: this.registerFormBuilder.group({
-        password: ['', [Validators.required, Validators.minLength(5)]],
-        repeatPassword: ['', Validators.required]
+        password: ['1qaz2wsx', [Validators.required, Validators.minLength(5)]],
+        repeatPassword: ['1qaz2wsx', Validators.required]
       }, {validator: passwordMatcher}),
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['martyna', Validators.required],
+      lastName: ['gosk', Validators.required],
       picture: '',
     });
 
@@ -54,6 +60,11 @@ pictureUrl;
     this.router.navigate(['login']);
   }
 
+  register(form): void {
+    this.authService.createUser(form.value).subscribe(res => {
+      console.log(res);
+    });
+  }
 
 
 
