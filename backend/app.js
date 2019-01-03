@@ -7,11 +7,25 @@ const router = require('express').Router();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
  
+const graphqlHTTP = require('express-graphql');
+const { GraphQLSchema, } = require('graphql');
+
+const RootType = require('./graphql/types/root.type');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./controllers/user.controller');
 
 const app = express();
+
+const schema = new GraphQLSchema({
+  query: RootType,
+});
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  graphiql: true,
+}));
+
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
