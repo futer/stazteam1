@@ -13,7 +13,6 @@ async function registrationLocal(userParam){
     database.connect();
 
     if (await User.findOne({ email: userParam.email })) {
-        console.log("error")
         value = 'Email "' + userParam.email + '" is already registered';
         const err = new Error(value);
         err.status = 500;
@@ -44,6 +43,13 @@ async function getById(id){
 async function authenticate({email,password}) {
     database.connect();
     user = await User.findOne({email: email});
+    if (user === null) {
+        value = 'Email "' + email + '" is not registered';
+        const err = new Error(value);
+        err.status = 500;
+        err.name = "Email is not registered";
+        throw err;
+    }
 
     if (password === user.password) {
         const { password, ...userWithoutPass } = user.toObject();
