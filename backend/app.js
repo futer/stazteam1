@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const router = require('express').Router();
 const config = require('./enviromental/enviroments')
+const jwt = require('./helpers/jwt');
+
 
 //SWAGGER
 const swaggerUi = require('swagger-ui-express');
@@ -54,6 +56,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(jwt());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
