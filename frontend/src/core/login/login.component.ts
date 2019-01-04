@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
 
 import { JWT } from '../models/jwt.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { JWT } from '../models/jwt.model';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  error: HttpErrorResponse;
 
   constructor(
     private loginFormBuilder: FormBuilder,
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         console.log(err);
+        this.error = err;
       });
    }
 
