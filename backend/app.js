@@ -12,16 +12,11 @@ const swaggerDocument = require('./swagger.json');
  
 //GRAPHQL
 const { GraphQLSchema, } = require('graphql');
-<<<<<<< HEAD
-
+const graphqlHTTP = require('express-graphql');
 const rootType = require('./graphql/types/root.type');
 const { bookmarkMutation } = require('./graphql/types/bookmark.type');
-=======
-const RootType = require('./graphql/types/root.type');
-const graphqlHTTP = require('express-graphql');
 //CORS
 const cors = require('cors');
->>>>>>> master
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./controllers/user.controller');
