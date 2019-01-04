@@ -10,16 +10,20 @@
           [controlName]="registerForm.controls.email">
         </app-input>
         <i class="fa fa-envelope input-icon"></i>
-        <app-error [class]="'error-msg'"
-        *ngIf="registerForm.get('email').errors?.required && registerForm.get('email').touched">
-        {{validationMessages.required}}
+        <app-error
+          [class]="'error-msg'"
+          *ngIf="registerForm.get('email').errors?.required && registerForm.get('email').touched">
+            {{validationMessages.required}}
         </app-error>
-        <app-error [class]="'error-msg'"
-        *ngIf="registerForm.get('email').errors?.email && registerForm.get('email').touched">
-          {{validationMessages.email}}
+        <app-error
+          [class]="'error-msg'"
+          *ngIf="registerForm.get('email').errors?.email && registerForm.get('email').touched">
+            {{validationMessages.email}}
         </app-error>
-        <app-error *ngIf="error" [class]="'error-msg'" >
-          {{error.error.message}}
+        <app-error
+          *ngIf="error"
+          [class]="'error-msg'" >
+            {{error.error.message}}
         </app-error>
       </div>
       <div formGroupName="passwordGroup">
@@ -32,14 +36,16 @@
             [controlName]="registerForm.controls.passwordGroup.controls.password">
           </app-input>
           <i class="fa fa-unlock-alt input-icon"></i>
-          <app-error [class]="'error-msg'"
-          *ngIf="registerForm.get('passwordGroup.password').errors?.required && registerForm.get('passwordGroup.password').touched">
-            {{validationMessages.required}}
+          <app-error 
+            [class]="'error-msg'"
+            *ngIf="registerForm.get('passwordGroup.password').errors?.required && registerForm.get('passwordGroup.password').touched">
+              {{validationMessages.required}}
           </app-error>
-          <app-error [class]="'error-msg'"
-          *ngIf="registerForm.get('passwordGroup.password').errors?.minlength && registerForm.get('passwordGroup.password').touched">
+          <app-error
+            [c lass]="'error-msg'"
+            *ngIf="registerForm.get('passwordGroup.password').errors?.minlength && registerForm.get('passwordGroup.password').touched">
              {{validationMessages.password}}
-        </app-error>
+          </app-error>
         </div>
         <div class="input-group">
           <app-input 
@@ -50,13 +56,15 @@
             [controlName]="registerForm.controls.passwordGroup.controls.repeatPassword">
           </app-input>
           <i class="fa fa-unlock-alt input-icon"></i>
-          <app-error [class]="'error-msg'"
-          *ngIf="registerForm.get('passwordGroup.repeatPassword').errors?.required && registerForm.get('passwordGroup.repeatPassword').touched">
-            {{validationMessages.required}}
+          <app-error 
+            [class]="'error-msg'"
+            *ngIf="registerForm.get('passwordGroup.repeatPassword').errors?.required && registerForm.get('passwordGroup.repeatPassword').touched">
+              {{validationMessages.required}}
           </app-error>
-          <app-error [class]="'error-msg'"
-          *ngIf="registerForm.get('passwordGroup').errors?.match">
-          {{validationMessages.matchingPassword}}
+          <app-error 
+            [class]="'error-msg'"
+            *ngIf="registerForm.get('passwordGroup').errors?.match">
+            {{validationMessages.matchingPassword}}
           </app-error>
         </div>
       </div>
@@ -69,9 +77,10 @@
               [controlName]="registerForm.controls.firstName">
             </app-input>
             <i class="fa fa-user input-icon"></i>
-            <app-error [class]="'error-msg'"
-            *ngIf="registerForm.get('firstName').errors?.required && registerForm.get('firstName').touched">
-            {{validationMessages.required}}
+            <app-error 
+              [class]="'error-msg'"
+              *ngIf="registerForm.get('firstName').errors?.required && registerForm.get('firstName').touched">
+                {{validationMessages.required}}
             </app-error>
           </div>
           <div class="input-group">
@@ -83,9 +92,10 @@
                 [controlName]="registerForm.controls.lastName">
               </app-input>
               <i class="fa fa-user input-icon"></i>
-              <app-error [class]="'error-msg'"
-              *ngIf="registerForm.get('lastName').errors?.required && registerForm.get('lastName').touched">
-              {{validationMessages.required}}
+              <app-error 
+                [class]="'error-msg'"
+                *ngIf="registerForm.get('lastName').errors?.required && registerForm.get('lastName').touched">
+                  {{validationMessages.required}}
               </app-error>    
           </div>
           <div class="input_file">
@@ -103,8 +113,16 @@
                   [accept]="'image/*'"
                   (change)="pictureUpload($event)">
               </app-input>
-              <app-image *ngIf ="!pictureUrl" [url]="'../../assets/img/avatar.png'" [className]="'profile-img'"></app-image>
-              <app-image *ngIf ="pictureUrl" [url]="pictureUrl" [className]="'profile-img'"></app-image>
+              <app-image 
+                *ngIf ="!pictureUrl" 
+                [url]="'../../assets/img/avatar.png'" 
+                [className]="'profile-img'">
+              </app-image>
+              <app-image 
+                *ngIf ="pictureUrl" 
+                [url]="pictureUrl" 
+                [className]="'profile-img'">
+              </app-image>
             </div>
       <app-submit-btn
         [buttonStyle]="'register-form__submit'"
