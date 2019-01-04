@@ -1,6 +1,6 @@
 <div class="container">
   <div class="register-wrapper">
-    <form class="register-form" [formGroup] = "registerForm">
+    <form class="register-form" [formGroup] = "registerForm" (ngSubmit)="register(registerForm)">
       <div class="input-group">
         <app-input 
           [id]="'email'"
@@ -10,14 +10,21 @@
           [controlName]="registerForm.controls.email">
         </app-input>
         <i class="fa fa-envelope input-icon"></i>
-        <span class="error-msg"
-         *ngIf="registerForm.get('email').errors?.required && registerForm.get('email').touched">
-          {{validationMessages.required}}
-        </span>
-        <span class="error-msg"
-         *ngIf="registerForm.get('email').errors?.email && registerForm.get('email').touched">
-           {{validationMessages.email}}
-        </span>
+        <app-error
+          [class]="'error-msg'"
+          *ngIf="registerForm.get('email').errors?.required && registerForm.get('email').touched">
+            {{validationMessages.required}}
+        </app-error>
+        <app-error
+          [class]="'error-msg'"
+          *ngIf="registerForm.get('email').errors?.email && registerForm.get('email').touched">
+            {{validationMessages.email}}
+        </app-error>
+        <app-error
+          *ngIf="error"
+          [class]="'error-msg'" >
+            {{error.error.message}}
+        </app-error>
       </div>
       <div formGroupName="passwordGroup">
         <div class="input-group">
@@ -29,14 +36,16 @@
             [controlName]="registerForm.controls.passwordGroup.controls.password">
           </app-input>
           <i class="fa fa-unlock-alt input-icon"></i>
-          <span class="error-msg"
-          *ngIf="registerForm.get('passwordGroup.password').errors?.required && registerForm.get('passwordGroup.password').touched">
-            {{validationMessages.required}}
-         </span>
-         <span class="error-msg"
-         *ngIf="registerForm.get('passwordGroup.password').errors?.minlength && registerForm.get('passwordGroup.password').touched">
-            {{validationMessages.password}}
-        </span>
+          <app-error 
+            [class]="'error-msg'"
+            *ngIf="registerForm.get('passwordGroup.password').errors?.required && registerForm.get('passwordGroup.password').touched">
+              {{validationMessages.required}}
+          </app-error>
+          <app-error
+            [class]="'error-msg'"
+            *ngIf="registerForm.get('passwordGroup.password').errors?.minlength && registerForm.get('passwordGroup.password').touched">
+             {{validationMessages.password}}
+          </app-error>
         </div>
         <div class="input-group">
           <app-input 
@@ -47,14 +56,16 @@
             [controlName]="registerForm.controls.passwordGroup.controls.repeatPassword">
           </app-input>
           <i class="fa fa-unlock-alt input-icon"></i>
-          <span class="error-msg"
-          *ngIf="registerForm.get('passwordGroup.repeatPassword').errors?.required && registerForm.get('passwordGroup.repeatPassword').touched">
-            {{validationMessages.required}}
-         </span>
-         <span class="error-msg"
-         *ngIf="registerForm.get('passwordGroup').errors?.match">
-         {{validationMessages.matchingPassword}}
-        </span>
+          <app-error 
+            [class]="'error-msg'"
+            *ngIf="registerForm.get('passwordGroup.repeatPassword').errors?.required && registerForm.get('passwordGroup.repeatPassword').touched">
+              {{validationMessages.required}}
+          </app-error>
+          <app-error 
+            [class]="'error-msg'"
+            *ngIf="registerForm.get('passwordGroup').errors?.match">
+            {{validationMessages.matchingPassword}}
+          </app-error>
         </div>
       </div>
         <div class="input-group">
@@ -66,10 +77,11 @@
               [controlName]="registerForm.controls.firstName">
             </app-input>
             <i class="fa fa-user input-icon"></i>
-            <span class="error-msg"
-            *ngIf="registerForm.get('firstName').errors?.required && registerForm.get('firstName').touched">
-            {{validationMessages.required}}
-           </span>
+            <app-error 
+              [class]="'error-msg'"
+              *ngIf="registerForm.get('firstName').errors?.required && registerForm.get('firstName').touched">
+                {{validationMessages.required}}
+            </app-error>
           </div>
           <div class="input-group">
               <app-input 
@@ -80,10 +92,11 @@
                 [controlName]="registerForm.controls.lastName">
               </app-input>
               <i class="fa fa-user input-icon"></i>
-              <span class="error-msg"
-              *ngIf="registerForm.get('lastName').errors?.required && registerForm.get('lastName').touched">
-              {{validationMessages.required}}
-             </span>
+              <app-error 
+                [class]="'error-msg'"
+                *ngIf="registerForm.get('lastName').errors?.required && registerForm.get('lastName').touched">
+                  {{validationMessages.required}}
+              </app-error>    
           </div>
           <div class="input_file">
             <app-label 
@@ -100,9 +113,16 @@
                   [accept]="'image/*'"
                   (change)="pictureUpload($event)">
               </app-input>
-              <app-image *ngIf ="!pictureUrl" [url]="'../../assets/img/avatar.png'" [className]="'profile-img'"></app-image>
-              <app-image *ngIf ="pictureUrl" [url]="pictureUrl" [className]="'profile-img'"></app-image>
-       
+              <app-image 
+                *ngIf ="!pictureUrl" 
+                [url]="'../../assets/img/avatar.png'" 
+                [className]="'profile-img'">
+              </app-image>
+              <app-image 
+                *ngIf ="pictureUrl" 
+                [url]="pictureUrl" 
+                [className]="'profile-img'">
+              </app-image>
             </div>
       <app-submit-btn
         [buttonStyle]="'register-form__submit'"

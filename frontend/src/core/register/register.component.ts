@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {passwordMatcher} from '../../shared/reusable-functions/passwordMatcher';
 import { Router } from '@angular/router';
+import {RegisterModel} from '../../app/models/register.model';
+import { AuthService } from '../services/auth/auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -19,10 +22,13 @@ private validationMessages = {
 };
 
 pictureUrl;
+user: RegisterModel;
+error: HttpErrorResponse;
 
   constructor(
     private registerFormBuilder: FormBuilder,
     private router: Router,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -54,7 +60,16 @@ pictureUrl;
     this.router.navigate(['login']);
   }
 
-
-
+  register(form): void {
+    this.authService.createUser(form.value).subscribe(data => {
+      this.authService.loginNavigate();
+      console.log(data);
+    },
+    err => {
+      console.log(err);
+      this.error = err;
+    }
+    );
+  }
 
 }

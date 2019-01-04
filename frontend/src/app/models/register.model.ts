@@ -1,6 +1,9 @@
 export interface RegisterModel {
     email: string;
-    password: string;
+    passwordGroup: {
+        password: string;
+        repeatPassword: string;
+    };
     firstName: string;
     lastName: string;
     pic?: string;
