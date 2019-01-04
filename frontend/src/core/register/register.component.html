@@ -42,7 +42,7 @@
               {{validationMessages.required}}
           </app-error>
           <app-error
-            [c lass]="'error-msg'"
+            [class]="'error-msg'"
             *ngIf="registerForm.get('passwordGroup.password').errors?.minlength && registerForm.get('passwordGroup.password').touched">
              {{validationMessages.password}}
           </app-error>
