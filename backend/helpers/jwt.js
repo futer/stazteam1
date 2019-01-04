@@ -5,7 +5,7 @@ const userController = require('../controllers/user.controller')
 module.exports = jwt;
 
 function jwt() {
-    const secret = config.secret;
+    const secret = config.JWT_SECRET;
     return expressJwt({ secret, isRevoked }).unless({
         path: [
             // public routes that don't require authentication
