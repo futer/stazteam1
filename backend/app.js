@@ -10,7 +10,8 @@ const swaggerDocument = require('./swagger.json');
 const graphqlHTTP = require('express-graphql');
 const { GraphQLSchema, } = require('graphql');
 
-const RootType = require('./graphql/types/root.type');
+const rootType = require('./graphql/types/root.type');
+const { bookmarkMutation } = require('./graphql/types/bookmark.type');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./controllers/user.controller');
@@ -18,7 +19,8 @@ const usersRouter = require('./controllers/user.controller');
 const app = express();
 
 const schema = new GraphQLSchema({
-  query: RootType,
+  query: rootType,
+  mutation: bookmarkMutation,
 });
 
 app.use('/graphql', graphqlHTTP({
