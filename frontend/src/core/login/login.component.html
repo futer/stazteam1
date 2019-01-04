@@ -1,17 +1,24 @@
 <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <section class="login-form__part login-form__part--first">
-    <app-input
-      [formInputStyle]="'login-form__input'"
-      [controlName]="loginForm.controls.email"
-      [placeholder]="'Email'"
-    ></app-input>
+    <div class="input-group">
+        <app-input
+        [formInputStyle]="'login-form__input'"
+        [controlName]="loginForm.controls.email"
+        [placeholder]="'Email'"
+      ></app-input>
+      <i class="fa fa-envelope input-icon"></i>
+    </div>
 
-    <app-input
-      [formInputStyle]="'login-form__input'"
-      [controlName]="loginForm.controls.password"
-      [placeholder]="'Password'"
-      [type]="'password'"
-    ></app-input>
+    <div class="input-group">
+        <app-input
+        [formInputStyle]="'login-form__input'"
+        [controlName]="loginForm.controls.password"
+        [placeholder]="'Password'"
+        [type]="'password'"
+      ></app-input>
+      <i class="fa fa-unlock-alt input-icon"></i>
+    </div>
+
 
     <app-submit-btn [buttonStyle]="'login-form__submit'" [type]="'submit'"
       >Sign In</app-submit-btn
