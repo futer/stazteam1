@@ -1,7 +1,6 @@
 @import '../../../assets//main-style.scss';
 
 .register-form__input {
-    background-color: $sec-back-color;
     color: $main-font-color;
     width: 100%;
     margin-bottom: 15px;
@@ -35,14 +34,27 @@
 
 input {
     background-color: transparent;
-    border: none;
     border: 1px solid #A5B1BE;
-    color: white;
+    color: $main-font-color;
     padding: 1.5em;
 }
 
 .login-form__input {
-    height: 2em;
     margin: 0.5em 0;
     width: 100%;
+    border: 1px solid #A5B1BE;
+    padding: 15px 20px;
+    transition: 0.4s;
+    position: relative;
+    text-indent: 25px;
+    font-size: 0.9rem;
+
+        &::placeholder {
+            color: #AFAFAF;
+            letter-spacing: 1px;
+        }
+        &:focus {
+            border: 1px solid $main-color;
+            outline: none;
+        }
 }
