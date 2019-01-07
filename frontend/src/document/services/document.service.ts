@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
-import { DocumentModel } from '../models/document.model';
+import { environment } from '../../environments/environment';
 
 const DocQuery = gql`
   query Documents {
@@ -19,7 +19,7 @@ const DocQuery = gql`
   providedIn: 'root'
 })
 export class DocumentService {
-  adress = 'http://localhost:5000/';
+  adress = environment.adress;
 
   constructor(
     private apollo: Apollo
