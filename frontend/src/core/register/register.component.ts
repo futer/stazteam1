@@ -62,6 +62,7 @@ error: HttpErrorResponse;
 
   register(form): void {
     this.authService.createUser(form.value).subscribe(data => {
+      this.authService.loginNavigate();
       console.log(data);
     },
     err => {

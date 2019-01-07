@@ -60,6 +60,5 @@ export class AuthService {
 
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
-
   }
 }
