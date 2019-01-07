@@ -1,14 +1,46 @@
-import { DocumentModel } from '../models/document.model';
+import * as docState from './document.states';
+import * as docActions from './document.actions';
 
-export interface State {
-  loaded: boolean;
-  documents: DocumentModel[] | null;
-  // error message
-  errorMessage: string | null;
-}
-
-export const initialState: State = {
+export const initialState: docState.State = {
+    loading: false,
     loaded: false,
     documents: null,
     errorMessage: null
-  };
+};
+
+export function Reducer (
+  state: docState.State = initialState,
+  action: docActions.All
+): docState.State {
+  switch (action.type) {
+    case docActions.docTypes.FETCH:
+
+    return {
+      loading: true,
+      loaded: false,
+      documents: null,
+      errorMessage: null
+    };
+
+    case docActions.docTypes.FETCH_SUCCESS:
+
+    return {
+      loading: true,
+      loaded: false,
+      documents: action.payload,
+      errorMessage: null
+    };
+
+    case docActions.docTypes.FETCH_ERROR:
+
+    return {
+      loading: false,
+      loaded: false,
+      documents: null,
+      errorMessage: action.payload
+    };
+
+    default:
+      return state;
+  }
+}

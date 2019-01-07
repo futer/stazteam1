@@ -1,5 +1,9 @@
-import * as doc from './document.reducers';
+import { DocumentModel } from '../models/document.model';
+import { ErrorData } from '../models/error.model';
 
-export interface DocState {
-    docState: doc.State;
+export interface State {
+    loading: boolean;
+    loaded: boolean;
+    documents: DocumentModel[] | null;
+    errorMessage: ErrorData | null;
 }

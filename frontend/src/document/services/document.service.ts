@@ -25,7 +25,7 @@ export class DocumentService {
     private apollo: Apollo
   ) { }
 
-  fetchDocuments(): Observable<DocumentModel[]> { // should i just use any ?
+  fetchDocuments(): Observable<any> {
     return this.apollo.watchQuery({query: DocQuery}).valueChanges;
   }
 }
