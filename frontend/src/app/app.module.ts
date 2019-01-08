@@ -12,6 +12,8 @@ import { Example2Component } from './examples/example2/example2.component';
 
 import { routing } from './examples/example.routing';
 import { CoreRoutingModule } from '../core/core-routing.module';
+import { StoreModule } from '@ngrx/store';
+import { Reducer } from '../document/store/document.reducers';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { CoreRoutingModule } from '../core/core-routing.module';
     CoreModule,
     routing,
     CoreRoutingModule,
+    StoreModule.forRoot(Reducer)
   ],
   providers: [],
   bootstrap: [AppComponent]

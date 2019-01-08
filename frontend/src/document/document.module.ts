@@ -46,9 +46,9 @@ export class DocumentModule {
 
         const cache = new InMemoryCache();
 
-        apollo.create({
-            link: concat(authMiddleware, link),
-            cache
-        });
+        // apollo.create({
+        //     link: concat(authMiddleware, link),
+        //     cache
+        // });
     }
 }

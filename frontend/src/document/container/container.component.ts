@@ -23,6 +23,6 @@ export class ContainerComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new Fetch());
 
-    this.prevs$ = this.store.select((docs: State) => docs);
+    this.prevs$ = this.store.select((docs: State) => docs.documents);
   }
 }
