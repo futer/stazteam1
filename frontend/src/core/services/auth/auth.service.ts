@@ -6,6 +6,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +15,7 @@ import { catchError } from 'rxjs/operators';
 export class AuthService {
 
 
-  adress = 'http://localhost:5000/';
+  adress = environment.adress;
   jwtHelper: JwtHelperService;
 
 

@@ -1,0 +1,40 @@
+@import '../../assets/main-style.scss';
+
+.doc-prev {
+    background: $sec-back-color;
+    color: $main-font-color;
+    margin: 0.5em 0;
+    padding: 0.5em;
+    
+    app-router-btn {
+        display: block;
+        text-align: right;
+    }
+
+    &__desc {
+        display: flex;
+        padding: 0.5em 0;
+
+        * {
+            padding: 0 0.5em;
+        }
+
+        &--title {
+            color: $btn-color;
+        }
+
+        &--author {
+            color: $main-color;
+        }
+
+        &--date {
+            margin: 0 0 0 auto;
+            text-align: right;
+        }
+    }
+
+    &__content {
+        padding: 0.5em;
+        text-align: justify;
+    }
+}
