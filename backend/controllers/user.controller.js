@@ -38,7 +38,7 @@ function register(req,res,next){
 }
 
 function getById(req,res,next){
-    userService.getById(req.body).then(user => user ? res.json(user) : res.sendStatus(404)).catch(err => next(err));
+    userService.getById(req.body.id).then(user => user ? res.json(user) : res.sendStatus(404)).catch(err => next(err));
 }
 
 function authenticate(req,res,next){

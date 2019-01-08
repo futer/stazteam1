@@ -1,6 +1,6 @@
 const expressJwt = require('express-jwt');
 const config = require('../enviromental/enviroments');
-const userController = require('../controllers/user.controller') 
+const userService = require('../services/user.service')
 
 module.exports = jwt;
 
@@ -16,10 +16,17 @@ function jwt() {
 }
 
 async function isRevoked(req, payload, done) {
-    const user = await userController.getById(payload.sub);
+    console.log("PAYLOAD", payload.sub._id)
+    const user = await userService.getById(payload.sub._id).then(
+        user => {
+            console.log("ISREVOKED", user);
+            done();
+        }
+    ).catch(err => {
+        console.log(err);
+        return done(null,true);
+    })
+
     // revoke token if user no longer exists
-    if (!user) {
-        return done(null, true);
-    }
-    done();
+
 };

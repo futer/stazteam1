@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 
 exports.connect = function(){
-    mongoose.connect(config.MONGODB_CONN_URI, {useNewUrlParser: true });
+    mongoose.connect(config.MONGODB_CONN_URI, {useNewUrlParser: true, socketTimeoutMS: 60000 });
     mongoose.Promise = global.Promise;
 }
 
