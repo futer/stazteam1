@@ -11,7 +11,7 @@ const DocumentModel = new Schema({
     },
     date: {
         type: Date,
-        default: new Date.now,
+        default: new Date().getDate(),
     },
     content: {
         type: String,
@@ -37,7 +37,7 @@ const DocumentModel = new Schema({
         required: true,
         trim: true,
     },
-    comments: [CommentModel],
+    //comments: [CommentModel],
 });
 
 module.exports = mongoose.model('DocumentModel', DocumentModel);
