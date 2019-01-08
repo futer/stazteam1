@@ -39,7 +39,7 @@ const schema = new GraphQLSchema({
 });
 
 //GRAPHQL
-app.use('/graphql', graphqlHTTP({
+app.get('/graphql',jwt(),cors(), graphqlHTTP({
   schema: schema,
   graphiql: true,
 }));
