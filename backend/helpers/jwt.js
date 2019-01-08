@@ -26,7 +26,4 @@ async function isRevoked(req, payload, done) {
         console.log(err);
         return done(null,true);
     })
-
-    // revoke token if user no longer exists
-
 };
