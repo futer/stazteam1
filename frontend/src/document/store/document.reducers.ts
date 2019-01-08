@@ -44,3 +44,5 @@ export function Reducer (
       return state;
   }
 }
+
+export default Reducer;
