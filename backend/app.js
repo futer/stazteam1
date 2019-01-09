@@ -13,10 +13,9 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
  
 //GRAPHQL
-const { GraphQLSchema, } = require('graphql');
 const graphqlHTTP = require('express-graphql');
-const rootType = require('./graphql/types/root.type');
-const { bookmarkMutation } = require('./graphql/types/bookmark.type');
+const schema = require('./graphql/schema');
+
 //CORS
 const cors = require('cors');
 
@@ -33,14 +32,10 @@ const corsOptions = {
   credentials: true,
 };
 app.options(corsOptions, cors());
-const schema = new GraphQLSchema({
-  query: rootType,
-  mutation: bookmarkMutation,
-});
 
 //GRAPHQL
-app.get('/graphql',jwt(),cors(), graphqlHTTP({
-  schema: schema,
+app.use('/graphql',/*jwt(),cors(),*/ graphqlHTTP({
+  schema,
   graphiql: true,
 }));
 
