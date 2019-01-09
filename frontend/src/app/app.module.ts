@@ -14,6 +14,8 @@ import { routing } from './examples/example.routing';
 import { CoreRoutingModule } from '../core/core-routing.module';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from 'src/core/store/auth.effects';
+import { StoreModule } from '@ngrx/store';
+import { Reducer } from '../document/store/document.reducers';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,11 @@ import { AuthEffects } from 'src/core/store/auth.effects';
     CoreModule,
     routing,
     CoreRoutingModule,
+<<<<<<< HEAD
     EffectsModule.forRoot([AuthEffects])
+=======
+    StoreModule.forRoot(Reducer)
+>>>>>>> master
   ],
   providers: [],
   bootstrap: [AppComponent]

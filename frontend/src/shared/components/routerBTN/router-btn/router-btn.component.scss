@@ -16,3 +16,11 @@ a {
         color: $btn-color;
     }
 }
+
+.doc-prev__open {
+    margin: 0 0.5em;
+
+    &:hover {
+        color: $btn-color;
+    }
+}

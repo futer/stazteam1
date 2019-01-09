@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const router = require('express').Router();
 const config = require('./enviromental/enviroments')
+const jwt = require('./helpers/jwt');
+
 
 //SWAGGER
 const swaggerUi = require('swagger-ui-express');
@@ -12,8 +14,9 @@ const swaggerDocument = require('./swagger.json');
  
 //GRAPHQL
 const { GraphQLSchema, } = require('graphql');
-const RootType = require('./graphql/types/root.type');
 const graphqlHTTP = require('express-graphql');
+const rootType = require('./graphql/types/root.type');
+const { bookmarkMutation } = require('./graphql/types/bookmark.type');
 //CORS
 const cors = require('cors');
 
@@ -31,11 +34,12 @@ const corsOptions = {
 };
 app.options(corsOptions, cors());
 const schema = new GraphQLSchema({
-  query: RootType,
+  query: rootType,
+  mutation: bookmarkMutation,
 });
 
 //GRAPHQL
-app.use('/graphql', graphqlHTTP({
+app.get('/graphql',jwt(),cors(), graphqlHTTP({
   schema: schema,
   graphiql: true,
 }));
@@ -52,6 +56,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(jwt());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

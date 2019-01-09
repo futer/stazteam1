@@ -28,21 +28,19 @@ async function registrationLocal(userParam){
         pic: userParam.pic,
         registered: 'LOCAL'
     })
-    
     await user.save();
-    database.disconnect();
 }
 
 async function getById(id){
-    database.connect();
-    const u = await User.findById(id.id)
-    database.disconnect();
+    db = database.connect();
+    const u = await User.findOne({_id: id});
     return u;
 }
 
 async function authenticate({email,password}) {
-    database.connect();
+    db = database.connect();
     user = await User.findOne({email: email});
+
     if (user === null) {
         value = 'Email "' + email + '" is not registered';
         const err = new Error(value);
@@ -56,6 +54,7 @@ async function authenticate({email,password}) {
         const jwtOptions = { expiresIn: '1d' };
         const token = jwt.sign({sub: userWithoutPass}, config.JWT_SECRET, jwtOptions);
         database.disconnect();
+
         return {
             token
         };
