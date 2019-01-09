@@ -11,7 +11,7 @@ const DocumentModel = new Schema({
     },
     date: {
         type: String,
-        default: new Date().getDate().toString(),
+        default: new Date().toLocaleDateString(),
     },
     content: {
         type: String,
@@ -25,7 +25,7 @@ const DocumentModel = new Schema({
             'PENDING',
             'REJECTED',
         ],
-        required: true,
+        default: 'PENDING',
     },
     userId: {
         type: String,

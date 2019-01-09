@@ -13,7 +13,10 @@ import { Example2Component } from './examples/example2/example2.component';
 import { routing } from './examples/example.routing';
 import { CoreRoutingModule } from '../core/core-routing.module';
 import { StoreModule } from '@ngrx/store';
-import { Reducer } from '../document/store/document.reducers';
+import { docReducer } from '../document/store/document.reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { DocumentEffects } from 'src/document/store/document.effects';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,13 @@ import { Reducer } from '../document/store/document.reducers';
     CoreModule,
     routing,
     CoreRoutingModule,
-    StoreModule.forRoot(Reducer)
+    // StoreModule.forFeature('documents', docReducer),
+    // EffectsModule.forFeature([DocumentEffects]),
+    StoreModule.forRoot( docReducer),
+    EffectsModule.forRoot([DocumentEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 10
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

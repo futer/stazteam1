@@ -1,6 +1,8 @@
 import * as docState from './document.states';
 import * as docActions from './document.actions';
 
+import { createSelector, createFeatureSelector } from '@ngrx/store';
+
 export const initialState: docState.State = {
     loading: false,
     loaded: false,
@@ -8,7 +10,29 @@ export const initialState: docState.State = {
     errorMessage: null
 };
 
-export function Reducer (
+export const docFeature = createFeatureSelector<docState.State>('documents');
+
+export const isLoading = createSelector(
+  docFeature,
+  (state: docState.State) => state.loading
+);
+
+export const isLoaded = createSelector(
+  docFeature,
+  (state: docState.State) => state.loaded
+);
+
+export const Docs = createSelector(
+  docFeature,
+  (state: docState.State) => state.documents
+);
+
+export const Errors = createSelector(
+  docFeature,
+  (state: docState.State) => state.errorMessage
+);
+
+export function docReducer (
   state: docState.State = initialState,
   action: docActions.All
 ): docState.State {
@@ -45,4 +69,4 @@ export function Reducer (
   }
 }
 
-export default Reducer;
+export default docReducer;

@@ -6,7 +6,6 @@ function getDocuments(root, args, context) {
 
 function addDocument(root, args, context) {
   const document = documentService.addDocument(args);
-  console.log(document);
   return document;
 }
 

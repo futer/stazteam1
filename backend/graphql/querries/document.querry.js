@@ -21,10 +21,6 @@ const documentMutations = {
     type: documentType,
     args: {
       title: { type: new GraphQLNonNull(GraphQLString) },
-      date: { type: new GraphQLNonNull(GraphQLString) },
-      status: {
-        type: new GraphQLNonNull(getStatusEnum('statusAddType'))
-      },
       content: { type: new GraphQLNonNull(GraphQLString) },
       userId: { type: new GraphQLNonNull(GraphQLString) },
       author: { type: new GraphQLNonNull(GraphQLString) }
@@ -36,7 +32,6 @@ const documentMutations = {
     args: {
       id: { type: new GraphQLNonNull(GraphQLString) },
       title: { type: GraphQLString },
-      date: { type: GraphQLString },
       status: {
         type: getStatusEnum('statusUpdateInput')
       },
