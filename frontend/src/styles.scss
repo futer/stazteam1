@@ -28,18 +28,11 @@ body{
             @media screen and (max-width: $desktop) {
                 grid-column:1/9;
             }
-<<<<<<< HEAD
             
 
         }  
         app-register{
             grid-column: 1/9;
-=======
-        }
-
-        app-register {
-            grid-column: 3/7;
->>>>>>> master
             grid-row: 2/3;
             @media (min-width: $tablet) {
                 grid-column: 3/7;

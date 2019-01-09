@@ -31,11 +31,8 @@ import { Reducer } from '../document/store/document.reducers';
     CoreModule,
     routing,
     CoreRoutingModule,
-<<<<<<< HEAD
-    EffectsModule.forRoot([AuthEffects])
-=======
+    EffectsModule.forRoot([AuthEffects]),
     StoreModule.forRoot(Reducer)
->>>>>>> master
   ],
   providers: [],
   bootstrap: [AppComponent]
