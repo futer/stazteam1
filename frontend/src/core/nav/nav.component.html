@@ -1,11 +1,25 @@
-<app-image [url]="'assets/img/logo.jpeg'"  [className]="'navbar'"></app-image>
-
-<nav>
-  <a>bookmarkTMP1</a>
-  <a>bookmarkTMP2</a>
-  <a>bookmarkTMP3</a>
-</nav>
-
-<div>
-  <p>USER_TMP</p>
-</div>
+<header>
+  <label for="toggle">&#9776;</label>
+  <input type="checkbox" id="toggle" />
+  <nav>
+    <div class="logo-bookmarks-container">
+      <h3 class="logo"><a href="#">LOGO</a></h3>
+      <ul class="bookmarks">
+        <li><a href="#">Bookmark1</a></li>
+        <li><a href="#">Bookmark1</a></li>
+        <li><a href="#">Bookmark1</a></li>
+        <li><a href="#">Bookmark1</a></li>
+      </ul>
+    </div>
+    <div class="header-user-info">
+      <div class="dropdown-container">
+        <input type="checkbox" id="drop" />
+        <label for="drop">Jan Nowak</label>
+        <ul class="content">
+          <li><i class="fa fa-user"></i>Profile</li>
+          <li><i class="fa fa-sign-out"></i>Sign out</li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

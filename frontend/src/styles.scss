@@ -15,18 +15,35 @@ body{
         color: $main-font-color;
         font-family: $main-font;
         grid-template-columns: repeat(8,1fr);
-        grid-template-rows: 20% auto 20%;
+        grid-template-rows: 10% auto 20%;
+        @media(min-width: $tablet) {
+            grid-template-rows: 20% auto 20%;
+                
+        }
         app-login{
             grid-column: 3/7;
             grid-row: 2/3;
             @media screen and (max-width: $desktop) {
                 grid-column:1/9;
             }
+            
+
         }  
         app-register{
-            grid-column: 3/7;
+            grid-column: 1/9;
             grid-row: 2/3;
+            @media (min-width: $tablet) {
+                grid-column: 3/7;
+            }
         }
+        
+        app-nav {
+            grid-row: 1/2;
+            grid-column: 1/9;
+        }
+
+
+
 
     }
 }
