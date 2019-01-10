@@ -7,12 +7,19 @@ import { SharedModule } from 'src/shared/shared.module';
 
 import { HttpClientModule } from '@angular/common/http';
 
+import { docReducer } from '../document/store/document.reducers';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { DocumentEffects } from 'src/document/store/document.effects';
+
 @NgModule({
     declarations: [ContainerComponent, DocPrevComponent, DocComponent],
     imports: [
         CommonModule,
         SharedModule,
         HttpClientModule,
+        StoreModule.forFeature('documents', docReducer),
+        EffectsModule.forFeature([DocumentEffects]),
     ],
     exports: [ContainerComponent]
 })

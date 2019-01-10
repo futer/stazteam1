@@ -9,14 +9,14 @@ import { ReviewModule } from 'src/review/review.module';
 import { CoreModule } from '../core/core.module';
 import { Example1Component } from './examples/example1/example1.component';
 import { Example2Component } from './examples/example2/example2.component';
+import { DocumentModule } from 'src/document/document.module';
 
 import { routing } from './examples/example.routing';
 import { CoreRoutingModule } from '../core/core-routing.module';
+
 import { StoreModule } from '@ngrx/store';
-import { docReducer } from '../document/store/document.reducers';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { DocumentEffects } from 'src/document/store/document.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -32,10 +32,9 @@ import { DocumentEffects } from 'src/document/store/document.effects';
     CoreModule,
     routing,
     CoreRoutingModule,
-    // StoreModule.forFeature('documents', docReducer),
-    // EffectsModule.forFeature([DocumentEffects]),
-    StoreModule.forRoot( docReducer),
-    EffectsModule.forRoot([DocumentEffects]),
+    DocumentModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     })
