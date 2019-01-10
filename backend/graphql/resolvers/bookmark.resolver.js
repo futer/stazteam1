@@ -1,5 +1,8 @@
 const bookmarkService = require("../../services/bookmark.service");
 
+function getBookmarks(root, args, context) {
+  return bookmarkService.getBookmarks();
+}
 
 function addBookmark(root, args, context) {
   const bookmark = bookmarkService.addBookmark(args);
@@ -20,6 +23,7 @@ function deleteBookmark(root, args, context) {
 }
 
 module.exports = {
+  getBookmarks,
   addBookmark,
   updateBookmark,
   deleteBookmark,
