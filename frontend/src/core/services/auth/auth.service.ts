@@ -6,7 +6,10 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+
 import { environment } from '../../../environments/environment';
+import { LoginModel } from 'src/app/models/login.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -47,9 +50,11 @@ export class AuthService {
     localStorage.setItem('token', JWtoken);
   }
 
-  login(data): Observable<Object> {
-    return this.http.post(this.adress + 'users/authenticate', data);
+
+  login(user: LoginModel): Observable<Object> {
+    return this.http.post(this.adress + 'users/authenticate', user);
   }
+
 
   loginNavigate() {
     this.router.navigate(['/login']);

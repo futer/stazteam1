@@ -5,6 +5,10 @@ import { AuthService } from '../services/auth/auth.service';
 import { JWT } from '../models/jwt.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavService } from '../services/nav/nav.service';
+import { LoginModel } from 'src/app/models/login.model';
+
+
+
 
 @Component({
   selector: 'app-login',
@@ -15,11 +19,17 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   error: HttpErrorResponse;
+  user: LoginModel;
+
+
+
+
 
   constructor(
     private loginFormBuilder: FormBuilder,
     private auth: AuthService,
-    private navSerice: NavService
+    private navSerice: NavService,
+
   ) { }
 
   ngOnInit() {
@@ -28,28 +38,29 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(5)]],
       }, {
     });
-    this.navSerice.hide();
+
   }
 
   onSubmit() {
-    // if (this.loginForm.invalid) {
-    //   console.log(false);
-    //   return;
-    // }
-    // this.auth.login(this.loginForm.value).subscribe(
-    //   (res: JWT) => {
-    //     this.auth.setToken(res.token);
-    //     this.auth.mainNavigate();
-    //   },
-    //   err => {
-    //     console.log(err);
-    //     this.error = err;
-    //   });
-    const payload = {
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password
-    };
-    console.log(payload);
-   }
+    if (this.loginForm.invalid) {
+      console.log(false);
+      return;
+    }
+    this.auth.login(this.loginForm.value).subscribe(
+      (res: JWT) => {
+        this.auth.setToken(res.token);
+        this.auth.mainNavigate();
+      },
+      err => {
+        console.log(err);
+        this.error = err;
+      });
+      this.user = this.loginForm.value;
+      console.log(this.user);
+  }
 
 }
+
+
+
+

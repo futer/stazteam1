@@ -1,4 +1,5 @@
 import * as auth from './auth.reducers';
-export interface AppState {
+
+export interface AuthState {
     authState: auth.State;
 }

@@ -12,10 +12,9 @@ import { Example2Component } from './examples/example2/example2.component';
 
 import { routing } from './examples/example.routing';
 import { CoreRoutingModule } from '../core/core-routing.module';
-import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from 'src/core/store/auth.effects';
 import { StoreModule } from '@ngrx/store';
 import { Reducer } from '../document/store/document.reducers';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +30,6 @@ import { Reducer } from '../document/store/document.reducers';
     CoreModule,
     routing,
     CoreRoutingModule,
-    EffectsModule.forRoot([AuthEffects]),
     StoreModule.forRoot(Reducer)
   ],
   providers: [],
