@@ -6,7 +6,9 @@ const config = require('../enviromental/enviroments');
 module.exports = {
     registrationLocal,
     getById,
-    authenticate
+    authenticate,
+    isBanned,
+    banUser,
 };
 
 async function registrationLocal(userParam){
@@ -60,4 +62,22 @@ async function authenticate({email,password}) {
             token
         };
     }   
+}
+
+async function isBanned(id) {
+    database.connect();
+    const user = await User.findOne({_id: id});
+    
+    if (user) {
+        return user.isBanned;
+    }
+
+    return user;
+}
+
+async function banUser(id) {
+    database.connect();
+    const user = await User.findOneAndUpdate({ _id: id }, { isBanned: true }, { new: true });
+
+    return user;
 }
