@@ -22,12 +22,12 @@ export const isLoaded = createSelector(
   (state: docState.State) => state.loaded
 );
 
-export const Docs = createSelector(
+export const getDocs = createSelector(
   docFeature,
   (state: docState.State) => state.documents
 );
 
-export const Errors = createSelector(
+export const getErrors = createSelector(
   docFeature,
   (state: docState.State) => state.errorMessage
 );
@@ -61,7 +61,10 @@ export function docReducer (
       loading: false,
       loaded: false,
       documents: null,
-      errorMessage: action.payload
+      errorMessage: {
+        type: action.type,
+        error: action.payload
+      }
     };
 
     default:

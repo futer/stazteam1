@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 
 import { State } from '../store/document.states';
 import * as Actions from '../store/document.actions';
+import { getDocs, getErrors } from '../store/document.reducers';
+import { ErrorData } from '../models/error.model';
 
 @Component({
   selector: 'app-container',
@@ -14,7 +16,7 @@ import * as Actions from '../store/document.actions';
 })
 export class ContainerComponent implements OnInit {
   prevs$: Observable<DocumentModel[]>;
-
+  showMeError: Observable<ErrorData>;
   constructor(
     private store: Store<State>
   ) { }
@@ -22,6 +24,8 @@ export class ContainerComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new Actions.Fetch);
 
-    this.prevs$ = this.store.select((docs: State) => docs.documents);
+    this.prevs$ = this.store.select(getDocs);
+    this.showMeError = this.store.select(getErrors);
+    console.log(this.showMeError);
   }
 }

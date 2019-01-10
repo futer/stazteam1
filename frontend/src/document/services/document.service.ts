@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
 
 const DocQuery = gql`
   query Documents {
-    Document {
+    documents{
       title
       author
       date
