@@ -5,21 +5,18 @@ import { SharedModule } from '../shared/shared.module';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ReviewModule } from 'src/review/review.module';
 import { CoreModule } from '../core/core.module';
-import { Example1Component } from './examples/example1/example1.component';
-import { Example2Component } from './examples/example2/example2.component';
 
-import { routing } from './examples/example.routing';
 import { CoreRoutingModule } from '../core/core-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { Reducer } from '../document/store/document.reducers';
+import { ReactiveFormsModule } from '@angular/forms';
+import { routing } from 'src/examples/example.routing';
+import { ExamplesModule } from 'src/examples/examples.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Example1Component,
-    Example2Component,
   ],
   imports: [
     BrowserModule,
@@ -28,10 +25,15 @@ import { Reducer } from '../document/store/document.reducers';
     SharedModule,
     CoreModule,
     routing,
+    ExamplesModule,
     CoreRoutingModule,
-    StoreModule.forRoot(Reducer)
+    StoreModule.forRoot(Reducer),
+    ReactiveFormsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

@@ -1,0 +1,23 @@
+@import '../../assets/main-style.scss';
+
+app-jw-modal {
+    display: none;
+    color: white;
+    font-family: $main-font;
+}
+
+.user-editor-header{
+    margin: 20px 0px 20px;   
+}
+
+.change-creds{
+    margin: 5px 0px 5px;
+}
+
+.user-editor{
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+.open-modal{
+    grid-column-start: 2;
+}
