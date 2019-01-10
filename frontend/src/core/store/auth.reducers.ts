@@ -1,14 +1,36 @@
-import { LoginModel } from 'src/app/models/login.model';
+import * as authState from './auth.state';
+import * as authActions from './auth.actions';
 
-
-export interface State {
-    isAuthenticated: boolean;
-    user: LoginModel;
-    errorMessage: string;
-}
-
-export const initialState: State = {
+export const initialState: authState.AuthState = {
     isAuthenticated: false,
     user: null,
     errorMessage: null
 };
+
+export function Reducer (
+    state: authState.AuthState = initialState,
+    actions: authActions.All
+): authState.AuthState {
+    switch ( actions.type) {
+        case authActions.AuthActionTypes.LOGIN_SUCCES:
+        return {
+           ...state,
+           isAuthenticated: true,
+           user: {
+               token: actions.payload.token,
+               email: actions.payload.email
+           },
+           errorMessage: null
+        };
+
+        case authActions.AuthActionTypes.LOGIN_FAIL:
+        return {
+            ...state,
+            errorMessage: 'Incorrect email and/or password.'
+        };
+        default: {
+            return state;
+        }
+    }
+
+}
