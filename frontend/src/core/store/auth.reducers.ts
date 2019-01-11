@@ -14,7 +14,6 @@ const getLoginFeatureState = createFeatureSelector<authState.AuthState>('authLog
 
 export const getLoginAuth = createSelector(
     getLoginFeatureState,
-    // state => state.user,
     (state: authState.AuthState) => state.isAuthenticated
 );
 

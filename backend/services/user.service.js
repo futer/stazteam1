@@ -9,11 +9,11 @@ module.exports = {
     authenticate,
     isBanned,
     banUser,
+    // editUser
 };
 
 async function registrationLocal(userParam){
     database.connect();
-
     if (await User.findOne({ email: userParam.email })) {
         value = 'Email "' + userParam.email + '" is already registered';
         const err = new Error(value);
@@ -79,4 +79,8 @@ async function banUser(id) {
     const user = await User.findOneAndUpdate({ _id: id }, { isBanned: true }, { new: true });
 
     return user;
+}
+
+async function editUser(){
+
 }
