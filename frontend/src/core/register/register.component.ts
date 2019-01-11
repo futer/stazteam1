@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';r
 import { passwordMatcher } from '../../shared/reusable-functions/passwordMatcher';
 import { Router } from '@angular/router';
 import { RegisterModel } from '../../app/models/register.model';
+import { passwordMatcher } from '../../shared/reusable-functions/passwordMatcher';
+import { Router, NavigationError } from '@angular/router';
+import { RegisterModel } from '../../app/models/register.model';
 import { AuthService } from '../services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NavService } from '../services/nav/nav.service';
 
 @Component({
   selector: 'app-register',
@@ -29,6 +33,7 @@ error: HttpErrorResponse;
     private registerFormBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
+    private navService: NavService
   ) { }
 
   ngOnInit() {
@@ -42,6 +47,7 @@ error: HttpErrorResponse;
       lastName: ['', Validators.required],
       picture: '',
     });
+    this.navService.hide();
 
   }
 

@@ -5,8 +5,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { State } from '../store/document.states';
-import { Fetch } from '../store/document.actions';
-
+import * as Actions from '../store/document.actions';
 
 @Component({
   selector: 'app-container',
@@ -21,7 +20,7 @@ export class ContainerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.store.dispatch(new Fetch());
+    this.store.dispatch(new Actions.Fetch);
 
     this.prevs$ = this.store.select((docs: State) => docs.documents);
   }

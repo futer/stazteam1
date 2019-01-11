@@ -1,24 +1,42 @@
-import {NgModule} from '@angular/core';
-import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
-import {HttpLinkModule, HttpLink} from 'apollo-angular-link-http';
-import {InMemoryCache} from 'apollo-cache-inmemory';
+import { NgModule } from '@angular/core';
+import { ApolloModule, Apollo } from 'apollo-angular';
+import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
+import { ApolloLink, concat } from 'apollo-link';
+import { HttpHeaders } from '@angular/common/http';
 
-const uri = ''; // <-- add the URL of the GraphQL server here
-export function createApollo(httpLink: HttpLink) {
-  return {
-    link: httpLink.create({uri}),
-    cache: new InMemoryCache(),
-  };
-}
+import { InMemoryCache } from 'apollo-cache-inmemory';
+
+import { environment } from 'src/environments/environment';
 
 @NgModule({
-  exports: [ApolloModule, HttpLinkModule],
-  providers: [
-    {
-      provide: APOLLO_OPTIONS,
-      useFactory: createApollo,
-      deps: [HttpLink],
-    },
-  ],
+    imports: [ApolloModule, HttpLinkModule],
+    exports: [ApolloModule, HttpLinkModule]
 })
-export class GraphQLModule {}
+export class GraphQLModule {
+    constructor(apollo: Apollo, httpLink: HttpLink) {
+        const link = httpLink.create({
+            uri: environment.adress + 'graphql',
+            withCredentials: true,
+            method: 'GET'
+        });
+
+        const authMiddleware = new ApolloLink((operation, forward) => {
+            // add the authorization to the headers
+            operation.setContext({
+                headers: new HttpHeaders().set(
+                    'Authorization',
+                    localStorage.getItem('token') || null
+                )
+            });
+
+            return forward(operation);
+        });
+
+        const cache = new InMemoryCache();
+
+        apollo.create({
+            link: concat(authMiddleware, link),
+            cache
+        });
+    }
+}

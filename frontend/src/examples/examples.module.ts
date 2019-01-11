@@ -16,8 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     ReactiveFormsModule,
   ],
-  providers: [
-    ModalService,
-  ]
+  providers: []
 })
+
 export class ExamplesModule { }
+
