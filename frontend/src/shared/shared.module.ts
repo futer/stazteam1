@@ -9,6 +9,7 @@ import { ImageComponent } from './components/image/image.component';
 import { RouterModule } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
 
+
 @NgModule({
   declarations: [
     SubmitBtnComponent,
@@ -29,7 +30,7 @@ import { ErrorComponent } from './components/error/error.component';
     RouterBTNComponent,
     LabelComponent,
     ImageComponent,
-    ErrorComponent
+    ErrorComponent,
   ]
 })
 export class SharedModule { }
