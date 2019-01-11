@@ -2,37 +2,43 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { AuthService } from '../services/auth/auth.service';
 import * as AuthActions from './auth.actions';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/map';
+import { Observable, of } from 'rxjs';
+import { map, switchMap, catchError, tap } from 'rxjs/operators';
 import { LogIn } from './auth.actions';
-import { map } from 'rxjs-compat/operator/map';
+import { LoginModel } from 'src/app/models/login.model';
+import { ErrorData } from 'src/document/models/error.model';
+import { Router } from '@angular/router';
+
 
 @Injectable()
     export class AuthEffect {
         constructor(
             private actions$: Actions,
-            private authService: AuthService) {}
+            private authService: AuthService,
+            private router: Router) {}
 
-    @Effect()
-    Login$: Observable<any> = this.actions$
-            .ofType(AuthActions.AuthActionTypes.LOGIN)
-            .map((action: LogIn) => {
-                console.log('piekna');
-                return action.payload;
-            })
-            .switchMap((payload) => {
-                console.log(payload);
-                return this.authService.login(payload.email, payload.password)
-                .map((user) => {
-                    console.log(user);
-                    return new AuthActions.LogInSucces({token: user['token'], email: payload.email});
-                },
-                err => {
-                    console.log(err);
-                    return new AuthActions.LogInFail(err);
-                });
-            });
+            @Effect()
+            LogIn$: Observable<any> = this.actions$
+                .ofType(AuthActions.AuthActionTypes.LOGIN)
+                .pipe(
+                    switchMap((payload) =>
+                        this.authService.login(payload).pipe(
+                            map((user: LoginModel) => {
+                                this.authService.setToken(user.token);
+                                this.router.navigate(['/members']);
+                                return new AuthActions.LogInSucces(user);
+                            }),
+                            catchError((error: ErrorData) => of(new AuthActions.LogInFail(error)))
+                        )
+                    )
+            );
+
+            @Effect({dispatch: false})
+            Logout$: Observable<any> = this.actions$
+            .ofType(AuthActions.AuthActionTypes.LOGOUT).pipe(
+                tap(() => {
+                    this.router.navigate(['/login']);
+                    localStorage.removeItem('token');
+                })
+            );
     }
-
-

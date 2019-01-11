@@ -9,6 +9,7 @@ import { catchError } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { LoginModel } from 'src/app/models/login.model';
+import { createOfflineCompileUrlResolver } from '@angular/compiler';
 
 
 @Injectable({
@@ -39,7 +40,6 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-
     const token = localStorage.getItem('token');
     // Check whether the token is expired and return
     // true or false
@@ -50,9 +50,18 @@ export class AuthService {
     localStorage.setItem('token', JWtoken);
   }
 
+  removeToken() {
+    console.log(localStorage.getItem('token'));
+    localStorage.removeItem('token');
+    console.log(localStorage.getItem('token'));
+  }
 
-  login(email: string, password: string): Observable<Object> {
-    return this.http.post(this.adress + 'users/authenticate', {email, password});
+  login(payload: any): Observable<Object> {
+    console.log(payload);
+    return this.http.post(this.adress + 'users/authenticate', {
+      email: payload.payload.email,
+      password: payload.payload.password,
+    });
   }
 
 

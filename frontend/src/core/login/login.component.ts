@@ -9,7 +9,7 @@ import { LoginModel } from 'src/app/models/login.model';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/auth.state';
 import { LogIn } from '../store/auth.actions';
-
+import * as loginAuthReducer from '../store/auth.reducers';
 
 
 
@@ -29,8 +29,7 @@ export class LoginComponent implements OnInit {
     private loginFormBuilder: FormBuilder,
     private auth: AuthService,
     private navSerice: NavService,
-    private store: Store<AuthState
-    >
+    private store: Store<AuthState>
 
   ) { }
 
