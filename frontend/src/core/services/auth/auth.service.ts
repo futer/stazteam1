@@ -6,7 +6,11 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+
 import { environment } from '../../../environments/environment';
+import { LoginModel } from 'src/app/models/login.model';
+import { createOfflineCompileUrlResolver } from '@angular/compiler';
+
 
 @Injectable({
   providedIn: 'root'
@@ -36,9 +40,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-
     const token = localStorage.getItem('token');
-
     // Check whether the token is expired and return
     // true or false
     return !this.jwtHelper.isTokenExpired(token);
@@ -48,9 +50,20 @@ export class AuthService {
     localStorage.setItem('token', JWtoken);
   }
 
-  login(data): Observable<Object> {
-    return this.http.post(this.adress + 'users/authenticate', data);
+  removeToken() {
+    console.log(localStorage.getItem('token'));
+    localStorage.removeItem('token');
+    console.log(localStorage.getItem('token'));
   }
+
+  login(payload: any): Observable<Object> {
+    console.log(payload);
+    return this.http.post(this.adress + 'users/authenticate', {
+      email: payload.payload.email,
+      password: payload.payload.password,
+    });
+  }
+
 
   loginNavigate() {
     this.router.navigate(['/login']);

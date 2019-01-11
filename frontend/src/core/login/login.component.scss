@@ -2,7 +2,7 @@
 
 .login-form {
     background-color: $sec-back-color;
-    border-radius: 1em;
+    border-radius: 5px;
     display: flex;
     padding: 1em;
     
@@ -13,7 +13,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            height: 60px;
+            height: 48px;
             margin-left: 15px;
             display: flex;
             align-items: center;
