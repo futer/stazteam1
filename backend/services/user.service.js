@@ -33,7 +33,6 @@ async function registrationLocal(userParam){
 
 async function getById(id){
     db = database.connect();
-    console.log(id);
     const u = await User.findOne({_id: id});
     return u;
 }
