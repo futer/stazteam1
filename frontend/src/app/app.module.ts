@@ -9,15 +9,13 @@ import { CoreModule } from '../core/core.module';
 import { DocumentModule } from 'src/document/document.module';
 import { CoreRoutingModule } from '../core/core-routing.module';
 import { StoreModule } from '@ngrx/store';
-import { Reducer } from '../document/store/document.reducers';
+import { docReducer } from '../document/store/document.reducers';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ExampleRouting } from 'src/examples/example.routing';
+import { ExampleRouting } from '../examples/example.routing';
 import { ExamplesModule } from 'src/examples/examples.module';
 import { UserModule } from 'src/user/user.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { routing } from 'src/examples/example.routing';
-import { ExamplesModule } from 'src/examples/examples.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +30,7 @@ import { ExamplesModule } from 'src/examples/examples.module';
     ExampleRouting,
     ExamplesModule,
     CoreRoutingModule,
-    StoreModule.forRoot(Reducer),
+    StoreModule.forRoot(docReducer),
     ReactiveFormsModule,
     UserModule,
     DocumentModule,

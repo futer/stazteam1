@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';r
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { passwordMatcher } from '../../shared/reusable-functions/passwordMatcher';
 import { Router } from '@angular/router';
-import { RegisterModel } from '../../app/models/register.model';
-import { passwordMatcher } from '../../shared/reusable-functions/passwordMatcher';
-import { Router, NavigationError } from '@angular/router';
 import { RegisterModel } from '../../app/models/register.model';
 import { AuthService } from '../services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
