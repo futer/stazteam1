@@ -11,8 +11,9 @@ import { CoreRoutingModule } from '../core/core-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { Reducer } from '../document/store/document.reducers';
 import { ReactiveFormsModule } from '@angular/forms';
-import { routing } from 'src/examples/example.routing';
+import { ExampleRouting } from 'src/examples/example.routing';
 import { ExamplesModule } from 'src/examples/examples.module';
+import { UserModule } from 'src/user/user.module';
 
 @NgModule({
   declarations: [
@@ -24,11 +25,12 @@ import { ExamplesModule } from 'src/examples/examples.module';
     HttpClientModule,
     SharedModule,
     CoreModule,
-    routing,
+    ExampleRouting,
     ExamplesModule,
     CoreRoutingModule,
     StoreModule.forRoot(Reducer),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UserModule,
   ],
   providers: [
   ],

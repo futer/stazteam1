@@ -13,6 +13,7 @@ export class InputComponent implements OnInit {
   @Input() placeholder = '';
   @Input() type?: string;
   @Input() accept?: string;
+  @Input() value ? = '';
 
   constructor() { }
 

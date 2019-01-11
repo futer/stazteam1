@@ -31,5 +31,23 @@
     &:hover {
        background-color:  #e08505
     }
+}
 
+.user-edit-form__file {
+    font-size: 0.75rem;
+    display: block;
+    background-color: $main-color;
+    text-align: center;
+    margin: 0.5em 0em;
+    padding: 0.5em;
+    transition: all 0.3s ease-in-out;
+
+    @media(min-width:640px) {
+        font-size: 0.9rem;
+        width: 10%px;
+    }
+
+    &:hover {
+       background-color:  #e08505
+    }
 }

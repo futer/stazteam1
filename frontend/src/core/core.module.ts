@@ -15,7 +15,7 @@ import { DocumentModule } from 'src/document/document.module';
     LoginComponent,
     RegisterComponent,
     NavComponent,
-    MainComponent
+    MainComponent,
   ],
   imports: [
     CommonModule,
