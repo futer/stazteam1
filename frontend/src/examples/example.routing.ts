@@ -20,14 +20,14 @@ const appRoutes: Routes = [
 })
 
 export class ExampleRouting {}
-    {
-      path: '',
-      component: Example1Component
-    },
-    {
-      path: '**',
-      redirectTo: ''
-    },
-];
+//     {
+//       path: '',
+//       component: Example1Component
+//     },
+//     {
+//       path: '**',
+//       redirectTo: ''
+//     },
+// ];
 
-export const routing = RouterModule.forRoot(appRoutes);
+// export const routing = RouterModule.forRoot(appRoutes);
