@@ -9,6 +9,10 @@ module.exports = {
     authenticate,
     isBanned,
     banUser,
+    isAdmin,
+    isReviewer,
+    isModerator,
+    isEditor,
 };
 
 async function registrationLocal(userParam){
@@ -105,7 +109,7 @@ async function isReviewer(token) {
     var temp = false;
     const user = await this.getById(jwt.decode(token).sub._id)
         .then(user => {
-            if (user.role === jwt.decode(token).sub.role && user.role == "reviewer"){
+            if (user.role === jwt.decode(token).sub.role && (user.role == "reviewer" || user.role == "admin")){
                 temp = true;
             }
             else {
@@ -124,7 +128,7 @@ async function isModerator(token) {
     var temp = false;
     const user = await this.getById(jwt.decode(token).sub._id)
         .then(user => {
-            if (user.role === jwt.decode(token).sub.role && user.role == "moderator"){
+            if (user.role === jwt.decode(token).sub.role && (user.role == "moderator" || user.role == "admin")){
                 temp = true;
             }
             else {
@@ -143,7 +147,7 @@ async function isEditor(token) {
     var temp = false;
     const user = await this.getById(jwt.decode(token).sub._id)
         .then(user => {
-            if (user.role === jwt.decode(token).sub.role && user.role == "editor"){
+            if (user.role === jwt.decode(token).sub.role && (user.role == "editor" || user.role == "admin")){
                 temp = true;
             }
             else {
