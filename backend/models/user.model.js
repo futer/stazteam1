@@ -34,6 +34,17 @@ const UserModel = new Schema({
         ],
         required: true,
     },
+    role: {
+        type: String,
+        enum: [
+            'user',
+            'editor',
+            'moderator',
+            'reviewer',
+            'admin',
+        ],
+        default: 'editor',
+    },
     pic: {
         type: String,
         required: false,
