@@ -59,11 +59,11 @@ export function authReducer (
         case authActions.AuthActionTypes.LOGOUT:
         return initialState;
 
-        case authActions.AuthActionTypes.TOGGLE_NAVBAR:
-        return {
-            ...state,
-            navbarDisplayed: actions.payload
-        };
+        // case authActions.AuthActionTypes.TOGGLE_NAVBAR:
+        // return {
+        //     ...state,
+        //     navbarDisplayed: actions.payload
+        // };
 
         default: {
             return state;
