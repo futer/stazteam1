@@ -49,9 +49,13 @@ export function docReducer (
     case docActions.docTypes.FETCH_SUCCESS:
 
     return {
-      loading: true,
-      loaded: false,
-      documents: action.payload,
+      loading: false,
+      loaded: true,
+      documents: {
+        data: {
+          documents: action.payload.data.documents
+        }
+      },
       errorMessage: null
     };
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-doc-prev',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./doc-prev.component.scss']
 })
 export class DocPrevComponent implements OnInit {
+  @Input() document;
 
   constructor() { }
 
   ngOnInit() {
-  }
 
+  }
 }

@@ -1,15 +1,58 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { State } from '../store/document.states';
+import { getDocs } from '../store/document.reducers';
+import * as Actions from '../store/document.actions';
+import { Document } from '../models/document.model';
 
 @Component({
-  selector: 'app-doc',
-  templateUrl: './doc.component.html',
-  styleUrls: ['./doc.component.scss']
+    selector: 'app-doc',
+    templateUrl: './doc.component.html',
+    styleUrls: ['./doc.component.scss']
 })
-export class DocComponent implements OnInit {
+export class DocComponent implements OnInit, OnDestroy {
+    checkRoute: Subscription;
+    docData: Subscription;
 
-  constructor() { }
+    id: number;
+    doc: Document = {
+        author: '',
+        content: '',
+        date: '',
+        title: ''
+    };
 
-  ngOnInit() {
-  }
+    constructor(private store: Store<State>, private route: ActivatedRoute) {}
 
+    ngOnInit() {
+        this.checkRoute = this.route.params.subscribe(params => {
+            this.id = params['id'];
+            this.docData = this.store.select(getDocs).subscribe(docs => {
+                if (!docs) {
+                    console.log('empty boiii');
+                    this.store.dispatch(new Actions.Fetch());
+                }
+
+                if (docs) {
+                    docs.data.documents.forEach(obj => {
+                        if (this.id === obj['id']) {
+                            this.doc = {
+                                author: obj['author'],
+                                content: obj['content'],
+                                date: obj['date'],
+                                title: obj['title']
+                            };
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+    ngOnDestroy() {
+        this.checkRoute.unsubscribe();
+        this.docData.unsubscribe();
+    }
 }

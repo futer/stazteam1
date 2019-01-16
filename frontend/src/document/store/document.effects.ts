@@ -21,7 +21,7 @@ export class DocumentEffects {
         .pipe(
             switchMap(() =>
                 this.documentService.fetchDocuments().pipe(
-                    map((docs: DocumentModel[]) => new docActions.FetchSuccess(docs)),
+                    map((docs: DocumentModel) => new docActions.FetchSuccess(docs)),
                     catchError((error: ErrorData) => of(new docActions.FetchError(error)))
                 )
             )

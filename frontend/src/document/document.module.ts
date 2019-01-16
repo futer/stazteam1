@@ -11,6 +11,7 @@ import { docReducer } from '../document/store/document.reducers';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { DocumentEffects } from 'src/document/store/document.effects';
+import { DocumentRoutingModule } from './document-routing.module';
 
 @NgModule({
     declarations: [ContainerComponent, DocPrevComponent, DocComponent],
@@ -18,6 +19,7 @@ import { DocumentEffects } from 'src/document/store/document.effects';
         CommonModule,
         SharedModule,
         HttpClientModule,
+        DocumentRoutingModule,
         StoreModule.forFeature('documents', docReducer),
         EffectsModule.forFeature([DocumentEffects]),
     ],

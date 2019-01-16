@@ -7,10 +7,12 @@ import { environment } from '../../environments/environment';
 const DocQuery = gql`
   query Documents {
     documents{
+      id
       title
       author
       date
       content
+      preview
     }
   }
 `;

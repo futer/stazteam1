@@ -16,7 +16,7 @@ export class Fetch implements Action {
 
 export class FetchSuccess implements Action {
     readonly type = docTypes.FETCH_SUCCESS;
-    constructor(public payload: DocumentModel[]) {}
+    constructor(public payload: DocumentModel) {}
 }
 
 

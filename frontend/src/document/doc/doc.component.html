@@ -1,3 +1,21 @@
-<p>
-  doc works!
-</p>
+<article class="doc">
+  <div class="doc__desc">
+    <span class="doc__desc--title">{{doc.title}}</span>
+    <span class="doc__desc--author">{{doc.author}}</span>
+    <span class="doc__desc--date">{{doc.date}}</span>
+    <app-submit-btn [buttonStyle]="'doc__desc--like'">Like</app-submit-btn>
+  </div>
+  <p class="doc__content">
+    {{doc.content}}
+  </p>
+  <div class="doc__controls">
+    <app-router-btn [link]="'/main'" [class]="'doc-prev__open'">
+      Return
+    </app-router-btn>
+    <app-submit-btn>Download</app-submit-btn>
+  </div>
+</article>
+
+<div class="sideNav">
+  <p>here side nav will be</p>
+</div>

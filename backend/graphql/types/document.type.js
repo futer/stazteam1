@@ -2,12 +2,16 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLNonNull,
-  GraphQLEnumType
+  GraphQLEnumType,
 } = require('graphql');
 
 const documentType = new GraphQLObjectType({
   name: 'documentType',
   fields: () => ({
+    id: { 
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: data => data._id.toString()
+    },
     title: { type: new GraphQLNonNull(GraphQLString) },
     date: { type: new GraphQLNonNull(GraphQLString) },
     status: {
@@ -15,7 +19,8 @@ const documentType = new GraphQLObjectType({
     },
     content: { type: new GraphQLNonNull(GraphQLString) },
     userId: { type: new GraphQLNonNull(GraphQLString) },
-    author: { type: new GraphQLNonNull(GraphQLString) }
+    author: { type: new GraphQLNonNull(GraphQLString) },
+    preview: { type: new GraphQLNonNull(GraphQLString) }
   })
 });
 
