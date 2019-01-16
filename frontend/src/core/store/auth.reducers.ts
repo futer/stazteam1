@@ -7,7 +7,8 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 export const initialState: authState.AuthState = {
     isAuthenticated: false,
     user: null,
-    errorMessage: null
+    errorMessage: null,
+    isDisplayed: false
 };
 
 const getLoginFeatureState = createFeatureSelector<authState.AuthState>('authLogin');
