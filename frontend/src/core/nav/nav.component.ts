@@ -21,9 +21,7 @@ export class NavComponent implements OnInit {
   }
 
   logOut() {
-    // this.authService.removeToken();
     this.store.dispatch(new Logout);
-
   }
 
 }

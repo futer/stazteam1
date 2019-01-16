@@ -2,13 +2,14 @@ import * as authState from './auth.state';
 import * as authActions from './auth.actions';
 
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { Actions } from '@ngrx/effects';
 
 
 export const initialState: authState.AuthState = {
     isAuthenticated: false,
     user: null,
     errorMessage: null,
-    isDisplayed: false
+    navbarDisplayed: false
 };
 
 const getLoginFeatureState = createFeatureSelector<authState.AuthState>('authLogin');
@@ -26,6 +27,11 @@ export const User = createSelector(
 export const Erros = createSelector(
     getLoginFeatureState,
     (state: authState.AuthState) => state.errorMessage
+);
+
+export const Navbar = createSelector(
+    getLoginFeatureState,
+    (state: authState.AuthState) => state.navbarDisplayed
 );
 
 export function authReducer (
@@ -52,6 +58,12 @@ export function authReducer (
 
         case authActions.AuthActionTypes.LOGOUT:
         return initialState;
+
+        case authActions.AuthActionTypes.TOGGLE_NAVBAR:
+        return {
+            ...state,
+            navbarDisplayed: actions.payload
+        };
 
         default: {
             return state;
