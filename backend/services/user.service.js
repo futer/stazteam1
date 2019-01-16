@@ -9,7 +9,10 @@ module.exports = {
     authenticate,
     isBanned,
     banUser,
-    // editUser
+    isAdmin,
+    isReviewer,
+    isModerator,
+    isEditor,
 };
 
 async function registrationLocal(userParam){
@@ -81,6 +84,78 @@ async function banUser(id) {
     return user;
 }
 
-async function editUser(){
+async function isAdmin(token) {
+    database.connect();
+    var temp = false;
+    const user = await this.getById(jwt.decode(token).sub._id)
+        .then(user => {
+            if (user.role === jwt.decode(token).sub.role && user.role == "admin"){
+                temp = true;
+            }
+            else {
+                value = 'You are not authorized to visit this page';
+                const err = new Error(value);
+                err.status = 500;
+                err.name = "Not authorized";
+                throw err;
+            }
+        });
+    return temp;
+}
 
+async function isReviewer(token) {
+    database.connect();
+    var temp = false;
+    const user = await this.getById(jwt.decode(token).sub._id)
+        .then(user => {
+            if (user.role === jwt.decode(token).sub.role && (user.role == "reviewer" || user.role == "admin")){
+                temp = true;
+            }
+            else {
+                value = 'You are not authorized to visit this page';
+                const err = new Error(value);
+                err.status = 500;
+                err.name = "Not authorized";
+                throw err;
+            }
+        });
+    return temp;
+}
+
+async function isModerator(token) {
+    database.connect();
+    var temp = false;
+    const user = await this.getById(jwt.decode(token).sub._id)
+        .then(user => {
+            if (user.role === jwt.decode(token).sub.role && (user.role == "moderator" || user.role == "admin")){
+                temp = true;
+            }
+            else {
+                value = 'You are not authorized to visit this page';
+                const err = new Error(value);
+                err.status = 500;
+                err.name = "Not authorized";
+                throw err;
+            }
+        });
+    return temp;
+}
+
+async function isEditor(token) {
+    database.connect();
+    var temp = false;
+    const user = await this.getById(jwt.decode(token).sub._id)
+        .then(user => {
+            if (user.role === jwt.decode(token).sub.role && (user.role == "editor" || user.role == "admin")){
+                temp = true;
+            }
+            else {
+                value = 'You are not authorized to visit this page';
+                const err = new Error(value);
+                err.status = 500;
+                err.name = "Not authorized";
+                throw err;
+            }
+        });
+    return temp;
 }

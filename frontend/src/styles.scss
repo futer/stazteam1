@@ -47,9 +47,12 @@ body{
 
 
 
-        app-main {
+        app-main, app-example1, app-user-editor  {
             grid-column: 2/8;
-            grid-row: 2/3;
+          
+            app-main {
+              grid-row: 2/3;
+            }
         }
     }
 }

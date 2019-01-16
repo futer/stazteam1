@@ -22,8 +22,16 @@ const User = require('../models/user.model');
 
 router.post('/register', register);
 router.get('/getbyid', getById);
+<<<<<<< HEAD
 router.post('/authenticate', authenticate)
 router.put('/:id/edit', editUser)
+=======
+router.post('/authenticate', authenticate);
+router.get('/isAdmin', isAdmin);
+router.get('/isEditor', isEditor);
+router.get('/isModerator', isModerator);
+router.get('/isReviewer', isReviewer);
+>>>>>>> f935da35817b6f204a0e72e5aa9a0aea97011e05
 module.exports = router;
 
 function register(req,res,next){
@@ -40,7 +48,9 @@ function register(req,res,next){
 }
 
 function getById(req,res,next){
-    userService.getById(req.body.id).then(user => user ? res.json(user) : res.sendStatus(404)).catch(err => next(err));
+    userService.getById(req.body.id)
+        .then(user => user ? res.json(user) : res.sendStatus(404))
+        .catch(err => next(err));
 }
 
 function authenticate(req,res,next){
@@ -62,6 +72,29 @@ function editUser(req,res,next){
             if(err) return next(err);
         res.send('user updated');
         });
+    }
 
 
+function isAdmin(req,res,next) {
+    userService.isAdmin(req.get('Authorization').slice(7))
+        .then(admin => res.json(admin))
+        .catch(err => next(err));
+}
+
+function isEditor(req,res,next) {
+    userService.isEditor(req.get('Authorization').slice(7))
+        .then(editor => res.json(editor))
+        .catch(err => next(err));
+}
+
+function isReviewer(req,res,next) {
+    userService.isReviewer(req.get('Authorization').slice(7))
+        .then(reviewer => res.json(reviewer))
+        .catch(err => next(err));
+}
+
+function isModerator(req,res,next) {
+    userService.isModerator(req.get('Authorization').slice(7))
+        .then(moderator => res.json(moderator))
+        .catch(err => next(err));
 }

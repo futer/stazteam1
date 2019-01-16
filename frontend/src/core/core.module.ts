@@ -19,7 +19,7 @@ import { AuthEffect } from './store/auth.effects';
     LoginComponent,
     RegisterComponent,
     NavComponent,
-    MainComponent
+    MainComponent,
   ],
   imports: [
     CommonModule,
