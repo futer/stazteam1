@@ -6,5 +6,4 @@ export interface AuthState {
     isAuthenticated: boolean;
     user: LoginModel;
     errorMessage: ErrorData;
-    navbarDisplayed: boolean;
 }

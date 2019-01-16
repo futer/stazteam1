@@ -9,7 +9,6 @@ export enum AuthActionTypes {
     LOGIN_SUCCES = '[Auth] Login Succes',
     LOGIN_FAIL = '[Auth] Login Fail',
     LOGOUT = '[Auth] Logout',
-    // TOGGLE_NAVBAR = '[Auth] Toggle Navbar'
 }
 
 export class LogIn implements Action {
@@ -32,14 +31,8 @@ export class LogIn implements Action {
       readonly type = AuthActionTypes.LOGOUT;
   }
 
-//   export class ToggleNavbar implements Action {
-//       readonly type = AuthActionTypes.TOGGLE_NAVBAR;
-//       constructor (public payload: boolean) {}
-//   }
-
   export type All =
     | LogIn
     | LogInSucces
     | LogInFail
     | Logout;
-    // | ToggleNavbar;
