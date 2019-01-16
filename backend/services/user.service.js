@@ -17,7 +17,6 @@ module.exports = {
 
 async function registrationLocal(userParam){
     database.connect();
-
     if (await User.findOne({ email: userParam.email })) {
         value = 'Email "' + userParam.email + '" is already registered';
         const err = new Error(value);

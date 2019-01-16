@@ -25,7 +25,7 @@ import { Router } from '@angular/router';
                         this.authService.login(payload).pipe(
                             map((user: LoginModel) => {
                                 this.authService.setToken(user.token);
-                                this.router.navigate(['/members']);
+                                this.router.navigate(['/main']);
                                 return new AuthActions.LogInSucces(user);
                             }),
                             catchError((error: ErrorData) => of(new AuthActions.LogInFail(error)))

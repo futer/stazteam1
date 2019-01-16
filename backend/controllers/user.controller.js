@@ -1,6 +1,7 @@
 const userService = require('../services/user.service');
 const express = require('express');
 const router = express.Router();
+const User = require('../models/user.model');
 
 /**
  * @swagger
@@ -21,11 +22,16 @@ const router = express.Router();
 
 router.post('/register', register);
 router.get('/getbyid', getById);
+<<<<<<< HEAD
+router.post('/authenticate', authenticate)
+router.put('/:id/edit', editUser)
+=======
 router.post('/authenticate', authenticate);
 router.get('/isAdmin', isAdmin);
 router.get('/isEditor', isEditor);
 router.get('/isModerator', isModerator);
 router.get('/isReviewer', isReviewer);
+>>>>>>> f935da35817b6f204a0e72e5aa9a0aea97011e05
 module.exports = router;
 
 function register(req,res,next){
@@ -52,6 +58,22 @@ function authenticate(req,res,next){
         .then(user => user ? res.json(user) : res.status(400).json({ message: 'Email or password incorrect'}))
         .catch(err => next(err));
 }
+
+function editUser(req,res,next){
+    const updatedData = {
+        firstName: req.params.firstName,
+        lastName: req.params.lastName,
+        password: req.params.password,
+        pic: req.params.pic
+    };
+    User.findByIdAndUpdate(req.params.id, {
+        $set: updatedData},
+        function(err, user){
+            if(err) return next(err);
+        res.send('user updated');
+        });
+    }
+
 
 function isAdmin(req,res,next) {
     userService.isAdmin(req.get('Authorization').slice(7))
