@@ -32,7 +32,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     CoreRoutingModule,
     StoreModule.forRoot(docReducer),
     ReactiveFormsModule,
-    UserModule,
     DocumentModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
