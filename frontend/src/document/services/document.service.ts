@@ -4,15 +4,25 @@ import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
 import { environment } from '../../environments/environment';
 
-const DocQuery = gql`
+const PrevQuery = gql`
   query Documents {
     documents{
       id
       title
       author
       date
-      content
       preview
+    }
+  }
+`;
+
+const DocQuery = gql`
+  query Document($id: String!){
+    document(id:$id){
+      title
+      author
+      date
+      content
     }
   }
 `;
@@ -27,7 +37,17 @@ export class DocumentService {
     private apollo: Apollo
   ) { }
 
-  fetchDocuments(): Observable<any> {
-    return this.apollo.watchQuery({query: DocQuery}).valueChanges;
+  fetchPrevs(): Observable<any> {
+    return this.apollo.watchQuery({query: PrevQuery}).valueChanges;
+  }
+
+  fetchDocument(id): Observable<any> {
+    console.log(id);
+    return this.apollo.watchQuery({
+      query: DocQuery,
+      variables: {
+        id: id
+      }
+    }).valueChanges;
   }
 }

@@ -3,16 +3,21 @@ import { DocumentModel } from '../models/document.model';
 import { ErrorData } from '../models/error.model';
 
 export enum docTypes {
-  FETCH = '[Document] Fetch',
+  FETCH_PREVS = '[Document] FetchPrevs',
+  FETCH_DOC = '[Document] FetchDoc',
   FETCH_SUCCESS = '[Document] FetchSuccess',
   FETCH_ERROR = '[Document] FetchError'
 }
 
-export class Fetch implements Action {
-    readonly type = docTypes.FETCH;
+export class FetchPrevs implements Action {
+    readonly type = docTypes.FETCH_PREVS;
     constructor() {}
 }
 
+export class FetchDoc implements Action {
+    readonly type = docTypes.FETCH_DOC;
+    constructor(public payload: number) {}
+}
 
 export class FetchSuccess implements Action {
     readonly type = docTypes.FETCH_SUCCESS;
@@ -26,6 +31,7 @@ export class FetchError implements Action {
 }
 
 export type All =
-    | Fetch
+    | FetchPrevs
+    | FetchDoc
     | FetchSuccess
     | FetchError;

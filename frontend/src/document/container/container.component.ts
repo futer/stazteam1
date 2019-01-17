@@ -24,7 +24,7 @@ export class ContainerComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.checkLoad = this.store.select(isLoaded).subscribe(load => {
       if (!load) {
-        this.store.dispatch(new Actions.Fetch);
+        this.store.dispatch(new Actions.FetchPrevs);
       }
 
       this.prevs$ = this.store.select(getDocs);

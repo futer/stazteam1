@@ -37,7 +37,16 @@ export function docReducer (
   action: docActions.All
 ): docState.State {
   switch (action.type) {
-    case docActions.docTypes.FETCH:
+    case docActions.docTypes.FETCH_PREVS:
+
+    return {
+      loading: true,
+      loaded: false,
+      documents: null,
+      errorMessage: null
+    };
+
+    case docActions.docTypes.FETCH_DOC:
 
     return {
       loading: true,

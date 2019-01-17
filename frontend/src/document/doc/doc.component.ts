@@ -32,7 +32,7 @@ export class DocComponent implements OnInit, OnDestroy {
             this.docData = this.store.select(getDocs).subscribe(docs => {
                 if (!docs) {
                     console.log('empty boiii');
-                    this.store.dispatch(new Actions.Fetch());
+                    this.store.dispatch(new Actions.FetchDoc(this.id));
                 }
 
                 if (docs) {

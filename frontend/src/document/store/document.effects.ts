@@ -16,13 +16,34 @@ export class DocumentEffects {
     ) {}
 
     @Effect()
-    Fetch$: Observable<any> = this.actions$
-        .ofType(docActions.docTypes.FETCH)
+    FetchPrevs$: Observable<any> = this.actions$
+        .ofType(docActions.docTypes.FETCH_PREVS)
         .pipe(
             switchMap(() =>
-                this.documentService.fetchDocuments().pipe(
-                    map((docs: DocumentModel) => new docActions.FetchSuccess(docs)),
-                    catchError((error: ErrorData) => of(new docActions.FetchError(error)))
+                this.documentService.fetchPrevs().pipe(
+                    map(
+                        (docs: DocumentModel) =>
+                            new docActions.FetchSuccess(docs)
+                    ),
+                    catchError((error: ErrorData) =>
+                        of(new docActions.FetchError(error))
+                    )
+                )
+            )
+        );
+    @Effect()
+    FetchDoc$: Observable<any> = this.actions$
+        .ofType(docActions.docTypes.FETCH_DOC)
+        .pipe(
+            switchMap(docAction =>
+                this.documentService.fetchDocument(docAction['payload']).pipe(
+                    map(
+                        (docs: DocumentModel) =>
+                            new docActions.FetchSuccess(docs)
+                    ),
+                    catchError((error: ErrorData) =>
+                        of(new docActions.FetchError(error))
+                    )
                 )
             )
         );
