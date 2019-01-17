@@ -7,7 +7,8 @@ import {Observable} from 'rxjs';
 
 const AdminUserEditorQuery = gql`
   query AdminUserEditor {
-    User {
+    users {
+      id
       firstName
       lastName
       pic

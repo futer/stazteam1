@@ -6,15 +6,19 @@ import { StoreModule } from '@ngrx/store';
 import { userReducer } from './store/admin.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/admin.effects';
+import { AdminUserEditorRouting } from './admin.routing.module';
 
 
 @NgModule({
-  declarations: [AdminUserEditorComponent],
+  declarations: [
+    AdminUserEditorComponent,
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
     StoreModule.forFeature('users', userReducer),
-    EffectsModule.forFeature([UserEffects])
+    EffectsModule.forFeature([UserEffects]),
+    AdminUserEditorRouting,
   ]
 })
 export class AdminModule { }

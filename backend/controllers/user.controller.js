@@ -22,16 +22,13 @@ const User = require('../models/user.model');
 
 router.post('/register', register);
 router.get('/getbyid', getById);
-<<<<<<< HEAD
 router.post('/authenticate', authenticate)
 router.put('/:id/edit', editUser)
-=======
 router.post('/authenticate', authenticate);
 router.get('/isAdmin', isAdmin);
 router.get('/isEditor', isEditor);
 router.get('/isModerator', isModerator);
 router.get('/isReviewer', isReviewer);
->>>>>>> f935da35817b6f204a0e72e5aa9a0aea97011e05
 module.exports = router;
 
 function register(req,res,next){
