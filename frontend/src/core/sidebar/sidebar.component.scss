@@ -1,0 +1,29 @@
+@import '../../assets/main-style.scss';
+
+div {
+    width: 70%;
+    float: right;
+    height: 100vh;
+    background-color: $sec-back-color;
+    padding: 20px 0;
+    box-shadow: 1px 16px 29px 0px rgba(0, 0, 0, 0.75);
+
+    ul {
+        list-style: none;
+        margin-top: 20px;
+        li {
+            display: block;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+            cursor: pointer;
+
+            &:hover{
+                background-color: rgba(224, 169, 5, 0.6);
+
+            }
+        }
+        
+    } 
+}
+

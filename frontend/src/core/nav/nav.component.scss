@@ -5,6 +5,7 @@
 header {
   background-color: $sec-back-color;
   margin: 0;
+  height: 100%;
 
   @media (min-width: tablet) {
     display: flex;
@@ -22,7 +23,11 @@ header {
   label {
     display: block;
     cursor: pointer;
-    padding: 10px;
+    font-size: 25px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    // padding: 5px;
     @media (min-width: $tablet) {
         display: none;
     }
@@ -35,6 +40,7 @@ header {
           display: flex;
           align-items: center;
           justify-content: space-between;
+          box-shadow:  3px 2px 25px rgba(0, 0, 0, 0.75)
       }
     
   }
@@ -54,13 +60,15 @@ header {
     @media (min-width: $tablet) {
       display: flex;
       flex-direction: row;
+      align-content: center;
+      justify-content: center;
 
       .bookmarks {
         list-style: none;
 
         li {
           display: inline-block;
-          padding: 10px;
+          padding-top: 10px;
 
         }
       }
@@ -109,6 +117,7 @@ header {
         position: relative;
         display: block;
         width: 100%;
+        font-size: 1.2rem;
         line-height: 40px;
         cursor: pointer;
         background: $main-color;
@@ -117,7 +126,7 @@ header {
         padding-right: 10px;
 
         @media (min-width: $tablet) {
-            line-height: 50px;
+            line-height: 30px;
           }
 
         &:hover {
@@ -196,15 +205,17 @@ header {
     font-size: 0.7rem;
     letter-spacing: 1px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    
+
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: rgba(224, 169, 5, 0.6);
     }
 
     @media (min-width: $tablet) {
       border-bottom: none;
       border-right: 1px solid rgba(0, 0, 0, 0.2);
-      padding:8px;
+      padding-right: 15px;
     }
   }
 }
