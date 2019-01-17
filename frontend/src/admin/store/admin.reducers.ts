@@ -48,7 +48,11 @@ export function userReducer (
             return {
                 loading: false,
                 loaded: true,
-                users: action.payload,
+                users: {
+                    data: {
+                        users: action.payload.data.users
+                    }
+                },
                 errorMessage: null
             };
 

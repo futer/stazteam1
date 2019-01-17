@@ -7,6 +7,8 @@ import { userReducer } from './store/admin.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/admin.effects';
 import { AdminUserEditorRouting } from './admin.routing.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { SharedModule } from 'src/shared/shared.module';
 
 
 @NgModule({
@@ -19,6 +21,9 @@ import { AdminUserEditorRouting } from './admin.routing.module';
     StoreModule.forFeature('users', userReducer),
     EffectsModule.forFeature([UserEffects]),
     AdminUserEditorRouting,
+    ReactiveFormsModule,
+    SharedModule,
+    FormsModule
   ]
 })
 export class AdminModule { }

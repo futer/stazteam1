@@ -15,7 +15,7 @@ export class Fetch implements Action {
 
 export class FetchSuccess implements Action {
     readonly type = userTypes.FETCH_SUCCESS;
-    constructor(public payload: UserModel[]) {}
+    constructor(public payload: UserModel) {}
 }
 
 export class FetchError implements Action {

@@ -4,6 +4,6 @@ import { ErrorData } from '../models/error.model';
 export interface State {
     loading: boolean;
     loaded: boolean;
-    users: UserModel[] | null;
+    users: UserModel | null;
     errorMessage: ErrorData | null;
 }

@@ -22,7 +22,7 @@ export class UserEffects {
         .pipe(
             switchMap(() =>
                 this.adminUserEditorService.fetchUser().pipe(
-                    map((users: UserModel[]) => new userActions.FetchSuccess(users)),
+                    map((users: UserModel) => new userActions.FetchSuccess(users)),
                     catchError((error: ErrorData) => of(new userActions.FetchError(error)))
                 )
             )
