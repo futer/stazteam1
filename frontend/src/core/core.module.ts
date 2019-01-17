@@ -13,6 +13,7 @@ import { StoreModule } from '@ngrx/store';
 import authReducer from './store/auth.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffect } from './store/auth.effects';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AuthEffect } from './store/auth.effects';
     RegisterComponent,
     NavComponent,
     MainComponent,
+    SidebarComponent,
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { AuthEffect } from './store/auth.effects';
     EffectsModule.forFeature([AuthEffect]),
   ],
   exports: [
-    NavComponent
+    NavComponent,
+    SidebarComponent
   ],
 })
 export class CoreModule { }
