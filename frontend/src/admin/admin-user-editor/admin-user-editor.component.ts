@@ -6,7 +6,7 @@ import { State } from '../store/admin.states';
 import * as Actions from '../store/admin.actions';
 import { Users } from '../store/admin.reducers';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { passwordMatcher, passwordTouchedChecker, oldNewPasswordChecker } from 'src/shared/reusable-functions/passwordMatcher';
+import { passwordMatcher, passwordTouchedChecker } from 'src/shared/reusable-functions/passwordMatcher';
 
 @Component({
   selector: 'app-admin-user-editor',
@@ -48,7 +48,7 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
           password: ['', [Validators.minLength(5)]],
           repeatPassword: ['']
         }, { validator: passwordMatcher }),
-      }, { validator: [passwordTouchedChecker, oldNewPasswordChecker] })
+      }, { validator: passwordTouchedChecker })
     });
   }
 

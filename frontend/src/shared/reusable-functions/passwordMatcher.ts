@@ -24,12 +24,6 @@ export function passwordTouchedChecker ( c: AbstractControl ): { [key: string]: 
     }
     return { 'match': true };
   }
-  return null;
-}
-
-export function oldNewPasswordChecker ( c: AbstractControl ): { [key: string]: boolean } | null  {
-  const oldPassword = c.get('oldPassword');
-  const newPassword = c.get('passwordGroup.password');
   if (oldPassword.value === newPassword.value) {
     return { 'match': true };
   }
