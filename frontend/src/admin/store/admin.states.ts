@@ -6,4 +6,6 @@ export interface State {
     loaded: boolean;
     users: UserModel | null;
     errorMessage: ErrorData | null;
+    sending: boolean;
+    sent: boolean;
 }

@@ -12,10 +12,14 @@ const AdminUserEditorQuery = gql`
       firstName
       lastName
       pic
-      password
     }
   }
 `;
+const AdminUserEditorMutation = gql`
+  mutation AdminUserEditor {
+    user
+  }
+`
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +34,9 @@ export class AdminUserEditorService {
   fetchUser(): Observable<any> {
     return this.apollo.watchQuery({query: AdminUserEditorQuery}).valueChanges;
   }
-  
+
+  sendUser(user): Observable<any> {
+
+  }
+
 }
