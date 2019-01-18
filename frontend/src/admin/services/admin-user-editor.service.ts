@@ -30,4 +30,5 @@ export class AdminUserEditorService {
   fetchUser(): Observable<any> {
     return this.apollo.watchQuery({query: AdminUserEditorQuery}).valueChanges;
   }
+  
 }

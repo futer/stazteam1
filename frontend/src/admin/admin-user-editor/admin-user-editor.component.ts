@@ -6,7 +6,7 @@ import { State } from '../store/admin.states';
 import * as Actions from '../store/admin.actions';
 import { Users } from '../store/admin.reducers';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { passwordMatcher } from 'src/shared/reusable-functions/passwordMatcher';
+import { passwordMatcher, passwordTouchedChecker, oldNewPasswordChecker } from 'src/shared/reusable-functions/passwordMatcher';
 
 @Component({
   selector: 'app-admin-user-editor',
@@ -39,14 +39,16 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
     this.usersub = this.users$.subscribe(users => this.users = users);
 
     this.updateUserForm = this.changeUserFormBuilder.group({
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
+      firstName: ['', [Validators.minLength(2)]],
+      lastName: ['', [Validators.minLength(2)]],
       picture: '',
-      oldPassword: ['', [Validators.required, Validators.minLength(5)]],
-      passwordGroup: this.changeUserFormBuilder.group({
-        password: ['', [Validators.required, Validators.minLength(5)]],
-        repeatPassword: ['', Validators.required]
-      }, {validator: passwordMatcher}),
+      changePasswordGroup: this.changeUserFormBuilder.group({
+        oldPassword: ['', [Validators.minLength(5)]],
+        passwordGroup: this.changeUserFormBuilder.group({
+          password: ['', [Validators.minLength(5)]],
+          repeatPassword: ['']
+        }, { validator: passwordMatcher }),
+      }, { validator: [passwordTouchedChecker, oldNewPasswordChecker] })
     });
   }
 
@@ -71,6 +73,4 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
     };
     reader.readAsDataURL(this.pictureUrl);
   }
-
-
 }
