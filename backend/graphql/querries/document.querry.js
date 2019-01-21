@@ -1,7 +1,6 @@
 const {
   GraphQLList,
   GraphQLNonNull,
-  GraphQLObjectType,
   GraphQLString
 } = require('graphql');
 
@@ -29,10 +28,11 @@ const documentMutations = {
   addDocument: {
     type: documentType,
     args: {
-      title: { type: new GraphQLNonNull(GraphQLString) },
+      author: { type: new GraphQLNonNull(GraphQLString) },
       content: { type: new GraphQLNonNull(GraphQLString) },
-      userId: { type: new GraphQLNonNull(GraphQLString) },
-      author: { type: new GraphQLNonNull(GraphQLString) }
+      preview: { type: new GraphQLNonNull(GraphQLString) },
+      title: { type: new GraphQLNonNull(GraphQLString) },
+      userId: { type: new GraphQLNonNull(GraphQLString) }
     },
     resolve: documentResolver.addDocument
   },
@@ -40,13 +40,14 @@ const documentMutations = {
     type: documentType,
     args: {
       id: { type: new GraphQLNonNull(GraphQLString) },
-      title: { type: GraphQLString },
+      author: { type: GraphQLString },
+      content: { type: new GraphQLNonNull(GraphQLString) },
+      date: { type: new GraphQLNonNull(GraphQLString) },
+      preview: { type: GraphQLString },
       status: {
         type: getStatusEnum('statusUpdateInput')
       },
-      content: { type: GraphQLString },
-      userId: { type: GraphQLString },
-      author: { type: GraphQLString }
+      title: { type: GraphQLString }
     },
     resolve: documentResolver.updateDocument
   },

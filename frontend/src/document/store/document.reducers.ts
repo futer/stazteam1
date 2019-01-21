@@ -1,88 +1,101 @@
-import * as docState from './document.states';
-import * as docActions from './document.actions';
+import * as States from './document.states';
+import * as Actions from './document.actions';
 
-import { createSelector, createFeatureSelector } from '@ngrx/store';
-
-export const initialState: docState.State = {
+export const initialPrevState: States.PrevState = {
     loading: false,
     loaded: false,
     documents: null,
     errorMessage: null
 };
 
-export const docFeature = createFeatureSelector<docState.State>('documents');
+export const initialDocState: States.DocState = {
+    loading: false,
+    loaded: false,
+    document: null,
+    errorMessage: null
+};
 
-export const isLoading = createSelector(
-  docFeature,
-  (state: docState.State) => state.loading
-);
-
-export const isLoaded = createSelector(
-  docFeature,
-  (state: docState.State) => state.loaded
-);
-
-export const getDocs = createSelector(
-  docFeature,
-  (state: docState.State) => state.documents
-);
-
-export const getErrors = createSelector(
-  docFeature,
-  (state: docState.State) => state.errorMessage
-);
-
-export function docReducer (
-  state: docState.State = initialState,
-  action: docActions.All
-): docState.State {
+export function prevReducer(
+  state: States.PrevState = initialPrevState,
+  action: Actions.AllPrevs
+): States.PrevState {
   switch (action.type) {
-    case docActions.docTypes.FETCH_PREVS:
+      case Actions.prevsTypes.FETCH_PREVS:
+          return {
+              loading: true,
+              loaded: false,
+              documents: null,
+              errorMessage: null
+          };
 
-    return {
-      loading: true,
-      loaded: false,
-      documents: null,
-      errorMessage: null
-    };
+      case Actions.prevsTypes.FETCH_PREVS_SUCCESS:
+          return {
+              loading: false,
+              loaded: true,
+              documents: {
+                  data: {
+                      documents: action.payload.data.documents
+                  }
+              },
+              errorMessage: null
+          };
 
-    case docActions.docTypes.FETCH_DOC:
+      case Actions.prevsTypes.FETCH_PREVS_ERROR:
+          return {
+              loading: false,
+              loaded: false,
+              documents: null,
+              errorMessage: {
+                  type: action.type,
+                  error: action.payload
+              }
+          };
 
-    return {
-      loading: true,
-      loaded: false,
-      documents: null,
-      errorMessage: null
-    };
-
-    case docActions.docTypes.FETCH_SUCCESS:
-
-    return {
-      loading: false,
-      loaded: true,
-      documents: {
-        data: {
-          documents: action.payload.data.documents
-        }
-      },
-      errorMessage: null
-    };
-
-    case docActions.docTypes.FETCH_ERROR:
-
-    return {
-      loading: false,
-      loaded: false,
-      documents: null,
-      errorMessage: {
-        type: action.type,
-        error: action.payload
-      }
-    };
-
-    default:
-      return state;
+      default:
+          return state;
   }
 }
 
-export default docReducer;
+export function docReducer(
+    state: States.DocState = initialDocState,
+    action: Actions.AllDoc
+): States.DocState {
+    switch (action.type) {
+        case Actions.docTypes.FETCH_DOC:
+            return {
+                loading: true,
+                loaded: false,
+                document: null,
+                errorMessage: null
+            };
+
+        case Actions.docTypes.FETCH_DOC_SUCCESS:
+            return {
+                loading: false,
+                loaded: true,
+                document: action.payload,
+                errorMessage: null
+            };
+
+        case Actions.docTypes.FETCH_DOC_ERROR:
+            return {
+                loading: false,
+                loaded: false,
+                document: null,
+                errorMessage: {
+                    type: action.type,
+                    error: action.payload
+                }
+            };
+
+        default:
+            return state;
+    }
+}
+
+export const docModuleReducers = {
+    prevs: prevReducer,
+    doc: docReducer,
+};
+
+export default docModuleReducers;

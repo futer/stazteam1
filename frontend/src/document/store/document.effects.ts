@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { DocumentService } from '../services/document.service';
-import * as docActions from './document.actions';
-import { DocumentModel } from '../models/document.model';
+import * as AllActions from './document.actions';
+import { DocumentsModel, DocumentModel } from '../models/document.model';
 import { ErrorData } from '../models/error.model';
 
 @Injectable()
@@ -17,32 +17,32 @@ export class DocumentEffects {
 
     @Effect()
     FetchPrevs$: Observable<any> = this.actions$
-        .ofType(docActions.docTypes.FETCH_PREVS)
+        .ofType(AllActions.prevsTypes.FETCH_PREVS)
         .pipe(
             switchMap(() =>
                 this.documentService.fetchPrevs().pipe(
                     map(
-                        (docs: DocumentModel) =>
-                            new docActions.FetchSuccess(docs)
+                        (docs: DocumentsModel) =>
+                            new AllActions.FetchPrevsSuccess(docs)
                     ),
                     catchError((error: ErrorData) =>
-                        of(new docActions.FetchError(error))
+                        of(new AllActions.FetchPrevsError(error))
                     )
                 )
             )
         );
     @Effect()
     FetchDoc$: Observable<any> = this.actions$
-        .ofType(docActions.docTypes.FETCH_DOC)
+        .ofType(AllActions.docTypes.FETCH_DOC)
         .pipe(
             switchMap(docAction =>
                 this.documentService.fetchDocument(docAction['payload']).pipe(
                     map(
                         (docs: DocumentModel) =>
-                            new docActions.FetchSuccess(docs)
+                            new AllActions.FetchDocSuccess(docs)
                     ),
                     catchError((error: ErrorData) =>
-                        of(new docActions.FetchError(error))
+                        of(new AllActions.FetchDocError(error))
                     )
                 )
             )

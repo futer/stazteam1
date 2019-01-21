@@ -1,19 +1,24 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const CommentModel = require('./comment.model');
+// const CommentModel = require('./comment.model');
 
 const DocumentModel = new Schema({
-  title: {
+  author: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  content: {
     type: String,
     required: true,
     trim: true
   },
   date: {
     type: String,
-    default: new Date().toLocaleDateString()
+    default: new Date().toLocaleDateString(),
   },
-  content: {
+  preview: {
     type: String,
     required: true,
     trim: true
@@ -23,21 +28,17 @@ const DocumentModel = new Schema({
     enum: ['ACCEPTED', 'PENDING', 'REJECTED'],
     default: 'PENDING'
   },
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   userId: {
     type: String,
     required: true,
     trim: true
   },
-  author: {
-    type: String,
-    required: true,
-    trim: true,
-  },
   //comments: [CommentModel],
-});
-
-DocumentModel.virtual('preview').get(function()  {
-  return this.content.substring(0, 200) + '...';
 });
 
 module.exports = mongoose.model('DocumentModel', DocumentModel);

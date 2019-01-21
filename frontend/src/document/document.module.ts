@@ -7,7 +7,7 @@ import { SharedModule } from 'src/shared/shared.module';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { docReducer } from '../document/store/document.reducers';
+import { docModuleReducers } from '../document/store/document.reducers';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { DocumentEffects } from 'src/document/store/document.effects';
@@ -20,7 +20,7 @@ import { DocumentRoutingModule } from './document-routing.module';
         SharedModule,
         HttpClientModule,
         DocumentRoutingModule,
-        StoreModule.forFeature('documents', docReducer),
+        StoreModule.forFeature('docModule', docModuleReducers ),
         EffectsModule.forFeature([DocumentEffects]),
     ],
     exports: [ContainerComponent]

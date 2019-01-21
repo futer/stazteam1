@@ -12,15 +12,15 @@ const documentType = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLString),
       resolve: data => data._id.toString()
     },
-    title: { type: new GraphQLNonNull(GraphQLString) },
+    author: { type: new GraphQLNonNull(GraphQLString) },
+    content: { type: new GraphQLNonNull(GraphQLString) },
     date: { type: new GraphQLNonNull(GraphQLString) },
+    preview: { type: new GraphQLNonNull(GraphQLString) },
     status: {
       type: new GraphQLNonNull(getStatusEnum('statusType'))
     },
-    content: { type: new GraphQLNonNull(GraphQLString) },
-    userId: { type: new GraphQLNonNull(GraphQLString) },
-    author: { type: new GraphQLNonNull(GraphQLString) },
-    preview: { type: new GraphQLNonNull(GraphQLString) }
+    title: { type: new GraphQLNonNull(GraphQLString) },
+    userId: { type: new GraphQLNonNull(GraphQLString) }
   })
 });
 

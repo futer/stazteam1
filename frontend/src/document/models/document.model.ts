@@ -1,12 +1,9 @@
-export interface DocumentModel {
+export interface DocumentsModel {
     data: {
         documents: Array<Object>;
     };
 }
 
-export interface Document {
-    title: string;
-    author: string;
-    date: string;
+export interface DocumentModel {
     content: string;
 }

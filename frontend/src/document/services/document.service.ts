@@ -8,10 +8,10 @@ const PrevQuery = gql`
   query Documents {
     documents{
       id
-      title
       author
       date
       preview
+      title
     }
   }
 `;
@@ -19,10 +19,10 @@ const PrevQuery = gql`
 const DocQuery = gql`
   query Document($id: String!){
     document(id:$id){
-      title
       author
-      date
       content
+      date
+      title
     }
   }
 `;

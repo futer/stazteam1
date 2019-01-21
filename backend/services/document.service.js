@@ -1,5 +1,4 @@
 const database = require('../helpers/database');
-
 const Document = require('../models/document.model');
 
 async function getDocuments() {

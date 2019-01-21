@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DocumentModel } from '../models/document.model';
+import { DocumentsModel } from '../models/document.model';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { State } from '../store/document.states';
+import { PrevState } from '../store/document.states';
 import * as Actions from '../store/document.actions';
-import { getDocs, getErrors, isLoaded } from '../store/document.reducers';
+import { getPrevs, getPrevsError, arePrevsLoaded } from '../store/document.selectors';
 import { ErrorData } from '../models/error.model';
 
 @Component({
@@ -13,22 +13,22 @@ import { ErrorData } from '../models/error.model';
   styleUrls: ['./container.component.scss']
 })
 export class ContainerComponent implements OnInit, OnDestroy {
-  prevs$: Observable<DocumentModel>;
+  prevs$: Observable<DocumentsModel>;
   errorHandler$: Observable<ErrorData>;
   checkLoad: Subscription;
 
   constructor(
-    private store: Store<State>
+    private store: Store<PrevState>
   ) { }
 
   ngOnInit() {
-    this.checkLoad = this.store.select(isLoaded).subscribe(load => {
+    this.checkLoad = this.store.select(arePrevsLoaded).subscribe(load => {
       if (!load) {
         this.store.dispatch(new Actions.FetchPrevs);
       }
 
-      this.prevs$ = this.store.select(getDocs);
-      this.errorHandler$ = this.store.select(getErrors);
+      this.prevs$ = this.store.select(getPrevs);
+      this.errorHandler$ = this.store.select(getPrevsError);
     });
   }
 
