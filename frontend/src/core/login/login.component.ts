@@ -27,10 +27,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.loginForm.invalid) {
-      console.log(false);
-      return;
-    }
+    if (this.loginForm.invalid) { return; }
+
     this.auth.login(this.loginForm.value).subscribe(
       (res: JWT) => {
         this.auth.setToken(res.token);

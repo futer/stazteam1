@@ -36,5 +36,14 @@ body{
             grid-column: 2/8;
             grid-row: 2/3;
         }
+
+        app-example1 {
+            position: absolute;
+            bottom: 0px;
+            right: 15%;
+            width: 280px;
+            // grid-column: 1/2;
+            // grid-row: 3/4;
+        }
     }
 }

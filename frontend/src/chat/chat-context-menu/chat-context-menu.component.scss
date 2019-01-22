@@ -1,0 +1,23 @@
+.context-menu {
+    min-width: 120px;
+    background-color: #fafafa;
+    border: solid 1px #cfcfcf;
+    box-shadow: 1px 1px 2px #cfcfcf;
+
+    li {   
+        list-style: none;
+        padding: 5px 10px;
+        color: #000;
+        user-select: none;
+
+        &:hover {
+            background: #cfcfcf;
+            cursor: pointer;
+        }
+
+        &.disabled {
+            pointer-events: none;
+            opacity: 0.6;         
+        }
+    }
+}

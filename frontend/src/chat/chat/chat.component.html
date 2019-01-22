@@ -1,3 +1,30 @@
-<app-chat-bar></app-chat-bar>
-<app-message></app-message>
-<app-send-message></app-send-message>
+<div [class]="chatStyle">
+  <app-chat-bar 
+    #chatBar
+    [chatBarStyle]="'bar'" 
+    (click)="toggleChat()">Chat</app-chat-bar>
+
+
+  <div [ngClass]="{'hide-chat': hidden, 'show-chat': !hidden}">
+    <app-message 
+      #messageComponent 
+      [messageStyle]="'message'" 
+      [messages]="messages" 
+      (click)="hideContextMenu()" 
+      (scrollEventEmitter)="hideContextMenu()" 
+      (scrollToBottomEmitter)="scrollToBottom()" 
+      (showContextMenuEmitter)="showContextMenu($event)"></app-message>
+
+    <app-send-message 
+      [sendMessageStyles]="'send-message'"   
+      (messageEmitter)="onMessage($event)"></app-send-message>
+
+    <app-chat-context-menu 
+      [appChatContextMenuStyles]="'context-menu'"
+      [contexMenuPositionStyles]="contexMenuPositionStyles"
+      [contextMenu]="contextMenu"
+      [clickedMessage]="clickedMessage"
+      (contextMenuItemEmitter)="contextMenuAction($event)"></app-chat-context-menu>
+
+  </div>
+</div>

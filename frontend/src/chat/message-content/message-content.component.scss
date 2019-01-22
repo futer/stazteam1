@@ -1,0 +1,23 @@
+.messageContent {
+    color: #000;
+    word-wrap: break-word;
+    padding: 2.5px;
+    justify-content: center;
+}
+
+.infoContent {
+    display: flex;
+	align-items: center;
+	color: #fff;
+    margin: 8px 0px;
+    
+    &::before,
+    &::after {
+        content: "";
+        flex-grow: 1;
+        background: #fff;
+        height: 2px;
+        margin: 0px 8px;
+    }
+
+}

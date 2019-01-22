@@ -25,7 +25,7 @@ function messageCMDModel(idUser = null, firstName = null, lastName = null, messa
     },
 
     setId: function(id) {
-      this.payload.message.idMessage = id;
+      this.payload.message.id = id;
     },
 
     castFrom: function(obj) {

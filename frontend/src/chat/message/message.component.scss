@@ -1,0 +1,35 @@
+.message-container {
+    background: #252525b7;
+    padding: 2px 5px;
+    min-height: 250px;
+    max-height: 250px;
+    overflow-y: scroll;
+    box-sizing: inherit;
+
+
+    div:nth-child(even) .message
+    {
+        background: #b0b0b0;
+        border: solid 1px #8f8f8f;
+    }
+
+    .message {
+        border-radius: 2px 17px 17px 17px;
+        margin: 0 5px 15px 5px;
+        padding: 5px;
+        background: #e2e2e2;
+        border: solid 1px #dcdcdc;
+    }
+
+    &::-webkit-scrollbar {
+        width: 10px;
+        background:  #252525b2;
+        border-radius: 10px;
+    }
+     
+    &::-webkit-scrollbar-thumb {
+        background-color: #474747;
+        border-radius: 10px;
+    }
+
+}

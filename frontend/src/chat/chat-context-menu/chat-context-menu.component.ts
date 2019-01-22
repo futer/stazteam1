@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+import { ContextMenuModel } from '../models/context-menu.model';
+import { MessageModel } from '../models/message.model';
 
 @Component({
   selector: 'app-chat-context-menu',
@@ -7,9 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatContextMenuComponent implements OnInit {
 
-  constructor() { }
+  @Input() appChatContextMenuStyles: string;
+  @Input() contexMenuPositionStyles: Object;
+  @Input() clickedMessage: MessageModel;
+  @Input() contextMenu: ContextMenuModel;
+
+  @Output() contextMenuItemEmitter = new EventEmitter<any[]>();
+
+  constructor() {
+    this.appChatContextMenuStyles = '';
+    this.contexMenuPositionStyles = {};
+    this.clickedMessage = { message: null, user: null };
+    this.contextMenu = { items: [] };
+   }
 
   ngOnInit() {
   }
 
+  onClick(contextMenuItem: ContextMenuModel) {
+    this.contextMenuItemEmitter.emit([this.clickedMessage, contextMenuItem]);
+  }
+
+  donotShowDefaultContextMenu() {
+    return false;
+  }
 }

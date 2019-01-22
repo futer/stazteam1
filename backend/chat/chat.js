@@ -1,6 +1,6 @@
 const userService = require('../services/user.service');
 
-const { banEnum } = require('./models/command.enum');
+const { banEnum, commandEnum } = require('./models/command.enum');
 
 const loginCMDModel = require('./models/login.command.model');
 const messageCMDModel = require('./models/message.command.model');
@@ -27,19 +27,18 @@ function recvMessage(ws, message) {
 
 function handleCommand(ws, message) {
   const command = message.command;
-
   switch (command) {
-    case 'message':
+    case commandEnum.MESSAGE:
       messageCommand(ws, message);
       break;
-    case 'login':
+    case commandEnum.LOGIN:
       loginCommand(ws, message);
       break;
-    case 'logout':
+    case commandEnum.LOGOUT:
       logoutCommand(ws, message);
       break;
-    case 'ban':
-      banCommand(ws, message);
+    case commandEnum.BAN:
+      banCommand(message);
       break;
     default:
       const msg = shortMessageCMDModel('ERROR', 'invalid command');
@@ -92,16 +91,19 @@ function logoutCommand(ws, message) {
   ws.send(msg.getJSON());
 };
 
-function banCommand(ws, message) {
+function banCommand(message) {
   const banModel = banCMDModel().castFrom(message);
-  
-  if (banModel.payload.ban === banEnum.USER) {
-    const user = userService.banUser(message.payload.id);
-    user.then(data => {
+  switch (banModel.payload.ban) {
+    case banEnum.USER:
+      const user = userService.banUser(message.payload.id);
+      user.then(data => {
+        sendToAll(banModel.getJSON());
+      });  
+      break;
+    case banEnum.MESSAGE:
       sendToAll(banModel.getJSON());
-    });  
-  } else if (banModel.payload.ban === banEnum.MESSAGE) {
-    sendToAll(banModel.getJSON());
+    default:
+      break;
   }
 };
 
