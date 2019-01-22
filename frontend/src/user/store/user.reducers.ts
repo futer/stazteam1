@@ -21,7 +21,7 @@ export const isLoaded = createSelector(
     (state: userState.State) => state.loaded
 );
 
-export const Users = createSelector(
+export const CurrentUser = createSelector(
     userFeature,
     (state: userState.State) => state.currentUser
 );

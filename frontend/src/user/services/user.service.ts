@@ -7,13 +7,17 @@ import { catchError } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import gql from 'graphql-tag';
 import { UserModel } from '../models/user.model';
+import {Apollo} from 'apollo-angular';
 
 const currentUserQuery = gql`
-  query currentUser {
+  query getCurrentUser{
+    currentUser{
+      id
       firstName
       lastName
       pic
-  }
+ }
+}
 `;
 
 @Injectable({
@@ -21,9 +25,9 @@ const currentUserQuery = gql`
 })
 export class UserService {
   adress = environment.adress;
-  apollo: any;
   constructor(
     private http: HttpClient,
+    private apollo: Apollo
   ) { }
 
   changePassword(password: UserEditorPasswordModel) {
@@ -46,7 +50,7 @@ export class UserService {
     return throwError(error);
   }
 
-  fetchUser(): Observable<UserModel> {
+  fetchUser(): Observable<any> {
     return this.apollo.watchQuery({query: currentUserQuery}).valueChanges;
   }
 }

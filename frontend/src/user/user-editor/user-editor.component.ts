@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { ModalService } from '../../shared/modal/modal.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { passwordMatcher } from 'src/shared/reusable-functions/passwordMatcher';
@@ -6,15 +6,22 @@ import { UserEditorCredentialsModel, UserEditorPictureModel,
   UserEditorPasswordModel, UserInfoModel } from '../../app/models/user-editor.model';
 import { UserService } from '../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { UserModel } from '../models/user.model';
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { State } from '../store/user.states';
+import { CurrentUser } from '../store/user.reducers';
+import * as Actions from '../store/user.actions';
 
 @Component({
   selector: 'app-user-editor',
   templateUrl: './user-editor.component.html',
   styleUrls: ['./user-editor.component.scss']
 })
-export class UserEditorComponent implements OnInit {
-  
+export class UserEditorComponent implements OnInit, OnDestroy {
+  currentUser$: Observable<UserModel>;
+  currentUser: UserModel;
+  usersub: Subscription;
 
   changePasswordForm: FormGroup;
   changeCredentialsForm: FormGroup;
@@ -33,6 +40,7 @@ export class UserEditorComponent implements OnInit {
     private changeCredentialsFormBuilder: FormBuilder,
     private changePicFormBuilder: FormBuilder,
     private userService: UserService,
+    private store: Store<State>
   ) { }
 
   private validationMessages = {
@@ -44,7 +52,11 @@ export class UserEditorComponent implements OnInit {
   };
 
   ngOnInit() {
-    console.log('elo')
+    this.store.dispatch(new Actions.Fetch);
+    this.currentUser$ = this.store.select(CurrentUser);
+    this.usersub = this.currentUser$.subscribe(user => this.currentUser = user);
+
+
     this.changePasswordForm = this.changePasswordFormBuilder.group({
       oldPassword: ['', [Validators.required, Validators.minLength(5)]],
       passwordGroup: this.changePasswordFormBuilder.group({
@@ -111,4 +123,9 @@ export class UserEditorComponent implements OnInit {
     };
     reader.readAsDataURL(this.pictureUrl);
   }
+
+  ngOnDestroy(): void {
+    this.usersub.unsubscribe();
+  }
+
 }

@@ -13,6 +13,8 @@ module.exports = {
     isReviewer,
     isModerator,
     isEditor,
+    getAll
+    
 };
 
 async function registrationLocal(userParam){
@@ -158,4 +160,10 @@ async function isEditor(token) {
             }
         });
     return temp;
+}
+
+async function getAll() {
+    database.connect();
+    const u = await User.find();
+    return u;    
 }

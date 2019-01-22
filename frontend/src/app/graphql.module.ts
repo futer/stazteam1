@@ -16,7 +16,7 @@ export class GraphQLModule {
     constructor(apollo: Apollo, httpLink: HttpLink) {
         const link = httpLink.create({
             uri: environment.adress + 'graphql',
-            withCredentials: true,
+            withCredentials: false,
             method: 'GET'
         });
 
