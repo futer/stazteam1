@@ -5,16 +5,17 @@ import { SharedModule } from '../shared/shared.module';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ReviewModule } from 'src/review/review.module';
 import { CoreModule } from '../core/core.module';
 import { DocumentModule } from 'src/document/document.module';
 import { CoreRoutingModule } from '../core/core-routing.module';
-
 import { StoreModule } from '@ngrx/store';
+import { docReducer } from '../document/store/document.reducers';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ExampleRouting } from '../examples/example.routing';
+import { ExamplesModule } from 'src/examples/examples.module';
+import { UserModule } from 'src/user/user.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { routing } from 'src/examples/example.routing';
-import { ExamplesModule } from 'src/examples/examples.module';
 
 @NgModule({
   declarations: [
@@ -26,8 +27,11 @@ import { ExamplesModule } from 'src/examples/examples.module';
     HttpClientModule,
     SharedModule,
     CoreModule,
-    routing,
+    ExampleRouting,
+    ExamplesModule,
     CoreRoutingModule,
+    StoreModule.forRoot(docReducer),
+    ReactiveFormsModule,
     DocumentModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
@@ -36,7 +40,10 @@ import { ExamplesModule } from 'src/examples/examples.module';
     }),
     ExamplesModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

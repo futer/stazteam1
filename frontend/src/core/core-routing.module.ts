@@ -12,6 +12,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'register', component: RegisterComponent },
     { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
+    { path: 'user-editor', loadChildren: '../user/user.module#UserModule'}
   ];
 
 @NgModule({

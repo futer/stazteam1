@@ -1,0 +1,95 @@
+@import '../../assets/main-style.scss';
+
+app-jw-modal {
+    display: none;
+    color: white;
+    font-family: $main-font;
+}
+
+app-submit-btn{
+    width:100%;
+}
+
+.user-editor-header{
+    padding: 0.5em; 
+}
+
+.user-editor{
+    
+    display: flex;
+    background: $sec-back-color;
+    flex-direction: column;
+}
+
+.user-editor-menu{
+    display: flex;
+    justify-content: space-between;
+    border-color: white;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-spacing: 15px;
+}
+.user-editor-menu:last-of-type{
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+.open-modal{
+    width: 20%;
+    background: $btn-color;
+    border: none;
+    color: $main-font-color;
+    cursor: pointer;
+    display: inline-block;
+    font-size: $btn-font-size;
+    margin: 0.5em 0.5em 0.5em;
+    padding: 0.5em;
+    transition: 0.1s all ease-in-out, 0.1s transform ease-in-out;
+
+    &:hover {
+        transform: scale(1.025);
+    }    
+}
+
+.close-modal{
+    width: 100%;
+    margin-left: 5px;
+    grid-column-start: 2;
+    background: $btn-color;
+    border: none;
+    color: $main-font-color;
+    cursor: pointer;
+    display: inline-block;
+    font-size: $btn-font-size;
+    margin: 0.5em 0em 0.5em;
+    padding: 0.5em;
+    transition: 0.1s all ease-in-out, 0.1s transform ease-in-out;
+
+    &:hover {
+        transform: scale(1.025);
+    }   
+}
+
+.user-editor-label{
+    grid-column-start: 1;
+    display: flex;
+    align-self: center;
+    padding: 0.5em;
+    padding: 0.5em;
+}
+
+.change-pic{
+    display:flex;
+    justify-content: space-around; 
+    align-items: center;
+}
+.changeCredentials, .changePassword{
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start
+}
+
+.input-group{
+    width: 100%;
+}
