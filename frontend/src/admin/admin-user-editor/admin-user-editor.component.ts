@@ -62,7 +62,16 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
   }
 
   updateUser(form) {
-    console.log(form.value);
+    console.log(form.value.changePasswordGroup.passwordGroup.password.value);
+    const user: User = {
+      id: this.selectedUser.id,
+      firstName: form.value.firstName,
+      lastName: form.value.lastName,
+      pic: form.value.pic,
+      password: form.value.password
+    };
+    console.log(user);
+    this.store.dispatch(new Actions.Send(user));
   }
 
   pictureUpload(event) {

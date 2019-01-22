@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { UserModel, UserWithoutPass } from '../models/user.model';
+import { UserModel, UserWithoutPass, User } from '../models/user.model';
 import { ErrorData } from '../models/error.model';
 
 export enum userTypes {
@@ -28,7 +28,7 @@ export class FetchError implements Action {
 
 export class Send implements Action {
     readonly type = userTypes.SEND;
-    constructor() {}
+    constructor(readonly payload: User) {}
 }
 
 export class SendSuccess implements Action {

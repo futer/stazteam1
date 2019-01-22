@@ -18,6 +18,9 @@ export function passwordTouchedChecker ( c: AbstractControl ): { [key: string]: 
   const newPassword = c.get('passwordGroup.password');
   const repeatPassword = c.get('passwordGroup.repeatPassword');
 
+  if ( oldPassword.value === '' && newPassword.value === '' && repeatPassword.value === '') {
+    return null;
+  }
   if ( oldPassword.pristine || newPassword.pristine || repeatPassword.pristine ) {
     if ( oldPassword.pristine && newPassword.pristine && repeatPassword.pristine ) {
       return null;

@@ -7,6 +7,8 @@ import { AdminUserEditorService } from '../services/admin-user-editor.service';
 import * as userActions from './admin.actions';
 import { UserModel, UserWithoutPass } from '../models/user.model';
 import { ErrorData } from '../models/error.model';
+import { User } from '../models/user.model';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 
 @Injectable()
@@ -32,8 +34,8 @@ export class UserEffects {
     Send$: Observable<any> = this.actions$
         .ofType(userActions.userTypes.SEND)
         .pipe(
-            switchMap(() =>
-                this.adminUserEditorService.sendUser().pipe(
+            switchMap((payload) =>
+                this.adminUserEditorService.sendUser(payload).pipe(
                     map((user: UserWithoutPass) => new userActions.SendSuccess(user)),
                     catchError((error: ErrorData) => of(new userActions.FetchError(error)))
                 )
