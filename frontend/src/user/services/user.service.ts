@@ -4,13 +4,24 @@ import { UserEditorCredentialsModel, UserEditorPictureModel,
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
+import gql from 'graphql-tag';
+import { UserModel } from '../models/user.model';
+
+const currentUserQuery = gql`
+  query currentUser {
+      firstName
+      lastName
+      pic
+  }
+`;
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   adress = environment.adress;
+  apollo: any;
   constructor(
     private http: HttpClient,
   ) { }
@@ -33,5 +44,9 @@ export class UserService {
 
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
+  }
+
+  fetchUser(): Observable<UserModel> {
+    return this.apollo.watchQuery({query: currentUserQuery}).valueChanges;
   }
 }

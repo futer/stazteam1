@@ -5,6 +5,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from 'src/shared/modal/modal.component';
 import { SharedModule } from 'src/shared/shared.module';
 import { UserEditorRouting } from './user.routing.module';
+import { StoreModule } from '@ngrx/store';
+import { userReducer } from './store/user.reducers';
+import { UserEffects } from './store/user.effects';
+
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -16,6 +21,8 @@ import { UserEditorRouting } from './user.routing.module';
     SharedModule,
     ReactiveFormsModule,
     UserEditorRouting,
+    StoreModule.forFeature('users', userReducer),
+    EffectsModule.forFeature([UserEffects])
   ],
   exports: [
   ]

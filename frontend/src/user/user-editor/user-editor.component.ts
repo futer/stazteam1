@@ -14,6 +14,8 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./user-editor.component.scss']
 })
 export class UserEditorComponent implements OnInit {
+  
+
   changePasswordForm: FormGroup;
   changeCredentialsForm: FormGroup;
   changePicForm: FormGroup;
@@ -42,6 +44,7 @@ export class UserEditorComponent implements OnInit {
   };
 
   ngOnInit() {
+    console.log('elo')
     this.changePasswordForm = this.changePasswordFormBuilder.group({
       oldPassword: ['', [Validators.required, Validators.minLength(5)]],
       passwordGroup: this.changePasswordFormBuilder.group({
