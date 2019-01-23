@@ -15,7 +15,7 @@ const BookmarkModel = new Schema({
         ],
         required: true,
     },
-    link: {
+    content: {
         type: String,
         required: true,
         trim: true,

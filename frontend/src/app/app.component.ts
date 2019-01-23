@@ -24,7 +24,7 @@ ngOnInit() {
      } else {
        this.isActive = true;
      }
-    console.log(this.isActive);
+    // console.log(this.isActive);
     });
 
   }

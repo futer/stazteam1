@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
 import { environment } from '../../environments/environment';
+import { map } from 'rxjs/operators';
 
 const DocQuery = gql`
   query Documents {

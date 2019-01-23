@@ -10,10 +10,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MainComponent } from './main/main.component';
 import { DocumentModule } from 'src/document/document.module';
 import { StoreModule } from '@ngrx/store';
-import authReducer from './store/auth.reducers';
+import authReducer from './store/auth/auth.reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthEffect } from './store/auth.effects';
+import { AuthEffect } from './store/auth/auth.effects';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { reducers } from './store';
+import { BookmarkEffect } from './store/bookmark/bookmark.effects';
 
 @NgModule({
   declarations: [
@@ -29,8 +31,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     SharedModule,
     HttpClientModule,
     DocumentModule,
-    StoreModule.forFeature('auth', authReducer),
-    EffectsModule.forFeature([AuthEffect]),
+    StoreModule.forFeature('core', reducers),
+    EffectsModule.forFeature([AuthEffect, BookmarkEffect]),
   ],
   exports: [
     NavComponent,
