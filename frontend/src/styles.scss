@@ -48,9 +48,10 @@ body{
             grid-column: 7/9;
             grid-row: 2/3;
         }
-
-
-
+        
+        app-boorkmark-creator {
+            grid-row:  1/7;
+        }
 
         app-main, app-example1, app-user-editor  {
             grid-column: 2/8;
@@ -58,6 +59,18 @@ body{
             app-main {
               grid-row: 2/3;
             }
+
         }
+
+        app-subpage-container {
+            grid-row: 2/3; 
+            grid-column: 1/7;
+            display: flex;
+            justify-content: center;
+        }
+       
+        
+        
+       
     }
 }

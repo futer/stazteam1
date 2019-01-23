@@ -14,7 +14,7 @@ const bookmarkType = new GraphQLObjectType({
         getPositionEnum('positionType'),
       )
     },
-    link: { type: new GraphQLNonNull(GraphQLString) }
+    content: { type: new GraphQLNonNull(GraphQLString) }
   })
 });
 

@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>Add Bookmark</h1>
+    <form class="bookmark-creator" (ngSubmit)="onSubmit()">
+      <input 
+        id="bookmark-name" 
+        type="text" 
+        placeholder="name" 
+        name="name" 
+        [(ngModel)]="bookmark.name">
+      <input 
+        id="bookmark-name" 
+        type="text"
+        placeholder="header" 
+        name="header" 
+        [(ngModel)]="bookmark.header">
+      <input 
+        id="bookmark-content" 
+        type="text"
+        placeholder="content" 
+        name="content" 
+        [(ngModel)]="bookmark.content">
+      <button>
+        Dodaj
+      </button>
+    </form>
+</div>
