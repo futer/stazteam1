@@ -9,25 +9,25 @@ export const initialState: userState.State = {
     errorMessage: null,
 };
 
-export const userFeature = createFeatureSelector<userState.State>('users');
+export const userFeature2 = createFeatureSelector<userState.State>('currentUser');
 
 export const isLoading = createSelector(
-    userFeature,
+    userFeature2,
     (state: userState.State) => state.loading
 );
 
 export const isLoaded = createSelector(
-    userFeature,
+    userFeature2,
     (state: userState.State) => state.loaded
 );
 
 export const CurrentUser = createSelector(
-    userFeature,
+    userFeature2,
     (state: userState.State) => state.currentUser
 );
 
 export const Errors = createSelector(
-    userFeature,
+    userFeature2,
     (state: userState.State) => state.errorMessage
 );
 

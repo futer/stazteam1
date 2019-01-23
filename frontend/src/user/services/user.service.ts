@@ -10,14 +10,14 @@ import { UserModel } from '../models/user.model';
 import {Apollo} from 'apollo-angular';
 
 const currentUserQuery = gql`
-  query getCurrentUser{
-    currentUser{
-      id
-      firstName
-      lastName
-      pic
- }
-}
+    query getCurrentUser{
+      currentUser{
+        id
+        firstName
+        lastName
+        pic
+  }
+  }
 `;
 
 @Injectable({

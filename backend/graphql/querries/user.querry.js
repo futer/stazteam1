@@ -14,7 +14,7 @@ const userQueries = {
     },
 
     currentUser: {
-        type: new GraphQLNonNull(userType),
+        type: userType,
         resolve: userResolver.getCurrentUser,
     }
 };

@@ -21,7 +21,7 @@ import { EffectsModule } from '@ngrx/effects';
     SharedModule,
     ReactiveFormsModule,
     UserEditorRouting,
-    StoreModule.forFeature('users', userReducer),
+    StoreModule.forFeature('currentUser', userReducer),
     EffectsModule.forFeature([UserEffects])
   ],
   exports: [
