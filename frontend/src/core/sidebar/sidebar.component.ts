@@ -19,16 +19,6 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new bookmarkActions.Fetch);
-    // this.bookmark$.subscribe((res: any) => {
-    //   if (res) {
-    //     res.map(bookmark => {
-    //       if (bookmark.position === 'RIGHT') {
-    //         this.rightBookmarks.push(bookmark);
-    //         console.log(this.rightBookmarks);
-    //       }
-    //     });
-    //   }
-    // });
   }
 
 

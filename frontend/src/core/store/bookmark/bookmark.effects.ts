@@ -23,7 +23,6 @@ export class BookmarkEffect {
                 map((bookmark: BookmarkModel[]) => {
                     const bookmarkData = { ...bookmark, ...bookmark['data']};
                     delete bookmarkData.data;
-                    // console.log(bookmarkData.bookmarks);
                     return new bookmarkActions.FetchSuccess(bookmarkData.bookmarks);
                 }),
                 catchError((error: ErrorData) => of(new bookmarkActions.FetchFaild(error)))

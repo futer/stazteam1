@@ -5,8 +5,8 @@ import { ErrorData } from 'src/document/models/error.model';
 
 export enum bookmarkTypes {
     FETCH = '[BOOKMARK] Fetch',
-    FETCH_SUCCESS = '[BOOKMARK] FetchSuccess',
-    FETCH_FAILD = '[BOOKMARK] FetchFaild'
+    FETCH_SUCCESS = '[BOOKMARK] Fetch Success',
+    FETCH_FAILD = '[BOOKMARK] Fetch Faild'
 }
 
 export class Fetch implements Action {
