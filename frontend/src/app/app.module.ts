@@ -16,6 +16,7 @@ import { ExamplesModule } from 'src/examples/examples.module';
 import { UserModule } from 'src/user/user.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import userReducer from 'src/user/store/user.reducers';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreModule.forRoot(docReducer),
     ReactiveFormsModule,
     DocumentModule,
-    StoreModule.forRoot({}),
+    UserModule,
+    StoreModule.forRoot({userReducer}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 10

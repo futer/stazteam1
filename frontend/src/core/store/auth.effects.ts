@@ -8,6 +8,7 @@ import { LogIn } from './auth.actions';
 import { LoginModel } from 'src/app/models/login.model';
 import { ErrorData } from 'src/document/models/error.model';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 
 @Injectable()

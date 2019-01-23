@@ -53,6 +53,7 @@ export function userReducer (
             };
 
             case userActions.userTypes.FETCH_ERROR:
+            console.log(action.payload);
             return {
                 loading: false,
                 loaded: false,

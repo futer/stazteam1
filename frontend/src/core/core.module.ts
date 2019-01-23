@@ -14,6 +14,7 @@ import authReducer from './store/auth.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffect } from './store/auth.effects';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import userReducer from 'src/admin/store/admin.reducers';
 
 @NgModule({
   declarations: [
