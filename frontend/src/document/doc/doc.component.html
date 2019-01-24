@@ -1,12 +1,12 @@
 <article class="doc">
   <div class="doc__desc">
-    <span class="doc__desc--title">{{doc.title}}</span>
-    <span class="doc__desc--author">{{doc.author}}</span>
-    <span class="doc__desc--date">{{doc.date}}</span>
+    <span class="doc__desc--title">{{document.data.document.title}}</span>
+    <span class="doc__desc--author">{{document.data.document.author}}</span>
+    <span class="doc__desc--date">{{document.data.document.date}}</span>
     <app-submit-btn [buttonStyle]="'doc__desc--like'">Like</app-submit-btn>
   </div>
   <p class="doc__content">
-    {{doc.content}}
+    {{document.data.document.content}}
   </p>
   <div class="doc__controls">
     <app-router-btn [link]="'/main'" [class]="'doc-prev__open'">

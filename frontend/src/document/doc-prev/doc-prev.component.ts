@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./doc-prev.component.scss']
 })
 export class DocPrevComponent implements OnInit {
-  @Input() document;
+  @Input() preview;
 
   constructor() { }
 

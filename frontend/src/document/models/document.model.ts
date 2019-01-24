@@ -5,5 +5,12 @@ export interface DocumentsModel {
 }
 
 export interface DocumentModel {
-    content: string;
+    data: {
+        document: {
+            author: string;
+            content: string;
+            date: string;
+            title: string;
+        };
+    };
 }

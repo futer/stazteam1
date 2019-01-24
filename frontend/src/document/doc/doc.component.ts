@@ -17,33 +17,44 @@ export class DocComponent implements OnInit, OnDestroy {
     docData: Subscription;
 
     id: number;
-    doc: DocumentModel = {
-        content: '',
+    document: DocumentModel = {
+        data: {
+            document: {
+                author: '',
+                content: '',
+                date: '',
+                title: ''
+            }
+        }
     };
 
-    constructor(private store: Store<DocState>, private route: ActivatedRoute) {}
+    constructor(
+        private store: Store<DocState>,
+        private route: ActivatedRoute
+    ) {}
 
     ngOnInit() {
         this.checkRoute = this.route.params.subscribe(params => {
             this.id = params['id'];
-            this.docData = this.store.select(getDoc).subscribe(docs => {
-                if (!docs) {
+            this.docData = this.store.select(getDoc).subscribe(doc => {
+                if (!doc) {
                     console.log('empty boiii');
                     this.store.dispatch(new Actions.FetchDoc(this.id));
                 }
+                if (doc) {
+                    const pdf = atob(doc.data.document.content);
 
-                // if (docs) {
-                //     docs.data.documents.forEach(obj => {
-                //         if (this.id === obj['id']) {
-                //             this.doc = {
-                //                 author: obj['author'],
-                //                 content: obj['content'],
-                //                 date: obj['date'],
-                //                 title: obj['title']
-                //             };
-                //         }
-                //     });
-                // }
+                    this.document = {
+                        data: {
+                            document: {
+                                author: doc.data.document.author,
+                                content: pdf,
+                                date: doc.data.document.date,
+                                title: doc.data.document.title
+                            }
+                        }
+                    };
+                }
             });
         });
     }

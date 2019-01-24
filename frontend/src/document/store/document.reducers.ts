@@ -4,7 +4,7 @@ import * as Actions from './document.actions';
 export const initialPrevState: States.PrevState = {
     loading: false,
     loaded: false,
-    documents: null,
+    previews: null,
     errorMessage: null
 };
 
@@ -24,7 +24,7 @@ export function prevReducer(
           return {
               loading: true,
               loaded: false,
-              documents: null,
+              previews: null,
               errorMessage: null
           };
 
@@ -32,7 +32,7 @@ export function prevReducer(
           return {
               loading: false,
               loaded: true,
-              documents: {
+              previews: {
                   data: {
                       documents: action.payload.data.documents
                   }
@@ -44,7 +44,7 @@ export function prevReducer(
           return {
               loading: false,
               loaded: false,
-              documents: null,
+              previews: null,
               errorMessage: {
                   type: action.type,
                   error: action.payload

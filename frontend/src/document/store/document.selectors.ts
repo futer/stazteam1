@@ -16,7 +16,7 @@ export const arePrevsLoaded = createSelector(
 
 export const getPrevs = createSelector(
     docFeature,
-    (state: States.DocModuleState) => state.prevs.documents
+    (state: States.DocModuleState) => state.prevs.previews
 );
 
 export const getPrevsError = createSelector(

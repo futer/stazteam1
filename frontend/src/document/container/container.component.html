@@ -1,5 +1,5 @@
 <section>
-  <app-doc-prev *ngFor="let doc of (prevs$ | async)?.data.documents" [document]="doc"></app-doc-prev>
+  <app-doc-prev *ngFor="let prev of (prevs$ | async)?.data.documents" [preview]="prev"></app-doc-prev>
 </section>
 
 
