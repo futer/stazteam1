@@ -30,12 +30,14 @@ import userReducer from 'src/admin/store/admin.reducers';
     SharedModule,
     HttpClientModule,
     DocumentModule,
-    StoreModule.forFeature('auth', authReducer),
-    EffectsModule.forFeature([AuthEffect]),
+    // StoreModule.forFeature('auth', authReducer),
+    // EffectsModule.forFeature([AuthEffect]),
   ],
   exports: [
     NavComponent,
     SidebarComponent
   ],
+  providers: [
+  ]
 })
 export class CoreModule { }

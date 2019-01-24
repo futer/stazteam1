@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {  NavigationEnd, Router } from '@angular/router';
 import {  filter } from 'rxjs/operators';
-import { Navigation } from 'selenium-webdriver';
-import { Fetch } from 'src/user/store/user.actions';
 import { Store } from '@ngrx/store';
-import { State } from 'src/user/store/user.states';
+import { AuthState } from '../core/store/auth.state';
+import { Reload } from 'src/core/store/auth.actions';
 
 
 @Component({
@@ -17,7 +16,7 @@ export class AppComponent implements OnInit  {
   isActive: boolean;
 
 constructor(private router: Router,
-  private store: Store<State>) {}
+  private store: Store<AuthState>) {}
 
 ngOnInit() {
   this.router.events
@@ -26,7 +25,8 @@ ngOnInit() {
      if ( event.url === '/login' || event.url === '/register') {
        this.isActive = false;
      } else {
-       this.store.dispatch(new Fetch);
+       console.log(localStorage.getItem('token'));
+       this.store.dispatch(new Reload(localStorage.getItem('token')));
        this.isActive = true;
      }
     console.log(this.isActive);

@@ -61,6 +61,14 @@ export function userReducer (
                 errorMessage: action.payload
             };
 
+            case userActions.userTypes.CLEAR:
+            return {
+                loading: false,
+                loaded: false,
+                currentUser: null,
+                errorMessage: null
+            };
+
             default:
                 return state;
         }

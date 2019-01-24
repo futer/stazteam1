@@ -5,7 +5,8 @@ import { ErrorData } from '../models/error.model';
 export enum userTypes {
     FETCH = '[User] Fetch',
     FETCH_SUCCESS = '[User] FetchSuccess',
-    FETCH_ERROR = '[User] FetchError'
+    FETCH_ERROR = '[User] FetchError',
+    CLEAR = '[User] Clear'
 }
 
 export class Fetch implements Action {
@@ -23,7 +24,14 @@ export class FetchError implements Action {
     constructor(readonly payload: ErrorData) {}
 }
 
+
+export class Clear implements Action {
+    readonly type = userTypes.CLEAR;
+    constructor() {}
+}
+
 export type All =
     | Fetch
     | FetchSuccess
-    | FetchError;
+    | FetchError
+    | Clear;

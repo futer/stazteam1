@@ -17,6 +17,9 @@ import { UserModule } from 'src/user/user.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import userReducer from 'src/user/store/user.reducers';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import authReducer from 'src/core/store/auth.reducers';
+import { AuthEffect } from 'src/core/store/auth.effects';
 
 @NgModule({
   declarations: [
@@ -31,12 +34,12 @@ import userReducer from 'src/user/store/user.reducers';
     ExampleRouting,
     ExamplesModule,
     CoreRoutingModule,
-    StoreModule.forRoot(docReducer),
+    StoreModule.forRoot([docReducer, authReducer]),
     ReactiveFormsModule,
     DocumentModule,
     UserModule,
-    StoreModule.forRoot({userReducer}),
-    EffectsModule.forRoot([]),
+    // StoreModule.forRoot({userReducer}),
+    EffectsModule.forRoot([AuthEffect]),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),
