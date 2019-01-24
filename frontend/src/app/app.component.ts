@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {  NavigationEnd, Router } from '@angular/router';
 import {  filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../core/store/auth.state';
-import { Reload } from 'src/core/store/auth.actions';
+import { AuthState } from '../core/store/auth/auth.state';
+import { Reload } from '../core/store/auth/auth.actions';
 
 
 @Component({
@@ -24,7 +24,7 @@ ngOnInit() {
   .subscribe((event: NavigationEnd) => {
      if ( event.url === '/login' || event.url === '/register') {
        this.isActive = false;
-     } else{
+     } else {
        this.store.dispatch(new Reload());
        this.isActive = true;
      }
