@@ -1,18 +1,21 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 
 import { ChatService } from '../services/chat.service';
-import { CommandEnum } from '../models/command.enum';
-import { MessageModel } from '../models/message.model';
-import { MessageCMDModel } from '../models/message-cmd.model';
 
-import { TokenModel } from '../../app/models/token.model';
+import { CommandEnum } from '../models/command.enum';
 import { RoleEnum } from 'src/app/models/role.enum';
 import { RegisteredEnum } from 'src/app/models/registered.enum';
-import { LoginCMDModel } from '../models/login-cmd.model';
+import { BanEnum } from '../models/ban.enum';
+
+import { UserModel } from 'src/app/models/user.model';
+import { MessageModel } from '../models/message.model';
 import { ContextMenuModel } from '../models/context-menu.model';
 import { ContextMenuItemModel } from '../models/context-menu-item.model';
+
+import { LoginLogoutCMDModel } from '../models/login-logout-cmd.model';
+import { MessageCMDModel } from '../models/message-cmd.model';
 import { BanCMDModel } from '../models/ban-cmd.model';
-import { BanEnum } from '../models/ban.enum';
+
 
 @Component({
   selector: 'app-chat',
@@ -21,71 +24,104 @@ import { BanEnum } from '../models/ban.enum';
 })
 export class ChatComponent implements OnInit {
 
-  token: TokenModel;
+  @Input() chatStyle: string;
+
+  @ViewChild('messageComponent', { read: ElementRef }) messageComponent: ElementRef;
+  @ViewChild('chatBar', { read: ElementRef }) chatBarComponent: ElementRef;
+
+  loggedUser: UserModel;
 
   contexMenuPositionStyles: Object;
   contextMenu: ContextMenuModel;
   clickedMessage: MessageModel;
 
-  @Input() chatStyle = '';
   messages: MessageModel[];
-  hidden = false;
 
-  @ViewChild('messageComponent', { read: ElementRef }) messageComponent: ElementRef;
-  @ViewChild('chatBar', { read: ElementRef }) chatBarComponent: ElementRef;
+  chatIsHidden: boolean;
+  userIsBanned: boolean;
 
   constructor(private chatService: ChatService) {
-    this.messages = [];
+    this.chatStyle = '';
 
-    this.token = {
+    this.loggedUser = <UserModel>{
       _id: '5c2cc322a47bf531845f2c3f',
       firstName: 'Test',
       lastName: 'Testowy',
       email: 'test@test.test',
-      role: RoleEnum.USER,
+      role: RoleEnum.MODERATOR,
       registered: RegisteredEnum.LOCAL,
       isBanned: true,
     };
 
+    this.contexMenuPositionStyles = this.getContextMenuStyle();
     this.contextMenu = { items: [] };
+    this.clickedMessage = null;
 
-    this.hideContextMenu();
+    this.messages = [];
+
+    this.chatIsHidden = false;
+    this.userIsBanned = false;
+
   }
 
   ngOnInit() {
-    this.chatService.getSocket().subscribe(
+    // this.userIsBanned = true;
+
+    if (this.userIsBanned) {
+      const msg = <MessageModel> {
+        user: {
+          id: this.loggedUser._id,
+          firstName: this.loggedUser.firstName,
+          lastName: this.loggedUser.lastName,
+          isBanned: this.loggedUser.isBanned,
+        },
+        message: {
+          isMessage: false,
+          message: 'you are banned'
+        }
+      };
+
+      this.messages.push(msg);
+
+      return;
+    }
+  }
+
+  public loginUser() {
+    this.chatService.connect().subscribe(
       message => {
-        this.chatService.handleCommand(this.messages, this.token, message);
+        this.chatService.handleCommand(this.messages, this.loggedUser, message);
       },
       err => console.log(err)
     );
 
-    const loginMsg = <LoginCMDModel> {
-      command: CommandEnum.LOGIN,
-      payload: {
-        user: {
-          id: this.token._id,
-          firstName: this.token.firstName,
-          lastName: this.token.lastName,
-        }
-      },
-    };
+    const loginMsg = this.getLoginLogoutCMDModel(this.loggedUser);
 
     this.chatService.sendMessage(loginMsg);
   }
 
-  toggleChat() {
-    this.hidden ? (this.hidden = false) : (this.hidden = true);
+  public logoutUser() {
+    const logoutMsg = this.getLoginLogoutCMDModel(this.loggedUser, false);
+
+    this.chatService.sendMessage(logoutMsg);
+    this.chatService.disconncet();
   }
 
-  onMessage(message: string) {
+  private toggleChat() {
+    this.chatIsHidden ? (this.chatIsHidden = false) : (this.chatIsHidden = true);
+    // this.chatIsHidden ? (this.logoutUser()) : (this.loginUser());
+  }
+
+  private onMessage(message: string) {
+    if (this.userIsBanned) { return; }
+
     const msg = <MessageCMDModel> {
       command: CommandEnum.MESSAGE,
       payload: {
         user: {
-          id: this.token._id,
-          firstName: this.token.firstName,
-          lastName: this.token.lastName,
+          id: this.loggedUser._id,
+          firstName: this.loggedUser.firstName,
+          lastName: this.loggedUser.lastName,
         },
         message: {
           message: message
@@ -96,7 +132,9 @@ export class ChatComponent implements OnInit {
     this.chatService.sendMessage(msg);
   }
 
-  showContextMenu(data) {
+  private showContextMenu(data) {
+    if (this.loggedUser.role !== RoleEnum.MODERATOR) { return; }
+
     this.clickedMessage = <MessageModel>data[0];
     this.contextMenu = {
       items: [{
@@ -112,25 +150,20 @@ export class ChatComponent implements OnInit {
 
     const chatBarHeight = this.chatBarComponent.nativeElement.children[0].clientHeight;
     const event: MouseEvent = data[1];
-    this.contexMenuPositionStyles = {
-      position: 'absolute',
-      top: `${event.layerY + chatBarHeight}px`,
-      left: `${event.layerX}px`,
-      visibility: 'visible',
-    };
+
+    this.contexMenuPositionStyles = this.getContextMenuStyle(
+      event.layerY + chatBarHeight,
+      event.layerX,
+      'visible'
+    );
   }
 
-  hideContextMenu() {
+  private hideContextMenu() {
     this.clickedMessage = null;
-    this.contexMenuPositionStyles = {
-      position: 'absolute',
-      top: '-100px',
-      left: '-100px',
-      visibility: 'hidden',
-    };
+    this.contexMenuPositionStyles = this.getContextMenuStyle();
   }
 
-  scrollToBottom() {
+  private scrollToBottom() {
     if (this.clickedMessage) { return; }
 
     const nativeElement = this.messageComponent.nativeElement.children[0];
@@ -138,7 +171,9 @@ export class ChatComponent implements OnInit {
     nativeElement.scrollTop = nativeElement.scrollHeight - nativeElement.clientHeight + 1;
   }
 
-  contextMenuAction(data: any[]) {
+  private contextMenuAction(data: any[]) {
+    if (this.loggedUser.role !== RoleEnum.MODERATOR) { return; }
+
     const message = <MessageModel>data[0];
     const contextClickedItem = <ContextMenuItemModel>data[1];
 
@@ -146,27 +181,50 @@ export class ChatComponent implements OnInit {
 
     switch (contextClickedItem.command) {
       case BanEnum.MESSAGE:
-        commandMessage = <BanCMDModel>{
-          command: CommandEnum.BAN,
-          payload: {
-            id: message.message.id,
-            ban: BanEnum.MESSAGE,
-          }
-        };
+        commandMessage = this.getBanCMDModel(message.message.id, BanEnum.MESSAGE);
         break;
       case BanEnum.USER:
-        commandMessage = <BanCMDModel>{
-          command: CommandEnum.BAN,
-          payload: {
-            id: message.user.id,
-            ban: BanEnum.USER,
-          }
-        };
+        commandMessage = this.getBanCMDModel(message.user.id, BanEnum.USER);
         break;
     }
 
     this.chatService.sendMessage(commandMessage);
 
     this.hideContextMenu();
+  }
+
+  private getContextMenuStyle(height: number = 0, width: number = 0, visibility: string = 'hidden') {
+    return {
+      position: 'absolute',
+      top: `${height}px`,
+      left: `${width}px`,
+      visibility: visibility,
+    };
+  }
+
+  private getBanCMDModel(id: string, ban: BanEnum) {
+    return <BanCMDModel>{
+      command: CommandEnum.BAN,
+      payload: {
+        id: id,
+        ban: ban,
+      }
+    };
+  }
+
+  private getLoginLogoutCMDModel(loggedUser: UserModel, isLogin: boolean = true)  {
+    let command;
+    (isLogin) ? command = CommandEnum.LOGIN : command = CommandEnum.LOGOUT;
+
+    return <LoginLogoutCMDModel> {
+      command: command,
+      payload: {
+        user: {
+          id: loggedUser._id,
+          firstName: loggedUser.firstName,
+          lastName: loggedUser.lastName,
+        }
+      },
+    };
   }
 }

@@ -1,14 +1,18 @@
 <div [class]="sendMessageStyles">
-  <form [class]="'sendMessageForm'" [formGroup]="sendMessageForm" (ngSubmit)="send(sendMessageForm)" [autocomplete]="'off'">
-    <app-input 
-      [id]="'message'"
-      [controlName]="sendMessageForm.controls.message" 
-      [placeholder]="'enter your message'" 
-      [type]="'text'" 
-      [formInputStyle]="'chat__input'"
-      (keyup.enter)="send(sendMessageForm)"></app-input>
-    <app-submit-btn 
-      [buttonStyle]="'send-message__submit'"
-      [disabled]="sendMessageForm.invalid">Send</app-submit-btn>
+  <form 
+    [class]="'sendMessageForm'" 
+    [formGroup]="sendMessageForm" 
+    [autocomplete]="'off'"
+    (ngSubmit)="send(sendMessageForm)" >
+      <app-input 
+        [id]="'message'"
+        [controlName]="sendMessageForm.controls.message" 
+        [placeholder]="'enter your message'" 
+        [type]="'text'" 
+        [formInputStyle]="'chat__input'"
+        (keyup.enter)="send(sendMessageForm)"></app-input>
+      <app-submit-btn 
+        [buttonStyle]="'send-message__submit'"
+        [disabled]="userIsBanned || sendMessageForm.invalid">Send</app-submit-btn>
   </form>
 </div>

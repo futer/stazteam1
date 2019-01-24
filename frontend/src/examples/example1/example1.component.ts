@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChatComponent } from 'src/chat/chat/chat.component';
 
 @Component({
   selector: 'app-example1',
@@ -7,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Example1Component implements OnInit {
 
+  @ViewChild(ChatComponent, {read: ChatComponent}) chatComonent: ChatComponent;
+
   constructor() { }
 
-  ngOnInit() { }
-
+  ngOnInit() {
+    this.chatComonent.loginUser();
+  }
 }

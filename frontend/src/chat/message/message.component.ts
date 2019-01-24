@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, AfterViewChecked } from '@angular/core';
+
 import { MessageModel } from '../models/message.model';
 
 @Component({
@@ -8,8 +9,6 @@ import { MessageModel } from '../models/message.model';
 })
 export class MessageComponent implements OnInit, AfterViewChecked {
 
-  private messagesLength: number;
-
   @Input() messages: MessageModel[];
   @Input() messageStyle: string;
   @Input() isMessage: boolean;
@@ -18,12 +17,14 @@ export class MessageComponent implements OnInit, AfterViewChecked {
   @Output() scrollEventEmitter = new EventEmitter();
   @Output() showContextMenuEmitter = new EventEmitter<any[]>();
 
-  @ViewChild('messageComponent', { read: ElementRef }) messageComponent: ElementRef;
+  private messagesLength: number;
 
   constructor() {
-    this.messagesLength = 0;
-    this.isMessage = true;
+    this.messages = [];
     this.messageStyle = '';
+    this.isMessage = true;
+
+    this.messagesLength = 0;
   }
 
   ngOnInit() {

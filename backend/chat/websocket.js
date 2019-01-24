@@ -1,5 +1,7 @@
 const WebSocket = require('ws');
 const chat = require('./chat');
+const env = require('../enviromental/enviroments');
+const userService = require('../services/user.service');
 
 function init(server) {
   const wss = new WebSocket.Server({ 
@@ -7,6 +9,17 @@ function init(server) {
   });
 
   wss.on('connection', (ws, req) => {
+    // if (req.headers.origin !== env.CORS_ADDRESS) {
+    //   ws.send(JSON.stringify({error: 'wrong origin!'}));
+    //   ws.terminate();
+    //   return;
+    // }
+    if (!userService.isLogged(req.headers['sec-websocket-protocol'])) {
+      // ws.send(JSON.stringify({error: 'you are not logged!'}));
+      // ws.terminate();
+      // return;
+    }
+
     chat.init(wss);
     ws.isAlive = true;
 

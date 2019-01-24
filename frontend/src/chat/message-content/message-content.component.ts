@@ -7,9 +7,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MessageContentComponent implements OnInit {
 
-  @Input() messageContentStyle = '';
+  @Input() messageContentStyle: string;
 
-  constructor() { }
+  constructor() {
+    this.messageContentStyle = '';
+  }
 
   ngOnInit() {
   }

@@ -1,45 +1,61 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
-import { MessageCMDModel } from '../models/message-cmd.model';
 
-import { CommandCMDModel } from '../models/command-cmd.model';
-import { CommandEnum } from '../models/command.enum';
-import { TokenModel } from 'src/app/models/token.model';
-import { MessageModel } from '../models/message.model';
 import { BanEnum } from '../models/ban.enum';
+import { StatusEnum } from '../models/status.enum';
+import { CommandEnum } from '../models/command.enum';
+
+import { UserModel } from 'src/app/models/user.model';
+import { MessageModel } from '../models/message.model';
+
+import { MessageCMDModel } from '../models/message-cmd.model';
+import { CommandCMDModel } from '../models/command-cmd.model';
 import { BanCMDModel } from '../models/ban-cmd.model';
 import { ShortMessageCMDModel } from '../models/short-message.model';
-import { StatusEnum } from '../models/status.enum';
+import { LoginLogoutCMDModel } from '../models/login-logout-cmd.model';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
 
-  private socket: WebSocketSubject<CommandCMDModel>;
+  socket: WebSocketSubject<CommandCMDModel>;
 
-  constructor() {
-    this.socket = webSocket(environment.socketAddress);
-  }
+  constructor(
+    private authService: AuthService,
+  ) { }
 
-  getSocket(): WebSocketSubject<CommandCMDModel> {
+  connect(): WebSocketSubject<CommandCMDModel> {
+    this.socket = webSocket({
+      url: environment.socketAddress,
+      protocol: localStorage.getItem('token'),
+      closeObserver: {
+        next(closeEvent) { }
+      },
+    });
+
     return this.socket;
   }
 
-  handleCommand(messages: MessageModel[], token: TokenModel, message: CommandCMDModel) {
+  disconncet() {
+    this.socket.unsubscribe();
+  }
+
+  handleCommand(messages: MessageModel[], loggedUser: UserModel, message: CommandCMDModel) {
     switch (message.command) {
       case CommandEnum.MESSAGE:
         this.messageCommand(messages, message);
         break;
       case CommandEnum.LOGIN:
-        this.loginCommand(token, messages);
+        this.loginCommand(messages, message);
         break;
       case CommandEnum.LOGOUT:
-        this.logoutCommand(token, messages);
+        this.logoutCommand(messages, message);
         break;
       case CommandEnum.BAN:
-        this.banCommand(messages, message);
+        this.banCommand(messages, loggedUser, message);
         break;
     }
   }
@@ -62,15 +78,17 @@ export class ChatService {
     messages.push(msgModel);
   }
 
-  loginCommand(token: TokenModel, messages: MessageModel[]) {
+  loginCommand(messages: MessageModel[], message: CommandCMDModel) {
+    const msg = <LoginLogoutCMDModel>message;
+
     const msgModel: MessageModel = {
       user: {
-        id: token._id,
-        firstName: token.firstName,
-        lastName: token.lastName,
+        id: msg.payload.user.id,
+        firstName: msg.payload.user.firstName,
+        lastName: msg.payload.user.lastName,
       },
       message: {
-        message: `${token.firstName} ${token.lastName} logged!`,
+        message: `${msg.payload.user.firstName} ${msg.payload.user.lastName} logged!`,
         isMessage: false,
       }
     };
@@ -78,15 +96,17 @@ export class ChatService {
     messages.push(msgModel);
   }
 
-  logoutCommand(token: TokenModel, messages: MessageModel[]) {
+  logoutCommand(messages: MessageModel[], message: CommandCMDModel) {
+    const msg = <LoginLogoutCMDModel>message;
+
     const msgModel: MessageModel = {
       user: {
-        id: token._id,
-        firstName: token.firstName,
-        lastName: token.lastName,
+        id: msg.payload.user.id,
+        firstName: msg.payload.user.firstName,
+        lastName: msg.payload.user.lastName,
       },
       message: {
-        message: `${token.firstName} ${token.lastName} logout!`,
+        message: `${msg.payload.user.firstName} ${msg.payload.user.lastName} logout!`,
         isMessage: false,
       }
     };
@@ -94,29 +114,39 @@ export class ChatService {
     messages.push(msgModel);
   }
 
-  banCommand(messages: MessageModel[], message: CommandCMDModel) {
+  banCommand(messages: MessageModel[], user: UserModel, message: CommandCMDModel) {
     const msg = <BanCMDModel>message;
 
     switch (msg.payload.ban) {
       case BanEnum.MESSAGE:
-        const idx = messages.findIndex(messageFromArray => Number(messageFromArray.message.id) === Number(msg.payload.id));
-        if (idx >= 0) {
-          messages[idx].message.isBanned = true;
-          messages[idx].message.message = 'message removed';
-        }
+        this.banMessage(messages, msg);
         break;
       case BanEnum.USER:
-        const userMsg = messages.filter((mess) => mess.user.id === msg.payload.id && mess.message.isMessage);
-        userMsg.forEach(messageFromArray => {
-          messageFromArray.user.isBanned = true;
-          messageFromArray.message.isBanned = true;
-          messageFromArray.message.message = 'user banned';
-        });
+        this.banUser(messages, user, msg);
         break;
     }
   }
 
   sendMessage(message: CommandCMDModel): void {
     this.socket.next(message);
+  }
+
+  private banMessage(messages: MessageModel[], message: BanCMDModel) {
+    const idx = messages.findIndex(messageFromArray => Number(messageFromArray.message.id) === Number(message.payload.id));
+    if (idx >= 0) {
+      messages[idx].message.isBanned = true;
+      messages[idx].message.message = 'message removed';
+    }
+  }
+
+  private banUser(messages: MessageModel[], user: UserModel, message: BanCMDModel) {
+    const userMsg = messages.filter((mess) => mess.user.id === message.payload.id && mess.message.isMessage);
+    userMsg.forEach(messageFromArray => {
+      messageFromArray.user.isBanned = true;
+      messageFromArray.message.isBanned = true;
+      messageFromArray.message.message = 'user banned';
+    });
+
+    // ban user from the store
   }
 }

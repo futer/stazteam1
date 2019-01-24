@@ -13,6 +13,7 @@ module.exports = {
     isReviewer,
     isModerator,
     isEditor,
+    isLogged,
 };
 
 async function registrationLocal(userParam){
@@ -82,6 +83,18 @@ async function banUser(id) {
     const user = await User.findOneAndUpdate({ _id: id }, { isBanned: true }, { new: true });
 
     return user;
+}
+
+async function isLogged(token) {
+    console.log('isLogged');
+    let user;
+    try {
+        user = jwt.decode(token);
+        console.log(user);
+        return true;
+    } catch (err) {
+        return false;
+    }
 }
 
 async function isAdmin(token) {
