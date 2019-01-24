@@ -9,7 +9,6 @@ import { UserModel } from 'src/app/models/user.model';
 import { ErrorData } from 'src/document/models/error.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { State } from 'src/user/store/user.states';
 import { tokenKey } from '@angular/core/src/view';
 import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 
@@ -20,7 +19,6 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
             private actions$: Actions,
             private authService: AuthService,
             private router: Router,
-            private store: Store<State>,
             ) {}
 
             @Effect()

@@ -16,7 +16,6 @@ import { ExamplesModule } from 'src/examples/examples.module';
 import { UserModule } from 'src/user/user.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import userReducer from 'src/user/store/user.reducers';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import authReducer from 'src/core/store/auth.reducers';
 import { AuthEffect } from 'src/core/store/auth.effects';

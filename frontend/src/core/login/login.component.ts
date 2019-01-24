@@ -14,8 +14,6 @@ import { LogIn } from '../store/auth.actions';
 import * as loginAuthReducer from '../store/auth.reducers';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { Actions } from '@ngrx/effects';
-import { State } from 'src/user/store/user.states';
-import { Fetch } from 'src/user/store/user.actions';
 
 
 
@@ -36,7 +34,6 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private navSerice: NavService,
     private store: Store<AuthState>,
-    private userStore: Store<State>
   ) { }
 
   ngOnInit() {

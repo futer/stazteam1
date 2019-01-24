@@ -11,8 +11,6 @@ function updateUser(root, args, context) {
 }
 
 function getCurrentUser(root,args,context) {
-    console.log(context.headers.authorization);
-    //console.log("ARGS", jwt.decode(context.headers.authorization).sub._id) ;
     return userService.getById(jwt.decode(context.headers.authorization).sub._id);
 }
 

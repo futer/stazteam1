@@ -24,9 +24,8 @@ ngOnInit() {
   .subscribe((event: NavigationEnd) => {
      if ( event.url === '/login' || event.url === '/register') {
        this.isActive = false;
-     } else {
-       console.log(localStorage.getItem('token'));
-       this.store.dispatch(new Reload(localStorage.getItem('token')));
+     } else{
+       this.store.dispatch(new Reload());
        this.isActive = true;
      }
     console.log(this.isActive);
