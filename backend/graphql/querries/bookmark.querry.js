@@ -24,7 +24,7 @@ const bookmarkMutations = {
       position: {
         type: new GraphQLNonNull(getPositionEnum('positionAddInput'))
       },
-      link: { type: new GraphQLNonNull(GraphQLString) }
+      content: { type: new GraphQLNonNull(GraphQLString) }
     },
     resolve: bookmarkResolver.addBookmark
   },
@@ -36,7 +36,7 @@ const bookmarkMutations = {
       position: {
         type: getPositionEnum('positionUpdateInput')
       },
-      link: { type: GraphQLString }
+      content: { type: GraphQLString }
     },
     resolve: bookmarkResolver.updateBookmark
   },
