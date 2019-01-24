@@ -8,6 +8,8 @@ import { LabelComponent } from './components/label/label.component';
 import { ImageComponent } from './components/image/image.component';
 import { RouterModule } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
+import { SubpageContainerComponent } from './components/subpage-container/subpage-container.component';
+import { SubpageService } from './services/subpage.service';
 
 
 @NgModule({
@@ -18,6 +20,7 @@ import { ErrorComponent } from './components/error/error.component';
     LabelComponent,
     ImageComponent,
     ErrorComponent,
+    SubpageContainerComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +34,7 @@ import { ErrorComponent } from './components/error/error.component';
     LabelComponent,
     ImageComponent,
     ErrorComponent,
+    SubpageContainerComponent
   ]
 })
 export class SharedModule { }

@@ -28,7 +28,7 @@ ngOnInit() {
        this.store.dispatch(new Reload());
        this.isActive = true;
      }
-    console.log(this.isActive);
+    // console.log(this.isActive);
     });
 
   }

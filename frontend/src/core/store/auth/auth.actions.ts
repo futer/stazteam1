@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { LoginModel } from '../../app/models/login.model';
+import { LoginModel } from '../../../app/models/login.model';
 import { ErrorData } from 'src/document/models/error.model';
 
 

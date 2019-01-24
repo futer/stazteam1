@@ -8,12 +8,9 @@ import { NavService } from '../services/nav/nav.service';
 import { LoginModel } from 'src/app/models/login.model';
 
 import { Store } from '@ngrx/store';
-import { AuthState } from '../store/auth.state';
-import { LogIn } from '../store/auth.actions';
-
-import * as loginAuthReducer from '../store/auth.reducers';
-import { Action } from 'rxjs/internal/scheduler/Action';
-import { Actions } from '@ngrx/effects';
+import { AuthState } from '../store/auth/auth.state';
+import { LogIn } from '../store/auth/auth.actions';
+import * as loginAuthReducer from '../store/auth/auth.reducers';
 
 
 
