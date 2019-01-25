@@ -15,7 +15,7 @@ import { DocumentModel } from '../models/document.model';
 export class DocComponent implements OnInit, OnDestroy {
     checkRoute: Subscription;
     docData: Subscription;
-
+    url;
     id: number;
     document: DocumentModel = {
         data: {
@@ -42,13 +42,18 @@ export class DocComponent implements OnInit, OnDestroy {
                     this.store.dispatch(new Actions.FetchDoc(this.id));
                 }
                 if (doc) {
-                    const pdf = atob(doc.data.document.content);
+                    const decode = atob(doc.data.document.content);
+                    const pdfBlob = new Blob([decode], {type: 'application/pdf'});
 
+                    const text = new Response(pdfBlob).text();
+                    text.then(x => console.log(x));
+
+                    this.url = URL.createObjectURL(pdfBlob);
                     this.document = {
                         data: {
                             document: {
                                 author: doc.data.document.author,
-                                content: pdf,
+                                content: decode,
                                 date: doc.data.document.date,
                                 title: doc.data.document.title
                             }
@@ -62,5 +67,10 @@ export class DocComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.checkRoute.unsubscribe();
         this.docData.unsubscribe();
+    }
+
+    downloadPDF() {
+        console.log('begin download');
+        window.location.href = this.url;
     }
 }
