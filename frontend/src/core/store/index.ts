@@ -6,19 +6,16 @@ import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/s
 
 export interface CoreState {
     bookmarks: BookmarkState.BookmarkState;
-    auth: AuthState.AuthState;
 }
 
 export const reducers:  ActionReducerMap<CoreState> = {
     bookmarks: fromBookmark.bookmarkReducer,
-    auth: fromAuth.authReducer
 };
 
 export const getCoreState = createFeatureSelector<CoreState>('core');
 
 export const getBookmarkState = createSelector(
     getCoreState,
-    (state: CoreState) => state.auth,
     (state: CoreState) => state.bookmarks
 );
 

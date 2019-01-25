@@ -4,7 +4,21 @@ import { UserEditorCredentialsModel, UserEditorPictureModel,
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
+import gql from 'graphql-tag';
+import { UserModel } from '../models/user.model';
+import {Apollo} from 'apollo-angular';
+
+const currentUserQuery = gql`
+    query getCurrentUser{
+      currentUser{
+        id
+        firstName
+        lastName
+        pic
+  }
+  }
+`;
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +27,7 @@ export class UserService {
   adress = environment.adress;
   constructor(
     private http: HttpClient,
+    private apollo: Apollo
   ) { }
 
   changePassword(password: UserEditorPasswordModel) {
@@ -33,5 +48,9 @@ export class UserService {
 
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
+  }
+
+  fetchUser(): Observable<any> {
+    return this.apollo.watchQuery({query: currentUserQuery}).valueChanges;
   }
 }
