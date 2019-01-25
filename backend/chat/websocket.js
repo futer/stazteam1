@@ -9,18 +9,19 @@ function init(server) {
   });
 
   wss.on('connection', (ws, req) => {
-    // if (req.headers.origin !== env.CORS_ADDRESS) {
-    //   ws.send(JSON.stringify({error: 'wrong origin!'}));
-    //   ws.terminate();
-    //   return;
-    // }
-    if (!userService.isLogged(req.headers['sec-websocket-protocol'])) {
-      // ws.send(JSON.stringify({error: 'you are not logged!'}));
-      // ws.terminate();
-      // return;
+    if (req.headers.origin !== env.CORS_ADDRESS) {
+      ws.send(JSON.stringify({error: 'wrong origin!'}));
+      ws.terminate();
+      return;
+    }
+    let loggedUser = userService.isLogged(req.headers['sec-websocket-protocol']).sub;
+    if (!loggedUser) {
+      ws.send(JSON.stringify({error: 'you are not logged!'}));
+      ws.terminate();
+      return;
     }
 
-    chat.init(wss);
+    chat.init(wss, req.headers['sec-websocket-protocol'], loggedUser);
     ws.isAlive = true;
 
     console.log('connection');

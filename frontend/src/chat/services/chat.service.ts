@@ -61,19 +61,40 @@ export class ChatService {
   }
 
   messageCommand(messages: MessageModel[], message: CommandCMDModel) {
+    const shortMsg = <ShortMessageCMDModel> message;
     const msg = <MessageCMDModel>message;
+    let msgModel;
+    if (msg.payload.user !== undefined) {
+       msgModel = {
+        user: msg.payload.user,
+        message: {
+          id: msg.payload.message.id,
+          message: msg.payload.message.message,
+          isMessage: true,
+        }
+      };
+      messages.push(msgModel);
+      return;
+    }
 
-    const shortMessage = <ShortMessageCMDModel>message;
-    if (shortMessage.payload.status === StatusEnum.SUCCESS) { return; }
-
-    const msgModel: MessageModel = {
-      user: msg.payload.user,
-      message: {
-        id: msg.payload.message.id,
-        message: msg.payload.message.message,
-        isMessage: true,
-      }
-    };
+    switch (shortMsg.payload.status) {
+      case StatusEnum.SUCCESS:
+      msgModel = {
+        message: {
+          message: shortMsg.payload.message,
+          isMessage: false,
+        }
+      };
+      break;
+      case StatusEnum.ERROR:
+      msgModel = {
+        message: {
+          message: shortMsg.payload.message,
+          isMessage: false,
+        }
+      };
+      break;
+    }
 
     messages.push(msgModel);
   }

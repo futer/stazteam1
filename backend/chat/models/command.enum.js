@@ -15,8 +15,17 @@ const statusEnum = {
   SUCCESS: 'success',
 };
 
+const roleEnum = {
+  ADMIN: 'admin',
+  REVIEWER: 'reviewer',
+  EDITOR: 'editor',
+  MODERATOR: 'moderator',
+  USER: 'user',
+};
+
 module.exports = {
   commandEnum,
   banEnum,
   statusEnum,
+  roleEnum,
 };

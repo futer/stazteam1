@@ -1,6 +1,6 @@
 const userService = require('../services/user.service');
 
-const { banEnum, commandEnum } = require('./models/command.enum');
+const { banEnum, commandEnum, roleEnum } = require('./models/command.enum');
 
 const loginCMDModel = require('./models/login.command.model');
 const messageCMDModel = require('./models/message.command.model');
@@ -10,9 +10,13 @@ const shortMessageCMDModel = require('./models/shortMessage.command.model');
 let numberOfMessages = 0;
 
 let wss;
+let token;
+let loggedUser;
 
-function init(wsServer) {
+function init(wsServer, tokenParam, lUser) {
   wss = wsServer;
+  token = tokenParam;
+  loggedUser = lUser;
 };
 
 function recvMessage(ws, message) {
@@ -38,7 +42,7 @@ function handleCommand(ws, message) {
       logoutCommand(ws, message);
       break;
     case commandEnum.BAN:
-      banCommand(message);
+      banCommand(ws, message);
       break;
     default:
       const msg = shortMessageCMDModel('ERROR', 'invalid command');
@@ -67,19 +71,21 @@ function messageCommand(ws, message) {
 
 function loginCommand(ws, message) {
   const loginModel = loginCMDModel().castFrom(message);
-  const banned = userService.isBanned(loginModel.payload.user.id);
-  banned.then((banned) => {
-    if (banned) {
-      const msg = shortMessageCMDModel('ERROR', 'your account is banned');
+  console.log(loggedUser.sub);
+  userService.isBanned(loggedUser._id)
+    .then((isBanned) => {
+      console.log(isBanned);
+      if (isBanned) {    
+        const msg = shortMessageCMDModel('ERROR', 'your account is banned');
+        ws.send(msg.getJSON());
+        ws.terminate();
+        return;
+      }
+      console.log('ok');
+      const msg = shortMessageCMDModel('SUCCESS', 'welcome!');
+      sendToAllWithoutSender(ws, loginModel.getJSON());
       ws.send(msg.getJSON());
-      ws.terminate();
-      return;
-    }
-
-    const msg = shortMessageCMDModel('SUCCESS', 'welcome!');
-    sendToAllWithoutSender(ws, loginModel.getJSON());
-    ws.send(msg.getJSON());
-  });
+    });
 };
 
 function logoutCommand(ws, message) {
@@ -91,7 +97,15 @@ function logoutCommand(ws, message) {
   ws.send(msg.getJSON());
 };
 
-function banCommand(message) {
+function banCommand(ws, message) {
+  userService.isModerator(token)
+    .catch(err =>{
+      const msg = shortMessageCMDModel('ERROR', err.name);
+      ws.send(msg.getJSON());
+      return;
+    });
+
+
   const banModel = banCMDModel().castFrom(message);
   switch (banModel.payload.ban) {
     case banEnum.USER:

@@ -70,7 +70,7 @@ async function authenticate({email,password}) {
 async function isBanned(id) {
     database.connect();
     const user = await User.findOne({_id: id});
-    
+
     if (user) {
         return user.isBanned;
     }
@@ -85,16 +85,15 @@ async function banUser(id) {
     return user;
 }
 
-async function isLogged(token) {
-    console.log('isLogged');
+function isLogged(token) {
     let user;
     try {
         user = jwt.decode(token);
-        console.log(user);
-        return true;
     } catch (err) {
-        return false;
+        user = false;
     }
+
+    return user;
 }
 
 async function isAdmin(token) {

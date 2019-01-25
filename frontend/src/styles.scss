@@ -69,5 +69,13 @@ body{
             justify-content: center;
         }     
        
+        app-chat {
+            position: absolute;
+            bottom: 0px;
+            right: 15%;
+            width: 280px;
+            // grid-column: 1/2;
+            // grid-row: 3/4;
+        }
     }
 }

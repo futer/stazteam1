@@ -38,7 +38,6 @@ export class ChatComponent implements OnInit {
   messages: MessageModel[];
 
   chatIsHidden: boolean;
-  userIsBanned: boolean;
 
   constructor(private chatService: ChatService) {
     this.chatStyle = '';
@@ -50,7 +49,7 @@ export class ChatComponent implements OnInit {
       email: 'test@test.test',
       role: RoleEnum.MODERATOR,
       registered: RegisteredEnum.LOCAL,
-      isBanned: true,
+      isBanned: false,
     };
 
     this.contexMenuPositionStyles = this.getContextMenuStyle();
@@ -60,14 +59,10 @@ export class ChatComponent implements OnInit {
     this.messages = [];
 
     this.chatIsHidden = false;
-    this.userIsBanned = false;
-
   }
 
   ngOnInit() {
-    // this.userIsBanned = true;
-
-    if (this.userIsBanned) {
+    if (this.loggedUser.isBanned) {
       const msg = <MessageModel> {
         user: {
           id: this.loggedUser._id,
@@ -88,6 +83,8 @@ export class ChatComponent implements OnInit {
   }
 
   public loginUser() {
+    if (this.loggedUser.isBanned) { return; }
+
     this.chatService.connect().subscribe(
       message => {
         this.chatService.handleCommand(this.messages, this.loggedUser, message);
@@ -113,7 +110,7 @@ export class ChatComponent implements OnInit {
   }
 
   private onMessage(message: string) {
-    if (this.userIsBanned) { return; }
+    if (this.loggedUser.isBanned) { return; }
 
     const msg = <MessageCMDModel> {
       command: CommandEnum.MESSAGE,

@@ -16,7 +16,7 @@
 
     <app-send-message 
       [sendMessageStyles]="'send-message'"  
-      [userIsBanned]="userIsBanned" 
+      [userIsBanned]="loggedUser.isBanned" 
       (messageEmitter)="onMessage($event)"></app-send-message>
 
     <app-chat-context-menu 
