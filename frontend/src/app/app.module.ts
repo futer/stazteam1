@@ -33,7 +33,7 @@ import { AuthEffect } from '../core/store/auth/auth.effects';
     ExampleRouting,
     ExamplesModule,
     CoreRoutingModule,
-    StoreModule.forRoot([docReducer, authReducer]),
+    StoreModule.forRoot({doc: docReducer, auth: authReducer}),
     ReactiveFormsModule,
     DocumentModule,
     UserModule,
