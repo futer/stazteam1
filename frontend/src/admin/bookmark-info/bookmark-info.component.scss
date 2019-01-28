@@ -1,0 +1,24 @@
+@import '../../assets/main-style.scss';
+.bookmark-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 15px;
+               
+    &:last-child {
+        border:none;
+
+    }
+    .bookmark-info--title {
+        width: 229px;
+    }
+    .bookmark-info--position{
+        width: 150px;
+        margin-left: 10px;
+    }
+  
+}
+strong{
+    color: $main-color;
+}

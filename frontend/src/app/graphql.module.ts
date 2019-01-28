@@ -17,7 +17,7 @@ export class GraphQLModule {
         const link = httpLink.create({
             uri: environment.adress + 'graphql',
             withCredentials: false,
-            method: 'GET'
+            method: 'POST'
         });
 
         const authMiddleware = new ApolloLink((operation, forward) => {
@@ -38,5 +38,20 @@ export class GraphQLModule {
             link: concat(authMiddleware, link),
             cache
         });
+
+        // apollo.create({
+        //     link: concat(authMiddleware, link),
+        //     cache: new InMemoryCache(),
+        //     defaultOptions: {
+        //       watchQuery: {
+        //         fetchPolicy: 'network-only',
+        //         errorPolicy: 'ignore',
+        //       },
+        //       query: {
+        //         fetchPolicy: 'no-cache',
+        //         errorPolicy: 'all',
+        //       }
+        //     }
+        //   });
     }
 }

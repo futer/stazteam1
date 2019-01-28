@@ -6,8 +6,7 @@ import * as bookmarkActions from './bookmark.actions';
 import { switchMap, catchError, map } from 'rxjs/operators';
 import { BookmarkModel } from 'src/app/models/bookmark.model';
 import { ErrorData } from 'src/admin/models/error.model';
-import { core } from '@angular/compiler';
-import { Subpage } from './bookmark.reducers';
+
 
 @Injectable()
 export class BookmarkEffect {

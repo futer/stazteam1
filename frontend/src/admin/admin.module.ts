@@ -6,24 +6,31 @@ import { StoreModule } from '@ngrx/store';
 import { userReducer } from './store/admin.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/admin.effects';
-import { BookmarkCreatorComponent } from './bookmark-creator/bookmark-creator.component';
-import { FormsModule } from '@angular/forms';
+import { BookmarkPanelComponent } from './bookmark-panel/bookmark-panel.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/shared/shared.module';
+import { BookmarkInfoComponent } from './bookmark-info/bookmark-info.component';
+import { BookmarkFormComponent } from './bookmark-form/bookmark-form.component';
 
 
 @NgModule({
   declarations: [
     AdminUserEditorComponent,
-    BookmarkCreatorComponent,
+    BookmarkPanelComponent,
+    BookmarkInfoComponent,
+    BookmarkFormComponent,
   ],
   imports: [
     CommonModule,
     HttpClientModule,
     StoreModule.forFeature('users', userReducer),
     EffectsModule.forFeature([UserEffects]),
-    FormsModule
+    FormsModule,
+    SharedModule,
+    ReactiveFormsModule,
   ],
   exports: [
-    BookmarkCreatorComponent
+    BookmarkPanelComponent
   ]
 })
 export class AdminModule { }

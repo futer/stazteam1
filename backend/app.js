@@ -31,10 +31,12 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };
+
+
 app.options(corsOptions, cors());
 
 //GRAPHQL
-app.use('/graphql',/*jwt(),cors(),*/ graphqlHTTP({
+app.use('/graphql',/*jwt() cors(),*/ graphqlHTTP({
   schema,
   graphiql: true,
 }));

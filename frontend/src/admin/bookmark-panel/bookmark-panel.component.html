@@ -1,0 +1,5 @@
+<div class="container">
+    <div class="bookmark" *ngFor="let item of bookmark$ | async ">
+        <app-bookmark-info [data]="item"></app-bookmark-info>
+    </div>
+</div>
