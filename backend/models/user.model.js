@@ -43,7 +43,7 @@ const UserModel = new Schema({
             'reviewer',
             'admin',
         ],
-        default: 'editor',
+        default: 'user',
     },
     pic: {
         type: String,

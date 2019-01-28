@@ -6,6 +6,7 @@ import { JWT } from '../models/jwt.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavService } from '../services/nav/nav.service';
 import { LoginModel } from 'src/app/models/login.model';
+
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/auth/auth.state';
 import { LogIn } from '../store/auth/auth.actions';
@@ -29,8 +30,7 @@ export class LoginComponent implements OnInit {
     private loginFormBuilder: FormBuilder,
     private auth: AuthService,
     private navSerice: NavService,
-    private store: Store<AuthState>
-
+    private store: Store<AuthState>,
   ) { }
 
   ngOnInit() {

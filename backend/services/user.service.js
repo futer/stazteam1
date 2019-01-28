@@ -13,6 +13,9 @@ module.exports = {
     isReviewer,
     isModerator,
     isEditor,
+    getAll,
+    getCurrent
+    
 };
 
 async function registrationLocal(userParam){
@@ -24,13 +27,13 @@ async function registrationLocal(userParam){
         err.name = "Email already registered";
         throw err;
     }
-    
+
     const user = new User({
         email: userParam.email,
         firstName: userParam.firstName,
         lastName: userParam.lastName,
         password: userParam.password,
-        pic: userParam.pic,
+        pic: userParam.pic || null,
         registered: 'LOCAL'
     })
     await user.save();
@@ -39,6 +42,13 @@ async function registrationLocal(userParam){
 async function getById(id){
     db = database.connect();
     const u = await User.findOne({_id: id});
+    console.log(u);
+    return u;
+}
+
+async function getCurrent(id){
+    db = database.connect();
+    const u = await User.findOne({_id: id}).select('-password');
     return u;
 }
 
@@ -158,4 +168,10 @@ async function isEditor(token) {
             }
         });
     return temp;
+}
+
+async function getAll() {
+    database.connect();
+    const u = await User.find();
+    return u;    
 }

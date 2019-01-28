@@ -4,10 +4,13 @@ import { AuthService } from '../../services/auth/auth.service';
 import * as AuthActions from './auth.actions';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, catchError, tap } from 'rxjs/operators';
-import { LogIn } from './auth.actions';
 import { LoginModel } from 'src/app/models/login.model';
+import { UserModel } from 'src/app/models/user.model';
 import { ErrorData } from 'src/document/models/error.model';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { tokenKey } from '@angular/core/src/view';
+import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 
 
 @Injectable()
@@ -15,7 +18,8 @@ import { Router } from '@angular/router';
         constructor(
             private actions$: Actions,
             private authService: AuthService,
-            private router: Router) {}
+            private router: Router,
+            ) {}
 
             @Effect()
             LogIn$: Observable<any> = this.actions$
@@ -26,19 +30,39 @@ import { Router } from '@angular/router';
                             map((user: LoginModel) => {
                                 this.authService.setToken(user.token);
                                 this.router.navigate(['/main']);
-                                return new AuthActions.LogInSucces(user);
+                                let u: UserModel;
+                                u = this.authService.decode(user.token).sub;
+                                console.log(u);
+                                return new AuthActions.LogInSucces(u);
                             }),
                             catchError((error: ErrorData) => of(new AuthActions.LogInFail(error)))
                         )
                     )
             );
 
+
+            @Effect()
+            Reload$: Observable<any> = this.actions$
+                .ofType(AuthActions.AuthActionTypes.RELOAD)
+                .pipe(
+                    switchMap(() =>
+                        this.authService.reload().pipe(
+                            map((user: UserModel) => {
+                                return new AuthActions.ReloadSuccess(user);
+                            }),
+                            catchError((error: ErrorData) => of(new AuthActions.ReloadFail(error)))
+                        )
+                    )
+                );
+
+
+
             @Effect({dispatch: false})
             Logout$: Observable<any> = this.actions$
             .ofType(AuthActions.AuthActionTypes.LOGOUT).pipe(
                 tap(() => {
+                    this.authService.removeToken();
                     this.router.navigate(['/login']);
-                    localStorage.removeItem('token');
                 })
             );
     }

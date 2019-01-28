@@ -34,13 +34,11 @@ export function authReducer (
 ): authState.AuthState {
     switch ( actions.type) {
         case authActions.AuthActionTypes.LOGIN_SUCCES:
+        console.log('payload', actions.payload);
         return {
            ...state,
            isAuthenticated: true,
-           user: {
-               token: actions.payload.token,
-               email: actions.payload.email
-           },
+           user: actions.payload,
            errorMessage: null
         };
 
@@ -52,6 +50,21 @@ export function authReducer (
 
         case authActions.AuthActionTypes.LOGOUT:
         return initialState;
+
+        case authActions.AuthActionTypes.RELOAD:
+        return state;
+
+        case authActions.AuthActionTypes.RELOAD_SUCCESS:
+        return {
+            ...state,
+            user: actions.payload
+        };
+
+        case authActions.AuthActionTypes.RELOAD_FAIL:
+        return {
+            ...state,
+            errorMessage: actions.payload
+        };
 
         default: {
             return state;

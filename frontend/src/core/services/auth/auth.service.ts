@@ -50,18 +50,25 @@ export class AuthService {
     localStorage.setItem('token', JWtoken);
   }
 
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
   removeToken() {
-    console.log(localStorage.getItem('token'));
     localStorage.removeItem('token');
-    console.log(localStorage.getItem('token'));
   }
 
   login(payload: any): Observable<Object> {
-    console.log(payload);
     return this.http.post(this.adress + 'users/authenticate', {
       email: payload.payload.email,
       password: payload.payload.password,
     });
+  }
+
+  reload(): Observable<Object> {
+    return this.http.get(this.adress + 'users/getCurrentUser', { headers: {
+      'Authorization': 'Bearer ' + this.getToken()
+    }});
   }
 
 
@@ -75,5 +82,9 @@ export class AuthService {
 
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
+  }
+
+  decode(token: string) {
+    return this.jwtHelper.decodeToken(token);
   }
 }
