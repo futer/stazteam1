@@ -1,4 +1,4 @@
-<div [class]="chatStyle">
+<div [class]="chatStyle" *ngIf="loggedUser">
   <app-chat-bar 
     #chatBar
     [chatBarStyle]="'chat-bar'" 

@@ -10,39 +10,35 @@ const shortMessageCMDModel = require('./models/shortMessage.command.model');
 let numberOfMessages = 0;
 
 let wss;
-let token;
-let loggedUser;
 
-function init(wsServer, tokenParam, lUser) {
+function init(wsServer) {
   wss = wsServer;
-  token = tokenParam;
-  loggedUser = lUser;
 };
 
-function recvMessage(ws, message) {
+function recvMessage(ws, message, req) {
   try {
     const parsedMessage = JSON.parse(message);
-    handleCommand(ws, parsedMessage);
+    handleCommand(ws, parsedMessage, req);
   } catch (err) {
     const msg = shortMessageCMDModel('ERROR', 'message has invalid format');
     sendMessage(ws, msg.getJSON());
   }
 };
 
-function handleCommand(ws, message) {
+function handleCommand(ws, message, req) {
   const command = message.command;
   switch (command) {
     case commandEnum.MESSAGE:
       messageCommand(ws, message);
       break;
     case commandEnum.LOGIN:
-      loginCommand(ws, message);
+      loginCommand(ws, message, req);
       break;
     case commandEnum.LOGOUT:
       logoutCommand(ws, message);
       break;
     case commandEnum.BAN:
-      banCommand(ws, message);
+      banCommand(ws, message, req);
       break;
     default:
       const msg = shortMessageCMDModel('ERROR', 'invalid command');
@@ -54,7 +50,6 @@ function handleCommand(ws, message) {
 function messageCommand(ws, message) {
   const messageModel = messageCMDModel().castFrom(message);
   const banned = userService.isBanned(messageModel.payload.user.id);
-
   banned.then(isBanned => {
     if (isBanned) {
       const msg = shortMessageCMDModel('ERROR', 'your account is banned');
@@ -69,19 +64,17 @@ function messageCommand(ws, message) {
   });
 };
 
-function loginCommand(ws, message) {
+function loginCommand(ws, message, req) {
+
   const loginModel = loginCMDModel().castFrom(message);
-  console.log(loggedUser.sub);
-  userService.isBanned(loggedUser._id)
+  userService.isBanned(req.user._id)
     .then((isBanned) => {
-      console.log(isBanned);
-      if (isBanned) {    
+      if (isBanned) {   
         const msg = shortMessageCMDModel('ERROR', 'your account is banned');
         ws.send(msg.getJSON());
         ws.terminate();
         return;
       }
-      console.log('ok');
       const msg = shortMessageCMDModel('SUCCESS', 'welcome!');
       sendToAllWithoutSender(ws, loginModel.getJSON());
       ws.send(msg.getJSON());
@@ -97,28 +90,29 @@ function logoutCommand(ws, message) {
   ws.send(msg.getJSON());
 };
 
-function banCommand(ws, message) {
-  userService.isModerator(token)
-    .catch(err =>{
+function banCommand(ws, message, req) {
+  userService.isModerator(req.token)
+    .then(isMod => {
+      if (isMod) {
+        const banModel = banCMDModel().castFrom(message);
+        switch (banModel.payload.ban) {
+          case banEnum.USER:
+            const user = userService.banUser(message.payload.id);
+            user.then(data => {
+              sendToAll(banModel.getJSON());
+            });
+            break;
+          case banEnum.MESSAGE:
+            sendToAll(banModel.getJSON());
+          default:
+            break;
+        }
+      }
+    })
+    .catch(err => {
       const msg = shortMessageCMDModel('ERROR', err.name);
       ws.send(msg.getJSON());
-      return;
     });
-
-
-  const banModel = banCMDModel().castFrom(message);
-  switch (banModel.payload.ban) {
-    case banEnum.USER:
-      const user = userService.banUser(message.payload.id);
-      user.then(data => {
-        sendToAll(banModel.getJSON());
-      });  
-      break;
-    case banEnum.MESSAGE:
-      sendToAll(banModel.getJSON());
-    default:
-      break;
-  }
 };
 
 function sendMessage(ws, message) {

@@ -42,7 +42,6 @@ async function registrationLocal(userParam){
 async function getById(id){
     db = database.connect();
     const u = await User.findOne({_id: id});
-    console.log(u);
     return u;
 }
 
@@ -65,13 +64,14 @@ async function authenticate({email,password}) {
     }
 
     if (password === user.password) {
-        const { password, ...userWithoutPass } = user.toObject();
+        const { password, pic, ...userWithoutPass } = user.toObject();
         const jwtOptions = { expiresIn: '1d' };
         const token = jwt.sign({sub: userWithoutPass}, config.JWT_SECRET, jwtOptions);
         database.disconnect();
 
         return {
-            token
+            token: token, 
+            pic: user.pic
         };
     }   
 }

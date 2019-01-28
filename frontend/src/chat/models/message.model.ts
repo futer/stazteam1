@@ -3,6 +3,7 @@ export interface MessageModel {
     id: string;
     firstName: string;
     lastName: string;
+    pic?: string;
     isBanned?: boolean;
   };
   message: {

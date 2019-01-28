@@ -4,7 +4,6 @@ import { ChatService } from '../services/chat.service';
 
 import { CommandEnum } from '../models/command.enum';
 import { RoleEnum } from 'src/app/models/role.enum';
-import { RegisteredEnum } from 'src/app/models/registered.enum';
 import { BanEnum } from '../models/ban.enum';
 
 import { UserModel } from 'src/app/models/user.model';
@@ -16,7 +15,6 @@ import { LoginLogoutCMDModel } from '../models/login-logout-cmd.model';
 import { MessageCMDModel } from '../models/message-cmd.model';
 import { BanCMDModel } from '../models/ban-cmd.model';
 
-
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -25,11 +23,10 @@ import { BanCMDModel } from '../models/ban-cmd.model';
 export class ChatComponent implements OnInit {
 
   @Input() chatStyle: string;
+  @Input() loggedUser: UserModel;
 
   @ViewChild('messageComponent', { read: ElementRef }) messageComponent: ElementRef;
   @ViewChild('chatBar', { read: ElementRef }) chatBarComponent: ElementRef;
-
-  loggedUser: UserModel;
 
   contexMenuPositionStyles: Object;
   contextMenu: ContextMenuModel;
@@ -39,18 +36,10 @@ export class ChatComponent implements OnInit {
 
   chatIsHidden: boolean;
 
-  constructor(private chatService: ChatService) {
+  constructor(
+    private chatService: ChatService,
+    ) {
     this.chatStyle = '';
-
-    this.loggedUser = <UserModel>{
-      _id: '5c2cc322a47bf531845f2c3f',
-      firstName: 'Test',
-      lastName: 'Testowy',
-      email: 'test@test.test',
-      role: RoleEnum.MODERATOR,
-      registered: RegisteredEnum.LOCAL,
-      isBanned: false,
-    };
 
     this.contexMenuPositionStyles = this.getContextMenuStyle();
     this.contextMenu = { items: [] };
@@ -80,6 +69,8 @@ export class ChatComponent implements OnInit {
 
       return;
     }
+
+    this.loginUser();
   }
 
   public loginUser() {
@@ -119,18 +110,18 @@ export class ChatComponent implements OnInit {
           id: this.loggedUser._id,
           firstName: this.loggedUser.firstName,
           lastName: this.loggedUser.lastName,
+          pic: this.loggedUser.pic,
         },
         message: {
           message: message
         }
       }
     };
-
     this.chatService.sendMessage(msg);
   }
 
   private showContextMenu(data) {
-    if (this.loggedUser.role !== RoleEnum.MODERATOR) { return; }
+    if (this.loggedUser.role !== RoleEnum.MODERATOR && this.loggedUser.role !== RoleEnum.ADMIN) { return; }
 
     this.clickedMessage = <MessageModel>data[0];
     this.contextMenu = {
@@ -161,7 +152,7 @@ export class ChatComponent implements OnInit {
   }
 
   private scrollToBottom() {
-    if (this.clickedMessage) { return; }
+    if (this.clickedMessage || !this.chatBarComponent) { return; }
 
     const nativeElement = this.messageComponent.nativeElement.children[0];
 
@@ -169,7 +160,7 @@ export class ChatComponent implements OnInit {
   }
 
   private contextMenuAction(data: any[]) {
-    if (this.loggedUser.role !== RoleEnum.MODERATOR) { return; }
+    if (this.loggedUser.role !== RoleEnum.MODERATOR && this.loggedUser.role !== RoleEnum.ADMIN) { return; }
 
     const message = <MessageModel>data[0];
     const contextClickedItem = <ContextMenuItemModel>data[1];

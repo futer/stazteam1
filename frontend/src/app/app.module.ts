@@ -19,6 +19,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import authReducer from '../core/store/auth/auth.reducers';
 import { AuthEffect } from '../core/store/auth/auth.effects';
+import { ChatComponent } from 'src/chat/chat/chat.component';
+import { ChatModule } from 'src/chat/chat.module';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { AuthEffect } from '../core/store/auth/auth.effects';
       maxAge: 10
     }),
     ExamplesModule,
+    ChatModule
   ],
   providers: [
   ],

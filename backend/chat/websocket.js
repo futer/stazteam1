@@ -6,28 +6,40 @@ const userService = require('../services/user.service');
 function init(server) {
   const wss = new WebSocket.Server({ 
     server: server,
+    perMessageDeflate: true,
+    verifyClient(info, done) {
+      if (info.origin !== env.CORS_ADDRESS) {
+        done(
+          false, 
+          401, 
+          'wrong origin!',
+        );
+      } 
+
+      let loggedUser = userService.isLogged(info.req.headers['sec-websocket-protocol']);
+      if (!loggedUser) {
+        done(
+          false,
+          401,
+          'You are not authorized',
+        );
+      }
+
+      info.req.user = loggedUser.sub;
+      info.req.token = info.req.headers['sec-websocket-protocol'];
+
+      done(true, 200, JSON.stringify({command: 'message', payload: { status: 'SUCCESS', message: 'welcome!!!'}}));
+    }
   });
 
   wss.on('connection', (ws, req) => {
-    if (req.headers.origin !== env.CORS_ADDRESS) {
-      ws.send(JSON.stringify({error: 'wrong origin!'}));
-      ws.terminate();
-      return;
-    }
-    let loggedUser = userService.isLogged(req.headers['sec-websocket-protocol']).sub;
-    if (!loggedUser) {
-      ws.send(JSON.stringify({error: 'you are not logged!'}));
-      ws.terminate();
-      return;
-    }
-
-    chat.init(wss, req.headers['sec-websocket-protocol'], loggedUser);
+    chat.init(wss, req);
     ws.isAlive = true;
 
     console.log('connection');
 
     ws.on('message', (message) => {
-      chat.recvMessage(ws, message);
+      chat.recvMessage(ws, message, req);
     }); 
 
     ws.on('close', () => {

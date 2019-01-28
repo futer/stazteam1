@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {  NavigationEnd, Router } from '@angular/router';
 import {  filter } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../core/store/auth/auth.state';
 import { Reload } from '../core/store/auth/auth.actions';
 import { User } from 'src/core/store/auth/auth.reducers';
+import { ChatComponent } from 'src/chat/chat/chat.component';
+import { UserModel } from './models/user.model';
 
 
 @Component({
@@ -13,11 +15,26 @@ import { User } from 'src/core/store/auth/auth.reducers';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit  {
+
+  @ViewChild(ChatComponent, {read: ChatComponent}) chatComonent: ChatComponent;
+
+  loggedUser: UserModel;
+
   title = 'project1frontend';
   isActive: boolean;
 
-constructor(private router: Router,
-  private store: Store<any>) {}
+constructor(
+  private router: Router,
+  private store: Store<any>
+  ) {
+    this.store.select(s => s).subscribe(auth => {
+      const authStore = <AuthState> auth.auth;
+      this.loggedUser = <UserModel>authStore.user;
+      if (!this.loggedUser && this.chatComonent) {
+        this.chatComonent.logoutUser();
+      }
+    });
+  }
 
 ngOnInit() {
   this.router.events
@@ -39,7 +56,5 @@ ngOnInit() {
     });
 
   }
-
-
 }
 

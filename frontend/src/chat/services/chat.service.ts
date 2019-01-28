@@ -16,6 +16,11 @@ import { ShortMessageCMDModel } from '../models/short-message.model';
 import { LoginLogoutCMDModel } from '../models/login-logout-cmd.model';
 import { AuthService } from '../../core/services/auth/auth.service';
 
+import { AuthState } from '../../core/store/auth/auth.state';
+import { Reload } from '../../core/store/auth/auth.actions';
+import { User } from '../..//core/store/auth/auth.reducers';
+import { Store } from '@ngrx/store';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +30,7 @@ export class ChatService {
 
   constructor(
     private authService: AuthService,
+    private store: Store<AuthState>,
   ) { }
 
   connect(): WebSocketSubject<CommandCMDModel> {
@@ -95,7 +101,6 @@ export class ChatService {
       };
       break;
     }
-
     messages.push(msgModel);
   }
 
@@ -137,7 +142,6 @@ export class ChatService {
 
   banCommand(messages: MessageModel[], user: UserModel, message: CommandCMDModel) {
     const msg = <BanCMDModel>message;
-
     switch (msg.payload.ban) {
       case BanEnum.MESSAGE:
         this.banMessage(messages, msg);
@@ -161,13 +165,31 @@ export class ChatService {
   }
 
   private banUser(messages: MessageModel[], user: UserModel, message: BanCMDModel) {
-    const userMsg = messages.filter((mess) => mess.user.id === message.payload.id && mess.message.isMessage);
+    const userMsg = messages.filter((mess) => mess.message.isMessage && mess.user.id === message.payload.id);
     userMsg.forEach(messageFromArray => {
       messageFromArray.user.isBanned = true;
       messageFromArray.message.isBanned = true;
       messageFromArray.message.message = 'user banned';
     });
 
-    // ban user from the store
+    if (user._id === message.payload.id) {
+      this.store.dispatch(new Reload);
+      const msg = <MessageModel> {
+        user: {
+          id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          isBanned: user.isBanned,
+        },
+        message: {
+          isMessage: false,
+          message: 'you are banned'
+        }
+      };
+
+      this.disconncet();
+
+      messages.push(msg);
+    }
   }
 }
