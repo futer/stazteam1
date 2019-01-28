@@ -5,9 +5,9 @@
     <span class="doc__desc--date">{{document.data.document.date}}</span>
     <app-submit-btn [buttonStyle]="'doc__desc--like'">Like</app-submit-btn>
   </div>
-  <p class="doc__content">
-    {{document.data.document.content}}
-  </p>
+
+  <app-pdf-view [adress]="url"></app-pdf-view>
+
   <div class="doc__controls">
     <app-router-btn [link]="'/main'" [class]="'doc-prev__open'">
       Return

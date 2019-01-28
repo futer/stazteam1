@@ -36,6 +36,7 @@
     "graphql-tag": "^2.10.0",
     "ngrx-actions": "^4.0.0",
     "node-sass": "^4.11.0",
+    "pdfjs-dist": "^2.0.943",
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.3.3",
     "zone.js": "~0.8.26"

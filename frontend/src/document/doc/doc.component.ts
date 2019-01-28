@@ -6,7 +6,7 @@ import { DocState } from '../store/document.states';
 import { getDoc } from '../store/document.selectors';
 import * as Actions from '../store/document.actions';
 import { DocumentModel } from '../models/document.model';
-
+import * as PDFJS from 'pdfjs-dist';
 @Component({
     selector: 'app-doc',
     templateUrl: './doc.component.html',
@@ -15,7 +15,7 @@ import { DocumentModel } from '../models/document.model';
 export class DocComponent implements OnInit, OnDestroy {
     checkRoute: Subscription;
     docData: Subscription;
-    url;
+    url: string;
     id: number;
     document: DocumentModel = {
         data: {
@@ -45,10 +45,8 @@ export class DocComponent implements OnInit, OnDestroy {
                     const decode = atob(doc.data.document.content);
                     const pdfBlob = new Blob([decode], {type: 'application/pdf'});
 
-                    const text = new Response(pdfBlob).text();
-                    text.then(x => console.log(x));
-
                     this.url = URL.createObjectURL(pdfBlob);
+
                     this.document = {
                         data: {
                             document: {

@@ -1,0 +1,31 @@
+<div class="content">
+    <p
+    *ngFor="let line of (actualPage | async)?.items"
+    [ngStyle]="{
+      'font-size': line.height+'px',
+      'width': line.width+'px'
+    }"
+    >
+    {{ line.str }}
+  </p>
+</div>
+
+
+<div class="controls">
+  <button class="controls__btn" (click)="previousPage()">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+  </button>
+
+  <input #chuj
+    class="controls__page" 
+    [(ngModel)]="pageNr" 
+    (change)="getContent()" 
+    min="1"
+    max="2"
+    type="number"
+    />
+
+  <button class="controls__btn" (click)="nextPage()">
+    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+  </button>
+</div>
