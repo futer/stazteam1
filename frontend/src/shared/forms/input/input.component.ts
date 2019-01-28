@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { tick } from '@angular/core/testing';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-input',
@@ -14,6 +16,8 @@ export class InputComponent implements OnInit {
   @Input() type?: string;
   @Input() accept?: string;
   @Input() value ? = '';
+  @Input() name ?= '';
+  @Input() checked ?: boolean;
 
   constructor() { }
 

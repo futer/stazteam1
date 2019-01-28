@@ -6,7 +6,7 @@ import * as bookmarkActions from './bookmark.actions';
 export const initialState: bookmarkState.BookmarkState = {
     loading: false,
     loaded: false,
-    subpage: null,
+    bookmark: null,
     erroMessage: null
 };
 
@@ -24,7 +24,7 @@ export const isLoaded = createSelector(
 
 export const Subpage = createSelector (
     bookmarkFeature,
-    (state: bookmarkState.BookmarkState) => state.subpage
+    (state: bookmarkState.BookmarkState) => state.bookmark
 );
 
 export const Error = createSelector (
@@ -42,7 +42,7 @@ export function bookmarkReducer(
         return {
             loading: true,
             loaded: false,
-            subpage: null,
+            bookmark: null,
             erroMessage: null
         };
 
@@ -51,7 +51,7 @@ export function bookmarkReducer(
         return {
             loading: false,
             loaded: true,
-            subpage: action.payload,
+            bookmark: action.payload,
             erroMessage: null
         };
 
@@ -60,9 +60,22 @@ export function bookmarkReducer(
         return{
             loading: false,
             loaded: false,
-            subpage: null,
+            bookmark: null,
             erroMessage: action.payload
         };
+
+        case bookmarkActions.bookmarkTypes.UPDATE:
+
+        return {
+            ...state
+        };
+
+        case bookmarkActions.bookmarkTypes.UPDATE_SUCCESS:
+
+        return {
+            ...state,
+            bookmark: action.paylod
+        }
 
         default:
 
@@ -71,4 +84,4 @@ export function bookmarkReducer(
     }
 }
 export default bookmarkReducer;
-export const getBookmarksSubpage = (state: bookmarkState.BookmarkState) => state.subpage;
+export const getBookmarksSubpage = (state: bookmarkState.BookmarkState) => state.bookmark;

@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
 import { SubpageContainerComponent } from './components/subpage-container/subpage-container.component';
 import { SubpageService } from './services/subpage.service';
-import { ButtonComponent } from './components/button/button/button.component';
+import { ButtonComponent } from './components/button/button.component';
 
 
 @NgModule({
@@ -36,7 +36,8 @@ import { ButtonComponent } from './components/button/button/button.component';
     LabelComponent,
     ImageComponent,
     ErrorComponent,
-    SubpageContainerComponent
+    SubpageContainerComponent,
+    ButtonComponent
   ]
 })
 export class SharedModule { }

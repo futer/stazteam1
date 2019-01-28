@@ -1,0 +1,21 @@
+@import '../../assets/main-style.scss';
+
+.container {
+    display: flex;
+    margin-top: 60px;
+    background-color: $sec-back-color;
+    width: 600px;
+    align-content: space-between;
+    flex-direction: column;
+
+    .bookmark{
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid black;
+        align-items: center;
+
+    }
+}
+        
+           
+        

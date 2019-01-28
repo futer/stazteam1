@@ -1,0 +1,25 @@
+@import '../../../assets/main-style.scss';
+
+.boomark-info__button{
+    background: $main-color;
+    border: none;
+    color: $main-font-color;
+    cursor: pointer;
+    display: inline-block;
+    font-size: $btn-font-size;
+    margin: 0.5em;
+    padding: 10px;
+}
+
+.boomark-info__button--delete{
+    background: $btn-color;
+    border: none;
+    color: $main-font-color;
+    cursor: pointer;
+    display: inline-block;
+    font-size: $btn-font-size;
+    margin: 0.5em;
+    padding: 10px;
+
+}
+

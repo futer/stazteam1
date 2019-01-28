@@ -4,6 +4,6 @@ import { ErrorData } from 'src/admin/models/error.model';
 export interface BookmarkState {
     loading: boolean;
     loaded: boolean;
-    subpage: BookmarkModel[] | null;
+    bookmark: BookmarkModel[] | null;
     erroMessage: ErrorData;
 }

@@ -9,6 +9,13 @@ async function getBookmarks() {
   return bookmarks;
 }
 
+async function getBookmark(data) {
+  database.connect();
+  const bookmark = await Bookmark.findById({ _id: data.id});
+
+  return bookmark;
+}
+
 async function addBookmark(data) {
   database.connect();
   const bookmark = new Bookmark(data);
@@ -36,4 +43,5 @@ module.exports = {
   addBookmark,
   updateBookmark,
   deleteBookmark,
+  getBookmark
 };

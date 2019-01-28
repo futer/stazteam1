@@ -1,0 +1,11 @@
+<div class="bookmark-info">
+    <div class="bookmark-info--title">
+        <p>Bookmark title: <Strong>{{data.title}}</Strong></p> 
+    </div>
+    <div class="bookmark-info--position">
+        <p>Position: <Strong>{{data.position}}</Strong></p>
+    </div>
+    <app-button [class]="'boomark-info__button'" (clickEvent)="toggleForm()">Edit Bookmark</app-button>
+    <app-button [class]="'boomark-info__button--delete'" (clickEvent)="deleteBookmark(data.id)">Delete Bookmark <i class="fa fa-trash"></i></app-button>
+</div>
+<app-bookmark-form [data]="data" *ngIf="isShown" ></app-bookmark-form>

@@ -13,6 +13,16 @@ const bookmarkQueries = {
   bookmarks: {
     type: new GraphQLList(bookmarkType),
     resolve: bookmarkResolver.getBookmarks
+  },
+  bookmark: {
+    type: bookmarkType,
+    resolve: bookmarkResolver.getBookmark,
+    args: {
+      id: {
+        type: GraphQLString
+      }
+      
+    }
   }
 };
 

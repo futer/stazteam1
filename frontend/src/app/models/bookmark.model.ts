@@ -1,4 +1,5 @@
 export interface BookmarkModel {
+    id: string;
     title: string;
     position: position;
     content: string;
@@ -6,5 +7,5 @@ export interface BookmarkModel {
 
 enum position {
     TOP,
-    LEFT
+    RIGHT
 }
