@@ -30,8 +30,8 @@ export class NavComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.bookmark$ = this.store.select(fromStore.getBookmarksSubpage);
         this.store.dispatch(new bookmarkActions.Fetch());
+        this.bookmark$ = this.store.select(fromStore.getBookmarksSubpage);
     }
 
     logOut() {

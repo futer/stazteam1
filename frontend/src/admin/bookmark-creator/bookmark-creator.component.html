@@ -1,26 +1,12 @@
 <div class="container">
-    <h1>Add Bookmark</h1>
-    <form class="bookmark-creator" (ngSubmit)="onSubmit()">
-      <input 
-        id="bookmark-name" 
-        type="text" 
-        placeholder="name" 
-        name="name" 
-        [(ngModel)]="bookmark.name">
-      <input 
-        id="bookmark-name" 
-        type="text"
-        placeholder="header" 
-        name="header" 
-        [(ngModel)]="bookmark.header">
-      <input 
-        id="bookmark-content" 
-        type="text"
-        placeholder="content" 
-        name="content" 
-        [(ngModel)]="bookmark.content">
-      <button>
-        Dodaj
-      </button>
-    </form>
+  <div class="bookmark-info" *ngFor="let item of bookmark$ | async">
+    <div class="title">
+        <p>Bookmark title: <Strong>{{item.title}}</Strong></p> 
+    </div>
+    <div class="position">
+        <p>Position: <Strong>{{item.position}}</Strong></p>
+    </div>
+    <button>Edit Bookmark</button>
+  </div>
+
 </div>

@@ -49,8 +49,11 @@ body{
             grid-row: 2/3;
         }
         
-        app-boorkmark-creator {
-            grid-row:  1/7;
+        app-bookmark-creator {
+            grid-column:  1/8;
+            grid-row: 2/3;
+            margin: 0 auto;
+            // display: flex;
         }
 
         app-main, app-example1, app-user-editor  {
