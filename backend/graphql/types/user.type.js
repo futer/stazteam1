@@ -2,6 +2,7 @@ const {
     GraphQLObjectType,
     GraphQLString,
     GraphQLNonNull,
+    GraphQLInputObjectType,
 } = require('graphql');
 
 const userType = new GraphQLObjectType({
@@ -15,4 +16,15 @@ const userType = new GraphQLObjectType({
     })
 })
 
-module.exports = {userType};
+const uuuuu = new GraphQLInputObjectType({
+    name: 'userInput',
+    fields: () => ({
+        id: { type: new GraphQLNonNull(GraphQLString)},
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString },
+        password: { type: GraphQLString },
+        pic: { type: GraphQLString },
+    })
+})
+
+module.exports = {userType, uuuuu};
