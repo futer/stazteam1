@@ -1,6 +1,8 @@
 const userService = require('../services/user.service');
 const express = require('express');
 const router = express.Router();
+const User = require('../models/user.model');
+const jwt = require('jsonwebtoken')
 
 /**
  * @swagger
@@ -22,6 +24,12 @@ const router = express.Router();
 router.post('/register', register);
 router.get('/getbyid', getById);
 router.post('/authenticate', authenticate)
+router.put('/:id/edit', editUser)
+router.get('/isAdmin', isAdmin);
+router.get('/isEditor', isEditor);
+router.get('/isModerator', isModerator);
+router.get('/isReviewer', isReviewer);
+router.get('/getCurrentUser', getCurrentUser);
 module.exports = router;
 
 function register(req,res,next){
@@ -38,11 +46,60 @@ function register(req,res,next){
 }
 
 function getById(req,res,next){
-    userService.getById(req.body.id).then(user => user ? res.json(user) : res.sendStatus(404)).catch(err => next(err));
+    userService.getById(req.body.id)
+        .then(user => user ? res.json(user) : res.sendStatus(404))
+        .catch(err => next(err));
+}
+
+function getCurrentUser(req,res,next){
+    console.log(req.get('Authorization').slice(7).sub._id);
+    userService.getCurrent(jwt.decode(req.get('Authorization').slice(7)).sub._id)
+        .then(user => user ? res.json(user) : res.sendStatus(404))
+        .catch(err => next(err));
 }
 
 function authenticate(req,res,next){
     userService.authenticate(req.body)
         .then(user => user ? res.json(user) : res.status(400).json({ message: 'Email or password incorrect'}))
+        .catch(err => next(err));
+}
+
+function editUser(req,res,next){
+    const updatedData = {
+        firstName: req.params.firstName,
+        lastName: req.params.lastName,
+        password: req.params.password,
+        pic: req.params.pic
+    };
+    User.findByIdAndUpdate(req.params.id, {
+        $set: updatedData},
+        function(err, user){
+            if(err) return next(err);
+        res.send('user updated');
+        });
+    }
+
+
+function isAdmin(req,res,next) {
+    userService.isAdmin(req.get('Authorization').slice(7))
+        .then(admin => res.json(admin))
+        .catch(err => next(err));
+}
+
+function isEditor(req,res,next) {
+    userService.isEditor(req.get('Authorization').slice(7))
+        .then(editor => res.json(editor))
+        .catch(err => next(err));
+}
+
+function isReviewer(req,res,next) {
+    userService.isReviewer(req.get('Authorization').slice(7))
+        .then(reviewer => res.json(reviewer))
+        .catch(err => next(err));
+}
+
+function isModerator(req,res,next) {
+    userService.isModerator(req.get('Authorization').slice(7))
+        .then(moderator => res.json(moderator))
         .catch(err => next(err));
 }

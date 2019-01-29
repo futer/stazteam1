@@ -9,11 +9,17 @@ module.exports = {
     authenticate,
     isBanned,
     banUser,
+    isAdmin,
+    isReviewer,
+    isModerator,
+    isEditor,
+    getAll,
+    getCurrent
+    
 };
 
 async function registrationLocal(userParam){
     database.connect();
-
     if (await User.findOne({ email: userParam.email })) {
         value = 'Email "' + userParam.email + '" is already registered';
         const err = new Error(value);
@@ -21,13 +27,13 @@ async function registrationLocal(userParam){
         err.name = "Email already registered";
         throw err;
     }
-    
+
     const user = new User({
         email: userParam.email,
         firstName: userParam.firstName,
         lastName: userParam.lastName,
         password: userParam.password,
-        pic: userParam.pic,
+        pic: userParam.pic || null,
         registered: 'LOCAL'
     })
     await user.save();
@@ -36,6 +42,13 @@ async function registrationLocal(userParam){
 async function getById(id){
     db = database.connect();
     const u = await User.findOne({_id: id});
+    console.log(u);
+    return u;
+}
+
+async function getCurrent(id){
+    db = database.connect();
+    const u = await User.findOne({_id: id}).select('-password');
     return u;
 }
 
@@ -79,4 +92,86 @@ async function banUser(id) {
     const user = await User.findOneAndUpdate({ _id: id }, { isBanned: true }, { new: true });
 
     return user;
+}
+
+async function isAdmin(token) {
+    database.connect();
+    var temp = false;
+    const user = await this.getById(jwt.decode(token).sub._id)
+        .then(user => {
+            if (user.role === jwt.decode(token).sub.role && user.role == "admin"){
+                temp = true;
+            }
+            else {
+                value = 'You are not authorized to visit this page';
+                const err = new Error(value);
+                err.status = 500;
+                err.name = "Not authorized";
+                throw err;
+            }
+        });
+    return temp;
+}
+
+async function isReviewer(token) {
+    database.connect();
+    var temp = false;
+    const user = await this.getById(jwt.decode(token).sub._id)
+        .then(user => {
+            if (user.role === jwt.decode(token).sub.role && (user.role == "reviewer" || user.role == "admin")){
+                temp = true;
+            }
+            else {
+                value = 'You are not authorized to visit this page';
+                const err = new Error(value);
+                err.status = 500;
+                err.name = "Not authorized";
+                throw err;
+            }
+        });
+    return temp;
+}
+
+async function isModerator(token) {
+    database.connect();
+    var temp = false;
+    const user = await this.getById(jwt.decode(token).sub._id)
+        .then(user => {
+            if (user.role === jwt.decode(token).sub.role && (user.role == "moderator" || user.role == "admin")){
+                temp = true;
+            }
+            else {
+                value = 'You are not authorized to visit this page';
+                const err = new Error(value);
+                err.status = 500;
+                err.name = "Not authorized";
+                throw err;
+            }
+        });
+    return temp;
+}
+
+async function isEditor(token) {
+    database.connect();
+    var temp = false;
+    const user = await this.getById(jwt.decode(token).sub._id)
+        .then(user => {
+            if (user.role === jwt.decode(token).sub.role && (user.role == "editor" || user.role == "admin")){
+                temp = true;
+            }
+            else {
+                value = 'You are not authorized to visit this page';
+                const err = new Error(value);
+                err.status = 500;
+                err.name = "Not authorized";
+                throw err;
+            }
+        });
+    return temp;
+}
+
+async function getAll() {
+    database.connect();
+    const u = await User.find();
+    return u;    
 }
