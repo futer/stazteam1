@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  adress: 'http://localhost:5000/'
+  adress: 'http://localhost:5000/',
+  socketAddress: 'ws://localhost:5000',
 };
 
 /*

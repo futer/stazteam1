@@ -6,6 +6,8 @@ import { ModalService } from 'src/shared/modal/modal.service';
 import { SharedModule } from 'src/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { ChatModule } from 'src/chat/chat.module';
+
 @NgModule({
   declarations: [
     Example1Component,
@@ -15,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     SharedModule,
     ReactiveFormsModule,
+    ChatModule,
   ],
   providers: []
 })

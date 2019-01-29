@@ -13,6 +13,7 @@ module.exports = {
     isReviewer,
     isModerator,
     isEditor,
+    isLogged,
     getAll,
     getCurrent,
     updateUser
@@ -64,13 +65,14 @@ async function authenticate({email,password}) {
     }
 
     if (password === user.password) {
-        const { password, ...userWithoutPass } = user.toObject();
+        const { password, pic, ...userWithoutPass } = user.toObject();
         const jwtOptions = { expiresIn: '1d' };
         const token = jwt.sign({sub: userWithoutPass}, config.JWT_SECRET, jwtOptions);
         database.disconnect();
 
         return {
-            token
+            token: token, 
+            pic: user.pic
         };
     }   
 }
@@ -78,7 +80,7 @@ async function authenticate({email,password}) {
 async function isBanned(id) {
     database.connect();
     const user = await User.findOne({_id: id});
-    
+
     if (user) {
         return user.isBanned;
     }
@@ -89,6 +91,17 @@ async function isBanned(id) {
 async function banUser(id) {
     database.connect();
     const user = await User.findOneAndUpdate({ _id: id }, { isBanned: true }, { new: true });
+
+    return user;
+}
+
+function isLogged(token) {
+    let user;
+    try {
+        user = jwt.decode(token);
+    } catch (err) {
+        user = false;
+    }
 
     return user;
 }
