@@ -8,7 +8,7 @@
     display: inline-block;
     font-size: $btn-font-size;
     margin: 0.5em;
-    padding: 14px;
+    padding: 1rem;
 }
 
 .boomark-info__button--delete{
@@ -19,7 +19,7 @@
     display: inline-block;
     font-size: $btn-font-size;
     margin: 0.5em;
-    padding: 14px;
+    padding: 1rem;
 }
 
 .app-bookmark {
@@ -28,7 +28,8 @@
     width: 50px;
     border-radius: 50%;
     border: none;
-    // padding: 0;
+    cursor: pointer;
+    background-color: $back-color;
 }
 
 

@@ -11,13 +11,23 @@
     .add-bookmark{
         display: flex;
         align-self: flex-end;
+        padding-bottom: 10px;
+     
 
         i{
             font-size: 50px;
+            color: $main-color;
+           
+            
+            
+            
         }
+
         p{
-            margin-right: 15px;
-            line-height: 100%;
+            margin-right: 8px;
+            line-height: 50px;
+            // color: $main-color;
+            font-weight: bold;
         }
 
     }
