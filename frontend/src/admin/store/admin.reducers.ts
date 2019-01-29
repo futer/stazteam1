@@ -80,6 +80,7 @@ export function userReducer (
             case userActions.userTypes.SEND_SUCCESS:
             return {
                 ...state,
+                errorMessage: null,
                 sending: false,
                 sent: true
             };

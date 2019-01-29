@@ -6,7 +6,6 @@ function getUsers(root, args, context) {
 }
 
 async function updateUser(root, args, context) {
-    throw new Error('elo');
     let user;
     await userService.isAdmin(context.headers.authorization)
     .then(() => {
