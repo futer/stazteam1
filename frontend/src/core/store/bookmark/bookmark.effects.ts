@@ -36,23 +36,28 @@ export class BookmarkEffect {
             .pipe(
                 switchMap((payload) =>
                     this.subpageService.update(payload).pipe(
-                        map((bookmark: BookmarkModel) => new bookmarkActions.UpdateSucces(bookmark)),
+                        map(() => {
+                            // console.log(payload);
+                            return new bookmarkActions.UpdateSucces(payload);
+                        }),
                         catchError((error: ErrorData) => of(new bookmarkActions.UpdateFaild(error)))
                     )
                 )
             );
 
-        // @Effect()
-        // Delete$: Observable<any> = this.actions$
-        //     .ofType(bookmarkActions.bookmarkTypes.DELETE)
-        //     .pipe(
-        //         switchMap((payload) =>
-        //         this.subpageService.delete(payload).pipe(
-        //             map((bookmark: BookmarkModel) => console.log(payload)),
-        //             catchError((error: ErrorData) => of(new bookmarkActions.DeleteFaild(error)))
-
-        //         )
-        //     )
-        // );
+        @Effect()
+        Delete$: Observable<any> = this.actions$
+            .ofType(bookmarkActions.bookmarkTypes.DELETE)
+            .pipe(
+                switchMap((payload) =>
+                this.subpageService.delete(payload).pipe(
+                    map(() => {
+                        // console.log(payload);
+                        return new bookmarkActions.DeleteSucces(payload);
+                    }),
+                    catchError((error: ErrorData) => of(new bookmarkActions.DeleteFaild(error)))
+                )
+            )
+        );
 
 }

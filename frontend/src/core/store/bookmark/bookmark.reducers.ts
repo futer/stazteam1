@@ -67,9 +67,15 @@ export function bookmarkReducer(
         };
 
         case bookmarkActions.bookmarkTypes.UPDATE_SUCCESS:
-        return {
-            ...state
-        };
+            return {
+                ...state,
+                bookmarks: state.bookmarks.map(
+                    item => action.payload.payload.id
+                         === item.id
+                         ? action.payload.payload
+                         : item
+                        )
+            };
 
         case bookmarkActions.bookmarkTypes.UPDATE_FAILD:
         return {
@@ -78,9 +84,14 @@ export function bookmarkReducer(
         };
 
         case bookmarkActions.bookmarkTypes.DELETE_SUCCESS:
+        console.log(action.payload);
         return {
             ...state,
-            bookmarks: state.bookmarks.filter(bookmark => bookmark.id === action.payload),
+            bookmarks: state.bookmarks.map(
+                item => action.payload.payload
+                    === item.id
+                    ? action.payload.payload
+                    : item),
             currentBookmarkId: null,
             erroMessage: null
         };

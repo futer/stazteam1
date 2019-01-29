@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NavService } from '../services/nav/nav.service';
 import { AuthService } from '../services/auth/auth.service';
 import { Store } from '@ngrx/store';
@@ -19,7 +19,7 @@ import { Observable } from 'rxjs/observable';
     styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-    bookmark$: Observable<any>;
+   @Input() bookmark$: Observable<any>;
 
 
     constructor(
@@ -30,7 +30,6 @@ export class NavComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.bookmark$ = this.store.select(fromStore.getBookmarksSubpage);
         this.store.dispatch(new bookmarkActions.Fetch());
     }
 

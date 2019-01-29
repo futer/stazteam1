@@ -55,6 +55,7 @@ export class SubpageService {
 
 
   update(values): Observable<any> {
+    console.log(values);
     return this.apollo.mutate({
     mutation: updateBookmarkMutation,
     variables: {
@@ -67,11 +68,12 @@ export class SubpageService {
  }
 
 
-  delete(id) {
+  delete(values) {
+    console.log(values);
     return this.apollo.mutate({
       mutation: deleteBookmarkMutation,
       variables : {
-        id: id
+        id: values.payload
       }
     });
     // .subscribe((data) =>

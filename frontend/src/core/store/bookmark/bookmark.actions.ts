@@ -43,12 +43,12 @@ export class FetchFaild implements Action {
 
 export class Update implements Action {
     readonly type = bookmarkTypes.UPDATE;
-    constructor( public payload: BookmarkModel) {}
+    constructor( public payload: any) {}
 }
 
 export class UpdateSucces implements Action {
     readonly type = bookmarkTypes.UPDATE_SUCCESS;
-    constructor ( public paylod: BookmarkModel) {}
+    constructor ( public payload: any) { }
 }
 
 export class UpdateFaild implements Action {
@@ -63,7 +63,7 @@ export class Delete implements Action {
 
 export class DeleteSucces implements Action {
     readonly type = bookmarkTypes.DELETE_SUCCESS;
-    constructor( public payload: string) {}
+    constructor( public payload: any) {}
 }
 
 export class DeleteFaild implements Action {

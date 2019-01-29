@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {  NavigationEnd, Router } from '@angular/router';
 import {  filter } from 'rxjs/operators';
-import { Navigation } from 'selenium-webdriver';
-
+import { CoreState } from 'src/core/store';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromStore from 'src/core/store/index';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +14,10 @@ import { Navigation } from 'selenium-webdriver';
 export class AppComponent implements OnInit  {
   title = 'project1frontend';
   isActive: boolean;
+  bookmark$: Observable<any>;
 
-constructor(private router: Router) {}
+constructor(private router: Router,
+    private store: Store<CoreState>) {}
 
 ngOnInit() {
   this.router.events
@@ -24,9 +28,15 @@ ngOnInit() {
      } else {
        this.isActive = true;
      }
-    // console.log(this.isActive);
     });
 
+    this.getBookmarks();
+
+
+  }
+
+  getBookmarks() {
+   this.bookmark$ =  this.store.select(fromStore.getBookmarksSubpage);
   }
 
 

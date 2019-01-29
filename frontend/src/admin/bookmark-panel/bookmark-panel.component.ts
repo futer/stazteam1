@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BookmarkModel } from '../../app/models/bookmark.model';
-import { Observable } from 'rxjs/observable';
+import { Observable, Subscribable } from 'rxjs/observable';
 import { Store } from '@ngrx/store';
 import { CoreState } from 'src/core/store';
 import * as fromStore from '../../core/store/index';
 import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-bookmark-panel',
