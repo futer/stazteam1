@@ -1,31 +1,55 @@
 import { Action } from '@ngrx/store';
-import { DocumentModel } from '../models/document.model';
+import { DocumentsModel, DocumentModel } from '../models/document.model';
 import { ErrorData } from '../models/error.model';
 
-export enum docTypes {
-  FETCH = '[Document] Fetch',
-  FETCH_SUCCESS = '[Document] FetchSuccess',
-  FETCH_ERROR = '[Document] FetchError'
+export enum prevsTypes {
+    FETCH_PREVS = '[Document] FetchPrevs',
+    FETCH_PREVS_SUCCESS = '[Document] FetchPrevsSuccess',
+    FETCH_PREVS_ERROR = '[Document] FetchPrevsError',
 }
 
-export class Fetch implements Action {
-    readonly type = docTypes.FETCH;
+export enum docTypes {
+    FETCH_DOC = '[Document] FetchDoc',
+    FETCH_DOC_SUCCESS = '[Document] FetchDocSuccess',
+    FETCH_DOC_ERROR = '[Document] FetchDocError',
+}
+
+export class FetchPrevs implements Action {
+    readonly type = prevsTypes.FETCH_PREVS;
     constructor() {}
 }
 
-
-export class FetchSuccess implements Action {
-    readonly type = docTypes.FETCH_SUCCESS;
-    constructor(public payload: DocumentModel[]) {}
+export class FetchDoc implements Action {
+    readonly type = docTypes.FETCH_DOC;
+    constructor(public payload: number) {}
 }
 
+export class FetchPrevsSuccess implements Action {
+    readonly type = prevsTypes.FETCH_PREVS_SUCCESS;
+    constructor(public payload: DocumentsModel) {}
+}
 
-export class FetchError implements Action {
-    readonly type = docTypes.FETCH_ERROR;
+export class FetchPrevsError implements Action {
+    readonly type = prevsTypes.FETCH_PREVS_ERROR;
     constructor(readonly payload: ErrorData) {}
 }
 
-export type All =
-    | Fetch
-    | FetchSuccess
-    | FetchError;
+export class FetchDocSuccess implements Action {
+    readonly type = docTypes.FETCH_DOC_SUCCESS;
+    constructor(public payload: DocumentModel) {}
+}
+
+export class FetchDocError implements Action {
+    readonly type = docTypes.FETCH_DOC_ERROR;
+    constructor(readonly payload: ErrorData) {}
+}
+
+export type AllPrevs =
+    | FetchPrevs
+    | FetchPrevsSuccess
+    | FetchPrevsError;
+
+export type AllDoc =
+    | FetchDoc
+    | FetchDocSuccess
+    | FetchDocError;

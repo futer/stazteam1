@@ -4,6 +4,10 @@ function getDocuments(root, args, context) {
   return documentService.getDocuments();
 }
 
+function getDocument(root, args, context) {
+  return documentService.getDocument(args);
+}
+
 function addDocument(root, args, context) {
   const document = documentService.addDocument(args);
   return document;
@@ -23,6 +27,7 @@ function deleteDocument(root, args, context) {
 
 module.exports = {
   getDocuments,
+  getDocument,
   addDocument,
   updateDocument
   //deleteBookmark,

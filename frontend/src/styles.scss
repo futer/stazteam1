@@ -1,76 +1,85 @@
 /* You can add global styles to this file, and also import other style files */
-@import './assets/main-style.scss';
+@import "./assets/main-style.scss";
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-    background-repeat: no-repeat;
-    background-color: $back-color;
+body {
+  background-repeat: no-repeat;
+  background-color: $back-color;
 
-    app-root {
-        display: grid;
-        color: $main-font-color;
-        font-family: $main-font;
-        grid-template-columns: repeat(8,1fr);
-        grid-template-rows: 10% auto 20%;
-        @media(min-width: $tablet) {
-            grid-template-rows: 69px auto 20%;
-                
-        }
-        app-login{
-            grid-column: 3/7;
-            grid-row: 2/3;
-
-            @media screen and (max-width: $desktop) {
-                grid-column:1/9;
-            }
-            
-
-        }  
-        app-register{
-            grid-column: 1/9;
-            grid-row: 2/3;
-            @media (min-width: $tablet) {
-                grid-column: 3/7;
-            }
-        }
-        
-        app-nav {
-            grid-row: 1/2;
-            grid-column: 1/9;
-        }
-
-        app-sidebar {
-            grid-column: 8/9;
-            grid-row: 2/3;
-        }
-        
-        app-boorkmark-creator {
-            grid-row:  1/7;
-        }
-
-        app-main, app-example1, app-user-editor  {
-            grid-column: 2/8;
-          
-            app-main {
-              grid-row: 2/3;
-            }
-
-        }
-
-        app-subpage-container {
-            grid-row: 2/3; 
-            grid-column: 1/8;
-            display: flex;
-            justify-content: center;
-        }
-       
-        
-        
-       
+  app-root {
+    display: grid;
+    color: $main-font-color;
+    font-family: $main-font;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 10% auto 20%;
+    @media (min-width: $tablet) {
+      grid-template-rows: 69px auto 20%;
     }
+    app-login {
+      grid-column: 3/7;
+      grid-row: 2/3;
+
+      @media screen and (max-width: $desktop) {
+        grid-column: 1/9;
+      }
+    }
+    app-register {
+      grid-column: 1/9;
+      grid-row: 2/3;
+      @media (min-width: $tablet) {
+        grid-column: 3/7;
+      }
+    }
+
+    app-nav {
+      grid-row: 1/2;
+      grid-column: 1/9;
+    }
+
+    app-sidebar {
+      grid-column: 8/9;
+      grid-row: 2/3;
+    }
+
+    app-boorkmark-creator {
+      grid-row: 1/7;
+    }
+
+    app-main,
+    app-example1,
+    app-user-editor {
+      grid-column: 2/8;
+
+      app-main {
+        grid-row: 2/3;
+      }
+      
+      > * {
+        display: inline-block;
+        padding: 2em;
+      }
+    }
+
+    app-doc {
+      grid-column: 2/8;
+      grid-row: 2/3;
+      
+      > * {
+        display: inline-block;
+        padding: 2em;
+      }
+    }
+
+    app-subpage-container {
+      grid-row: 2/3;
+      grid-column: 1/8;
+      display: flex;
+      justify-content: center;
+    }
+  }
 }
