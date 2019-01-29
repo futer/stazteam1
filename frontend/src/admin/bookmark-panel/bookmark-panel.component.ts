@@ -14,14 +14,13 @@ import { Subscription } from 'rxjs';
 })
 export class BookmarkPanelComponent implements OnInit {
 
-  bookmark$: Observable<any>;
+  bookmark$: Observable<any> = this.store.select(fromStore.getBookmarksSubpage);
   isShown = false;
 
   constructor(private store: Store<CoreState>,
      ) { }
 
   ngOnInit() {
-    this.bookmark$ = this.store.select(fromStore.getBookmarksSubpage);
   }
 
   // toggleForm(data) {

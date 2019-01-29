@@ -1,4 +1,8 @@
 <div class="container">
+    <div class="add-bookmark">
+        <p>Create New Bookmark</p>
+        <app-button [class]="'app-bookmark'"><i class="fa fa-plus-circle"></i></app-button>
+    </div>
     <div class="bookmark" *ngFor="let item of bookmark$ | async ">
         <app-bookmark-info [data]="item"></app-bookmark-info>
     </div>

@@ -3,16 +3,31 @@
 .container {
     display: flex;
     margin-top: 60px;
-    background-color: $sec-back-color;
+    // background-color: $sec-back-color;
     width: 600px;
     align-content: space-between;
     flex-direction: column;
+
+    .add-bookmark{
+        display: flex;
+        align-self: flex-end;
+
+        i{
+            font-size: 50px;
+        }
+        p{
+            margin-right: 15px;
+            line-height: 100%;
+        }
+
+    }
 
     .bookmark{
         display: flex;
         flex-direction: column;
         border-bottom: 1px solid black;
         align-items: center;
+        background-color: $sec-back-color;
 
     }
 }

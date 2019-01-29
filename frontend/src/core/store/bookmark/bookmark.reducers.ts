@@ -87,11 +87,12 @@ export function bookmarkReducer(
         console.log(action.payload);
         return {
             ...state,
-            bookmarks: state.bookmarks.map(
-                item => action.payload.payload
-                    === item.id
-                    ? action.payload.payload
-                    : item),
+            // bookmarks: state.bookmarks.map(
+            //     item => action.payload.payload
+            //         === item.id
+            //         ? action.payload.payload
+            //         : item),
+            bookmarks: state.bookmarks.filter(bookmark => bookmark.id !== action.payload.payload ),
             currentBookmarkId: null,
             erroMessage: null
         };
