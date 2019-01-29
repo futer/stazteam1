@@ -1,8 +1,6 @@
 import * as userState from './admin.states';
 import * as userActions from './admin.actions';
 import { createSelector, createFeatureSelector } from '@ngrx/store';
-import { setEnvironment } from '@angular/core/src/render3/instructions';
-import { UserWithoutPass } from '../../app/models/user-editor.model';
 
 export const initialState: userState.State = {
     loading: false,
@@ -35,6 +33,11 @@ export const Errors = createSelector(
     (state: userState.State) => state.errorMessage
 );
 
+export const SendSuccess = createSelector(
+    userFeature,
+    (state: userState.State) => state.sent
+);
+
 export function userReducer (
     state: userState.State = initialState,
     action: userActions.All
@@ -42,52 +45,43 @@ export function userReducer (
         switch (action.type) {
             case userActions.userTypes.FETCH:
             return {
+                ...state,
                 loading: true,
                 loaded: false,
                 users: null,
                 errorMessage: null,
-                sending: false,
-                sent: false
             };
 
             case userActions.userTypes.FETCH_SUCCESS:
             return {
+                ...state,
                 loading: false,
                 loaded: true,
                 users: action.payload,
                 errorMessage: null,
-                sending: false,
-                sent: false
             };
 
             case userActions.userTypes.FETCH_ERROR:
             return {
+                ...state,
                 loading: false,
                 loaded: false,
                 users: null,
                 errorMessage: action.payload,
-                sending: false,
-                sent: false
             };
 
             case userActions.userTypes.SEND:
             return {
                 ...state,
-                sending: true
+                sending: true,
+                sent: false
             };
 
             case userActions.userTypes.SEND_SUCCESS:
-            state.users.data.users.find(user => user.id === action.payload.id)
-                .firstName = action.payload.firstName;
-            state.users.data.users.find(user => user.id === action.payload.id)
-                .lastName = action.payload.lastName;
-            state.users.data.users.find(user => user.id === action.payload.id)
-                .pic = action.payload.pic;
             return {
                 ...state,
                 sending: false,
                 sent: true
-
             };
 
             case userActions.userTypes.SEND_ERROR:
@@ -99,7 +93,6 @@ export function userReducer (
                 sending: false,
                 sent: false
             };
-
 
             default:
                 return state;

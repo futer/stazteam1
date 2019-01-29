@@ -62,6 +62,12 @@ body{
 
         }
 
+        app-admin-user-editor{
+            grid-column: 2/7;
+            grid-row: 2/3;
+            padding-top: 2em;
+        }
+
         app-subpage-container {
             grid-row: 2/3; 
             grid-column: 1/8;

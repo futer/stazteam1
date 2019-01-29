@@ -4,9 +4,11 @@ import { UserModel, User } from '../../app/models/user-editor.model';
 import { Store } from '@ngrx/store';
 import { State } from '../store/admin.states';
 import * as Actions from '../store/admin.actions';
-import { Users } from '../store/admin.reducers';
+import { Users, Errors, SendSuccess } from '../store/admin.reducers';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { passwordMatcher, passwordTouchedChecker } from 'src/shared/reusable-functions/passwordMatcher';
+import { filter } from 'rxjs/operators';
+import { ErrorData } from '../models/error.model';
 
 @Component({
   selector: 'app-admin-user-editor',
@@ -14,29 +16,57 @@ import { passwordMatcher, passwordTouchedChecker } from 'src/shared/reusable-fun
   styleUrls: ['./admin-user-editor.component.scss']
 })
 export class AdminUserEditorComponent implements OnInit, OnDestroy {
-  users$: Observable<UserModel>;
-  users: UserModel;
   usersub: Subscription;
-  updateUserForm: FormGroup;
+  errorsub: Subscription;
+  sentsub: Subscription;
+
+  users$: Observable<UserModel>;
+  error$: Observable<ErrorData>;
+  send$: Observable<boolean>;
+
+  users: UserModel;
+  error: ErrorData;
+  send: boolean;
+
+  usersfiltered: UserModel;
   selectedUser: User;
+
+  updateUserForm: FormGroup;
   pictureUrl;
+  searchbox: string;
+
   private validationMessages = {
-    required: 'The field is required',
     password: 'Password must be longer than 5 characters',
     matchingPassword: 'Password doesnt match',
-    firstName: 'First name must be longer than 1 character',
-    lastName: 'Last name must be longer than 1 character',
   };
 
   constructor(
     private store: Store<State>,
     private changeUserFormBuilder: FormBuilder
-    ) { }
+    ) {
+      this.usersfiltered = { data: { users: [] } };
+    }
 
   ngOnInit() {
+    this.searchbox = '';
     this.store.dispatch(new Actions.Fetch);
+
     this.users$ = this.store.select(Users);
-    this.usersub = this.users$.subscribe(users => this.users = users);
+    this.error$ = this.store.select(Errors);
+    this.send$ = this.store.select(SendSuccess);
+
+    this.usersub = this.users$.subscribe(users => {
+      this.users = users;
+      if (this.users) { this.filter(); }
+    });
+
+    this.errorsub = this.error$.subscribe(error => {
+      this.error = error;
+    });
+
+    this.sentsub = this.send$.subscribe(sent => {
+      this.send = sent;
+    });
 
     this.updateUserForm = this.changeUserFormBuilder.group({
       firstName: ['', [Validators.minLength(2)]],
@@ -51,7 +81,6 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
       }, { validator: passwordTouchedChecker })
     });
   }
-
 
   ngOnDestroy(): void {
     this.usersub.unsubscribe();
@@ -77,4 +106,9 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(this.pictureUrl);
   }
 
+  filter() {
+    this.usersfiltered.data.users = this.users.data.users.filter(user => {
+      return (user.firstName.toLocaleLowerCase().includes(this.searchbox) || user.lastName.toLocaleLowerCase().includes(this.searchbox));
+    });
+  }
 }
