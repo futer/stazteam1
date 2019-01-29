@@ -10,11 +10,9 @@ export class SubmitBtnComponent {
   @Input() type?: string;
   @Input() disabled?: boolean;
 
-  @Output() click?: any = new EventEmitter<any>();
-
   constructor() {}
 
   onClickEvent(event) {
-    this.click.emit(event);
+
   }
 }

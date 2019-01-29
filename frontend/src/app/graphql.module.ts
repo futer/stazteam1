@@ -16,8 +16,8 @@ export class GraphQLModule {
     constructor(apollo: Apollo, httpLink: HttpLink) {
         const link = httpLink.create({
             uri: environment.adress + 'graphql',
-            withCredentials: true,
-            method: 'GET'
+            withCredentials: false,
+            method: 'POST'
         });
 
         const authMiddleware = new ApolloLink((operation, forward) => {

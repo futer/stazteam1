@@ -1,27 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { DocumentModel } from '../models/document.model';
-import { Observable } from 'rxjs';
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DocumentsModel } from '../models/document.model';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-
-import { State } from '../store/document.states';
+import { PrevState } from '../store/document.states';
 import * as Actions from '../store/document.actions';
+import { getPrevs, getPrevsError, arePrevsLoaded } from '../store/document.selectors';
+import { ErrorData } from '../models/error.model';
+import { DocumentService } from '../services/document.service';
 
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
   styleUrls: ['./container.component.scss']
 })
-export class ContainerComponent implements OnInit {
-  prevs$: Observable<DocumentModel[]>;
+export class ContainerComponent implements OnInit, OnDestroy {
+  prevs$: Observable<DocumentsModel>;
+  errorHandler$: Observable<ErrorData>;
+  checkLoad: Subscription;
 
   constructor(
-    private store: Store<State>
+    private store: Store<PrevState>
   ) { }
 
   ngOnInit() {
-    this.store.dispatch(new Actions.Fetch);
+    this.checkLoad = this.store.select(arePrevsLoaded).subscribe(load => {
+      if (!load) {
+        this.store.dispatch(new Actions.FetchPrevs);
+      }
 
-    this.prevs$ = this.store.select((docs: State) => docs.documents);
+      this.prevs$ = this.store.select(getPrevs);
+      this.errorHandler$ = this.store.select(getPrevsError);
+    });
+  }
+
+  ngOnDestroy() {
+    this.checkLoad.unsubscribe();
   }
 }

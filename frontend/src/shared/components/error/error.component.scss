@@ -31,6 +31,33 @@
     border-bottom: 10px solid rgba(248,000,000,0.5);
     border-left: 10px solid transparent;
     text-align: center;
-    top:-30px;
+    top:-10px;
     left: calc(50% - 10px);
 }  
+
+.user-editor-error-msg{
+    align-self: center;
+    background-color: rgba(248,000,000,0.5);
+    padding: 10px;
+    display: relative;
+    color: #FFF;
+    margin-bottom: 10px;
+    font-size: 0.8em;
+    position: relative;
+    text-align: center;
+    width: 40%
+}
+
+.user-editor-error-msg:before{
+    content: '';
+    display: inline-block;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid rgba(248,000,000,0.5);
+    border-left: 10px solid transparent;
+    text-align: center;
+    top:-10px;
+    left: calc(50% - 10px);
+}
