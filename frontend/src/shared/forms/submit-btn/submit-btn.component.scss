@@ -41,6 +41,34 @@ button {
     text-transform: uppercase;
 }
 
+.send-message__submit {
+    background: #fff;
+    color: #313131;
+    padding: 12px 10px;
+    margin: 0;
+    height: 41px;
+    width: 73.7px;
+    border-radius: 0 0 10px 0;
+    border-bottom: 1px solid #d4d4d4;
+    border-right: 1px solid #d4d4d4;
+    border-top: 1px solid #d4d4d4;
+    box-shadow: 1px 1px 2px #646464;
+    box-sizing: inherit;
+    transition: 0.5s;
+
+    &:hover {
+        transform: none;
+    }    
+       
+    &:disabled {
+        background: #fff;
+        cursor: not-allowed;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
 .change-Password-Form__submit{
     padding: 0.5em;
     margin: 0em;

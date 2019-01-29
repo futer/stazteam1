@@ -1,3 +1,22 @@
-<div>
-  <app-user-message-info></app-user-message-info>
-</div>>
+<div 
+  #messageComponent 
+  [class]="'message-container'"
+  (scroll)="onScroll()">
+    <div 
+      *ngFor="let msg of messages"
+      (contextmenu)="onClick(msg, $event)">
+      <ng-container *ngIf="msg.message.isMessage; then message else info"></ng-container>
+      <ng-template #message>
+        <div [class]="messageStyle">
+          <app-user-message-info 
+          [userMessageInfoStyle]="'userMessageInfo'">{{ msg.user.firstName }} {{ msg.user.lastName }}</app-user-message-info>
+          <app-message-content 
+          [messageContentStyle]="'messageContent'">{{ msg.message.message }}</app-message-content>
+        </div>
+      </ng-template>
+      <ng-template #info>
+        <app-message-content 
+        [messageContentStyle]="'infoContent'">{{ msg.message.message }}</app-message-content>
+      </ng-template>
+    </div>
+</div>

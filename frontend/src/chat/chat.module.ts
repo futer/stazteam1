@@ -10,6 +10,7 @@ import { MessageContentComponent } from './message-content/message-content.compo
 import { UserMessageInfoComponent } from './user-message-info/user-message-info.component';
 import { ChatContextMenuComponent } from './chat-context-menu/chat-context-menu.component';
 import { SendMessageComponent } from './send-message/send-message.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SendMessageComponent } from './send-message/send-message.component';
   imports: [
     CommonModule,
     SharedModule,
+    ReactiveFormsModule,
   ],
   exports: [
     ChatComponent,
