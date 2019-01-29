@@ -5,24 +5,24 @@ import { SharedModule } from '../shared/shared.module';
 import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ReviewModule } from 'src/review/review.module';
 import { CoreModule } from '../core/core.module';
-import { Example1Component } from './examples/example1/example1.component';
-import { Example2Component } from './examples/example2/example2.component';
 import { DocumentModule } from 'src/document/document.module';
-
-import { routing } from './examples/example.routing';
 import { CoreRoutingModule } from '../core/core-routing.module';
-
 import { StoreModule } from '@ngrx/store';
+import { docReducer } from '../document/store/document.reducers';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ExampleRouting } from '../examples/example.routing';
+import { ExamplesModule } from 'src/examples/examples.module';
+import { UserModule } from 'src/user/user.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import authReducer from '../core/store/auth/auth.reducers';
+import { AuthEffect } from '../core/store/auth/auth.effects';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Example1Component,
-    Example2Component,
   ],
   imports: [
     BrowserModule,
@@ -30,16 +30,24 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     HttpClientModule,
     SharedModule,
     CoreModule,
-    routing,
+    ExampleRouting,
+    ExamplesModule,
     CoreRoutingModule,
+    StoreModule.forRoot({doc: docReducer, auth: authReducer}),
+    ReactiveFormsModule,
     DocumentModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
+    UserModule,
+    // StoreModule.forRoot({userReducer}),
+    EffectsModule.forRoot([AuthEffect]),
     StoreDevtoolsModule.instrument({
       maxAge: 10
-    })
+    }),
+    ExamplesModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

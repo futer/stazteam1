@@ -7,6 +7,11 @@
           [placeholder]="'Email'"
       ></app-input>
       <i class="fa fa-envelope input-icon"></i>
+      <app-error
+      *ngIf="error"
+      [class]="'error-msg'" >
+        {{error.error.message}}
+    </app-error>
     </div>
 
     <div class="input-group">
@@ -45,4 +50,5 @@
         <p class="login-form__GM--text">Log In With Gmail</p>
       </button>
   </section>
-</form>
+</form> 
+

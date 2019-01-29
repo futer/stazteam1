@@ -13,12 +13,14 @@
     
     .register-wrapper {
         background-color: $sec-back-color;
-        width: 300px;
-        border-radius: 10px;
+        width: 100%;
+        border-radius: 5px;
         padding: 2em;
+        
 
         @media(min-width:640px) {
             width: 420px;
+            margin-top: -50px;
         }
        
         .register-form  {

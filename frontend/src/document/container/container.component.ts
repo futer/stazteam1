@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 
 import { State } from '../store/document.states';
 import * as Actions from '../store/document.actions';
+import { DocumentService } from '../services/document.service';
+
 
 @Component({
   selector: 'app-container',
@@ -16,7 +18,8 @@ export class ContainerComponent implements OnInit {
   prevs$: Observable<DocumentModel[]>;
 
   constructor(
-    private store: Store<State>
+    private store: Store<State>,
+
   ) { }
 
   ngOnInit() {
