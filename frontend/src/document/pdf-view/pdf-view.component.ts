@@ -1,6 +1,9 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
 
-import * as PDFJS from 'pdfjs-dist';
+declare const require;
+const PDFJS = require('pdfjs-dist/build/pdf');
+const pdfWorker = require('pdfjs-dist/build/pdf.worker.entry');
+PDFJS.workerSrc = pdfWorker;
 
 @Component({
     selector: 'app-pdf-view',
