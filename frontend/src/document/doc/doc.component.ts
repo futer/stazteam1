@@ -38,7 +38,6 @@ export class DocComponent implements OnInit, OnDestroy {
             this.id = params['id'];
             this.docData = this.store.select(getDoc).subscribe(doc => {
                 if (!doc) {
-                    console.log('empty boiii');
                     this.store.dispatch(new Actions.FetchDoc(this.id));
                 }
                 if (doc) {
