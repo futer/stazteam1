@@ -1,0 +1,56 @@
+@import '../../assets/main-style.scss';
+
+.doc {
+    background: $sec-back-color;
+    color: $main-font-color;
+    margin: 0.5em 0;
+    padding: 0.5em;
+    width: 70%;
+
+    app-submit-btn {
+        text-align: right;
+    }
+
+    &__desc {
+        align-items: center;
+        display: flex;
+        padding: 0.5em 0;
+
+        * {
+            padding: 0 0.5em;
+        }
+
+        &--title {
+            color: $btn-color;
+        }
+
+        &--author {
+            color: $main-color;
+        }
+
+        // &--like {
+        //     margin: 0 0 0 auto;
+        //     text-align: right;
+        // }
+        app-submit-btn {
+            margin: 0 0 0 auto;
+            text-align: right;
+        }
+    }
+
+    &__content {
+        padding: 0.5em;
+        text-align: justify;
+    }
+
+    &__controls {
+        align-items: center;
+        display: flex;
+        padding: 0.5em 0;
+        justify-content: space-between;
+    }
+}
+
+.sideNav {
+    width: 30%
+}

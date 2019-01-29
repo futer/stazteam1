@@ -1,5 +1,4 @@
 const database = require('../helpers/database');
-
 const Document = require('../models/document.model');
 
 async function getDocuments() {
@@ -7,6 +6,14 @@ async function getDocuments() {
   const documents = await Document.find();
 
   return documents;
+}
+
+async function getDocument(data) {
+  database.connect();
+  console.log(data);
+  const document = await Document.findById({ _id: data.id });
+
+  return document;
 }
 
 async function addDocument(data) {
@@ -19,7 +26,7 @@ async function addDocument(data) {
 
 async function updateDocument(data) {
   database.connect();
-  const document = await document.findOneAndUpdate({ _id: data.id }, data, { new: true });
+  const document = await Document.findOneAndUpdate({ _id: data.id }, data, { new: true });
 
   return document;
 }
@@ -33,6 +40,7 @@ async function deleteDocument(id) {
 
 module.exports = {
   getDocuments,
+  getDocument,
   addDocument,
   updateDocument,
   //deleteDocument,

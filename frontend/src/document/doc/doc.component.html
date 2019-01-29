@@ -1,3 +1,21 @@
-<p>
-  doc works!
-</p>
+<article class="doc">
+  <div class="doc__desc">
+    <span class="doc__desc--title">{{document.data.document.title}}</span>
+    <span class="doc__desc--author">{{document.data.document.author}}</span>
+    <span class="doc__desc--date">{{document.data.document.date}}</span>
+    <app-submit-btn [buttonStyle]="'doc__desc--like'">Like</app-submit-btn>
+  </div>
+
+  <app-pdf-view [adress]="url"></app-pdf-view>
+
+  <div class="doc__controls">
+    <app-router-btn [link]="'/main'" [class]="'doc-prev__open'">
+      Return
+    </app-router-btn>
+    <app-submit-btn (click)="downloadPDF()">Download</app-submit-btn>
+  </div>
+</article>
+
+<div class="sideNav">
+  <p>here side nav will be</p>
+</div>
