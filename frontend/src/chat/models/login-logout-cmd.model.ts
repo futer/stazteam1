@@ -1,6 +1,6 @@
 import { CommandCMDModel } from './command-cmd.model';
 
-export interface LoginCMDModel extends CommandCMDModel {
+export interface LoginLogoutCMDModel extends CommandCMDModel {
   payload: {
     user: {
       id: string;

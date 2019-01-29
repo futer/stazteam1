@@ -6,6 +6,7 @@ export interface MessageCMDModel extends CommandCMDModel {
       id: string;
       firstName: string;
       lastName: string;
+      pic: string;
     };
     message: {
       id: string;

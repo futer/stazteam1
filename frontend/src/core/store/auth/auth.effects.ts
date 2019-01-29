@@ -32,6 +32,7 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
                                 this.router.navigate(['/main']);
                                 let u: UserModel;
                                 u = this.authService.decode(user.token).sub;
+                                u.pic = user.pic;
                                 console.log(u);
                                 return new AuthActions.LogInSucces(u);
                             }),

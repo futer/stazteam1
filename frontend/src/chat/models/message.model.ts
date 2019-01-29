@@ -1,8 +1,9 @@
 export interface MessageModel {
-  user: {
+  user?: {
     id: string;
     firstName: string;
     lastName: string;
+    pic?: string;
     isBanned?: boolean;
   };
   message: {

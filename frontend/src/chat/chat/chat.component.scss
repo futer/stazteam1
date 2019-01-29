@@ -5,12 +5,8 @@
     height: 0px;
 
     @keyframes hide {
-        0% { 
-            height: 291px; 
-        }
-        100% { 
-            height: 0px;
-        }
+        0% { height: 291px; }
+        100% { height: 0px; }
     }
 }
 
@@ -21,11 +17,7 @@
     height: 291px;
 
     @keyframes show {
-        0% { 
-            height: 0px; 
-        }
-        100% { 
-            height: 291px; 
-        }
+        0% { height: 0px; }
+        100% { height: 291px; }
     }
 }

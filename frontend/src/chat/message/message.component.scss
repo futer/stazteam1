@@ -1,5 +1,5 @@
 .message-container {
-    background: #252525b7;
+    background: hsla(0, 0%, 15%, 0.6);
     padding: 2px 5px;
     min-height: 250px;
     max-height: 250px;
@@ -28,7 +28,7 @@
     }
      
     &::-webkit-scrollbar-thumb {
-        background-color: #474747;
+        background-color: #646464;
         border-radius: 10px;
     }
 

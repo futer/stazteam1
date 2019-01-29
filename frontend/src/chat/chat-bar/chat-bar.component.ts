@@ -7,9 +7,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ChatBarComponent implements OnInit {
 
-  @Input() chatBarStyle = '';
+  @Input() chatBarStyle: string;
 
-  constructor() { }
+  constructor() {
+    this.chatBarStyle = '';
+  }
 
   ngOnInit() {
   }

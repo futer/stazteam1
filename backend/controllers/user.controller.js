@@ -52,7 +52,6 @@ function getById(req,res,next){
 }
 
 function getCurrentUser(req,res,next){
-    console.log(req.get('Authorization').slice(7).sub._id);
     userService.getCurrent(jwt.decode(req.get('Authorization').slice(7)).sub._id)
         .then(user => user ? res.json(user) : res.sendStatus(404))
         .catch(err => next(err));

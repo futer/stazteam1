@@ -79,6 +79,11 @@ input {
     &:focus {
         outline: none;
     }
+
+    &:disabled {
+        cursor: not-allowed;
+        color: grey;
+    }
 }
 // USER EDITOR PAGE
 .user-edit__input{

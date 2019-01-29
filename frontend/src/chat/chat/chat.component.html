@@ -1,11 +1,10 @@
-<div [class]="chatStyle">
+<div [class]="chatStyle" *ngIf="loggedUser">
   <app-chat-bar 
     #chatBar
-    [chatBarStyle]="'bar'" 
+    [chatBarStyle]="'chat-bar'" 
     (click)="toggleChat()">Chat</app-chat-bar>
 
-
-  <div [ngClass]="{'hide-chat': hidden, 'show-chat': !hidden}">
+  <div [ngClass]="{'hide-chat': chatIsHidden, 'show-chat': !chatIsHidden}">
     <app-message 
       #messageComponent 
       [messageStyle]="'message'" 
@@ -16,7 +15,8 @@
       (showContextMenuEmitter)="showContextMenu($event)"></app-message>
 
     <app-send-message 
-      [sendMessageStyles]="'send-message'"   
+      [sendMessageStyles]="'send-message'"  
+      [userIsBanned]="loggedUser.isBanned" 
       (messageEmitter)="onMessage($event)"></app-send-message>
 
     <app-chat-context-menu 

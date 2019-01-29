@@ -1,6 +1,6 @@
 const { commandEnum } = require('./command.enum');
 
-function messageCMDModel(idUser = null, firstName = null, lastName = null, message = null, idMessage = null) {
+function messageCMDModel(idUser = null, firstName = null, lastName = null, pic = null, message = null, idMessage = null) {
   const obj = {
     command: commandEnum.MESSAGE,
     payload: {
@@ -8,6 +8,7 @@ function messageCMDModel(idUser = null, firstName = null, lastName = null, messa
         id: idUser,
         firstName: firstName,
         lastName: lastName,
+        pic: pic,
       },
       message: {
         id: idMessage,
@@ -33,6 +34,7 @@ function messageCMDModel(idUser = null, firstName = null, lastName = null, messa
       this.payload.user.id = obj.payload.user.id;
       this.payload.user.firstName = obj.payload.user.firstName;
       this.payload.user.lastName = obj.payload.user.lastName;
+      this.payload.user.pic = obj.payload.user.pic;
       this.payload.message.id = obj.payload.message.id;
       this.payload.message.message = obj.payload.message.message;
 

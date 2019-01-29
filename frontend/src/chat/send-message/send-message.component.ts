@@ -2,31 +2,41 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-    selector: 'app-send-message',
-    templateUrl: './send-message.component.html',
-    styleUrls: ['./send-message.component.scss']
+  selector: 'app-send-message',
+  templateUrl: './send-message.component.html',
+  styleUrls: ['./send-message.component.scss']
 })
 export class SendMessageComponent implements OnInit {
 
-    @Input() sendMessageStyles = '';
+  @Input() sendMessageStyles: string;
+  @Input() userIsBanned: boolean;
 
-    sendMessageForm: FormGroup;
-    @Output() messageEmitter = new EventEmitter<string>();
+  @Output() messageEmitter = new EventEmitter<string>();
 
-    constructor(private formBuilder: FormBuilder) {}
+  sendMessageForm: FormGroup;
 
-    ngOnInit() {
-        this.sendMessageForm = this.formBuilder.group({
-            message: ['', [Validators.required]]
-        });
-    }
+  constructor(private formBuilder: FormBuilder) {
+    this.sendMessageStyles = '';
+    this.userIsBanned = false;
+  }
 
-    send(sendMessageForm) {
-        const message = sendMessageForm.value.message.trim();
+  ngOnInit() {
+    this.sendMessageForm = this.formBuilder.group({
+      message: [{
+        value: '',
+        disabled: this.userIsBanned
+      }, [
+        Validators.required
+      ]
+    ]});
+  }
 
-        if (message === '') { return; }
+  send(sendMessageForm) {
+    const message = sendMessageForm.value.message.trim();
 
-        this.messageEmitter.emit(message);
-        this.sendMessageForm.setValue({ message: '' });
-    }
+    if (message === '') { return; }
+
+    this.messageEmitter.emit(message);
+    this.sendMessageForm.setValue({ message: '' });
+  }
 }
