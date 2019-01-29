@@ -1,6 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { SubpageService } from 'src/shared/services/subpage.service';
+import { Store } from '@ngrx/store';
+import { CoreState } from 'src/core/store';
+import * as bookmarkActions from 'src/core/store/bookmark/bookmark.actions';
+
 
 @Component({
   selector: 'app-bookmark-form',
@@ -15,7 +19,8 @@ export class BookmarkFormComponent implements OnInit {
 
 
   constructor( private editFormBuilder: FormBuilder,
-    private subpageService: SubpageService ) { }
+    private subpageService: SubpageService,
+    private store: Store<CoreState> ) { }
 
   ngOnInit() {
     this.bookmarkEditForm = this.editFormBuilder.group({
@@ -28,7 +33,7 @@ export class BookmarkFormComponent implements OnInit {
 
   updateBookmark(event) {
     if ( window.confirm('Are sure you want to save changes ?')) {
-      this.subpageService.update(event.value);
+      this.store.dispatch(new bookmarkActions.Update(event.value));
      }
   }
 

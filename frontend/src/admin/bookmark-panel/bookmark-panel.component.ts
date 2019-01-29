@@ -4,8 +4,7 @@ import { Observable } from 'rxjs/observable';
 import { Store } from '@ngrx/store';
 import { CoreState } from 'src/core/store';
 import * as fromStore from '../../core/store/index';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { timesSeries } from 'async';
+import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
 
 @Component({
   selector: 'app-bookmark-panel',
@@ -24,9 +23,10 @@ export class BookmarkPanelComponent implements OnInit {
     this.bookmark$ = this.store.select(fromStore.getBookmarksSubpage);
   }
 
-  toggleForm() {
-    this.isShown = !this.isShown;
-    console.log(this.isShown);
-   }
+  // toggleForm(data) {
+  //   this.store.dispatch(new bookmarkActions.SetCurrentBookmark(data));
+  //   this.isShown = !this.isShown;
+  //   console.log(this.isShown);
+  //  }
 
 }

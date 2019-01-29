@@ -18,6 +18,8 @@ mutation updateBookmark($id: String!, $title: String, $content: String, $positio
 }
 `;
 
+
+
 const deleteBookmarkMutation = gql `
 mutation deleteBookmark($id: String!){
   deleteBookmark(
@@ -52,33 +54,29 @@ export class SubpageService {
   }
 
 
-  update(values) {
-    this.apollo.mutate({
+  update(values): Observable<any> {
+    return this.apollo.mutate({
     mutation: updateBookmarkMutation,
     variables: {
-      id: values.id,
-      title: values.title,
-      content: values.content,
-      position: values.position
+      id: values.payload.id,
+      title: values.payload.title,
+      content: values.payload.content,
+      position: values.payload.position
     }
-    }).subscribe(
-      data => {
-      console.log('got data', data);
-    }, (error) => {
-      console.log('errr', error);
     });
-  }
+ }
+
 
   delete(id) {
-    this.apollo.mutate({
+    return this.apollo.mutate({
       mutation: deleteBookmarkMutation,
       variables : {
         id: id
-
       }
-    }).subscribe((data) =>
-    console.log(data), error => {
-      console.log(error);
     });
+    // .subscribe((data) =>
+    // console.log(data), error => {
+    //   console.log(error);
+    // });
   }
 }
