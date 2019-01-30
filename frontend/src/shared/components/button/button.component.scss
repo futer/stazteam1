@@ -9,6 +9,7 @@
     font-size: $btn-font-size;
     margin: 0.5em;
     padding: 1rem;
+    border-radius: 3px;
 }
 
 .boomark-info__button--delete{
@@ -20,6 +21,7 @@
     font-size: $btn-font-size;
     margin: 0.5em;
     padding: 1rem;
+    border-radius: 3px;
 }
 
 .app-bookmark {
@@ -30,6 +32,7 @@
     border: none;
     cursor: pointer;
     background-color: $back-color;
+   
 }
 
 

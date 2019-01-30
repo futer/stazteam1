@@ -1,6 +1,6 @@
 <div class="bookmark-info">
     <div class="bookmark-info--title">
-        <p>Title: <Strong>{{data.title}}</Strong></p> 
+        <p>Title: <Strong>{{ (data.title.length > 12)? (data.title | slice:0:12)+'...' : (data.title) }}</Strong></p> 
     </div>
     <div class="bookmark-info--position">
         <p>Position: <Strong>{{data.position}}</Strong></p>

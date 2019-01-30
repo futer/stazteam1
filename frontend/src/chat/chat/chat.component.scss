@@ -1,0 +1,23 @@
+.hide-chat {
+    animation: hide .7s, ease-in-out 5, forwards;
+    overflow: hidden;
+
+    height: 0px;
+
+    @keyframes hide {
+        0% { height: 291px; }
+        100% { height: 0px; }
+    }
+}
+
+.show-chat {
+    animation: show .7s, ease-in-out 5, forwards;
+    overflow: hidden;
+
+    height: 291px;
+
+    @keyframes show {
+        0% { height: 0px; }
+        100% { height: 291px; }
+    }
+}

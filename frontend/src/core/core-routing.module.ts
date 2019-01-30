@@ -8,6 +8,7 @@ import { MainComponent } from './main/main.component';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { LoginGuard } from './guards/login/login.guard';
 import { BookmarkPanelComponent } from 'src/admin/bookmark-panel/bookmark-panel.component';
+import { DocumentModule } from 'src/document/document.module';
 import { AdminModule } from 'src/admin/admin.module';
 import { SubpageContainerComponent } from 'src/shared/components/subpage-container/subpage-container.component';
 import { ContainerComponent } from 'src/document/container/container.component';
@@ -16,6 +17,10 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'register', component: RegisterComponent },
     { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
+    {
+      path: 'doc/:id',
+      loadChildren: '../document/document.module#DocumentModule'
+    },
     { path: 'user-editor', loadChildren: '../user/user.module#UserModule'},
     { path: 'bookmark-panel', component: BookmarkPanelComponent},
     { path: 'subpage/:title', component: SubpageContainerComponent},

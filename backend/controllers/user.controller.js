@@ -2,6 +2,7 @@ const userService = require('../services/user.service');
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user.model');
+const jwt = require('jsonwebtoken')
 
 /**
  * @swagger
@@ -28,6 +29,7 @@ router.get('/isAdmin', isAdmin);
 router.get('/isEditor', isEditor);
 router.get('/isModerator', isModerator);
 router.get('/isReviewer', isReviewer);
+router.get('/getCurrentUser', getCurrentUser);
 module.exports = router;
 
 function register(req,res,next){
@@ -45,6 +47,12 @@ function register(req,res,next){
 
 function getById(req,res,next){
     userService.getById(req.body.id)
+        .then(user => user ? res.json(user) : res.sendStatus(404))
+        .catch(err => next(err));
+}
+
+function getCurrentUser(req,res,next){
+    userService.getCurrent(jwt.decode(req.get('Authorization').slice(7)).sub._id)
         .then(user => user ? res.json(user) : res.sendStatus(404))
         .catch(err => next(err));
 }

@@ -1,3 +1,4 @@
 <app-nav [bookmark$] ="bookmark$" *ngIf="isActive"></app-nav>
 <app-sidebar [bookmark$] ="bookmark$" *ngIf="isActive"></app-sidebar>
 <router-outlet ></router-outlet>
+<app-chat *ngIf="loggedUser" [chatStyle]="'chat'" [loggedUser]="loggedUser"></app-chat>

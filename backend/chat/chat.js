@@ -1,6 +1,6 @@
 const userService = require('../services/user.service');
 
-const { banEnum } = require('./models/command.enum');
+const { banEnum, commandEnum, roleEnum } = require('./models/command.enum');
 
 const loginCMDModel = require('./models/login.command.model');
 const messageCMDModel = require('./models/message.command.model');
@@ -15,31 +15,30 @@ function init(wsServer) {
   wss = wsServer;
 };
 
-function recvMessage(ws, message) {
+function recvMessage(ws, message, req) {
   try {
     const parsedMessage = JSON.parse(message);
-    handleCommand(ws, parsedMessage);
+    handleCommand(ws, parsedMessage, req);
   } catch (err) {
     const msg = shortMessageCMDModel('ERROR', 'message has invalid format');
     sendMessage(ws, msg.getJSON());
   }
 };
 
-function handleCommand(ws, message) {
+function handleCommand(ws, message, req) {
   const command = message.command;
-
   switch (command) {
-    case 'message':
+    case commandEnum.MESSAGE:
       messageCommand(ws, message);
       break;
-    case 'login':
-      loginCommand(ws, message);
+    case commandEnum.LOGIN:
+      loginCommand(ws, message, req);
       break;
-    case 'logout':
+    case commandEnum.LOGOUT:
       logoutCommand(ws, message);
       break;
-    case 'ban':
-      banCommand(ws, message);
+    case commandEnum.BAN:
+      banCommand(ws, message, req);
       break;
     default:
       const msg = shortMessageCMDModel('ERROR', 'invalid command');
@@ -51,7 +50,6 @@ function handleCommand(ws, message) {
 function messageCommand(ws, message) {
   const messageModel = messageCMDModel().castFrom(message);
   const banned = userService.isBanned(messageModel.payload.user.id);
-
   banned.then(isBanned => {
     if (isBanned) {
       const msg = shortMessageCMDModel('ERROR', 'your account is banned');
@@ -66,21 +64,21 @@ function messageCommand(ws, message) {
   });
 };
 
-function loginCommand(ws, message) {
-  const loginModel = loginCMDModel().castFrom(message);
-  const banned = userService.isBanned(loginModel.payload.user.id);
-  banned.then((banned) => {
-    if (banned) {
-      const msg = shortMessageCMDModel('ERROR', 'your account is banned');
-      ws.send(msg.getJSON());
-      ws.terminate();
-      return;
-    }
+function loginCommand(ws, message, req) {
 
-    const msg = shortMessageCMDModel('SUCCESS', 'welcome!');
-    sendToAllWithoutSender(ws, loginModel.getJSON());
-    ws.send(msg.getJSON());
-  });
+  const loginModel = loginCMDModel().castFrom(message);
+  userService.isBanned(req.user._id)
+    .then((isBanned) => {
+      if (isBanned) {   
+        const msg = shortMessageCMDModel('ERROR', 'your account is banned');
+        ws.send(msg.getJSON());
+        ws.terminate();
+        return;
+      }
+      const msg = shortMessageCMDModel('SUCCESS', 'welcome!');
+      sendToAllWithoutSender(ws, loginModel.getJSON());
+      ws.send(msg.getJSON());
+    });
 };
 
 function logoutCommand(ws, message) {
@@ -92,17 +90,29 @@ function logoutCommand(ws, message) {
   ws.send(msg.getJSON());
 };
 
-function banCommand(ws, message) {
-  const banModel = banCMDModel().castFrom(message);
-  
-  if (banModel.payload.ban === banEnum.USER) {
-    const user = userService.banUser(message.payload.id);
-    user.then(data => {
-      sendToAll(banModel.getJSON());
-    });  
-  } else if (banModel.payload.ban === banEnum.MESSAGE) {
-    sendToAll(banModel.getJSON());
-  }
+function banCommand(ws, message, req) {
+  userService.isModerator(req.token)
+    .then(isMod => {
+      if (isMod) {
+        const banModel = banCMDModel().castFrom(message);
+        switch (banModel.payload.ban) {
+          case banEnum.USER:
+            const user = userService.banUser(message.payload.id);
+            user.then(data => {
+              sendToAll(banModel.getJSON());
+            });
+            break;
+          case banEnum.MESSAGE:
+            sendToAll(banModel.getJSON());
+          default:
+            break;
+        }
+      }
+    })
+    .catch(err => {
+      const msg = shortMessageCMDModel('ERROR', err.name);
+      ws.send(msg.getJSON());
+    });
 };
 
 function sendMessage(ws, message) {

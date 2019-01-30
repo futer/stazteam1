@@ -13,6 +13,9 @@ module.exports = {
     isReviewer,
     isModerator,
     isEditor,
+    isLogged,
+    getAll,
+    getCurrent  
 };
 
 async function registrationLocal(userParam){
@@ -24,13 +27,13 @@ async function registrationLocal(userParam){
         err.name = "Email already registered";
         throw err;
     }
-    
+
     const user = new User({
         email: userParam.email,
         firstName: userParam.firstName,
         lastName: userParam.lastName,
         password: userParam.password,
-        pic: userParam.pic,
+        pic: userParam.pic || null,
         registered: 'LOCAL'
     })
     await user.save();
@@ -39,6 +42,12 @@ async function registrationLocal(userParam){
 async function getById(id){
     db = database.connect();
     const u = await User.findOne({_id: id});
+    return u;
+}
+
+async function getCurrent(id){
+    db = database.connect();
+    const u = await User.findOne({_id: id}).select('-password');
     return u;
 }
 
@@ -55,13 +64,14 @@ async function authenticate({email,password}) {
     }
 
     if (password === user.password) {
-        const { password, ...userWithoutPass } = user.toObject();
+        const { password, pic, ...userWithoutPass } = user.toObject();
         const jwtOptions = { expiresIn: '1d' };
         const token = jwt.sign({sub: userWithoutPass}, config.JWT_SECRET, jwtOptions);
         database.disconnect();
 
         return {
-            token
+            token: token, 
+            pic: user.pic
         };
     }   
 }
@@ -69,7 +79,7 @@ async function authenticate({email,password}) {
 async function isBanned(id) {
     database.connect();
     const user = await User.findOne({_id: id});
-    
+
     if (user) {
         return user.isBanned;
     }
@@ -80,6 +90,17 @@ async function isBanned(id) {
 async function banUser(id) {
     database.connect();
     const user = await User.findOneAndUpdate({ _id: id }, { isBanned: true }, { new: true });
+
+    return user;
+}
+
+function isLogged(token) {
+    let user;
+    try {
+        user = jwt.decode(token);
+    } catch (err) {
+        user = false;
+    }
 
     return user;
 }
@@ -158,4 +179,10 @@ async function isEditor(token) {
             }
         });
     return temp;
+}
+
+async function getAll() {
+    database.connect();
+    const u = await User.find();
+    return u;    
 }
