@@ -32,7 +32,7 @@ async function addLike(data) {
 
 async function deleteLike(data) {
   database.connect();
-  console.log(data);
+
   let likes = await Likes.findOneAndUpdate(
     { userId: data.userId },
     { $pullAll: { docsId: data.docsId } },
