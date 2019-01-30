@@ -16,7 +16,7 @@ const userType = new GraphQLObjectType({
     })
 })
 
-const uuuuu = new GraphQLInputObjectType({
+const userObject = new GraphQLInputObjectType({
     name: 'userInput',
     fields: () => ({
         id: { type: new GraphQLNonNull(GraphQLString)},
@@ -27,4 +27,4 @@ const uuuuu = new GraphQLInputObjectType({
     })
 })
 
-module.exports = {userType, uuuuu};
+module.exports = {userType, userObject};
