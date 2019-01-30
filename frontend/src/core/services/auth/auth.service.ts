@@ -46,6 +46,15 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token);
   }
 
+  isAdmin(): boolean {
+    const token = localStorage.getItem('token');
+    const role = (this.jwtHelper.decodeToken(token)).sub.role;
+    if (role === 'admin') {
+      return true;
+    }
+    return false;
+  }
+
   setToken(JWtoken) {
     localStorage.setItem('token', JWtoken);
   }

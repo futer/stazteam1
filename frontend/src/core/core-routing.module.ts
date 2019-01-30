@@ -12,6 +12,8 @@ import { BookmarkCreatorComponent } from 'src/admin/bookmark-creator/bookmark-cr
 import { AdminModule } from 'src/admin/admin.module';
 import { SubpageContainerComponent } from 'src/shared/components/subpage-container/subpage-container.component';
 import { ContainerComponent } from 'src/document/container/container.component';
+import { AdminUserEditorComponent } from 'src/admin/admin-user-editor/admin-user-editor.component';
+import { AdminGuard } from './guards/admin/admin.guard';
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
@@ -24,6 +26,8 @@ const routes: Routes = [
     { path: 'user-editor', loadChildren: '../user/user.module#UserModule'},
     { path: 'bookmark-creator', component: BookmarkCreatorComponent},
     { path: 'subpage/:title', component: SubpageContainerComponent},
+    { path: 'user-editor', loadChildren: '../user/user.module#UserModule' },
+    { path: 'admin', component: AdminUserEditorComponent, canActivate: [AdminGuard] }
   ];
 
 @NgModule({
