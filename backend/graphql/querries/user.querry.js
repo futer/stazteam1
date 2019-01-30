@@ -4,7 +4,7 @@ const {
     GraphQLString
 } = require('graphql');
 
-const { userType, uuuuu } = require('../types/user.type');
+const { userType, userObject } = require('../types/user.type');
 const userResolver  = require('../resolvers/user.resolver');
 
 const userQueries = {
@@ -24,7 +24,7 @@ const userMutations = {
     updateUser: {
         type: userType,
         args: {
-            user: { type: new GraphQLNonNull(uuuuu) },
+            user: { type: new GraphQLNonNull(userObject) },
         },
         resolve: userResolver.updateUser
     }
