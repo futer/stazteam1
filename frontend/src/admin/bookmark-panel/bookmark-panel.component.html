@@ -1,9 +1,62 @@
 <div class="container">
     <div class="add-bookmark">
         <p>Create New Bookmark</p>
-        <app-button [class]="'app-bookmark'"><i class="fa fa-plus-circle"></i></app-button>
+        <app-button [class]="'app-bookmark'" (clickEvent)="showModal = !showModal"><i class="fa fa-plus-circle"></i></app-button>
     </div>
     <div class="bookmark" *ngFor="let item of bookmark$ | async ">
         <app-bookmark-info [data]="item"></app-bookmark-info>
     </div>
 </div>
+
+
+<app-modal [(visible)]="showModal">
+    <div class="add-bookmark">
+        <form [formGroup] ="addBookmarkForm" class="bookmark-add-form" > 
+            <div class="form-group">
+                <label for="title">Title: </label>
+                <app-input 
+                    [id]="'title'" 
+                    [formInputStyle]="'bookmark-form__input'"
+                    [type]="'text'" 
+                    [controlName]="addBookmarkForm.controls.title"
+                >
+                </app-input>
+            </div>
+            <div class="form-group">
+                <label for="title">Content: </label>
+                <textarea
+                    class="" 
+                    id="content" 
+                    rows="6" 
+                    cols="20"
+                    [formControl]="addBookmarkForm.controls.content"
+                >
+                </textarea>
+            </div>
+            <div class="form-group">
+                <label for="position">Position: </label>
+                <label class="bookmark-add-form__label--position">
+                    <app-input 
+                        [id]="'position'" 
+                        [name]="'position'" 
+                        [type]="'radio'" 
+                        [controlName]="addBookmarkForm.controls.position"
+                        [value]="positions.top"
+                        >
+                    </app-input>TOP
+                </label>
+                <label class="bookmark-add-form__label--position">
+                    <app-input 
+                        [id]="'position'" 
+                        [name]="'position'"
+                        [type]="'radio'" 
+                        [controlName]="addBookmarkForm.controls.position"
+                        [value]="positions.right"
+                    >
+                    </app-input>RIGHT
+                </label>
+            </div>
+            <app-submit-btn [buttonStyle]="'button'" [type]="'submit'" > Save changes</app-submit-btn>
+        </form>
+    </div>
+</app-modal>

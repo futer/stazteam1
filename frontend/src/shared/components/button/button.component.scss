@@ -34,5 +34,13 @@
     background-color: $back-color;
    
 }
-
-
+.modal__close-btn {
+    cursor: pointer;
+    border: 0;
+    background: none;
+    color: #2d2d2d;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 1.2em;
+  }
