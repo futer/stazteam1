@@ -13,6 +13,15 @@ const documentQueries = {
     type: new GraphQLList(documentType),
     resolve: documentResolver.getDocuments
   },
+  certainDocuments: {
+    type: new GraphQLList(documentType),
+    resolve: documentResolver.getCertainDocuments,
+    args: {
+      id: {
+        type: GraphQLList(GraphQLString)
+      }
+    }
+  },
   document: {
     type: documentType,
     resolve: documentResolver.getDocument,

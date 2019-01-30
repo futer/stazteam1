@@ -4,6 +4,10 @@ function getDocuments(root, args, context) {
   return documentService.getDocuments();
 }
 
+function getCertainDocuments(root, args, context) {
+  return documentService.getCertainDocuments(args);
+}
+
 function getDocument(root, args, context) {
   return documentService.getDocument(args);
 }
@@ -27,6 +31,7 @@ function deleteDocument(root, args, context) {
 
 module.exports = {
   getDocuments,
+  getCertainDocuments,
   getDocument,
   addDocument,
   updateDocument

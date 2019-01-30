@@ -8,6 +8,13 @@ async function getDocuments() {
   return documents;
 }
 
+async function getCertainDocuments(data) {
+  database.connect();
+  const documents = await Document.find({ _id: data.id });
+
+  return documents;
+}
+
 async function getDocument(data) {
   database.connect();
   console.log(data);
@@ -40,6 +47,7 @@ async function deleteDocument(id) {
 
 module.exports = {
   getDocuments,
+  getCertainDocuments,
   getDocument,
   addDocument,
   updateDocument,
