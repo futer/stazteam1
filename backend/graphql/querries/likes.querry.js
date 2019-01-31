@@ -1,5 +1,4 @@
 const {
-  GraphQLList,
   GraphQLNonNull,
   GraphQLString
 } = require('graphql');
@@ -12,11 +11,6 @@ const likesQueries = {
   likes: {
     type: likesType,
     resolve: likesResolver.getLikes,
-    args: {
-      userId: {
-        type: GraphQLString
-      }
-    }
   }
 };
 
@@ -24,16 +18,14 @@ const likesMutations = {
   addLike: {
     type: likesType,
     args: {
-      userId: { type: new GraphQLNonNull(GraphQLString) },
-      docsId: { type: GraphQLList(GraphQLString) }
+      docs: { type: new GraphQLNonNull(GraphQLString) }
     },
     resolve: likesResolver.addLike
   },
   deleteLike: {
     type: likesType,
     args: {
-      userId: { type: new GraphQLNonNull(GraphQLString) },
-      docsId: { type: GraphQLList(GraphQLString) }
+      docs: { type: new GraphQLNonNull(GraphQLString) }
     },
     resolve: likesResolver.deleteLike
   }

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 const LikesModel = new Schema({
     userId: {
@@ -7,7 +8,10 @@ const LikesModel = new Schema({
         required: true,
         trim: true,
     },
-    docsId: [String]
+    docs: [{
+        type: ObjectId,
+        ref: 'DocumentModel'
+    }]
 });
 
 module.exports = mongoose.model('LikesModel', LikesModel);

@@ -54,6 +54,7 @@ body {
     app-example1,
     app-user-editor {
       grid-column: 2/8;
+      position: relative;
 
       app-main {
         grid-row: 2/3;
@@ -68,6 +69,7 @@ body {
     app-doc {
       grid-column: 2/8;
       grid-row: 2/3;
+      position: relative;
       
       > * {
         display: inline-block;

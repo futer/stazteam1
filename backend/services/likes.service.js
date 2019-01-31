@@ -2,27 +2,27 @@ const database = require('../helpers/database');
 
 const Likes = require('../models/likes.model');
 
-async function getLikes(data) {
+async function getLikes(userId) {
   database.connect();
-
-  const likes = await Likes.findOne({ userId: data.userId });
-
+  
+  const likes = await Likes.findOne({ userId: userId }).populate('docs');
+  console.log(likes);
   return likes;
 }
 
-async function addLike(data) {
+async function addLike(docId,userId) {
   database.connect();
 
   let likes = await Likes.findOneAndUpdate(
-    { userId: data.userId },
-    { $push: { docsId: data.docsId } },
+    { userId: userId },
+    { $push: { docs: docId } },
     { new: true }
   );
 
   if (!likes) {
     likes = new Likes({
       userId: data.userId,
-      docsId: data.docsId
+      docsId: data.docs
     });
   }
 
@@ -30,12 +30,12 @@ async function addLike(data) {
   return likes;
 }
 
-async function deleteLike(data) {
+async function deleteLike(docId,userId) {
   database.connect();
 
   let likes = await Likes.findOneAndUpdate(
-    { userId: data.userId },
-    { $pullAll: { docsId: data.docsId } },
+    { userId: userId },
+    { $pull: { docs: docId } },
     { new: true }
   );
 

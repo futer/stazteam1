@@ -1,15 +1,14 @@
 const {
     GraphQLObjectType,
-    GraphQLString,
-    GraphQLNonNull,
     GraphQLList,
   } = require('graphql');
+
+  const { documentType } = require('./document.type');
   
   const likesType = new GraphQLObjectType({
     name: 'likesType',
     fields: () => ({
-      userId: { type: new GraphQLNonNull(GraphQLString) },
-      docsId: { type: GraphQLList(GraphQLString) }
+      docs: { type: GraphQLList(documentType) }
     })
   });
   
