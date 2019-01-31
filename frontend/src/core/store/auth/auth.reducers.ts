@@ -23,6 +23,11 @@ export const User = createSelector(
     (state: authState.AuthState) => state.user
 );
 
+export const User2 = createSelector(
+    getLoginFeatureState,
+    (state: authState.AuthState) => state.user.firstName
+);
+
 export const Erros = createSelector(
     getLoginFeatureState,
     (state: authState.AuthState) => state.errorMessage

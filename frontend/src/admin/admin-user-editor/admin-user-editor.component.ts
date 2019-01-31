@@ -73,17 +73,16 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
       lastName: ['', [Validators.minLength(2)]],
       picture: '',
       changePasswordGroup: this.changeUserFormBuilder.group({
-        oldPassword: ['', [Validators.minLength(5)]],
-        passwordGroup: this.changeUserFormBuilder.group({
-          password: ['', [Validators.minLength(5)]],
-          repeatPassword: ['']
-        }, { validator: passwordMatcher }),
-      }, { validator: passwordTouchedChecker })
+        password: ['', [Validators.minLength(5)]],
+        repeatPassword: ['']
+      }, { validator: passwordMatcher }),
     });
   }
 
   ngOnDestroy(): void {
     this.usersub.unsubscribe();
+    this.errorsub.unsubscribe();
+    this.sentsub.unsubscribe();
   }
 
   updateUser(form) {
@@ -92,7 +91,8 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
       firstName: form.value.firstName === '' ? undefined : form.value.firstName,
       lastName: form.value.lastName === '' ? undefined : form.value.lastName,
       pic: form.value.pic,
-      password: form.value.changePasswordGroup.passwordGroup.password === '' ? undefined : form.value.firstName
+      password: form.value.changePasswordGroup.password === ''
+       ? undefined : form.value.changePasswordGroup.password
     };
     this.store.dispatch(new Actions.Send(user));
   }
