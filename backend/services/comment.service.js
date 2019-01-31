@@ -7,7 +7,8 @@ async function addComment(data) {
 
   const document = await Document.findOneAndUpdate(
     { _id: data.documentId }, 
-    { $push: {
+    { 
+      $push: {
         comments: data
       }
     },
@@ -54,15 +55,14 @@ async function deleteComment(id) {
 async function getComments() {
   database.connect();
 
-  const comments = await Document.aggregate([
-    { $match: {} },
+  let comments = await Document.aggregate([
     { $unwind: '$comments' },
     {
       $lookup: {
-        from: 'UserModel',
+        from: 'usermodels',
         localField: 'comments.reviewer',
         foreignField: '_id',
-        as: 'reviewerData'
+        as: 'reviewerData',
       }
     },
     { $unwind: '$reviewerData' },
@@ -73,17 +73,10 @@ async function getComments() {
         length: '$comments.length',
         page: '$comments.page',
         content: '$comments.content',
-        reviewer: {
-        //   _id: '$reviewerData._id',
-        //   firstName: '$reviewerData.firstName' ,
-        //   lastName: '$reviewerData.lastName',
-        //   pic: '$reviewerData.pic',
-        }
+        reviewer: '$reviewerData'
       }
     },
   ]);
-
-  console.log(comments);
 
   return comments;
 }
@@ -92,8 +85,8 @@ async function getComment(id) {
   database.connect();
 
   const doc = await Document.findOne({ 'comments._id': id }).populate('comments.reviewer');
-  console.log(doc);
   const comment = doc.comments.id(id);
+
   return comment;
 }
 

@@ -19,7 +19,7 @@ const commentType = new GraphQLObjectType({
     length: { type: new GraphQLNonNull(GraphQLInt) },
     page: { type: new GraphQLNonNull(GraphQLInt) },
     content: { type: new GraphQLNonNull(GraphQLString) },
-    reviewer: { type: userType },
+    reviewer: { type: new GraphQLNonNull(userType) },
   })
 });
 
