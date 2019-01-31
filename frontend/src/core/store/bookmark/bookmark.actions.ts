@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { BookmarkModel } from 'src/app/models/bookmark.model';
 import { ErrorData } from 'src/document/models/error.model';
-import { R3DelegatedFactoryMetadata } from '@angular/compiler/src/render3/r3_factory';
+
 
 
 export enum bookmarkTypes {
@@ -17,7 +17,11 @@ export enum bookmarkTypes {
 
     DELETE = '[BOOKMARK] Delete',
     DELETE_SUCCESS = '[BOOKMARK] Delete Succes',
-    DELETE_FAILD = '[BOOKMARK] Delete Faild'
+    DELETE_FAILD = '[BOOKMARK] Delete Faild',
+
+    ADD_BOOKMARK = '[BOOKMARK] Add Bookmark',
+    ADD_BOOKMARK_SUCCESS = '[BOOKMARK] Add Bookmark Success',
+    ADD_BOOKMARK_FAILD = '[BOOKMARK] Add Bookmark Faild'
 
 }
 
@@ -71,6 +75,21 @@ export class DeleteFaild implements Action {
     constructor(public payload: ErrorData) {}
 }
 
+export class AddBookmark implements Action {
+    readonly type = bookmarkTypes.ADD_BOOKMARK;
+    constructor(public payload: any) {}
+}
+
+export class AddBookmarkSuccess implements Action {
+    readonly type = bookmarkTypes.ADD_BOOKMARK_SUCCESS;
+    constructor(public payload: any ) {}
+}
+
+export class AddBookmarkFaild implements Action {
+    readonly type = bookmarkTypes.ADD_BOOKMARK_FAILD;
+    constructor(public payload: ErrorData) {}
+}
+
 
 export type All =
     |SetCurrentBookmark
@@ -82,4 +101,7 @@ export type All =
     |UpdateFaild
     |Delete
     |DeleteSucces
-    |DeleteFaild;
+    |DeleteFaild
+    |AddBookmark
+    |AddBookmarkSuccess
+    |AddBookmarkFaild;

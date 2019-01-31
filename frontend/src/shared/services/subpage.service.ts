@@ -18,7 +18,20 @@ mutation updateBookmark($id: String!, $title: String, $content: String, $positio
 }
 `;
 
-
+const addBookmarkMutation = gql`
+mutation addBookmark($title: String!, $position: positionAddInput!, $content: String! ){
+  addBookmark(
+    title: $title
+    position: $position
+    content: $content
+  ){
+    title
+    position
+    content
+    id
+  }
+}
+`;
 
 const deleteBookmarkMutation = gql `
 mutation deleteBookmark($id: String!){
@@ -80,5 +93,16 @@ export class SubpageService {
     // console.log(data), error => {
     //   console.log(error);
     // });
+  }
+
+  addBookmark(values) {
+    return this.apollo.mutate({
+      mutation: addBookmarkMutation,
+      variables: {
+        title: values.payload.title,
+        position: values.payload.position,
+        content: values.payload.content,
+      }
+    });
   }
 }

@@ -1,7 +1,7 @@
 <div class="container">
     <div class="add-bookmark">
         <p>Create New Bookmark</p>
-        <app-button [class]="'app-bookmark'" (clickEvent)="showModal = !showModal"><i class="fa fa-plus-circle"></i></app-button>
+        <app-button [class]="'add-bookmark'" (clickEvent)="showModal = !showModal"><i class="fa fa-plus-circle"></i></app-button>
     </div>
     <div class="bookmark" *ngFor="let item of bookmark$ | async ">
         <app-bookmark-info [data]="item"></app-bookmark-info>
@@ -11,7 +11,7 @@
 
 <app-modal [(visible)]="showModal">
     <div class="add-bookmark">
-        <form [formGroup] ="addBookmarkForm" class="bookmark-add-form" > 
+        <form [formGroup] ="addBookmarkForm" class="bookmark-add-form" (ngSubmit)="addBookmark(addBookmarkForm)"> 
             <div class="form-group">
                 <label for="title">Title: </label>
                 <app-input 
@@ -56,7 +56,7 @@
                     </app-input>RIGHT
                 </label>
             </div>
-            <app-submit-btn [buttonStyle]="'button'" [type]="'submit'" > Save changes</app-submit-btn>
+            <app-submit-btn [buttonStyle]="'button'" [type]="'submit'"> Save changes</app-submit-btn>
         </form>
     </div>
 </app-modal>

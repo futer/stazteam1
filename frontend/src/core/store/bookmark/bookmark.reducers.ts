@@ -1,8 +1,7 @@
 import * as bookmarkState from './bookmark.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as bookmarkActions from './bookmark.actions';
-import { identifierModuleUrl } from '@angular/compiler';
-import { Action } from 'rxjs/internal/scheduler/Action';
+
 
 
 export const initialState: bookmarkState.BookmarkState = {
@@ -93,6 +92,20 @@ export function bookmarkReducer(
         };
 
         case bookmarkActions.bookmarkTypes.DELETE_FAILD:
+        return {
+            ...state,
+            erroMessage: action.payload
+        };
+
+        case bookmarkActions.bookmarkTypes.ADD_BOOKMARK_SUCCESS:
+        return {
+            ...state,
+            bookmarks: [...state.bookmarks, action.payload],
+            erroMessage: null
+
+        };
+
+        case bookmarkActions.bookmarkTypes.ADD_BOOKMARK_FAILD:
         return {
             ...state,
             erroMessage: action.payload

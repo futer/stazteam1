@@ -60,4 +60,18 @@ export class BookmarkEffect {
             )
         );
 
+        @Effect()
+        AddBookmark$: Observable<any> = this.actions$
+            .ofType(bookmarkActions.bookmarkTypes.ADD_BOOKMARK)
+            .pipe(
+                switchMap((payload) =>
+                this.subpageService.addBookmark(payload).pipe(
+                    map(() => {
+                        return new bookmarkActions.AddBookmarkSuccess(payload['payload']);
+                    }),
+                    catchError((error: ErrorData) => of(new bookmarkActions.AddBookmarkFaild(error)))
+                )
+            )
+        );
+
 }

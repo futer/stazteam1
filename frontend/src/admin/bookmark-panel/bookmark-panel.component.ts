@@ -7,6 +7,7 @@ import * as fromStore from '../../core/store/index';
 import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SubpageService } from 'src/shared/services/subpage.service';
 
 @Component({
   selector: 'app-bookmark-panel',
@@ -20,8 +21,10 @@ export class BookmarkPanelComponent implements OnInit {
   addBookmarkForm: FormGroup;
   positions =  {'right': 'RIGHT',  'top': 'TOP'};
 
+
   constructor(private store: Store<CoreState>,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private subpageService: SubpageService
      ) { }
 
   ngOnInit() {
@@ -30,10 +33,16 @@ export class BookmarkPanelComponent implements OnInit {
       content: ['', Validators.required],
       position: ['', Validators.required]
     });
+
   }
 
   log() {
     console.log(this.addBookmarkForm.value);
+  }
+
+
+  addBookmark(event) {
+    this.store.dispatch(new bookmarkActions.AddBookmark(event.value));
   }
 
 }
