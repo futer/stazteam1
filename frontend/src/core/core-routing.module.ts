@@ -15,7 +15,6 @@ import { ContainerComponent } from 'src/document/container/container.component';
 import { AdminUserEditorComponent } from 'src/admin/admin-user-editor/admin-user-editor.component';
 import { AdminGuard } from './guards/admin/admin.guard';
 
-
 const routes: Routes = [
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'register', component: RegisterComponent },

@@ -4,14 +4,6 @@ import gql from 'graphql-tag';
 import {Observable} from 'rxjs';
 import { Store } from '@ngrx/store';
 
-const UserEditor = gql`
-  query UserEditor {
-      id
-      firstName
-      lastName
-      pic
-  }
-`;
 const UserEditorMutation = gql`
   mutation EditUser ($us: userInput!) {
     updateUser (user: $us){
@@ -33,9 +25,7 @@ export class UserService {
     private store: Store<any>
   ) { }
 
-
   sendUser(user): Observable<any> {
-    console.log('USER>', user.payload);
     return this.apollo.mutate({mutation: UserEditorMutation, variables: {us: user.payload}});
   }
 }

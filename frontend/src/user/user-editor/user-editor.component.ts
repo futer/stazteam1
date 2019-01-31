@@ -9,8 +9,6 @@ import { UserService } from '../services/user.service';
 import { Send } from '../store/user.actions';
 import { Errors, SendSuccess } from '../store/user.reducers';
 
-
-
 @Component({
   selector: 'app-user-editor',
   templateUrl: './user-editor.component.html',
@@ -44,12 +42,12 @@ export class UserEditorComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentsub = this.store.select(u => u).subscribe(a => {
-      if (a.auth.user) {
-        this.current.id = a.auth.user._id;
-        this.current.firstName = a.auth.user.firstName;
-        this.current.lastName = a.auth.user.lastName;
-        this.current.pic = a.auth.user.pic;
+    this.currentsub = this.store.select(wholeStore => wholeStore.auth.user).subscribe(user => {
+      if (user) {
+        this.current.id = user._id;
+        this.current.firstName = user.firstName;
+        this.current.lastName = user.lastName;
+        this.current.pic = user.pic;
       }
     });
 
@@ -92,9 +90,4 @@ export class UserEditorComponent implements OnInit {
     };
     this.store.dispatch(new Send(user));
   }
-
-  elo() {
-    console.log(this.current);
-  }
-
 }

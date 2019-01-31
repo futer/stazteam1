@@ -7,8 +7,8 @@ import * as Actions from '../store/admin.actions';
 import { Users, Errors, SendSuccess } from '../store/admin.reducers';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { passwordMatcher, passwordTouchedChecker } from 'src/shared/reusable-functions/passwordMatcher';
-import { filter } from 'rxjs/operators';
 import { ErrorData } from '../models/error.model';
+
 
 @Component({
   selector: 'app-admin-user-editor',
@@ -17,12 +17,7 @@ import { ErrorData } from '../models/error.model';
 })
 export class AdminUserEditorComponent implements OnInit, OnDestroy {
   usersub: Subscription;
-  errorsub: Subscription;
-  sentsub: Subscription;
-
-  users$: Observable<UserModel>;
-  error$: Observable<ErrorData>;
-  send$: Observable<boolean>;
+  users$: Observable<State>;
 
   users: UserModel;
   error: ErrorData;
@@ -51,21 +46,12 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
     this.searchbox = '';
     this.store.dispatch(new Actions.Fetch);
 
-    this.users$ = this.store.select(Users);
-    this.error$ = this.store.select(Errors);
-    this.send$ = this.store.select(SendSuccess);
-
-    this.usersub = this.users$.subscribe(users => {
-      this.users = users;
-      if (this.users) { this.filter(); }
-    });
-
-    this.errorsub = this.error$.subscribe(error => {
-      this.error = error;
-    });
-
-    this.sentsub = this.send$.subscribe(sent => {
-      this.send = sent;
+    this.users$ = this.store.select(wholeStore => wholeStore.users);
+    this.usersub = this.users$.subscribe((store) => {
+      this.users = store.users;
+      if (store.users) { this.filter(); this.error = null; this.send = null; }
+      if (store.errorMessage) { this.error = store.errorMessage; this.send = null; }
+      if (store.sent) { this.send = store.sent; this.error = null; }
     });
 
     this.updateUserForm = this.changeUserFormBuilder.group({
@@ -81,8 +67,6 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.usersub.unsubscribe();
-    this.errorsub.unsubscribe();
-    this.sentsub.unsubscribe();
   }
 
   updateUser(form) {

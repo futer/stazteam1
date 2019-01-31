@@ -10,8 +10,6 @@ async function updateUser(root, args, context) {
     if (jwt.decode(context.headers.authorization).sub._id === args.user.id){
         if (args.user.password){        
             await userService.getById(args.user.id).then(user => {
-                console.log(args.user.oldPassword);
-                console.log(user.password);
                 if (args.user.oldPassword === user.password){
                     user = userService.updateUser(args.user)
                         .catch(error => { throw error });
@@ -34,7 +32,7 @@ async function updateUser(root, args, context) {
         })
         .catch(error => {throw error})
     }
-    
+
     return user;
 }
 
