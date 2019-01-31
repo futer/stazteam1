@@ -22,7 +22,7 @@ async function checkLike(docId,userId) {
 
 async function addLike(docId,userId) {
   database.connect();
-
+  console.log(docId);
   let likes = await Likes.findOneAndUpdate(
     { userId: userId },
     { $push: { docs: docId } },
@@ -31,8 +31,8 @@ async function addLike(docId,userId) {
 
   if (!likes) {
     likes = new Likes({
-      userId: data.userId,
-      docsId: data.docs
+      userId: userId,
+      docs: docId
     });
   }
 
