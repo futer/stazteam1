@@ -1,6 +1,7 @@
 const {
   GraphQLNonNull,
-  GraphQLString
+  GraphQLString,
+  GraphQLBoolean
 } = require('graphql');
 
 const { likesType } = require('../types/likes.type');
@@ -11,6 +12,13 @@ const likesQueries = {
   likes: {
     type: likesType,
     resolve: likesResolver.getLikes,
+  },
+  like: {
+    type: GraphQLBoolean,
+    resolve: likesResolver.checkLike,
+    args: {
+      docs: { type: new GraphQLNonNull(GraphQLString) }
+    }
   }
 };
 

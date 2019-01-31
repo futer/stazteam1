@@ -3,7 +3,6 @@ import {Observable} from 'rxjs';
 import {Apollo} from 'apollo-angular';
 import gql from 'graphql-tag';
 import { environment } from '../../environments/environment';
-import { map } from 'rxjs/operators';
 
 const PrevQuery = gql`
   query Documents {
@@ -28,6 +27,24 @@ const DocQuery = gql`
   }
 `;
 
+const LikedQuery = gql`
+  query Likes {
+    likes{
+      id
+      author
+      date
+      preview
+      title
+    }
+  }
+`;
+
+const CheckLikeQuery = gql`
+  query Like($id: String!) {
+    like(docs:$id)
+  }
+`;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -42,10 +59,24 @@ export class DocumentService {
     return this.apollo.watchQuery({query: PrevQuery}).valueChanges;
   }
 
+  fetchLikes(): Observable<any> {
+    return this.apollo.watchQuery({query: LikedQuery}).valueChanges;
+  }
+
   fetchDocument(id): Observable<any> {
     console.log(id);
     return this.apollo.watchQuery({
       query: DocQuery,
+      variables: {
+        id: id
+      }
+    }).valueChanges;
+  }
+
+  checkLike(id): Observable<any> {
+    console.log(id);
+    return this.apollo.watchQuery({
+      query: CheckLikeQuery,
       variables: {
         id: id
       }

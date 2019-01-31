@@ -10,6 +10,16 @@ async function getLikes(userId) {
   return likes;
 }
 
+async function checkLike(docId,userId) {
+  database.connect();
+  
+  const likes = await Likes.findOne({ userId: userId, docs: docId });
+  if (!likes) {
+    return false;
+  }
+  return true;
+}
+
 async function addLike(docId,userId) {
   database.connect();
 
@@ -45,6 +55,7 @@ async function deleteLike(docId,userId) {
 
 module.exports = {
   getLikes,
+  checkLike,
   addLike,
   deleteLike
 };

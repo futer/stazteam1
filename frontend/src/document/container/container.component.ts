@@ -6,7 +6,6 @@ import { PrevState } from '../store/document.states';
 import * as Actions from '../store/document.actions';
 import { getPrevs, getPrevsError, arePrevsLoaded } from '../store/document.selectors';
 import { ErrorData } from '../models/error.model';
-import { DocumentService } from '../services/document.service';
 
 @Component({
   selector: 'app-container',
