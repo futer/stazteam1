@@ -18,7 +18,6 @@ import { AuthService } from '../../core/services/auth/auth.service';
 
 import { AuthState } from '../../core/store/auth/auth.state';
 import { Reload } from '../../core/store/auth/auth.actions';
-import { User } from '../..//core/store/auth/auth.reducers';
 import { Store } from '@ngrx/store';
 
 @Injectable({

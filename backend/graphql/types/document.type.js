@@ -3,7 +3,11 @@ const {
   GraphQLString,
   GraphQLNonNull,
   GraphQLEnumType,
+  GraphQLList,
 } = require('graphql');
+
+const { commentType } = require('../types/comment.type');
+const commentResolver = require('../resolvers/comment.resolver');
 
 const documentType = new GraphQLObjectType({
   name: 'documentType',
@@ -20,7 +24,10 @@ const documentType = new GraphQLObjectType({
       type: new GraphQLNonNull(getStatusEnum('statusType'))
     },
     title: { type: new GraphQLNonNull(GraphQLString) },
-    userId: { type: new GraphQLNonNull(GraphQLString) }
+    userId: { type: new GraphQLNonNull(GraphQLString) },
+    comments: { type: new GraphQLNonNull(
+      new GraphQLList(commentType)
+    )},
   })
 });
 
