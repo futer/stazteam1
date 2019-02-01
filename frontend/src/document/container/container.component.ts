@@ -6,6 +6,7 @@ import { PrevState } from '../store/document.states';
 import * as Actions from '../store/document.actions';
 import { getPrevs, getPrevsError, arePrevsLoaded } from '../store/document.selectors';
 import { ErrorData } from '../models/error.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-container',
@@ -18,18 +19,36 @@ export class ContainerComponent implements OnInit, OnDestroy {
   checkLoad: Subscription;
 
   constructor(
+    private router: Router,
     private store: Store<PrevState>
   ) { }
 
-  ngOnInit() {
-    this.checkLoad = this.store.select(arePrevsLoaded).subscribe(load => {
-      if (!load) {
-        this.store.dispatch(new Actions.FetchPrevs);
-      }
+  url = this.router.url;
 
-      this.prevs$ = this.store.select(getPrevs);
-      this.errorHandler$ = this.store.select(getPrevsError);
-    });
+  ngOnInit() {
+    if (this.url === '/main') {
+      console.log('kutas');
+      this.checkLoad = this.store.select(arePrevsLoaded).subscribe(load => {
+        if (!load) {
+          this.store.dispatch(new Actions.FetchPrevs);
+        }
+
+        this.prevs$ = this.store.select(getPrevs);
+        this.errorHandler$ = this.store.select(getPrevsError);
+      });
+    }
+
+    if (this.url === '/main/favourites') {
+      console.log('kutas wielki');
+      this.checkLoad = this.store.select(arePrevsLoaded).subscribe(load => {
+        if (!load) {
+          this.store.dispatch(new Actions.FetchPrevs);
+        }
+
+        this.prevs$ = this.store.select(getPrevs);
+        this.errorHandler$ = this.store.select(getPrevsError);
+      });
+    }
   }
 
   ngOnDestroy() {

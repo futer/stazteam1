@@ -27,4 +27,7 @@ export class SidebarComponent implements OnInit {
 
   }
 
+  navigateToFav() {
+    this.router.navigate(['/main/favourites']);
+  }
 }
