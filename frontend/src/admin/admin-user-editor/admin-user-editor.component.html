@@ -16,7 +16,9 @@
   
     <select *ngIf="users" [(ngModel)]="selectedUser" class="admin-user-editor__selector">
       <option class="admin-user-editor__selected" [ngValue]="undefined" selected hidden>Select user</option>
-      <option class="admin-user-editor__options" *ngFor="let user of usersfiltered.data.users" [ngValue]="user">{{ user.firstName }} {{ user.lastName }}</option>
+      <option class="admin-user-editor__options" *ngFor="let user of usersfiltered.data.users" [ngValue]="user">
+        {{ user.firstName }} {{ user.lastName }}
+      </option>
     </select>
   
     <div *ngIf="selectedUser">
@@ -85,8 +87,7 @@
               [formInputStyle]="'admin-user-editor__input'"
               [placeholder]="'New password'"
               [type]="'password'"
-              [controlName]="
-                updateUserForm.controls.changePasswordGroup.controls.password">
+              [controlName]="updateUserForm.controls.changePasswordGroup.controls.password">
             </app-input>
             <app-error
               [class]="'admin-user-editor__input-error-msg'"
@@ -97,9 +98,8 @@
             </app-error>
             <app-error
               [class]="'admin-user-editor__input-error-msg'"
-              *ngIf="
-                updateUserForm.get('changePasswordGroup.password').errors?.minlength &&
-                updateUserForm.get('changePasswordGroup.password').touched">
+              *ngIf="updateUserForm.get('changePasswordGroup.password').errors?.minlength
+                && updateUserForm.get('changePasswordGroup.password').touched">
               {{ validationMessages.password }}
             </app-error>
   
@@ -111,15 +111,13 @@
               [formInputStyle]="'admin-user-editor__input'"
               [placeholder]="'Confirm password'"
               [type]="'password'"
-              [controlName]="
-                updateUserForm.controls.changePasswordGroup.controls.repeatPassword">
+              [controlName]="updateUserForm.controls.changePasswordGroup.controls.repeatPassword">
             </app-input>
             <app-error
               [class]="'admin-user-editor__input-error-msg'"
               *ngIf="
-                updateUserForm.get('changePasswordGroup.repeatPassword').errors
-                  ?.required &&
-                updateUserForm.get('changePasswordGroup.repeatPassword').dirty">
+                updateUserForm.get('changePasswordGroup.repeatPassword').errors?.required
+                  && updateUserForm.get('changePasswordGroup.repeatPassword').dirty">
               {{ validationMessages.required }}
             </app-error>
             <app-error
