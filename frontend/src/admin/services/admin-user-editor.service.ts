@@ -7,13 +7,23 @@ import {Observable} from 'rxjs';
 
 const AdminUserEditorQuery = gql`
   query AdminUserEditor {
-    User {
+    users {
+      id
       firstName
       lastName
       pic
-      password
     }
   }
+`;
+const AdminUserEditorMutation = gql`
+  mutation EditUser ($us: userInput!) {
+    updateUser (user: $us){
+        id
+        firstName
+        lastName
+        pic
+      }
+    }
 `;
 
 @Injectable({
@@ -29,4 +39,8 @@ export class AdminUserEditorService {
   fetchUser(): Observable<any> {
     return this.apollo.watchQuery({query: AdminUserEditorQuery}).valueChanges;
   }
-}
+
+  sendUser(user): Observable<any> {
+    console.log('USER>', user.payload);
+    return this.apollo.mutate({mutation: AdminUserEditorMutation, variables: {us: user.payload}});
+}}

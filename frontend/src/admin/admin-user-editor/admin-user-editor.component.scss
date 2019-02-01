@@ -1,0 +1,86 @@
+@import '../../assets/main-style.scss';
+
+.errorMSG{
+    background-color: darkred;
+    padding: 1em;
+    margin: 1em;
+    box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.3);
+}
+
+.successMSG{
+    background-color: green;
+    padding: 1em;
+    margin: 1em;
+    box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.3);
+}
+
+.usereditor {
+    font-size: 30px;
+}
+
+.container { 
+    background-color: #444444;
+    padding: 1em;
+    margin: 1em;
+    box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.3);
+}
+
+input {
+    background-color: transparent;
+    border: 1px solid #A5B1BE;
+    color: $main-font-color;
+    padding: 1.5em;
+}
+
+.searchbox {
+    color: $main-font-color;
+    width: 100%;
+    margin-bottom: 15px;
+    border: 1px solid #AFAFAF;
+    padding: 1.5em;
+    font-size: 0.9rem;
+    transition: 0.4s;
+    text-indent: 1rem;
+
+        @media(min-width:640px) {
+          padding: 15px 20px;
+          text-indent: 25px;
+        }
+
+        &::placeholder {
+            color: #AFAFAF;
+            letter-spacing: 1px;
+        }
+
+        &:focus {
+            border: 1px solid $main-color;
+            outline: none;
+        }
+}
+
+.selector {
+    background-color: transparent;
+    color: #AFAFAF;
+    width: 30%;
+    margin-bottom: 15px;
+    border: 1px solid #AFAFAF;
+    padding: 10px 25px;
+    font-size: 0.9rem;
+    transition: 0.4s;
+    text-indent: 1rem;
+
+    &:focus {
+        border: 1px solid $main-color;
+        outline: none;
+    }
+
+    .options {
+        background-color: #444444;
+        border: 1px solid #AFAFAF;
+
+    }
+    
+    .options::content{
+        color: whitesmoke;
+    }     
+}

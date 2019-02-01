@@ -5,8 +5,13 @@ function getUsers(root, args, context) {
     return userService.getAll();
 }
 
-function updateUser(root, args, context) {
-    const user = userService.updateUser(args);
+async function updateUser(root, args, context) {
+    let user;
+    await userService.isAdmin(context.headers.authorization)
+    .then(() => {
+        user = userService.updateUser(args.user);
+    })
+    .catch(error => {throw error})
     return user;
 }
 
