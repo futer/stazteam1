@@ -11,22 +11,16 @@ export class RadioButtonsComponent implements OnInit {
 
   @Input() id: string;
   @Input() name: string;
-  @Input() type: string;
   @Input() controlName: FormControl;
-  @Input() value1: string;
-  @Input() value2: string;
 
-  positions =  {'right': 'RIGHT',  'top': 'TOP'};
   selected = '';
 
   @Output() radioButtonChange = new EventEmitter();
 
-  constructor() {
-   }
+  constructor() {  }
+
   ngOnInit() {
-
   }
-
 
   setradio(e: string) {
     this.selected = e;

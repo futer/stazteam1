@@ -41,7 +41,6 @@ export class BookmarkPanelComponent implements OnInit {
   }
 
   addBookmark(event) {
-    // console.log(event.value);
     this.store.dispatch(new bookmarkActions.AddBookmark(event.value));
     this.createForm();
     this.showModal = !this.showModal;

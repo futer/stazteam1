@@ -16,8 +16,6 @@ export class BookmarkFormComponent implements OnInit {
   bookmarkEditForm: FormGroup;
   positions =  {'right': 'RIGHT',  'top': 'TOP'};
 
-
-
   constructor( private editFormBuilder: FormBuilder,
     private subpageService: SubpageService,
     private store: Store<CoreState> ) { }

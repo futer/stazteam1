@@ -36,7 +36,6 @@ export class BookmarkInfoComponent implements OnInit {
    deleteBookmark(event) {
     if ( window.confirm('Are sure you want to delete this bookmark ?')) {
       this.store.dispatch(new bookmarkActions.Delete(event.id));
-      // this.subpageService.delete(id);
      }
    }
 

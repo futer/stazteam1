@@ -1,8 +1,8 @@
 <label class="bookmark-add-form__label--position" >
   <input 
     (change)="onRadioChange($event)"
-    id="position"
-    name="position" 
+    [id]="id"
+    [name]="name" 
     type="radio"
     value="selected"
     (click)="setradio('TOP')"
@@ -11,8 +11,8 @@
 <label class="bookmark-add-form__label--position">
   <input 
     (change)="onRadioChange($event)"
-    id="position" 
-    name="position" 
+    [id]="id" 
+    [name]="name" 
     type="radio"
     value="selected"
     (click)="setradio('RIGHT')"
