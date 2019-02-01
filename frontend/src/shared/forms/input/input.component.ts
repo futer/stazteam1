@@ -1,14 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { tick } from '@angular/core/testing';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss']
 })
-export class InputComponent implements OnInit {
+export class InputComponent implements OnInit, OnChanges {
   @Input() id ? = '';
   @Input() formInputStyle: string;
   @Input() controlName: FormControl;
@@ -19,9 +17,23 @@ export class InputComponent implements OnInit {
   @Input() name ?= '';
   @Input() checked ?: boolean;
 
+  @Output() changeValue = new EventEmitter();
+
+
   constructor() { }
 
   ngOnInit() {
+
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    this.change();
+  }
+
+  change() {
+    this.changeValue.emit(this.value);
+  }
+
 
 }

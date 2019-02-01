@@ -5,4 +5,5 @@ export interface BookmarkState {
     currentBookmarkId: string | null;
     bookmarks: BookmarkModel[] | null;
     erroMessage: ErrorData;
+
 }

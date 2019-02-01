@@ -64,13 +64,16 @@ export class BookmarkEffect {
         AddBookmark$: Observable<any> = this.actions$
             .ofType(bookmarkActions.bookmarkTypes.ADD_BOOKMARK)
             .pipe(
-                switchMap((payload) =>
-                this.subpageService.addBookmark(payload).pipe(
-                    map(() => {
-                        return new bookmarkActions.AddBookmarkSuccess(payload['payload']);
-                    }),
-                    catchError((error: ErrorData) => of(new bookmarkActions.AddBookmarkFaild(error)))
-                )
+                switchMap((payload) => {
+                    console.log(payload);
+                  return  this.subpageService.addBookmark(payload).pipe(
+                        map(() => {
+                            return new bookmarkActions.AddBookmarkSuccess(payload['payload']);
+                        }),
+                        catchError((error: ErrorData) => of(new bookmarkActions.AddBookmarkFaild(error)))
+                    );
+                }
+
             )
         );
 

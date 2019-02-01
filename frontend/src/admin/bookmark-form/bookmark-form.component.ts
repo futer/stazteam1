@@ -24,9 +24,9 @@ export class BookmarkFormComponent implements OnInit {
 
   ngOnInit() {
     this.bookmarkEditForm = this.editFormBuilder.group({
-      title: [this.data.title],
+      title: [this.data.title, Validators.required],
       position: [this.data.position, Validators.required],
-      content: [this.data.content],
+      content: [this.data.content, Validators.required],
       id: [this.data.id]
     });
   }

@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges, OnChanges } from '@angular/core';
 import { BookmarkModel } from '../../app/models/bookmark.model';
 import { Observable, Subscribable } from 'rxjs/observable';
 import { Store } from '@ngrx/store';
 import { CoreState } from 'src/core/store';
 import * as fromStore from '../../core/store/index';
 import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
-import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubpageService } from 'src/shared/services/subpage.service';
 
@@ -20,6 +19,7 @@ export class BookmarkPanelComponent implements OnInit {
   isShown = false;
   addBookmarkForm: FormGroup;
   positions =  {'right': 'RIGHT',  'top': 'TOP'};
+  showModal = false;
 
 
   constructor(private store: Store<CoreState>,
@@ -28,21 +28,23 @@ export class BookmarkPanelComponent implements OnInit {
      ) { }
 
   ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
     this.addBookmarkForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(20)]],
       content: ['', Validators.required],
-      position: ['', Validators.required]
+      position: [this.positions.top, Validators.required],
     });
-
   }
-
-  log() {
-    console.log(this.addBookmarkForm.value);
-  }
-
 
   addBookmark(event) {
+    console.log(event.value);
     this.store.dispatch(new bookmarkActions.AddBookmark(event.value));
+    this.createForm();
+    this.showModal = !this.showModal;
   }
+
 
 }

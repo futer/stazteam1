@@ -27,6 +27,9 @@ export const getError = createSelector (
     state => state.erroMessage
 );
 
+
+
+
 export const getCurrentBookmark = createSelector(
     bookmarkFeature,
     getCurrentBookmarkId,
@@ -49,6 +52,11 @@ export function bookmarkReducer(
         return {
             ...state,
             currentBookmarkId: action.payload.id
+        };
+
+        case bookmarkActions.bookmarkTypes.FETCH:
+        return {
+            ...state,
         };
 
         case bookmarkActions.bookmarkTypes.FETCH_SUCCESS:

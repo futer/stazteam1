@@ -11,7 +11,7 @@
 
 <app-modal [(visible)]="showModal">
     <div class="add-bookmark">
-        <form [formGroup] ="addBookmarkForm" class="bookmark-add-form" (ngSubmit)="addBookmark(addBookmarkForm)"> 
+        <form [formGroup]="addBookmarkForm" class="bookmark-add-form" (ngSubmit)="addBookmark(addBookmarkForm)"> 
             <div class="form-group">
                 <label for="title">Title: </label>
                 <app-input 
@@ -21,6 +21,16 @@
                     [controlName]="addBookmarkForm.controls.title"
                 >
                 </app-input>
+                <app-error
+                    [class]="'error-msg-addBookmark'"
+                    *ngIf="addBookmarkForm.get('title').errors?.required && addBookmarkForm.get('title').touched">
+                    The field is requried
+                </app-error>
+                <app-error
+                    [class]="'error-msg-addBookmark'"
+                    *ngIf="addBookmarkForm.get('title').errors?.maxlength">
+                    Title is too long, max 20 characters
+                </app-error>
             </div>
             <div class="form-group">
                 <label for="title">Content: </label>
@@ -32,31 +42,25 @@
                     [formControl]="addBookmarkForm.controls.content"
                 >
                 </textarea>
+                <app-error
+                    [class]="'error-msg-addBookmark'"
+                    *ngIf="addBookmarkForm.get('content').errors?.required && addBookmarkForm.get('content').touched">
+                    The field is requried
+                </app-error>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 10px">
                 <label for="position">Position: </label>
-                <label class="bookmark-add-form__label--position">
-                    <app-input 
-                        [id]="'position'" 
-                        [name]="'position'" 
-                        [type]="'radio'" 
-                        [controlName]="addBookmarkForm.controls.position"
-                        [value]="positions.top"
-                        >
-                    </app-input>TOP
-                </label>
-                <label class="bookmark-add-form__label--position">
-                    <app-input 
-                        [id]="'position'" 
-                        [name]="'position'"
-                        [type]="'radio'" 
-                        [controlName]="addBookmarkForm.controls.position"
-                        [value]="positions.right"
-                    >
-                    </app-input>RIGHT
-                </label>
+                <app-radio-buttons 
+                 [id]="'position'"
+                 [name]="'position'"
+                 [type]="'radio'"
+                 [value1]="positions.top"
+                 [value2]="positions.right"
+                 [controlName]="addBookmarkForm.controls.position"
+                 >
+            </app-radio-buttons>
             </div>
-            <app-submit-btn [buttonStyle]="'button'" [type]="'submit'"> Save changes</app-submit-btn>
+            <app-submit-btn  [disabled]="addBookmarkForm.invalid" [buttonStyle]="'button'" [type]="'submit'"> Save changes</app-submit-btn>
         </form>
     </div>
 </app-modal>
