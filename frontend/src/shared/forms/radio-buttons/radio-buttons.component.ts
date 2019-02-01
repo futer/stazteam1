@@ -14,7 +14,6 @@ export class RadioButtonsComponent implements OnInit {
   @Input() controlName: FormControl;
 
   selected = '';
-
   @Output() radioButtonChange = new EventEmitter();
 
   constructor() {  }
@@ -24,10 +23,10 @@ export class RadioButtonsComponent implements OnInit {
 
   setradio(e: string) {
     this.selected = e;
-   }
+  }
 
    onRadioChange() {
      this.radioButtonChange.emit(this.selected);
-   }
+  }
 
 }

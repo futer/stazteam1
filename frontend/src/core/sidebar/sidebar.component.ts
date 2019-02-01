@@ -6,7 +6,6 @@ import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
 import { Router } from '@angular/router';
 import { Observable } from 'apollo-link';
 
-
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -19,13 +18,11 @@ export class SidebarComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.store.dispatch(new bookmarkActions.Fetch);
+    this.store.dispatch(new bookmarkActions.FetchBookmark);
   }
-
 
   navigateToSubpage(title) {
     this.router.navigate(['/subpage', title]);
-
   }
 
 }

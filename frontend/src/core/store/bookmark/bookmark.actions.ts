@@ -2,27 +2,24 @@ import { Action } from '@ngrx/store';
 import { BookmarkModel } from 'src/app/models/bookmark.model';
 import { ErrorData } from 'src/document/models/error.model';
 
-
-
 export enum bookmarkTypes {
-    SET_CURRENT_BOOKMARK = '[BOOKMARK] Set Current Bookmark',
+    SET_CURRENT_BOOKMARK = '[BOOKMARK] SET CURRENT BOOKMARK',
 
-    FETCH = '[BOOKMARK] Fetch',
-    FETCH_SUCCESS = '[BOOKMARK] Fetch Success',
-    FETCH_FAILD = '[BOOKMARK] Fetch Faild',
+    FETCH_BOOKMARK = '[BOOKMARK] FETCH BOOKMARK',
+    FETCH_BOOKMARK_SUCCESS = '[BOOKMARK] FETCH BOOKMARK SUCCESS',
+    FETCH_BOOKMARK_FAILD = '[BOOKMARK] FETCH BOOKMARK FAILD',
 
-    UPDATE = '[BOOKMARK] Update',
-    UPDATE_SUCCESS = '[BOOKAMARK] Update Succes',
-    UPDATE_FAILD = '[BOOKMARK] Update Faild',
+    UPDATE = '[BOOKMARK] UPDATE',
+    UPDATE_SUCCESS = '[BOOKAMARK] UPDATE SUCCESS',
+    UPDATE_FAILD = '[BOOKMARK] UPDATE FAIL',
 
-    DELETE = '[BOOKMARK] Delete',
-    DELETE_SUCCESS = '[BOOKMARK] Delete Succes',
-    DELETE_FAILD = '[BOOKMARK] Delete Faild',
+    DELETE = '[BOOKMARK] DELETE',
+    DELETE_SUCCESS = '[BOOKMARK] DELETE SUCCESS',
+    DELETE_FAILD = '[BOOKMARK] DELETE FAILD',
 
-    ADD_BOOKMARK = '[BOOKMARK] Add Bookmark',
-    ADD_BOOKMARK_SUCCESS = '[BOOKMARK] Add Bookmark Success',
-    ADD_BOOKMARK_FAILD = '[BOOKMARK] Add Bookmark Faild'
-
+    ADD_BOOKMARK = '[BOOKMARK] ADD BOOKMARK',
+    ADD_BOOKMARK_SUCCESS = '[BOOKMARK] ADD BOOKMARK SUCCESS',
+    ADD_BOOKMARK_FAILD = '[BOOKMARK] ADD BOOKMARK FAILD'
 }
 
 export class SetCurrentBookmark implements Action {
@@ -31,17 +28,17 @@ export class SetCurrentBookmark implements Action {
     constructor(public payload: BookmarkModel) {}
 }
 
-export class Fetch implements Action {
-    readonly type = bookmarkTypes.FETCH;
+export class FetchBookmark implements Action {
+    readonly type = bookmarkTypes.FETCH_BOOKMARK;
 }
 
-export class FetchSuccess implements Action {
-    readonly type = bookmarkTypes.FETCH_SUCCESS;
+export class FetchBookmarkSuccess implements Action {
+    readonly type = bookmarkTypes.FETCH_BOOKMARK_SUCCESS;
     constructor( public payload: BookmarkModel[]) { }
 }
 
-export class FetchFaild implements Action {
-    readonly type = bookmarkTypes.FETCH_FAILD;
+export class FetchBookmarkFaild implements Action {
+    readonly type = bookmarkTypes.FETCH_BOOKMARK_FAILD;
     constructor( public payload: ErrorData) {}
 }
 
@@ -90,12 +87,11 @@ export class AddBookmarkFaild implements Action {
     constructor(public payload: ErrorData) {}
 }
 
-
 export type All =
     |SetCurrentBookmark
-    |Fetch
-    |FetchSuccess
-    |FetchFaild
+    |FetchBookmark
+    |FetchBookmarkSuccess
+    |FetchBookmarkFaild
     |Update
     |UpdateSucces
     |UpdateFaild

@@ -1,9 +1,13 @@
 <div class="container">
     <div class="add-bookmark">
-        <p>Create New Bookmark</p>
-        <app-button [class]="'add-bookmark'" (clickEvent)="showModal = !showModal"><i class="fa fa-plus-circle"></i></app-button>
+        <p class="add-bookmark--title">Create New Bookmark</p>
+        <app-button 
+            [class]="'add-bookmark'" 
+            (clickEvent)="showModal = !showModal">
+            <i class="fa fa-plus-circle add-bookmark__icon"></i>
+        </app-button>
     </div>
-    <div class="bookmark" *ngFor="let item of bookmark$ | async ">
+    <div class="bookmark--item" *ngFor="let item of bookmark$ | async ">
         <app-bookmark-info [data]="item"></app-bookmark-info>
     </div>
 </div>
@@ -11,7 +15,10 @@
 
 <app-modal [(visible)]="showModal">
     <div class="add-bookmark">
-        <form [formGroup]="addBookmarkForm" class="bookmark-add-form" (ngSubmit)="addBookmark(addBookmarkForm)"> 
+        <form 
+            [formGroup]="addBookmarkForm" 
+            class="bookmark-add__form" 
+            (ngSubmit)="addBookmark(addBookmarkForm)"> 
             <div class="form-group">
                 <label for="title">Title: </label>
                 <app-input 
@@ -35,7 +42,7 @@
             <div class="form-group">
                 <label for="title">Content: </label>
                 <textarea
-                    class="" 
+                    class="add-bookmark__form-content" 
                     id="content" 
                     rows="6" 
                     cols="20"
@@ -48,13 +55,13 @@
                     The field is requried
                 </app-error>
             </div>
-            <div class="form-group" style="margin-top: 10px">
+            <div class="form-group__modal--position">
                 <label for="position">Position: </label>
                 <app-radio-buttons 
                 [id]="'position'"
                 [name]="'position'"
                 (radioButtonChange)="getValues($event)"
-                 [controlName]="addBookmarkForm.controls.position"
+                [controlName]="addBookmarkForm.controls.position"
                  >
                 </app-radio-buttons>
             </div>

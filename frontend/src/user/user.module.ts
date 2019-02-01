@@ -12,6 +12,7 @@ import { UserEffects } from './store/user.effects';
 
 @NgModule({
   declarations: [
+    UserEditorComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +24,7 @@ import { UserEffects } from './store/user.effects';
     EffectsModule.forFeature([UserEffects]),
   ],
   exports: [
+
   ]
 })
 export class UserModule { }

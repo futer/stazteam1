@@ -3,7 +3,6 @@
 .container {
     display: flex;
     margin-top: 60px;
-    // background-color: $sec-back-color;
     width: 600px;
     align-content: space-between;
     flex-direction: column;
@@ -13,29 +12,27 @@
         align-self: flex-end;
         padding-bottom: 10px;
 
-        i {
+        .add-bookmark__icon {
             font-size: 35px;
             color: $main-color;
+
             &:hover {
                 color: #cd9b05;
             }
-           
         }
 
-        p {
+        .add-bookmark--title {
             line-height: 50px;
             font-weight: bold;
         }
-
     }
 
-    .bookmark{
+    .bookmark--item{
         display: flex;
         flex-direction: column;
         border-bottom: 1px solid black;
         align-items: center;
         background-color: $sec-back-color;
-
     }  
 }
 
@@ -44,14 +41,14 @@
     justify-content: center;
     align-items: center;
 
-     .bookmark-add-form{
+     .bookmark-add__form{
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
         }
 
-        textarea {
+        .add-bookmark__form-content {
             background-color: transparent;
             vertical-align: middle;
             padding: 10px 12px;
@@ -62,12 +59,13 @@
             &:focus {
                 border: 1px solid $main-color;
                     outline: none;
-                }
+            }
         }
-
-
-    
-}
+        .form-group__modal--position {
+            margin-top: 10px;
+        }
+    }
+ 
         
            
         

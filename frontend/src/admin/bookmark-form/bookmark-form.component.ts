@@ -5,12 +5,12 @@ import { Store } from '@ngrx/store';
 import { CoreState } from 'src/core/store';
 import * as bookmarkActions from 'src/core/store/bookmark/bookmark.actions';
 
-
 @Component({
   selector: 'app-bookmark-form',
   templateUrl: './bookmark-form.component.html',
   styleUrls: ['./bookmark-form.component.scss']
 })
+
 export class BookmarkFormComponent implements OnInit {
   @Input() data;
   bookmarkEditForm: FormGroup;
@@ -34,5 +34,4 @@ export class BookmarkFormComponent implements OnInit {
       this.store.dispatch(new bookmarkActions.Update(event.value));
      }
   }
-
 }

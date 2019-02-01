@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared/shared.module';
 import { BookmarkInfoComponent } from './bookmark-info/bookmark-info.component';
 import { BookmarkFormComponent } from './bookmark-form/bookmark-form.component';
+import { AdminRouting } from './admin.routing.module';
 
 
 @NgModule({
@@ -26,21 +27,12 @@ import { BookmarkFormComponent } from './bookmark-form/bookmark-form.component';
     StoreModule.forFeature('users', userReducer),
     EffectsModule.forFeature([UserEffects]),
     FormsModule,
-<<<<<<< HEAD
-    SharedModule,
-    ReactiveFormsModule,
-  ],
-  exports: [
-    BookmarkPanelComponent
-=======
     ReactiveFormsModule,
     AdminRouting,
     SharedModule,
   ],
   exports: [
-    AdminUserEditorComponent,
-    BookmarkCreatorComponent
->>>>>>> 0f016f71e59f717cd913b26aee72c7055770eeb4
+    BookmarkPanelComponent,
   ]
 })
 export class AdminModule { }

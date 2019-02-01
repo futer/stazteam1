@@ -3,7 +3,6 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Observable } from 'rxjs';
 
-
 const updateBookmarkMutation = gql`
 mutation updateBookmark($id: String!, $title: String, $content: String, $position: positionUpdateInput){
   updateBookmark(
@@ -65,9 +64,7 @@ export class SubpageService {
     return this.apollo.watchQuery({query: BookmarkQuery}).valueChanges;
   }
 
-
   update(values): Observable<any> {
-    // console.log(values);
     return this.apollo.mutate({
     mutation: updateBookmarkMutation,
     variables: {
@@ -79,19 +76,13 @@ export class SubpageService {
     });
  }
 
-
   delete(values) {
-    // console.log(values);
     return this.apollo.mutate({
       mutation: deleteBookmarkMutation,
       variables : {
         id: values.payload
       }
     });
-    // .subscribe((data) =>
-    // console.log(data), error => {
-    //   console.log(error);
-    // });
   }
 
   addBookmark(values) {
@@ -105,15 +96,5 @@ export class SubpageService {
       },
       refetchQueries: [{query: BookmarkQuery}]
     });
-
-    // .subscribe((res) => {
-    //   return {
-    //     title: res.data.addBookmark.title,
-    //     position: res.data.addBookmark.position,
-    //     content: res.data.addBookmark.content,
-    //     id: res.data.addBookmark.id,
-    //   };
-    //   // console.log(res.data.addBookmark);
-    // });
   }
 }

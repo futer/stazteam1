@@ -2,8 +2,6 @@ import * as bookmarkState from './bookmark.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as bookmarkActions from './bookmark.actions';
 
-
-
 export const initialState: bookmarkState.BookmarkState = {
     currentBookmarkId: null,
     bookmarks: [],
@@ -26,9 +24,6 @@ export const getError = createSelector (
     bookmarkFeature,
     state => state.erroMessage
 );
-
-
-
 
 export const getCurrentBookmark = createSelector(
     bookmarkFeature,
@@ -54,19 +49,19 @@ export function bookmarkReducer(
             currentBookmarkId: action.payload.id
         };
 
-        case bookmarkActions.bookmarkTypes.FETCH:
+        case bookmarkActions.bookmarkTypes.FETCH_BOOKMARK:
         return {
             ...state,
         };
 
-        case bookmarkActions.bookmarkTypes.FETCH_SUCCESS:
+        case bookmarkActions.bookmarkTypes.FETCH_BOOKMARK_SUCCESS:
         return {
            ...state,
            bookmarks: action.payload,
            erroMessage: null
        };
 
-        case bookmarkActions.bookmarkTypes.FETCH_FAILD:
+        case bookmarkActions.bookmarkTypes.FETCH_BOOKMARK_FAILD:
         return{
             ...state,
             bookmarks: [],
@@ -121,7 +116,6 @@ export function bookmarkReducer(
 
         default:
         return state;
-
     }
 }
 export default bookmarkReducer;

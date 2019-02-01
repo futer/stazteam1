@@ -22,7 +22,6 @@ export class BookmarkPanelComponent implements OnInit {
   showModal = false;
   position: 'TOP';
 
-
   constructor(private store: Store<CoreState>,
     private formBuilder: FormBuilder,
     private subpageService: SubpageService

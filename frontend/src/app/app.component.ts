@@ -60,8 +60,6 @@ ngOnInit() {
     });
 
     this.getBookmarks();
-
-
   }
 
   getBookmarks() {

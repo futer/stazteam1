@@ -21,7 +21,6 @@ import { Observable } from 'rxjs/observable';
 export class NavComponent implements OnInit {
    @Input() bookmark$: Observable<any>;
 
-
     constructor(
         private authService: AuthService,
         private store: Store<CoreState>,
@@ -30,7 +29,7 @@ export class NavComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.store.dispatch(new bookmarkActions.Fetch());
+        this.store.dispatch(new bookmarkActions.FetchBookmark());
     }
 
     logOut() {

@@ -15,20 +15,19 @@ export class BookmarkEffect {
 
     @Effect()
     Fetch$: Observable<any> = this.actions$
-        .ofType(bookmarkActions.bookmarkTypes.FETCH)
+        .ofType(bookmarkActions.bookmarkTypes.FETCH_BOOKMARK)
         .pipe(
             switchMap(() =>
             this.subpageService.fetchBookmarks().pipe(
                 map((bookmark: BookmarkModel[]) => {
                     const bookmarkData = { ...bookmark, ...bookmark['data']};
                     delete bookmarkData.data;
-                    return new bookmarkActions.FetchSuccess(bookmarkData.bookmarks);
+                    return new bookmarkActions.FetchBookmarkSuccess(bookmarkData.bookmarks);
                 }),
-                catchError((error: ErrorData) => of(new bookmarkActions.FetchFaild(error)))
+                catchError((error: ErrorData) => of(new bookmarkActions.FetchBookmarkFaild(error)))
             )
             )
         );
-
 
         @Effect()
         Update$: Observable<any> = this.actions$
