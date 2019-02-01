@@ -4,9 +4,8 @@ import { UserModel, User } from '../../app/models/user-editor.model';
 import { Store } from '@ngrx/store';
 import { State } from '../store/admin.states';
 import * as Actions from '../store/admin.actions';
-import { Users, Errors, SendSuccess } from '../store/admin.reducers';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { passwordMatcher, passwordTouchedChecker } from 'src/shared/reusable-functions/passwordMatcher';
+import { passwordMatcher } from 'src/shared/reusable-functions/passwordMatcher';
 import { ErrorData } from '../models/error.model';
 
 

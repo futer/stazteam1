@@ -4,10 +4,9 @@ import { ErrorData } from '../models/error.model';
 
 export enum currentTypes {
     SEND = '[Current] Send',
-    SEND_SUCCESS = '[Current] SendSuccess',
-    SEND_ERROR = '[Current] SendError'
+    SEND_SUCCESS = '[Current] Send Success',
+    SEND_ERROR = '[Current] Send Error'
 }
-
 
 export class Send implements Action {
     readonly type = currentTypes.SEND;

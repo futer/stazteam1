@@ -8,14 +8,12 @@ import { UserModel } from '../models/user.model';
 import { ErrorData } from '../models/error.model';
 import { UserService } from '../services/user.service';
 
-
 @Injectable()
 export class UserEffects {
     constructor(
         private actions$: Actions,
         private userService: UserService,
     ) {}
-
 
     @Effect()
     Send$: Observable<any> = this.actions$
