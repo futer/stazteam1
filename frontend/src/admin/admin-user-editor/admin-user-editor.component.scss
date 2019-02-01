@@ -1,46 +1,40 @@
 @import '../../assets/main-style.scss';
 
-.errorMSG{
+.admin-user-editor__error-msg {
     background-color: darkred;
     padding: 1em;
     margin: 1em;
     box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.3);
 }
 
-.successMSG{
+.admin-user-editor__success-msg {
     background-color: green;
     padding: 1em;
     margin: 1em;
     box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.3);
 }
 
-.usereditor {
+.admin-user-editor__text {
     font-size: 30px;
 }
 
-.container { 
-    background-color: #444444;
+.admin-user-editor__container { 
+    background-color: $sec-back-color;
     padding: 1em;
     margin: 1em;
     box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.3);
 }
 
-input {
+.admin-user-editor__searchbox {
     background-color: transparent;
-    border: 1px solid #A5B1BE;
-    color: $main-font-color;
-    padding: 1.5em;
-}
-
-.searchbox {
     color: $main-font-color;
     width: 100%;
     margin-bottom: 15px;
-    border: 1px solid #AFAFAF;
+    border: 1px solid $border-color;
     padding: 1.5em;
-    font-size: 0.9rem;
+    font-size: 0.9em;
     transition: 0.4s;
-    text-indent: 1rem;
+    text-indent: 1em;
 
         @media(min-width:640px) {
           padding: 15px 20px;
@@ -48,7 +42,7 @@ input {
         }
 
         &::placeholder {
-            color: #AFAFAF;
+            color: $border-color;
             letter-spacing: 1px;
         }
 
@@ -58,29 +52,29 @@ input {
         }
 }
 
-.selector {
+.admin-user-editor__selector {
     background-color: transparent;
-    color: #AFAFAF;
+    color: $border-color;
     width: 30%;
     margin-bottom: 15px;
-    border: 1px solid #AFAFAF;
+    border: 1px solid $border-color;
     padding: 10px 25px;
-    font-size: 0.9rem;
+    font-size: 0.9em;
     transition: 0.4s;
-    text-indent: 1rem;
+    text-indent: 1em;
 
     &:focus {
         border: 1px solid $main-color;
         outline: none;
     }
 
-    .options {
-        background-color: #444444;
-        border: 1px solid #AFAFAF;
+    .admin-user-editor__options {
+        background-color: $sec-back-color;
+        border: 1px solid $border-color;
 
     }
     
-    .options::content{
+    .admin-user-editor__options::content{
         color: whitesmoke;
     }     
 }

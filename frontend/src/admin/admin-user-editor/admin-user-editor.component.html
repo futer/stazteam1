@@ -1,35 +1,35 @@
-<div class="errorMSG" *ngIf="error">
+<div class="admin-user-editor__error-msg" *ngIf="error">
     Error during update: {{error}}
   </div>
   
-  <div class="successMSG" *ngIf="send">
+  <div class="admin-user-editor__success-msg" *ngIf="send">
     User has been updated
   </div>
   
-  <div class='container'>
-    <p class="usereditor">User editor:</p>
+  <div class='admin-user-editor__container'>
+    <p class="admin-user-editor__text">User editor:</p>
     <input 
       [(ngModel)]="searchbox" 
       placeholder="Search..." 
-      class="searchbox" 
+      class="admin-user-editor__searchbox" 
       (keyup)="filter()">
   
-    <select *ngIf="users" [(ngModel)]="selectedUser" class="selector">
-      <option class="selected" [ngValue]="undefined" selected hidden>Select user</option>
-      <option class="options" *ngFor="let user of usersfiltered.data.users" [ngValue]="user">{{ user.firstName }} {{ user.lastName }}</option>
+    <select *ngIf="users" [(ngModel)]="selectedUser" class="admin-user-editor__selector">
+      <option class="admin-user-editor__selected" [ngValue]="undefined" selected hidden>Select user</option>
+      <option class="admin-user-editor__options" *ngFor="let user of usersfiltered.data.users" [ngValue]="user">{{ user.firstName }} {{ user.lastName }}</option>
     </select>
   
     <div *ngIf="selectedUser">
       <form
-        class="updateUser"
+        class="admin-user-editor__update-user"
         [formGroup]="updateUserForm"
         (ngSubmit)="updateUser(updateUserForm)">
         <p class="change-creds">Change first name:</p>
   
-        <div class="input-group">
+        <div class="admin-user-editor__input-group">
           <app-input
             [id]="'firstName'"
-            [formInputStyle]="'user-edit__input'"
+            [formInputStyle]="'admin-user-editor__input'"
             [type]="'text'"
             [placeholder]="'First name'"
             [controlName]="updateUserForm.controls.firstName"
@@ -41,22 +41,22 @@
         <div class="input-group">
           <app-input
             [id]="'lastName'"
-            [formInputStyle]="'user-edit__input'"
+            [formInputStyle]="'admin-user-editor__input'"
             [type]="'text'"
             [placeholder]="'Last name'"
             [controlName]="updateUserForm.controls.lastName"
             [value]="selectedUser.lastName">
           </app-input>
   
-          <div class="change-pic-form-wrapper">
-            <p class="change-creds">Change your profile picture:</p>
-            <div class="input_file">
-              <app-label [for]="'pic__input'" [labelStyle]="'user-edit-form__file'">
+          <div class="admin-user-editor__change-pic-form-wrapper">
+            <p class="admin-user-editor__change-creds">Change your profile picture:</p>
+            <div class="admin-user-editor__input-file">
+              <app-label [for]="'pic__input'" [labelStyle]="'admin-user-editor__form-file'">
                 <i class="fa fa-arrow-down" aria-hidden="true"></i> Select your profile image
               </app-label>
               <app-input
                 [id]="'pic__input'"
-                [formInputStyle]="'user-editor-form__file'"
+                [formInputStyle]="'admin-user-editor__form-file'"
                 [type]="'file'"
                 [controlName]="updateUserForm.controls.picture"
                 [accept]="'image/*'"
@@ -65,7 +65,7 @@
             </div>
           </div>
   
-          <div class="profile-pic-wrapper">
+          <div class="admin-user-editor__profile-pic-wrapper">
             <app-image
               *ngIf="!pictureUrl"
               [url]="'../../assets/img/avatar.png'"
@@ -78,25 +78,25 @@
             </app-image>
           </div>
   
-          <div class="input-group">
+          <div class="admin-user-editor__input-group">
             <p>New password:</p>
             <app-input
               [id]="'password'"
-              [formInputStyle]="'user-edit__input'"
+              [formInputStyle]="'admin-user-editor__input'"
               [placeholder]="'New password'"
               [type]="'password'"
               [controlName]="
                 updateUserForm.controls.changePasswordGroup.controls.password">
             </app-input>
             <app-error
-              [class]="'user-editor-error-msg'"
+              [class]="'admin-user-editor__input-error-msg'"
               *ngIf="
                 updateUserForm.get('changePasswordGroup.password').errors?.required &&
                 updateUserForm.get('changePasswordGroup.password').touched">
               {{ validationMessages.required }}
             </app-error>
             <app-error
-              [class]="'user-editor-error-msg'"
+              [class]="'admin-user-editor__input-error-msg'"
               *ngIf="
                 updateUserForm.get('changePasswordGroup.password').errors?.minlength &&
                 updateUserForm.get('changePasswordGroup.password').touched">
@@ -108,14 +108,14 @@
             <app-input
               ng-blur="visitedEmail=true"
               [id]="'repeatPassword'"
-              [formInputStyle]="'user-edit__input'"
+              [formInputStyle]="'admin-user-editor__input'"
               [placeholder]="'Confirm password'"
               [type]="'password'"
               [controlName]="
                 updateUserForm.controls.changePasswordGroup.controls.repeatPassword">
             </app-input>
             <app-error
-              [class]="'user-editor-error-msg'"
+              [class]="'admin-user-editor__input-error-msg'"
               *ngIf="
                 updateUserForm.get('changePasswordGroup.repeatPassword').errors
                   ?.required &&
@@ -123,7 +123,7 @@
               {{ validationMessages.required }}
             </app-error>
             <app-error
-              [class]="'user-editor-error-msg'"
+              [class]="'admin-user-editor__input-error-msg'"
               *ngIf="updateUserForm.get('changePasswordGroup').errors?.match">
               {{ validationMessages.matchingPassword }}
             </app-error>

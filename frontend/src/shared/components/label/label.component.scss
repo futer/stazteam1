@@ -33,7 +33,7 @@
     }
 }
 
-.user-editor__form-file {
+.user-editor__form-file, .admin-user-editor__form-file {
     font-size: 0.75rem;
     display: block;
     background-color: $main-color;

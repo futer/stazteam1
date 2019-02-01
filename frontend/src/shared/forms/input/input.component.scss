@@ -86,7 +86,7 @@ input {
     }
 }
 // USER EDITOR PAGE
-.user-editor__input{
+.user-editor__input, .admin-user-editor__input{
     color: $main-font-color;
     width: 100%;
     margin-bottom: 5px;
@@ -113,6 +113,6 @@ input {
       }
 }
 
-.user-editor__form-file {
+.user-editor__form-file, .admin-user-editor__form-file {
     display: none;
 }
