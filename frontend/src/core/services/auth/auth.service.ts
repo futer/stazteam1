@@ -10,6 +10,9 @@ import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { LoginModel } from 'src/app/models/login.model';
 import { createOfflineCompileUrlResolver } from '@angular/compiler';
+import { Store } from '@ngrx/store';
+import { AuthState } from 'src/core/store/auth/auth.state';
+import { User } from 'src/core/store/auth/auth.reducers';
 
 
 @Injectable({
@@ -26,6 +29,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private store: Store<any>,
   ) {
     this.jwtHelper = new JwtHelperService();
   }
@@ -96,4 +100,6 @@ export class AuthService {
   decode(token: string) {
     return this.jwtHelper.decodeToken(token);
   }
+
+
 }

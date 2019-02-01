@@ -14,6 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { BookmarkEffect } from './store/bookmark/bookmark.effects';
+import { UserModule } from 'src/user/user.module';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { BookmarkEffect } from './store/bookmark/bookmark.effects';
     SharedModule,
     HttpClientModule,
     DocumentModule,
+    UserModule,
     StoreModule.forFeature('core', reducers),
     EffectsModule.forFeature([BookmarkEffect]),
   ],

@@ -41,6 +41,5 @@ export class AdminUserEditorService {
   }
 
   sendUser(user): Observable<any> {
-    console.log('USER>', user.payload);
     return this.apollo.mutate({mutation: AdminUserEditorMutation, variables: {us: user.payload}});
 }}

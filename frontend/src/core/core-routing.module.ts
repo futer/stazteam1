@@ -23,10 +23,9 @@ const routes: Routes = [
       path: 'doc/:id',
       loadChildren: '../document/document.module#DocumentModule'
     },
-    { path: 'user-editor', loadChildren: '../user/user.module#UserModule'},
     { path: 'bookmark-creator', component: BookmarkCreatorComponent},
     { path: 'subpage/:title', component: SubpageContainerComponent},
-    { path: 'user-editor', loadChildren: '../user/user.module#UserModule' },
+    { path: 'user-editor', loadChildren: '../user/user.module#UserModule'},
     { path: 'admin', component: AdminUserEditorComponent, canActivate: [AdminGuard] }
   ];
 

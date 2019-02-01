@@ -4,11 +4,11 @@ import { ErrorData } from '../models/error.model';
 
 export enum userTypes {
     FETCH = '[User] Fetch',
-    FETCH_SUCCESS = '[User] FetchSuccess',
-    FETCH_ERROR = '[User] FetchError',
+    FETCH_SUCCESS = '[User] Fetch Success',
+    FETCH_ERROR = '[User] Fetch Error',
     SEND = '[User] Send',
-    SEND_SUCCESS = '[User] SendSuccess',
-    SEND_ERROR = '[User] SendError'
+    SEND_SUCCESS = '[User] Send Success',
+    SEND_ERROR = '[User] Send Error'
 }
 
 export class Fetch implements Action {
