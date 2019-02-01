@@ -16,7 +16,7 @@ import { ErrorData } from '../models/error.model';
 })
 export class AdminUserEditorComponent implements OnInit, OnDestroy {
   usersub: Subscription;
-  users$: Observable<State>;
+  users$: Observable<any>;
 
   users: UserModel;
   error: ErrorData;
