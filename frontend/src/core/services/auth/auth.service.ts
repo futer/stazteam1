@@ -10,6 +10,9 @@ import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { LoginModel } from 'src/app/models/login.model';
 import { createOfflineCompileUrlResolver } from '@angular/compiler';
+import { Store } from '@ngrx/store';
+import { AuthState } from 'src/core/store/auth/auth.state';
+import { User } from 'src/core/store/auth/auth.reducers';
 
 
 @Injectable({
@@ -26,6 +29,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private store: Store<any>,
   ) {
     this.jwtHelper = new JwtHelperService();
   }
@@ -46,22 +50,38 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(token);
   }
 
+  isAdmin(): boolean {
+    const token = localStorage.getItem('token');
+    const role = (this.jwtHelper.decodeToken(token)).sub.role;
+    if (role === 'admin') {
+      return true;
+    }
+    return false;
+  }
+
   setToken(JWtoken) {
     localStorage.setItem('token', JWtoken);
   }
 
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
   removeToken() {
-    console.log(localStorage.getItem('token'));
     localStorage.removeItem('token');
-    console.log(localStorage.getItem('token'));
   }
 
   login(payload: any): Observable<Object> {
-    console.log(payload);
     return this.http.post(this.adress + 'users/authenticate', {
       email: payload.payload.email,
       password: payload.payload.password,
     });
+  }
+
+  reload(): Observable<Object> {
+    return this.http.get(this.adress + 'users/getCurrentUser', { headers: {
+      'Authorization': 'Bearer ' + this.getToken()
+    }});
   }
 
 
@@ -76,4 +96,10 @@ export class AuthService {
   errorHandler(error: HttpErrorResponse) {
     return throwError(error);
   }
+
+  decode(token: string) {
+    return this.jwtHelper.decodeToken(token);
+  }
+
+
 }

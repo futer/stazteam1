@@ -36,11 +36,24 @@ const corsOptions = {
 app.options(corsOptions, cors());
 
 //GRAPHQL
+<<<<<<< HEAD
 app.use('/graphql',/*jwt() cors(),*/ graphqlHTTP({
+=======
+app.use('/graphql',/*jwt(),cors(),*/ graphqlHTTP(req => ({
+>>>>>>> 0f016f71e59f717cd913b26aee72c7055770eeb4
   schema,
   graphiql: true,
-}));
-
+  formatError: error => ({
+    message: error.message,
+    state: error.originalError && error.originalError.state,
+    locations: error.locations,
+    path: error.path,
+  }),
+  context: (() => {
+    req.headers.authorization = (req.headers.authorization) ? req.headers.authorization : 'token';
+    return req;
+  })()
+})))
 //SWAGGER
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

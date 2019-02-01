@@ -9,13 +9,13 @@ import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MainComponent } from './main/main.component';
 import { DocumentModule } from 'src/document/document.module';
-import { StoreModule } from '@ngrx/store';
-import authReducer from './store/auth/auth.reducers';
-import { EffectsModule } from '@ngrx/effects';
-import { AuthEffect } from './store/auth/auth.effects';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { StoreModule } from '@ngrx/store';
 import { reducers } from './store';
+import { EffectsModule } from '@ngrx/effects';
 import { BookmarkEffect } from './store/bookmark/bookmark.effects';
+import { UserModule } from 'src/user/user.module';
+
 
 @NgModule({
   declarations: [
@@ -31,12 +31,15 @@ import { BookmarkEffect } from './store/bookmark/bookmark.effects';
     SharedModule,
     HttpClientModule,
     DocumentModule,
+    UserModule,
     StoreModule.forFeature('core', reducers),
-    EffectsModule.forFeature([AuthEffect, BookmarkEffect]),
+    EffectsModule.forFeature([BookmarkEffect]),
   ],
   exports: [
     NavComponent,
     SidebarComponent
   ],
+  providers: [
+  ]
 })
 export class CoreModule { }

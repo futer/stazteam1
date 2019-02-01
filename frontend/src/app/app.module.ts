@@ -16,6 +16,11 @@ import { ExamplesModule } from 'src/examples/examples.module';
 import { UserModule } from 'src/user/user.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import authReducer from '../core/store/auth/auth.reducers';
+import { AuthEffect } from '../core/store/auth/auth.effects';
+import { ChatComponent } from 'src/chat/chat/chat.component';
+import { ChatModule } from 'src/chat/chat.module';
 
 @NgModule({
   declarations: [
@@ -30,15 +35,17 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     ExampleRouting,
     ExamplesModule,
     CoreRoutingModule,
-    StoreModule.forRoot(docReducer),
+    StoreModule.forRoot({doc: docReducer, auth: authReducer}),
     ReactiveFormsModule,
     DocumentModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
+    UserModule,
+    // StoreModule.forRoot({userReducer}),
+    EffectsModule.forRoot([AuthEffect]),
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),
     ExamplesModule,
+    ChatModule
   ],
   providers: [
   ],

@@ -4,21 +4,24 @@ import { ContainerComponent } from './container/container.component';
 import { DocPrevComponent } from './doc-prev/doc-prev.component';
 import { DocComponent } from './doc/doc.component';
 import { SharedModule } from 'src/shared/shared.module';
-
 import { HttpClientModule } from '@angular/common/http';
-
-import { docReducer } from '../document/store/document.reducers';
+import { docModuleReducers } from '../document/store/document.reducers';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { DocumentEffects } from 'src/document/store/document.effects';
+import { DocumentRoutingModule } from './document-routing.module';
+import { PdfViewComponent } from './pdf-view/pdf-view.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-    declarations: [ContainerComponent, DocPrevComponent, DocComponent],
+    declarations: [ContainerComponent, DocPrevComponent, DocComponent, PdfViewComponent],
     imports: [
         CommonModule,
         SharedModule,
         HttpClientModule,
-        StoreModule.forFeature('documents', docReducer),
+        DocumentRoutingModule,
+        FormsModule,
+        StoreModule.forFeature('docModule', docModuleReducers ),
         EffectsModule.forFeature([DocumentEffects]),
     ],
     exports: [ContainerComponent]

@@ -23,6 +23,11 @@ export const User = createSelector(
     (state: authState.AuthState) => state.user
 );
 
+export const User2 = createSelector(
+    getLoginFeatureState,
+    (state: authState.AuthState) => state.user.firstName
+);
+
 export const Erros = createSelector(
     getLoginFeatureState,
     (state: authState.AuthState) => state.errorMessage
@@ -37,10 +42,7 @@ export function authReducer (
         return {
            ...state,
            isAuthenticated: true,
-           user: {
-               token: actions.payload.token,
-               email: actions.payload.email
-           },
+           user: actions.payload,
            errorMessage: null
         };
 
@@ -52,6 +54,21 @@ export function authReducer (
 
         case authActions.AuthActionTypes.LOGOUT:
         return initialState;
+
+        case authActions.AuthActionTypes.RELOAD:
+        return state;
+
+        case authActions.AuthActionTypes.RELOAD_SUCCESS:
+        return {
+            ...state,
+            user: actions.payload
+        };
+
+        case authActions.AuthActionTypes.RELOAD_FAIL:
+        return {
+            ...state,
+            errorMessage: actions.payload
+        };
 
         default: {
             return state;

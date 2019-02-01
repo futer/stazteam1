@@ -61,8 +61,32 @@ input {
         }
 }
 
+.chat__input {
+    background: #fff;
+    height: 41px;
+    width: 206.3px;
+    color: #313131;
+    padding: 15px;
+    margin: 0;
+    border: none;
+    border-radius: 0 0 0 10px;
+    border-bottom: 1px solid #d4d4d4;
+    border-left: 1px solid #d4d4d4;
+    border-top: 1px solid #d4d4d4;
+    border-right: 1px solid #d4d4d426;
+    box-sizing: inherit;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        color: grey;
+    }
+}
 // USER EDITOR PAGE
-.user-edit__input{
+.user-editor__input, .admin-user-editor__input{
     color: $main-font-color;
     width: 100%;
     margin-bottom: 5px;
@@ -89,7 +113,7 @@ input {
       }
 }
 
-.user-editor-form__file {
+.user-editor__form-file, .admin-user-editor__form-file {
     display: none;
 }
 

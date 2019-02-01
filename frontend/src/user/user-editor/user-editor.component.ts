@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalService } from '../../shared/modal/modal.service';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { passwordMatcher } from 'src/shared/reusable-functions/passwordMatcher';
-import { UserEditorCredentialsModel, UserEditorPictureModel,
-  UserEditorPasswordModel, UserInfoModel } from '../../app/models/user-editor.model';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
+import { UserModel, UserFormModel } from '../models/user.model';
+import { ErrorData } from '../models/error.model';
+import { Store } from '@ngrx/store';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { passwordMatcher, passwordTouchedChecker } from 'src/shared/reusable-functions/passwordMatcher';
 import { UserService } from '../services/user.service';
-import { HttpErrorResponse } from '@angular/common/http';
-
+import { Send } from '../store/user.actions';
+import { Errors, SendSuccess } from '../store/user.reducers';
 
 @Component({
   selector: 'app-user-editor',
@@ -14,98 +15,79 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./user-editor.component.scss']
 })
 export class UserEditorComponent implements OnInit {
-  changePasswordForm: FormGroup;
-  changeCredentialsForm: FormGroup;
-  changePicForm: FormGroup;
-  error: HttpErrorResponse;
-  pictureUrl;
-  user: UserInfoModel = {
-    firstName: 'Lufa',
-    lastName: 'Lufowski',
-    pic: '',
+  currentsub: Subscription;
+  errorsub: Subscription;
+  sentsub: Subscription;
+
+  current: UserModel;
+  error: ErrorData;
+  send: boolean;
+
+  error$: Observable<ErrorData>;
+  send$: Observable<boolean>;
+
+  updateUserForm: FormGroup;
+
+  private validationMessages = {
+    password: 'Password must be longer than 5 characters',
+    matchingPassword: 'Password doesnt match',
   };
 
   constructor(
-    private modalService: ModalService,
-    private changePasswordFormBuilder: FormBuilder,
-    private changeCredentialsFormBuilder: FormBuilder,
-    private changePicFormBuilder: FormBuilder,
+    private store: Store<any>,
+    private changeUserFormBuilder: FormBuilder,
     private userService: UserService,
-  ) { }
-
-  private validationMessages = {
-    required: 'The field is required',
-    password: 'Password must be longer than 5 characters',
-    matchingPassword: 'Password doesnt match',
-    firstName: 'First name must be longer than 1 character',
-    lastName: 'Last name must be longer than 1 character',
-  };
+  ) {
+    this.current = { id: '', firstName: '', lastName: '', pic: '' };
+  }
 
   ngOnInit() {
-    this.changePasswordForm = this.changePasswordFormBuilder.group({
-      oldPassword: ['', [Validators.required, Validators.minLength(5)]],
-      passwordGroup: this.changePasswordFormBuilder.group({
-        password: ['', [Validators.required, Validators.minLength(5)]],
-        repeatPassword: ['', Validators.required]
-      }, {validator: passwordMatcher}),
+    this.currentsub = this.store.select(wholeStore => wholeStore.auth.user).subscribe(user => {
+      if (user) {
+        this.current.id = user._id;
+        this.current.firstName = user.firstName;
+        this.current.lastName = user.lastName;
+        this.current.pic = user.pic;
+      }
     });
 
-    this.changeCredentialsForm = this.changeCredentialsFormBuilder.group({
-      firstName: ['', [Validators.required, Validators.minLength(2)]],
-      lastName: ['', [Validators.required, Validators.minLength(2)]],
+    this.error$ = this.store.select(Errors);
+    this.send$ = this.store.select(SendSuccess);
+
+    this.errorsub = this.error$.subscribe(error => {
+      this.error = error;
     });
 
-    this.changePicForm = this.changePicFormBuilder.group({
+    this.sentsub = this.send$.subscribe(sent => {
+      this.send = sent;
+    });
+
+
+    this.updateUserForm = this.changeUserFormBuilder.group({
+      firstName: ['', [Validators.minLength(2)]],
+      lastName: ['', [Validators.minLength(2)]],
       picture: '',
+      changePasswordGroup: this.changeUserFormBuilder.group({
+        oldPassword: ['', [Validators.minLength(5)]],
+        passwordGroup: this.changeUserFormBuilder.group({
+          password: ['', [Validators.minLength(5)]],
+          repeatPassword: ['']
+        }, { validator: passwordMatcher }),
+      }, { validator: passwordTouchedChecker })
     });
   }
 
-  openModal(id: string) {
-    this.modalService.open(id);
-  }
-
-  closeModal(id: string) {
-    this.modalService.close(id);
-  }
-
-  changeCredentials(changeCredentialsForm) {
-    this.userService.changeCredentials(changeCredentialsForm).subscribe(data => {
-      console.log(data);
-    },
-    err => {
-      console.log(err);
-      this.error = err;
-    }
-    );
-  }
-  changePassword(changePasswordForm) {
-    this.userService.changePassword(changePasswordForm.value).subscribe(data => {
-      console.log(data);
-    },
-    err => {
-      console.log(err);
-      this.error = err;
-    }
-    );
-  }
-
-  changePic() {
-    this.userService.changePic(this.pictureUrl).subscribe(data => {
-      console.log(data);
-    },
-    err => {
-      console.log(err);
-      this.error = err;
-    }
-    );
-  }
-
-  pictureUpload(event) {
-    this.pictureUrl = event.target.files[0];
-    const reader = new FileReader;
-    reader.onload = () => {
-      this.pictureUrl = reader.result;
+  updateUser(form) {
+    const user: UserFormModel = {
+      id: this.current.id,
+      firstName: form.value.firstName === '' ? undefined : form.value.firstName,
+      lastName: form.value.lastName === '' ? undefined : form.value.lastName,
+      pic: form.value.pic,
+      password: form.value.changePasswordGroup.passwordGroup.password === ''
+        ? undefined : form.value.changePasswordGroup.passwordGroup.password,
+      oldPassword: form.value.changePasswordGroup.oldPassword === ''
+        ? undefined : form.value.changePasswordGroup.oldPassword
     };
-    reader.readAsDataURL(this.pictureUrl);
+    this.store.dispatch(new Send(user));
   }
 }

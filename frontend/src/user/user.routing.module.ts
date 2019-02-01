@@ -1,16 +1,15 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import { UserEditorComponent } from './user-editor/user-editor.component';
 import { AuthGuard } from '../core/guards/auth/auth.guard';
 import { NgModule } from '@angular/core';
+import { UserEditorComponent } from './user-editor/user-editor.component';
 
-const appRoutes: Routes = [
-    {path: '', component: UserEditorComponent},
-    {path: '**', redirectTo: ''},
+const userRoutes: Routes = [
+    {path: 'user-editor', component: UserEditorComponent},
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(appRoutes)],
+    imports: [RouterModule.forChild(userRoutes)],
     exports: [RouterModule]
   })
   export class UserEditorRouting { }

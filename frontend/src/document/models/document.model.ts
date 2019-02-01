@@ -1,6 +1,16 @@
+export interface DocumentsModel {
+    data: {
+        documents: Array<Object>;
+    };
+}
+
 export interface DocumentModel {
-    title: string;
-    author: string;
-    date: string;
-    content: string;
+    data: {
+        document: {
+            author: string;
+            content: string;
+            date: string;
+            title: string;
+        };
+    };
 }
