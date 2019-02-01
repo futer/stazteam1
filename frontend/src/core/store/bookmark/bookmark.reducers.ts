@@ -86,7 +86,6 @@ export function bookmarkReducer(
         };
 
         case bookmarkActions.bookmarkTypes.DELETE_SUCCESS:
-        console.log(action.payload);
         return {
             ...state,
             bookmarks: state.bookmarks.filter(bookmark => bookmark.id !== action.payload.payload),

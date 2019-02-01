@@ -47,7 +47,6 @@ export class BookmarkPanelComponent implements OnInit {
 
   getValues(e) {
     this.addBookmarkForm.controls['position'].setValue(e);
-    console.log(this.addBookmarkForm.value);
   }
 
 

@@ -36,7 +36,6 @@ export class BookmarkEffect {
                 switchMap((payload) =>
                     this.subpageService.update(payload).pipe(
                         map(() => {
-                            // console.log(payload);
                             return new bookmarkActions.UpdateSucces(payload);
                         }),
                         catchError((error: ErrorData) => of(new bookmarkActions.UpdateFaild(error)))
@@ -51,7 +50,6 @@ export class BookmarkEffect {
                 switchMap((payload) =>
                 this.subpageService.delete(payload).pipe(
                     map(() => {
-                        // console.log(payload);
                         return new bookmarkActions.DeleteSucces(payload);
                     }),
                     catchError((error: ErrorData) => of(new bookmarkActions.DeleteFaild(error)))
@@ -64,7 +62,6 @@ export class BookmarkEffect {
             .ofType(bookmarkActions.bookmarkTypes.ADD_BOOKMARK)
             .pipe(
                 switchMap((payload) => {
-                    console.log(payload);
                   return  this.subpageService.addBookmark(payload).pipe(
                         map(() => {
                             return new bookmarkActions.AddBookmarkSuccess(payload['payload']);

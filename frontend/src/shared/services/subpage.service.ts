@@ -86,7 +86,6 @@ export class SubpageService {
   }
 
   addBookmark(values) {
-    console.log(addBookmarkMutation);
     return this.apollo.mutate({
       mutation: addBookmarkMutation,
       variables: {

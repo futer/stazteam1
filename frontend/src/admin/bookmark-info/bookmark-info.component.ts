@@ -26,12 +26,9 @@ export class BookmarkInfoComponent implements OnInit {
   toggleForm(data) {
     this.store.dispatch(new bookmarkActions.SetCurrentBookmark(data));
     this.isShown = !this.isShown;
-    console.log(this.isShown);
+
    }
 
-   showValues(event) {
-     console.log(event.value);
-   }
 
    deleteBookmark(event) {
     if ( window.confirm('Are sure you want to delete this bookmark ?')) {

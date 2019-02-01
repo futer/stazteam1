@@ -28,7 +28,6 @@ export class SubpageContainerComponent implements OnInit {
       router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           this.getSubpageTitle();
-          // console.log(this.title);
           this.bookmark$.subscribe((res: any) => {
             if (res) {
               res.filter((subpage) => {
