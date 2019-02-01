@@ -1,7 +1,5 @@
-export interface DocumentsModel {
-    data: {
-        documents: Array<Object>;
-    };
+export interface PreviewsModel {
+    previews: Array<Object>;
 }
 
 export interface DocumentModel {
@@ -12,5 +10,6 @@ export interface DocumentModel {
             date: string;
             title: string;
         };
+        like: boolean;
     };
 }

@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { DocumentService } from '../services/document.service';
 import * as AllActions from './document.actions';
-import { DocumentsModel, DocumentModel } from '../models/document.model';
+import { PreviewsModel, DocumentModel } from '../models/document.model';
 import { ErrorData } from '../models/error.model';
 
 @Injectable()
@@ -22,7 +22,7 @@ export class DocumentEffects {
             switchMap(() =>
                 this.documentService.fetchPrevs().pipe(
                     map(
-                        (docs: DocumentsModel) =>
+                        (docs: PreviewsModel) =>
                             new AllActions.FetchPrevsSuccess(docs)
                     ),
                     catchError((error: ErrorData) =>
@@ -31,6 +31,24 @@ export class DocumentEffects {
                 )
             )
         );
+
+        @Effect()
+        FetchLiked$: Observable<any> = this.actions$
+            .ofType(AllActions.likedTypes.FETCH_LIKED)
+            .pipe(
+                switchMap(() =>
+                    this.documentService.fetchLiked().pipe(
+                        map(
+                            (docs: PreviewsModel) =>
+                                new AllActions.FetchLikedSuccess(docs)
+                        ),
+                        catchError((error: ErrorData) =>
+                            of(new AllActions.FetchLikedError(error))
+                        )
+                    )
+                )
+            );
+
     @Effect()
     FetchDoc$: Observable<any> = this.actions$
         .ofType(AllActions.docTypes.FETCH_DOC)

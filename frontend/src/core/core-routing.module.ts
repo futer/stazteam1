@@ -17,7 +17,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'register', component: RegisterComponent },
     { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
-    { path: 'main/favourites', component: MainComponent, canActivate: [AuthGuard] },
+    { path: 'favourites', component: MainComponent, canActivate: [AuthGuard] },
     {
       path: 'doc/:id',
       loadChildren: '../document/document.module#DocumentModule'

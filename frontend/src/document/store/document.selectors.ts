@@ -24,6 +24,26 @@ export const getPrevsError = createSelector(
     (state: States.DocModuleState) => state.prevs.errorMessage
 );
 
+export const areLikedLoading = createSelector(
+    docFeature,
+    (state: States.DocModuleState) => state.liked.loading
+);
+
+export const areLikedLoaded = createSelector(
+    docFeature,
+    (state: States.DocModuleState) => state.liked.loaded
+);
+
+export const getLiked = createSelector(
+    docFeature,
+    (state: States.DocModuleState) => state.liked.previews
+);
+
+export const getLikedError = createSelector(
+    docFeature,
+    (state: States.DocModuleState) => state.liked.errorMessage
+);
+
 export const isDocLoading = createSelector(
     docFeature,
     (state: States.DocModuleState) => state.doc.loading

@@ -1,10 +1,17 @@
-import { DocumentsModel, DocumentModel } from '../models/document.model';
+import { PreviewsModel, DocumentModel } from '../models/document.model';
 import { ErrorData } from '../models/error.model';
 
 export interface PrevState {
     loading: boolean;
     loaded: boolean;
-    previews: DocumentsModel | null;
+    previews: PreviewsModel | null;
+    errorMessage: ErrorData | null;
+}
+
+export interface LikedState {
+    loading: boolean;
+    loaded: boolean;
+    previews: PreviewsModel | null;
     errorMessage: ErrorData | null;
 }
 
@@ -17,5 +24,6 @@ export interface DocState {
 
 export interface DocModuleState {
     prevs: PrevState;
+    liked: LikedState;
     doc: DocState;
 }

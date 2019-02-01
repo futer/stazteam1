@@ -24,24 +24,19 @@ const DocQuery = gql`
       date
       title
     }
+    like(docs:$id)
   }
 `;
 
 const LikedQuery = gql`
   query Likes {
     likes{
-      id
+      docs{id
       author
       date
       preview
-      title
+      title}
     }
-  }
-`;
-
-const CheckLikeQuery = gql`
-  query Like($id: String!) {
-    like(docs:$id)
   }
 `;
 
@@ -59,7 +54,7 @@ export class DocumentService {
     return this.apollo.watchQuery({query: PrevQuery}).valueChanges;
   }
 
-  fetchLikes(): Observable<any> {
+  fetchLiked(): Observable<any> {
     return this.apollo.watchQuery({query: LikedQuery}).valueChanges;
   }
 
@@ -67,16 +62,6 @@ export class DocumentService {
     console.log(id);
     return this.apollo.watchQuery({
       query: DocQuery,
-      variables: {
-        id: id
-      }
-    }).valueChanges;
-  }
-
-  checkLike(id): Observable<any> {
-    console.log(id);
-    return this.apollo.watchQuery({
-      query: CheckLikeQuery,
       variables: {
         id: id
       }

@@ -1,15 +1,15 @@
 <section [ngSwitch]="url">
   <div *ngSwitchCase="'/main'">
     <app-doc-prev 
-    *ngFor="let prev of (prevs$ | async)?.data.documents" 
+    *ngFor="let prev of (prevs$ | async)" 
     [preview]="prev"
     >
     </app-doc-prev>
   </div>
 
-  <div *ngSwitchCase="'/main/favourites'">
+  <div *ngSwitchCase="'/favourites'">
     <app-doc-prev 
-    *ngFor="let prev of (prevs$ | async)?.data.documents" 
+    *ngFor="let prev of (prevs$ | async)" 
     [preview]="prev"
     >
     </app-doc-prev>

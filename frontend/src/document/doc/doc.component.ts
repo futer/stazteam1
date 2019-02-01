@@ -24,7 +24,8 @@ export class DocComponent implements OnInit, OnDestroy {
                 content: '',
                 date: '',
                 title: ''
-            }
+            },
+            like: false
         }
     };
 
@@ -53,7 +54,8 @@ export class DocComponent implements OnInit, OnDestroy {
                                 content: decode,
                                 date: doc.data.document.date,
                                 title: doc.data.document.title
-                            }
+                            },
+                            like: doc.data.like
                         }
                     };
                 }
