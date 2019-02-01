@@ -1,18 +1,21 @@
-<label class="bookmark-add-form__label--position">
+<label class="bookmark-add-form__label--position" >
   <input 
-  [id]="id" 
-  [name]="name" 
-  [type]="type" 
-  [formControl]="controlName"
-  [value]="value1"
+    (change)="onRadioChange($event)"
+    id="position"
+    name="position" 
+    type="radio"
+    value="selected"
+    (click)="setradio('TOP')"
   />TOP
 </label>
 <label class="bookmark-add-form__label--position">
   <input 
-  [id]="id" 
-  [name]="name" 
-  [type]="type" 
-  [formControl]="controlName"
-  [value]="value2"
+    (change)="onRadioChange($event)"
+    id="position" 
+    name="position" 
+    type="radio"
+    value="selected"
+    (click)="setradio('RIGHT')"
   />RIGHT
-</label>
+</label> 
+

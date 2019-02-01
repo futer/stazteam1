@@ -51,14 +51,10 @@
             <div class="form-group" style="margin-top: 10px">
                 <label for="position">Position: </label>
                 <app-radio-buttons 
-                 [id]="'position'"
-                 [name]="'position'"
-                 [type]="'radio'"
-                 [value1]="positions.top"
-                 [value2]="positions.right"
+                (radioButtonChange)="getValues($event)"
                  [controlName]="addBookmarkForm.controls.position"
                  >
-            </app-radio-buttons>
+                </app-radio-buttons>
             </div>
             <app-submit-btn  [disabled]="addBookmarkForm.invalid" [buttonStyle]="'button'" [type]="'submit'"> Save changes</app-submit-btn>
         </form>

@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-radio-buttons',
@@ -7,6 +8,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./radio-buttons.component.scss']
 })
 export class RadioButtonsComponent implements OnInit {
+
   @Input() id: string;
   @Input() name: string;
   @Input() type: string;
@@ -14,9 +16,24 @@ export class RadioButtonsComponent implements OnInit {
   @Input() value1: string;
   @Input() value2: string;
 
-  constructor() { }
+  positions =  {'right': 'RIGHT',  'top': 'TOP'};
+  selected = '';
 
+  @Output() radioButtonChange = new EventEmitter();
+
+  constructor() {
+   }
   ngOnInit() {
+
   }
+
+
+  setradio(e: string) {
+    this.selected = e;
+   }
+
+   onRadioChange() {
+     this.radioButtonChange.emit(this.selected);
+   }
 
 }

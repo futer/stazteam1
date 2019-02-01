@@ -20,6 +20,7 @@ export class BookmarkPanelComponent implements OnInit {
   addBookmarkForm: FormGroup;
   positions =  {'right': 'RIGHT',  'top': 'TOP'};
   showModal = false;
+  position: 'TOP';
 
 
   constructor(private store: Store<CoreState>,
@@ -35,15 +36,20 @@ export class BookmarkPanelComponent implements OnInit {
     this.addBookmarkForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(20)]],
       content: ['', Validators.required],
-      position: [this.positions.top, Validators.required],
+      position: [this.position],
     });
   }
 
   addBookmark(event) {
-    console.log(event.value);
+    // console.log(event.value);
     this.store.dispatch(new bookmarkActions.AddBookmark(event.value));
     this.createForm();
     this.showModal = !this.showModal;
+  }
+
+  getValues(e) {
+    this.addBookmarkForm.controls['position'].setValue(e);
+    console.log(this.addBookmarkForm.value);
   }
 
 
