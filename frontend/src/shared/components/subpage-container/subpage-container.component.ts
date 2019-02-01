@@ -43,7 +43,7 @@ export class SubpageContainerComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.store.dispatch(new bookmarkActions.Fetch);
+    this.store.dispatch(new bookmarkActions.FetchBookmark);
   }
 
   getSubpageTitle() {
