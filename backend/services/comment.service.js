@@ -14,6 +14,7 @@ async function addComment(data) {
     },
     { new: true }
   ).populate('comments.reviewer');
+  
   const comment = document.comments.pop();
   
   return comment;
@@ -42,7 +43,7 @@ async function deleteComment(id) {
 
   const idx = document.comments.findIndex(com => com._id.toString() === id);
 
-  if (idx > 0) {
+  if (idx >= 0) {
     const comment = document.comments[idx];
     document.comments.splice(idx, 1);
     document.save();
@@ -84,8 +85,11 @@ async function getComments() {
 async function getComment(id) {
   database.connect();
 
-  const doc = await Document.findOne({ 'comments._id': id }).populate('comments.reviewer');
-  const comment = doc.comments.id(id);
+  const document = await Document.findOne({ 'comments._id': id }).populate('comments.reviewer');
+
+  if (!document) { return null; }
+
+  const comment = document.comments.id(id);
 
   return comment;
 }

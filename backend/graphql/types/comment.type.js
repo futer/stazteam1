@@ -1,7 +1,8 @@
 const {
   GraphQLObjectType,
-  GraphQLString,
+  GraphQLInputObjectType,
   GraphQLNonNull,
+  GraphQLString,
   GraphQLInt,
   GraphQLID
 } = require('graphql');
@@ -23,6 +24,31 @@ const commentType = new GraphQLObjectType({
   })
 });
 
+const addCommentInput = new GraphQLInputObjectType({
+  name: 'addCommentInput',
+  fields: () => ({
+    documentId: {type: new GraphQLNonNull(GraphQLString) },
+    start: { type: new GraphQLNonNull(GraphQLInt) },
+    length: { type: new GraphQLNonNull(GraphQLInt) },
+    page: { type: new GraphQLNonNull(GraphQLInt) },
+    content: { type: new GraphQLNonNull(GraphQLString) },
+    reviewer: { type: new GraphQLNonNull(GraphQLString) },
+  })
+})
+
+const updateCommentInput = new GraphQLInputObjectType({
+  name: 'updateCommentInput',
+  fields: () => ({
+    id: { type: new GraphQLNonNull(GraphQLString) },
+    start: { type: GraphQLInt },
+    length: { type: GraphQLInt },
+    page: { type: GraphQLInt },
+    content: { type: GraphQLString },
+  })
+})
+
 module.exports = {
   commentType,
+  addCommentInput,
+  updateCommentInput,
 }

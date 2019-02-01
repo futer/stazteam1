@@ -1,12 +1,10 @@
 const {
     GraphQLList,
     GraphQLNonNull,
-    GraphQLObjectType,
     GraphQLString,
-    GraphQLInt
   } = require('graphql');
 
-const { commentType } = require('../types/comment.type');
+const { commentType, addCommentInput, updateCommentInput } = require('../types/comment.type');
 const commentResolver = require('../resolvers/comment.resolver');
 
 const commentQueries = {
@@ -29,23 +27,14 @@ const commentMutations = {
   addComment: {
     type: commentType,
     args: {
-      documentId: {type: new GraphQLNonNull(GraphQLString) },
-      start: { type: new GraphQLNonNull(GraphQLInt) },
-      length: { type: new GraphQLNonNull(GraphQLInt) },
-      page: { type: new GraphQLNonNull(GraphQLInt) },
-      content: { type: new GraphQLNonNull(GraphQLString) },
-      reviewer: { type: new GraphQLNonNull(GraphQLString) },
+      input: { type: new GraphQLNonNull(addCommentInput) },
     },
     resolve: commentResolver.addComment,
   },
   updateComment: {
     type: commentType,
     args: {
-      id: { type: new GraphQLNonNull(GraphQLString) },
-      start: { type: GraphQLInt },
-      length: { type: GraphQLInt },
-      page: { type: GraphQLInt },
-      content: { type: GraphQLString },
+      input: { type: new GraphQLNonNull(updateCommentInput) },
     },
     resolve: commentResolver.updateComment,
   },
