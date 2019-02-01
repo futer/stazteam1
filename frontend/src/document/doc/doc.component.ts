@@ -72,4 +72,23 @@ export class DocComponent implements OnInit, OnDestroy {
         console.log('begin download');
         window.location.href = this.url;
     }
+
+    checkIfLiked(event) {
+        console.log('ichecked', event.target.checked);
+
+        switch (event) {
+            case true: {
+               // add like, mutation and store change if success
+               break;
+            }
+            case false: {
+               // delete like, mutation and store change if success
+               break;
+            }
+            default: {
+               console.log('what default?');
+               break;
+            }
+         }
+    }
 }

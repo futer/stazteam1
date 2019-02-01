@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class LikeBtnComponent implements OnInit {
   @Input() buttonStyle: string;
+  @Input() isChecked: boolean;
   constructor() { }
 
   ngOnInit() {

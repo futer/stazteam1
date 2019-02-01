@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PreviewsModel } from '../models/document.model';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { PrevState } from '../store/document.states';
