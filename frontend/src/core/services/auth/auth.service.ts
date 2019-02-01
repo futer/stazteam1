@@ -10,6 +10,9 @@ import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { LoginModel } from 'src/app/models/login.model';
 import { createOfflineCompileUrlResolver } from '@angular/compiler';
+import { Store } from '@ngrx/store';
+import { AuthState } from 'src/core/store/auth/auth.state';
+import { User } from 'src/core/store/auth/auth.reducers';
 
 
 @Injectable({
@@ -26,6 +29,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private store: Store<any>,
   ) {
     this.jwtHelper = new JwtHelperService();
   }
@@ -44,6 +48,15 @@ export class AuthService {
     // Check whether the token is expired and return
     // true or false
     return !this.jwtHelper.isTokenExpired(token);
+  }
+
+  isAdmin(): boolean {
+    const token = localStorage.getItem('token');
+    const role = (this.jwtHelper.decodeToken(token)).sub.role;
+    if (role === 'admin') {
+      return true;
+    }
+    return false;
   }
 
   setToken(JWtoken) {
@@ -87,4 +100,6 @@ export class AuthService {
   decode(token: string) {
     return this.jwtHelper.decodeToken(token);
   }
+
+
 }

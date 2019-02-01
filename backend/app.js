@@ -39,9 +39,14 @@ app.options(corsOptions, cors());
 app.use('/graphql',/*jwt(),cors(),*/ graphqlHTTP(req => ({
   schema,
   graphiql: true,
+  formatError: error => ({
+    message: error.message,
+    state: error.originalError && error.originalError.state,
+    locations: error.locations,
+    path: error.path,
+  }),
   context: (() => {
     req.headers.authorization = (req.headers.authorization) ? req.headers.authorization : 'token';
-
     return req;
   })()
 })))
