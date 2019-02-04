@@ -1,0 +1,5 @@
+<div [@modal] *ngIf="visible" class="modal">
+    <ng-content></ng-content>
+    <app-button  (clickEvent)="close()" [class]="'modal__close-btn'"><i class="fa fa-times"></i></app-button>
+  </div>
+<div *ngIf="visible" class="overlay" (click)="close()"></div>

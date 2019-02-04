@@ -7,8 +7,8 @@ import { MainComponent } from './main/main.component';
 
 import { AuthGuard } from './guards/auth/auth.guard';
 import { LoginGuard } from './guards/login/login.guard';
+import { BookmarkPanelComponent } from 'src/admin/bookmark-panel/bookmark-panel.component';
 import { DocumentModule } from 'src/document/document.module';
-import { BookmarkCreatorComponent } from 'src/admin/bookmark-creator/bookmark-creator.component';
 import { AdminModule } from 'src/admin/admin.module';
 import { SubpageContainerComponent } from 'src/shared/components/subpage-container/subpage-container.component';
 import { ContainerComponent } from 'src/document/container/container.component';
@@ -23,7 +23,8 @@ const routes: Routes = [
       path: 'doc/:id',
       loadChildren: '../document/document.module#DocumentModule'
     },
-    { path: 'bookmark-creator', component: BookmarkCreatorComponent},
+    { path: 'user-editor', loadChildren: '../user/user.module#UserModule'},
+    { path: 'bookmark-panel', component: BookmarkPanelComponent},
     { path: 'subpage/:title', component: SubpageContainerComponent},
     { path: 'user-editor', loadChildren: '../user/user.module#UserModule'},
     { path: 'admin', component: AdminUserEditorComponent, canActivate: [AdminGuard] }

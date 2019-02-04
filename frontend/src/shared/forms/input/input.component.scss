@@ -1,4 +1,4 @@
-@import '../../../assets//main-style.scss';
+@import '../../../assets/main-style.scss';
 
 //REGISTER PAGE
 .register-form__input {
@@ -116,3 +116,18 @@ input {
 .user-editor__form-file, .admin-user-editor__form-file {
     display: none;
 }
+
+
+//BOOKMARK-EDITOR 
+.bookmark-editor__input, .bookmark-form__input {
+    padding: 10px;
+    border: 1px solid #A5B1BE;
+    margin-left: 10px;
+
+    &:focus {
+        border: 1px solid $main-color;
+        outline: none;
+    }
+}
+
+//BOOKMARK-PANEL/MODAL
