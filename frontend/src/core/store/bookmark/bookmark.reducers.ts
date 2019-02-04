@@ -6,6 +6,8 @@ export const initialState: bookmarkState.BookmarkState = {
     currentBookmarkId: null,
     bookmarks: [],
     erroMessage: null,
+    loading: false,
+    loaded: false
 };
 
 export const bookmarkFeature = createFeatureSelector<bookmarkState.BookmarkState>('bookmarks');
@@ -52,18 +54,24 @@ export function bookmarkReducer(
         case bookmarkActions.bookmarkTypes.FETCH_BOOKMARK:
         return {
             ...state,
+            loading: true,
+            loaded: false
         };
 
         case bookmarkActions.bookmarkTypes.FETCH_BOOKMARK_SUCCESS:
         return {
            ...state,
            bookmarks: action.payload,
-           erroMessage: null
+           erroMessage: null,
+           loading: false,
+           loaded: true
        };
 
         case bookmarkActions.bookmarkTypes.FETCH_BOOKMARK_FAILD:
         return{
             ...state,
+            loading: false,
+            loaded: false,
             bookmarks: [],
             erroMessage: action.payload
         };
