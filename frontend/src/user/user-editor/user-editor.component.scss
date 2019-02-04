@@ -1,0 +1,22 @@
+@import '../../assets/main-style.scss';
+
+.user-editor__error-msg{
+    background-color: darkred;
+    padding: 1em;
+    margin: 1em;
+    box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.3);
+}
+
+.user-editor__success-msg{
+    background-color: green;
+    padding: 1em;
+    margin: 1em;
+    box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.3);
+}
+
+.user-editor__container { 
+    background-color: $sec-back-color;
+    padding: 1em;
+    margin: 1em;
+    box-shadow: 0px 0px 9px 3px rgba(0, 0, 0, 0.3);
+}

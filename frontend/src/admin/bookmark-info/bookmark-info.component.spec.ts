@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BookmarkCreatorComponent } from './bookmark-creator.component';
+import { BookmarkInfoComponent } from './bookmark-info.component';
 
-describe('BookmarkCreatorComponent', () => {
-  let component: BookmarkCreatorComponent;
-  let fixture: ComponentFixture<BookmarkCreatorComponent>;
+describe('BookmarkInfoComponent', () => {
+  let component: BookmarkInfoComponent;
+  let fixture: ComponentFixture<BookmarkInfoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BookmarkCreatorComponent ]
+      declarations: [ BookmarkInfoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BookmarkCreatorComponent);
+    fixture = TestBed.createComponent(BookmarkInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

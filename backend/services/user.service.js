@@ -15,7 +15,8 @@ module.exports = {
     isEditor,
     isLogged,
     getAll,
-    getCurrent  
+    getCurrent,
+    updateUser
 };
 
 async function registrationLocal(userParam){
@@ -185,4 +186,10 @@ async function getAll() {
     database.connect();
     const u = await User.find();
     return u;    
+}
+
+async function updateUser(data) {
+    database.connect();
+    const user = await User.findOneAndUpdate({_id: data.id}, data, {new: true});
+    return user;
 }

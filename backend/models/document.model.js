@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// const CommentModel = require('./comment.model');
+const CommentModel = require('./comment.model');
 
 const DocumentModel = new Schema({
   author: {
@@ -38,7 +38,7 @@ const DocumentModel = new Schema({
     required: true,
     trim: true
   },
-  //comments: [CommentModel],
+  comments: [CommentModel.schema],
 });
 
 module.exports = mongoose.model('DocumentModel', DocumentModel);

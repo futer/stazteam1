@@ -7,6 +7,8 @@ export const initialState: userState.State = {
     loaded: false,
     users: null,
     errorMessage: null,
+    sending: null,
+    sent: null
 };
 
 export const userFeature = createFeatureSelector<userState.State>('users');
@@ -31,6 +33,11 @@ export const Errors = createSelector(
     (state: userState.State) => state.errorMessage
 );
 
+export const SendSuccess = createSelector(
+    userFeature,
+    (state: userState.State) => state.sent
+);
+
 export function userReducer (
     state: userState.State = initialState,
     action: userActions.All
@@ -38,26 +45,54 @@ export function userReducer (
         switch (action.type) {
             case userActions.userTypes.FETCH:
             return {
+                ...state,
                 loading: true,
                 loaded: false,
                 users: null,
-                errorMessage: null
+                errorMessage: null,
             };
 
             case userActions.userTypes.FETCH_SUCCESS:
             return {
+                ...state,
                 loading: false,
                 loaded: true,
                 users: action.payload,
-                errorMessage: null
+                errorMessage: null,
             };
 
             case userActions.userTypes.FETCH_ERROR:
             return {
+                ...state,
                 loading: false,
                 loaded: false,
                 users: null,
-                errorMessage: action.payload
+                errorMessage: action.payload,
+            };
+
+            case userActions.userTypes.SEND:
+            return {
+                ...state,
+                sending: true,
+                sent: false
+            };
+
+            case userActions.userTypes.SEND_SUCCESS:
+            return {
+                ...state,
+                errorMessage: null,
+                sending: false,
+                sent: true
+            };
+
+            case userActions.userTypes.SEND_ERROR:
+            return {
+                loading: false,
+                loaded: false,
+                users: null,
+                errorMessage: action.payload,
+                sending: false,
+                sent: false
             };
 
             default:

@@ -11,6 +11,10 @@ import { ErrorComponent } from './components/error/error.component';
 import { SubpageContainerComponent } from './components/subpage-container/subpage-container.component';
 import { SubpageService } from './services/subpage.service';
 import { LikeBtnComponent } from './components/like-btn/like-btn.component';
+import { ButtonComponent } from './components/button/button.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RadioButtonsComponent } from './forms/radio-buttons/radio-buttons.component';
 
 
 @NgModule({
@@ -23,11 +27,15 @@ import { LikeBtnComponent } from './components/like-btn/like-btn.component';
     ErrorComponent,
     SubpageContainerComponent,
     LikeBtnComponent,
+    ButtonComponent,
+    ModalComponent,
+    RadioButtonsComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
+    BrowserAnimationsModule
   ],
   exports: [
     SubmitBtnComponent,
@@ -37,7 +45,10 @@ import { LikeBtnComponent } from './components/like-btn/like-btn.component';
     ImageComponent,
     ErrorComponent,
     SubpageContainerComponent,
-    LikeBtnComponent
+    LikeBtnComponent,
+    ButtonComponent,
+    ModalComponent,
+    RadioButtonsComponent
   ]
 })
 export class SharedModule { }
