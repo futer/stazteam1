@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { StatusEnum } from '../models/status.enum';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavMenuComponent implements OnInit {
 
-  constructor() { }
+  @Input() navMenuStyle: string;
+  clickedTab: StatusEnum;
 
-  ngOnInit() {
+  @Output() clickedEmitter = new EventEmitter<StatusEnum>();
+
+  constructor() {
+    this.navMenuStyle = '';
+    this.clickedTab = StatusEnum.ACCEPTED;
   }
 
+  ngOnInit() {
+    this.clickedEmitter.emit(this.clickedTab);
+  }
+
+  onClick(clicked: StatusEnum) {
+    if (this.clickedTab === clicked) { return; }
+
+    this.clickedTab = clicked;
+    this.clickedEmitter.emit(this.clickedTab);
+  }
 }

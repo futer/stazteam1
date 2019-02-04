@@ -75,3 +75,17 @@ button {
     margin: 0em;
     width: 100%;
 }
+
+.nav-menu__button {
+    width: 100%;
+    user-select: none;
+
+    &:hover {
+        transform: none;
+    }
+
+    &.clicked {
+        pointer-events: none;
+        opacity: 0.8;      
+    }
+}

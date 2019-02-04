@@ -1,3 +1,6 @@
-<p>
-  review works!
-</p>
+<div>
+  <app-nav-menu [navMenuStyle]="'nav-bar'" (clickedEmitter)="clickedTab($event)"></app-nav-menu>
+</div>
+<div>
+  <app-prev-container>{{ message }}</app-prev-container>
+</div>

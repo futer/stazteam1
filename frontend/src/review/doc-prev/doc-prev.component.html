@@ -1,3 +1,13 @@
-<p>
-  doc-prev works!
-</p>
+<article class="doc-prev">
+  <div class="doc-prev__desc">
+    <span class="doc-prev__desc--title">{{ preview.title }}</span>
+    <span class="doc-prev__desc--author">{{ preview.author }}</span>
+    <span class="doc-prev__desc--date">{{ preview.date }}</span>
+  </div>
+  <p class="doc-prev__content">
+    {{ preview.preview }}
+  </p>
+  <app-router-btn [link]="'../doc/'+preview.id" [class]="'doc-prev__open'">
+    Review
+  </app-router-btn>
+</article>

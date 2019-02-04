@@ -1,3 +1,13 @@
-<p>
-  nav-menu works!
-</p>
+<div [class]="navMenuStyle">
+  <app-submit-btn 
+    [buttonStyle]="(clickedTab === 'accepted') ? 'nav-menu__button clicked' : 'nav-menu__button'"
+    (click)="onClick('accepted')">Accepted</app-submit-btn>
+  
+  <app-submit-btn 
+    [buttonStyle]="(clickedTab === 'pending') ? 'nav-menu__button clicked' : 'nav-menu__button'"
+    (click)="onClick('pending')">Pending</app-submit-btn>
+  
+  <app-submit-btn 
+    [buttonStyle]="(clickedTab === 'rejected') ? 'nav-menu__button clicked' : 'nav-menu__button'"
+    (click)="onClick('rejected')">Rejected</app-submit-btn>
+</div>

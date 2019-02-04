@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StatusEnum } from '../models/status.enum';
 
 @Component({
   selector: 'app-review',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReviewComponent implements OnInit {
 
-  constructor() { }
+  message: string;
+
+  constructor() {
+    this.message = '';
+  }
 
   ngOnInit() {
   }
 
+  clickedTab(clicked: StatusEnum) {
+    this.message = clicked;
+    console.log(this.message);
+  }
 }
