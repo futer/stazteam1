@@ -18,8 +18,5 @@ export class Example1Component implements OnInit {
 
   getAcivateRole(value) {
     this.selected = value;
-
   }
-
-
 }

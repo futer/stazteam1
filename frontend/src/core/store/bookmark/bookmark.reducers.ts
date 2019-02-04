@@ -6,6 +6,8 @@ export const initialState: bookmarkState.BookmarkState = {
     currentBookmarkId: null,
     bookmarks: [],
     erroMessage: null,
+    loading: false,
+    loaded: false
 };
 
 export const bookmarkFeature = createFeatureSelector<bookmarkState.BookmarkState>('bookmarks');
@@ -25,6 +27,12 @@ export const getError = createSelector (
     state => state.erroMessage
 );
 
+
+export const getLoaded = createSelector (
+    bookmarkFeature,
+    state => state.loaded
+);
+
 export const getCurrentBookmark = createSelector(
     bookmarkFeature,
     getCurrentBookmarkId,
@@ -35,7 +43,6 @@ export const getCurrentBookmark = createSelector(
             return null;
         }
     }
-
 );
 
 export function bookmarkReducer(
@@ -52,18 +59,24 @@ export function bookmarkReducer(
         case bookmarkActions.bookmarkTypes.FETCH_BOOKMARK:
         return {
             ...state,
+            loading: true,
+            loaded: false
         };
 
         case bookmarkActions.bookmarkTypes.FETCH_BOOKMARK_SUCCESS:
         return {
            ...state,
            bookmarks: action.payload,
-           erroMessage: null
+           erroMessage: null,
+           loading: false,
+           loaded: true
        };
 
         case bookmarkActions.bookmarkTypes.FETCH_BOOKMARK_FAILD:
         return{
             ...state,
+            loading: false,
+            loaded: false,
             bookmarks: [],
             erroMessage: action.payload
         };
@@ -104,7 +117,6 @@ export function bookmarkReducer(
             ...state,
             bookmarks: [...state.bookmarks, action.payload],
             erroMessage: null
-
         };
 
         case bookmarkActions.bookmarkTypes.ADD_BOOKMARK_FAILD:

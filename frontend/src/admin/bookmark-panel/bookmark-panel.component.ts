@@ -4,6 +4,7 @@ import { Observable, Subscribable } from 'rxjs/observable';
 import { Store } from '@ngrx/store';
 import { CoreState } from 'src/core/store';
 import * as fromStore from '../../core/store/index';
+import * as fromBookmark from '../../core/store/bookmark/bookmark.reducers';
 import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubpageService } from 'src/shared/services/subpage.service';
@@ -16,6 +17,8 @@ import { SubpageService } from 'src/shared/services/subpage.service';
 export class BookmarkPanelComponent implements OnInit {
 
   bookmark$: Observable<any> = this.store.select(fromStore.getBookmarksSubpage);
+  isLoading$: Observable<any> = this.store.select(fromStore.getLoading);
+  isLoaded$: Observable<any> = this.store.select(fromStore.getLoaded);
   isShown = false;
   addBookmarkForm: FormGroup;
   positions =  {'right': 'RIGHT',  'top': 'TOP'};
@@ -29,6 +32,7 @@ export class BookmarkPanelComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    console.log(this.isLoading$);
   }
 
   createForm() {
