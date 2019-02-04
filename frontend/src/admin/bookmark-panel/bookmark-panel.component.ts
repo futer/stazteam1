@@ -16,6 +16,8 @@ import { SubpageService } from 'src/shared/services/subpage.service';
 export class BookmarkPanelComponent implements OnInit {
 
   bookmark$: Observable<any> = this.store.select(fromStore.getBookmarksSubpage);
+  isLoading$: Observable<any> = this.store.select(fromStore.getLoading);
+  isLoaded$: Observable<any> = this.store.select(fromStore.getLoaded);
   isShown = false;
   addBookmarkForm: FormGroup;
   positions =  {'right': 'RIGHT',  'top': 'TOP'};

@@ -48,6 +48,7 @@ app.use('/graphql',jwt(),/*cors(),*/ graphqlHTTP(req => ({
     return req;
   })()
 })))
+
 //SWAGGER
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

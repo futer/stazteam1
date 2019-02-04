@@ -7,11 +7,16 @@
             <i class="fa fa-plus-circle add-bookmark__icon"></i>
         </app-button>
     </div>
-    <div class="bookmark--item" *ngFor="let item of bookmark$ | async ">
-        <app-bookmark-info [data]="item"></app-bookmark-info>
+    <div class="loading-spinner" *ngIf="isLoading$ | async">
+        <app-loading-spinner>
+        </app-loading-spinner>
+    </div>
+    <div *ngIf=" isLoaded$ | async"> 
+        <div class="bookmark--item" *ngFor="let item of bookmark$ | async">
+            <app-bookmark-info [data]="item"></app-bookmark-info>
+        </div>
     </div>
 </div>
-
 
 <app-modal [(visible)]="showModal">
     <div class="add-bookmark">

@@ -79,9 +79,9 @@ export class AuthService {
   }
 
   reload(): Observable<Object> {
-    return this.http.get(this.adress + 'users/getCurrentUser', { headers: {
-      'Authorization': 'Bearer ' + this.getToken()
-    }});
+      return this.http.get(this.adress + 'users/getCurrentUser', { headers: {
+        'Authorization': 'Bearer ' + this.getToken()
+      }});
   }
 
 
