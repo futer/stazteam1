@@ -15,6 +15,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RadioButtonsComponent } from './forms/radio-buttons/radio-buttons.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { RadioButtonsComponent } from './forms/radio-buttons/radio-buttons.compo
     ButtonComponent,
     ModalComponent,
     RadioButtonsComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -48,7 +50,8 @@ import { RadioButtonsComponent } from './forms/radio-buttons/radio-buttons.compo
     LikeBtnComponent,
     ButtonComponent,
     ModalComponent,
-    RadioButtonsComponent
+    RadioButtonsComponent,
+    LoadingSpinnerComponent
   ]
 })
 export class SharedModule { }
