@@ -21,7 +21,6 @@ const bookmarkQueries = {
       id: {
         type: GraphQLString
       }
-      
     }
   }
 };

@@ -1,7 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { tick } from '@angular/core/testing';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-input',
@@ -19,9 +17,18 @@ export class InputComponent implements OnInit {
   @Input() name ?= '';
   @Input() checked ?: boolean;
 
+  @Output() changeValue = new EventEmitter();
+
+
   constructor() { }
 
   ngOnInit() {
+
   }
+
+  change() {
+    this.changeValue.emit(this.value);
+  }
+
 
 }

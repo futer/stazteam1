@@ -11,6 +11,9 @@ import { ErrorComponent } from './components/error/error.component';
 import { SubpageContainerComponent } from './components/subpage-container/subpage-container.component';
 import { SubpageService } from './services/subpage.service';
 import { ButtonComponent } from './components/button/button.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RadioButtonsComponent } from './forms/radio-buttons/radio-buttons.component';
 
 
 @NgModule({
@@ -23,11 +26,14 @@ import { ButtonComponent } from './components/button/button.component';
     ErrorComponent,
     SubpageContainerComponent,
     ButtonComponent,
+    ModalComponent,
+    RadioButtonsComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
+    BrowserAnimationsModule
   ],
   exports: [
     SubmitBtnComponent,
@@ -37,7 +43,9 @@ import { ButtonComponent } from './components/button/button.component';
     ImageComponent,
     ErrorComponent,
     SubpageContainerComponent,
-    ButtonComponent
+    ButtonComponent,
+    ModalComponent,
+    RadioButtonsComponent
   ]
 })
 export class SharedModule { }

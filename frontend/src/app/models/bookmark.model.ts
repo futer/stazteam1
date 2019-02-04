@@ -1,8 +1,8 @@
 export interface BookmarkModel {
-    id: string;
     title: string;
     position: position;
     content: string;
+    id: string;
 }
 
 enum position {

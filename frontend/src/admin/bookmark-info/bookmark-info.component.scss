@@ -8,17 +8,19 @@
                
     &:last-child {
         border:none;
+    }
 
-    }
     .bookmark-info--title {
-        width: 229px;
+        width: 170px;
     }
-    .bookmark-info--position{
-        width: 150px;
+
+    .bookmark-info--position {
+        width: 170px;
         margin-left: 10px;
     }
-  
-}
-strong{
-    color: $main-color;
+    
+    .bookmark-info--data {
+        color: $main-color;
+    }
+
 }

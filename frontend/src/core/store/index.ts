@@ -23,4 +23,3 @@ export const getBookmarksSubpage = createSelector(
     getBookmarkState,
     fromBookmark.getBookmarksSubpage
 );
-

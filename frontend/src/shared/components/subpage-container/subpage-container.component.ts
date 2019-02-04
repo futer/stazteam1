@@ -28,7 +28,6 @@ export class SubpageContainerComponent implements OnInit {
       router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           this.getSubpageTitle();
-          // console.log(this.title);
           this.bookmark$.subscribe((res: any) => {
             if (res) {
               res.filter((subpage) => {
@@ -43,7 +42,7 @@ export class SubpageContainerComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.store.dispatch(new bookmarkActions.Fetch);
+    this.store.dispatch(new bookmarkActions.FetchBookmark);
   }
 
   getSubpageTitle() {
