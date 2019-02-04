@@ -63,3 +63,8 @@ export const getDocError = createSelector(
     docFeature,
     (state: States.DocModuleState) => state.doc.errorMessage
 );
+
+export const getLikeStatus = createSelector(
+    docFeature,
+    (state: States.DocModuleState) => state.doc.document.data.like
+);

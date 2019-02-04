@@ -76,13 +76,17 @@ export class DocComponent implements OnInit, OnDestroy {
     checkIfLiked(event) {
         console.log('ichecked', event.target.checked);
 
-        switch (event) {
+        switch (event.target.checked) {
             case true: {
                // add like, mutation and store change if success
+               console.log('sad');
+               this.store.dispatch(new Actions.AddLike(this.id.toString()));
                break;
             }
             case false: {
                // delete like, mutation and store change if success
+               console.log('sad_delete');
+               this.store.dispatch(new Actions.DeleteLike(this.id.toString()));
                break;
             }
             default: {

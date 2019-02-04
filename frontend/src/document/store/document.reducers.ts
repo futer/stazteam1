@@ -128,6 +128,46 @@ export function docReducer(
                 }
             };
 
+        case Actions.docTypes.ADD_LIKE_SUCCESS:
+            return {
+                ...state,
+                document: {
+                    data: {
+                        document: state.document.data.document,
+                        like: action.payload
+                    }
+                },
+            };
+
+        case Actions.docTypes.ADD_LIKE_ERROR:
+            return {
+                ...state,
+                errorMessage: {
+                    type: action.type,
+                    error: action.payload
+                }
+            };
+
+        case Actions.docTypes.DELETE_LIKE_SUCCESS:
+            return {
+                ...state,
+                document: {
+                    data: {
+                        document: state.document.data.document,
+                        like: action.payload
+                    }
+                },
+            };
+
+        case Actions.docTypes.DELETE_LIKE_ERROR:
+            return {
+                ...state,
+                errorMessage: {
+                    type: action.type,
+                    error: action.payload
+                }
+            };
+
         default:
             return state;
     }
