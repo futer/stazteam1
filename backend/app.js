@@ -37,8 +37,6 @@ app.options(corsOptions, cors());
 app.use('/graphql',jwt(),/*cors(),*/ graphqlHTTP(req => ({
   schema,
   graphiql: true,
-<<<<<<< HEAD
-=======
   formatError: error => ({
     message: error.message,
     state: error.originalError && error.originalError.state,
@@ -49,7 +47,6 @@ app.use('/graphql',jwt(),/*cors(),*/ graphqlHTTP(req => ({
     req.headers.authorization = (req.headers.authorization) ? req.headers.authorization : 'token';
     return req;
   })()
->>>>>>> master
 })))
 //SWAGGER
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
