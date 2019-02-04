@@ -25,4 +25,7 @@ export class SidebarComponent implements OnInit {
     this.router.navigate(['/subpage', title]);
   }
 
+  navigateToFav() {
+    this.router.navigate(['/favourites']);
+  }
 }

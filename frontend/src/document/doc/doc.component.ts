@@ -24,7 +24,8 @@ export class DocComponent implements OnInit, OnDestroy {
                 content: '',
                 date: '',
                 title: ''
-            }
+            },
+            like: false
         }
     };
 
@@ -53,7 +54,8 @@ export class DocComponent implements OnInit, OnDestroy {
                                 content: decode,
                                 date: doc.data.document.date,
                                 title: doc.data.document.title
-                            }
+                            },
+                            like: doc.data.like
                         }
                     };
                 }
@@ -69,5 +71,28 @@ export class DocComponent implements OnInit, OnDestroy {
     downloadPDF() {
         console.log('begin download');
         window.location.href = this.url;
+    }
+
+    checkIfLiked(event) {
+        console.log('ichecked', event.target.checked);
+
+        switch (event.target.checked) {
+            case true: {
+               // add like, mutation and store change if success
+               console.log('sad');
+               this.store.dispatch(new Actions.AddLike(this.id.toString()));
+               break;
+            }
+            case false: {
+               // delete like, mutation and store change if success
+               console.log('sad_delete');
+               this.store.dispatch(new Actions.DeleteLike(this.id.toString()));
+               break;
+            }
+            default: {
+               console.log('what default?');
+               break;
+            }
+         }
     }
 }

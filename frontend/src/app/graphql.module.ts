@@ -25,7 +25,7 @@ export class GraphQLModule {
             operation.setContext({
                 headers: new HttpHeaders().set(
                     'Authorization',
-                    localStorage.getItem('token') || null
+                    `Bearer ${localStorage.getItem('token')}` || null
                 )
             });
 

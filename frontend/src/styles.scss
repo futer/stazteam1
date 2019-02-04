@@ -69,6 +69,7 @@ body {
     app-main,
     app-example1{
       grid-column: 2/8;
+      position: relative;
 
         app-subpage-container {
             grid-row: 2/3; 
@@ -90,6 +91,7 @@ body {
     app-doc {
       grid-column: 2/8;
       grid-row: 2/3;
+      position: relative;
 
       >* {
         display: inline-block;
