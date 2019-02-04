@@ -3,7 +3,10 @@ const Document = require('../models/document.model');
 
 async function getDocuments() {
   database.connect();
-  const documents = await Document.find().populate('comments.reviewer');
+  const documents = await Document.find()
+    .populate('comments.reviewer')
+    .sort({'date': -1})
+    .limit(10);
 
   return documents;
 }

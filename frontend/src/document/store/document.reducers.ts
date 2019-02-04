@@ -29,14 +29,14 @@ export function prevReducer(
     switch (action.type) {
         case Actions.prevsTypes.FETCH_PREVS:
             return {
+                ...state,
                 loading: true,
                 loaded: false,
-                previews: null,
-                errorMessage: null
             };
 
         case Actions.prevsTypes.FETCH_PREVS_SUCCESS:
             return {
+                ...state,
                 loading: false,
                 loaded: true,
                 previews: action.payload.data.documents,

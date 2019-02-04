@@ -1,19 +1,18 @@
-<section [ngSwitch]="url">
+<section
+  [ngSwitch]="url"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+  [immediateCheck]="true"
+>
   <div *ngSwitchCase="'/main'">
-    <app-doc-prev 
-    *ngFor="let prev of (prevs$ | async)" 
-    [preview]="prev"
-    >
+    <app-doc-prev *ngFor="let prev of (prevs$ | async)" [preview]="prev">
     </app-doc-prev>
   </div>
 
   <div *ngSwitchCase="'/favourites'">
-    <app-doc-prev 
-    *ngFor="let prev of (prevs$ | async)" 
-    [preview]="prev"
-    >
+    <app-doc-prev *ngFor="let prev of (prevs$ | async)" [preview]="prev">
     </app-doc-prev>
   </div>
 </section>
-
-
