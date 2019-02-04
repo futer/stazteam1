@@ -1,35 +1,26 @@
 const commentService = require('../../services/comment.service');
 
 function addComment(root, args, context) {
-  const comment = commentService.addComment(args.input);
-
-  return comment;
+  return commentService.addComment(args.input);
 }
 
 function updateComment(root, args, context) {
   const id = args.input.id;
   delete args.input.id;
-  const comment = commentService.updateComment(id, args.input);
 
-  return comment;
+  return commentService.updateComment(id, args.input);
 }
 
 function deleteComment(root, args, context) {
-  const comment = commentService.deleteComment(args.id);
-
-  return comment;
+  return commentService.deleteComment(args.id);
 }
 
 function getComments(root, args, context) {
-  const comments = commentService.getComments();
-
-  return comments;
+  return commentService.getComments();
 }
 
 function getComment(root, args, context) {
-  const comment = commentService.getComment(args.id);
-
-  return comment;
+  return commentService.getComment(args.id);
 }
 
 module.exports = {

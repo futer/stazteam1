@@ -15,9 +15,7 @@ async function addComment(data) {
     { new: true }
   ).populate('comments.reviewer');
   
-  const comment = document.comments.pop();
-  
-  return comment;
+  return document.comments.pop();
 }
 
 async function updateComment(id, data) {
@@ -89,9 +87,7 @@ async function getComment(id) {
 
   if (!document) { return null; }
 
-  const comment = document.comments.id(id);
-
-  return comment;
+  return document.comments.id(id);
 }
 
 module.exports = {
