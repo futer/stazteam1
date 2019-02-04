@@ -3,14 +3,13 @@ const Document = require('../models/document.model');
 
 async function getDocuments() {
   database.connect();
-  const documents = await Document.find();
+  const documents = await Document.find().populate('comments.reviewer');
 
   return documents;
 }
 
 async function getDocument(data) {
   database.connect();
-  console.log(data);
   const document = await Document.findById({ _id: data.id });
 
   return document;

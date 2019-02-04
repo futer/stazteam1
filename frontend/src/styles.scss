@@ -17,9 +17,11 @@ body {
     font-family: $main-font;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: 10% auto 20%;
+
     @media (min-width: $tablet) {
       grid-template-rows: 69px auto 20%;
     }
+
     app-login {
       grid-column: 3/7;
       grid-row: 2/3;
@@ -28,9 +30,11 @@ body {
         grid-column: 1/9;
       }
     }
+
     app-register {
       grid-column: 1/9;
       grid-row: 2/3;
+
       @media (min-width: $tablet) {
         grid-column: 3/7;
       }
@@ -46,19 +50,24 @@ body {
       grid-row: 2/3;
     }
 
+    app-bookmark-panel {
+      grid-column: 1/8;
+      grid-row: 2/3;
+      margin: 0 auto;
+    }
+
     app-boorkmark-creator {
       grid-row: 1/7;
     }
     
-    app-admin-user-editor{
+    app-admin-user-editor, app-user-editor{
       grid-column: 2/7;
       grid-row: 2/3;
       padding-top: 2em;
   }
 
     app-main,
-    app-example1,
-    app-user-editor {
+    app-example1{
       grid-column: 2/8;
 
         app-subpage-container {
@@ -67,14 +76,12 @@ body {
             display: flex;
             justify-content: center;
         }
-       
-        
-        
+
       app-main {
         grid-row: 2/3;
       }
-      
-      > * {
+
+      >* {
         display: inline-block;
         padding: 2em;
       }
@@ -83,12 +90,20 @@ body {
     app-doc {
       grid-column: 2/8;
       grid-row: 2/3;
-      
-      > * {
+
+      >* {
         display: inline-block;
         padding: 2em;
       }
     }
+
+    app-subpage-container {
+      grid-row: 2/3;
+      grid-column: 1/8;
+      display: flex;
+      justify-content: center;
+    }
+
        
     app-chat {
       position: fixed;

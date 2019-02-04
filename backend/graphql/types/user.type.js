@@ -8,10 +8,12 @@ const {
 const userType = new GraphQLObjectType({
     name: 'userType',
     fields: () => ({
-        id: { type: new GraphQLNonNull(GraphQLString)},
+        id: { 
+            type: new GraphQLNonNull(GraphQLString),
+            resolve: data => data._id.toString(),
+        },
         firstName: { type: GraphQLString },
         lastName: { type: GraphQLString },
-        password: { type: GraphQLString },
         pic: { type: GraphQLString },
     })
 })
@@ -23,6 +25,7 @@ const userObject = new GraphQLInputObjectType({
         firstName: { type: GraphQLString },
         lastName: { type: GraphQLString },
         password: { type: GraphQLString },
+        oldPassword: { type: GraphQLString },
         pic: { type: GraphQLString },
     })
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -14,10 +14,21 @@ export class InputComponent implements OnInit {
   @Input() type?: string;
   @Input() accept?: string;
   @Input() value ? = '';
+  @Input() name ?= '';
+  @Input() checked ?: boolean;
+
+  @Output() changeValue = new EventEmitter();
+
 
   constructor() { }
 
   ngOnInit() {
+
   }
+
+  change() {
+    this.changeValue.emit(this.value);
+  }
+
 
 }

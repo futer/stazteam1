@@ -88,10 +88,8 @@ header {
         @media (min-width: $tablet) {
           border: none;
         }
-
       }
     }
-
   }
 
   .header-user-info {
@@ -192,7 +190,6 @@ header {
         }
       }
     }
-
   }
 
   a {
@@ -205,17 +202,14 @@ header {
     font-size: 0.7rem;
     letter-spacing: 1px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    
+      &:hover {
+        background-color: rgba(224, 169, 5, 0.6);
+      }
 
-
-    &:hover {
-      background-color: rgba(224, 169, 5, 0.6);
-    }
-
-    @media (min-width: $tablet) {
-      border-bottom: none;
-      border-right: 1px solid rgba(0, 0, 0, 0.2);
-      padding-right: 15px;
-    }
+      @media (min-width: $tablet) {
+        border-bottom: none;
+        border-right: 1px solid rgba(0, 0, 0, 0.2);
+        padding-right: 15px;
+      }
   }
 }

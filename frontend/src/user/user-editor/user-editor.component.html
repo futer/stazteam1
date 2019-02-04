@@ -1,0 +1,144 @@
+<div class="user-editor__error-msg" *ngIf="error">
+  Error during update: {{error}}
+</div>
+
+<div class="user-editor__success-msg" *ngIf="send">
+  User has been updated
+</div>
+
+<div *ngIf="current.firstName" class="user-editor__container">
+  <form
+    class="user-editor__update-user"
+    [formGroup]="updateUserForm"
+    (ngSubmit)="updateUser(updateUserForm)">
+    
+    <p class="user-editor__change-creds">Change first name:</p>
+
+    <div class="user-editor__input-group">
+      <app-input
+        [id]="'firstName'"
+        [formInputStyle]="'user-editor__input'"
+        [type]="'text'"
+        [placeholder]="'First name'"
+        [controlName]="updateUserForm.controls.firstName"
+        [value]="current.firstName">
+      </app-input>
+    </div>
+
+    <p class="user-editor__change-creds">Change last name:</p>
+    <div class="user-editor__input-group">
+      <app-input
+        [id]="'lastName'"
+        [formInputStyle]="'user-editor__input'"
+        [type]="'text'"
+        [placeholder]="'Last name'"
+        [controlName]="updateUserForm.controls.lastName"
+        [value]="current.lastName">
+      </app-input>
+
+      <div class="user-editor__change-pic-form-wrapper">
+        <p class="user-editor__change-creds">Change your profile picture:</p>
+        <div class="user-editor__input-file">
+          <app-label [for]="'pic__input'" [labelStyle]="'user-editor__form-file'">
+            <i class="fa fa-arrow-down" aria-hidden="true"></i> Select your profile image
+          </app-label>
+          <app-input
+            [id]="'pic__input'"
+            [formInputStyle]="'user-editor__form-file'"
+            [type]="'file'"
+            [controlName]="updateUserForm.controls.picture"
+            [accept]="'image/*'"
+            (change)="pictureUpload($event)">
+          </app-input>
+        </div>
+      </div>
+
+      <div class="user-editor__profile-pic-wrapper">
+        <app-image
+          *ngIf="!pictureUrl"
+          [url]="'../../assets/img/avatar.png'"
+          [className]="'profile-pic-editor'">
+        </app-image>
+        <app-image
+          *ngIf="pictureUrl"
+          [url]="pictureUrl"
+          [className]="'profile-pic-editor'">
+        </app-image>
+      </div>
+
+      <p>Old password:</p>
+      <div class="user-editor__input-group">
+        <app-input
+          [id]="'oldPassword'"
+          [formInputStyle]="'user-editor__input'"
+          [type]="'password'"
+          [placeholder]="'Old password'"
+          [controlName]="updateUserForm.controls.changePasswordGroup.controls.oldPassword">
+        </app-input>
+        <app-error
+          [class]="'user-editor__input-error-msg'"
+          *ngIf="updateUserForm.get('changePasswordGroup.oldPassword').errors?.required 
+          && updateUserForm.get('changePasswordGroup.oldPassword').touched">
+          {{ validationMessages.required }}
+        </app-error>
+        <app-error
+          [class]="'user-editor__input-error-msg'"
+          *ngIf="updateUserForm.get('changePasswordGroup.oldPassword').errors?.minlength
+          && updateUserForm.get('changePasswordGroup.oldPassword').touched">
+          {{ validationMessages.password }}
+        </app-error>
+      </div>
+
+      <div class="user-editor__input-group">
+        <p>New password:</p>
+        <app-input
+          [id]="'password'"
+          [formInputStyle]="'user-editor__input'"
+          [placeholder]="'New password'"
+          [type]="'password'"
+          [controlName]="updateUserForm.controls.changePasswordGroup.controls.passwordGroup.controls.password">
+        </app-input>
+        <app-error
+          [class]="'user-editor__input-error-msg'"
+          *ngIf="updateUserForm.get('changePasswordGroup.passwordGroup.password').errors?.required
+          && updateUserForm.get('changePasswordGroup.passwordGroup.password').touched">
+          {{ validationMessages.required }}
+        </app-error>
+        <app-error
+          [class]="'user-editor__input-error-msg'"
+          *ngIf="updateUserForm.get('changePasswordGroup.passwordGroup.password').errors?.minlength
+          && updateUserForm.get('changePasswordGroup.passwordGroup.password').touched">
+          {{ validationMessages.password }}
+        </app-error>
+
+        <p>Confirm new password:</p>
+
+        <app-input
+          ng-blur="visitedEmail=true"
+          [id]="'repeatPassword'"
+          [formInputStyle]="'user-editor__input'"
+          [placeholder]="'Confirm password'"
+          [type]="'password'"
+          [controlName]="updateUserForm.controls.changePasswordGroup.controls.passwordGroup.controls.repeatPassword">
+        </app-input>
+        <app-error
+          [class]="'user-editor__input-error-msg'"
+          *ngIf="updateUserForm.get('changePasswordGroup.passwordGroup.repeatPassword').errors?.required
+            && updateUserForm.get('changePasswordGroup.passwordGroup.repeatPassword').dirty">
+          {{ validationMessages.required }}
+        </app-error>
+        <app-error
+          [class]="'user-editor__input-error-msg'"
+          *ngIf="updateUserForm.get('changePasswordGroup.passwordGroup').errors?.match">
+          {{ validationMessages.matchingPassword }}
+        </app-error>
+      </div>
+    </div>
+    <app-submit-btn
+      [buttonStyle]="''"
+      [type]="'submit'"
+      [disabled]="updateUserForm.invalid">
+      Update user
+    </app-submit-btn>
+  </form>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-example1',
@@ -7,12 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Example1Component implements OnInit {
 
+  selected: string;
+
   constructor() {
   }
 
   ngOnInit() {
-
   }
 
-
+  getAcivateRole(value) {
+    this.selected = value;
+  }
 }

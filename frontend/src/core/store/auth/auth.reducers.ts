@@ -23,6 +23,11 @@ export const User = createSelector(
     (state: authState.AuthState) => state.user
 );
 
+export const User2 = createSelector(
+    getLoginFeatureState,
+    (state: authState.AuthState) => state.user.firstName
+);
+
 export const Erros = createSelector(
     getLoginFeatureState,
     (state: authState.AuthState) => state.errorMessage
@@ -34,7 +39,6 @@ export function authReducer (
 ): authState.AuthState {
     switch ( actions.type) {
         case authActions.AuthActionTypes.LOGIN_SUCCES:
-        console.log('payload', actions.payload);
         return {
            ...state,
            isAuthenticated: true,

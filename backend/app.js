@@ -7,7 +7,6 @@ const router = require('express').Router();
 const config = require('./enviromental/enviroments')
 const jwt = require('./helpers/jwt');
 
-
 //SWAGGER
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
@@ -31,12 +30,19 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };
+
 app.options(corsOptions, cors());
 
 //GRAPHQL
 app.use('/graphql',/*jwt(),cors(),*/ graphqlHTTP(req => ({
   schema,
   graphiql: true,
+  formatError: error => ({
+    message: error.message,
+    state: error.originalError && error.originalError.state,
+    locations: error.locations,
+    path: error.path,
+  }),
   context: (() => {
     req.headers.authorization = (req.headers.authorization) ? req.headers.authorization : 'token';
     return req;
