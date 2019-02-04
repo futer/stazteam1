@@ -7,11 +7,10 @@ import { Logout } from '../store/auth/auth.actions';
 import { SubpageService } from 'src/shared/services/subpage.service';
 import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
 import * as AuthActions from '../../core/store/auth/auth.actions';
-import * as fromStore from '../../core/store/index';
-import { map } from 'rxjs/operators';
 import { CoreState } from '../store';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/observable';
+import * as fromAuth from '../store/auth/auth.reducers';
 
 @Component({
     selector: 'app-nav',
@@ -20,6 +19,7 @@ import { Observable } from 'rxjs/observable';
 })
 export class NavComponent implements OnInit {
    @Input() bookmark$: Observable<any>;
+   firstName$: Observable<any> = this.store.select(fromAuth.User);
 
     constructor(
         private authService: AuthService,
@@ -30,6 +30,7 @@ export class NavComponent implements OnInit {
 
     ngOnInit() {
         this.store.dispatch(new bookmarkActions.FetchBookmark());
+        this.firstName$.subscribe(res => console.log(res));
     }
 
     logOut() {

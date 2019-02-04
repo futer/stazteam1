@@ -38,8 +38,7 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
                             catchError((error: ErrorData) => of(new AuthActions.LogInFail(error)))
                         )
                     )
-            );
-
+                );
 
             @Effect()
             Reload$: Observable<any> = this.actions$
@@ -54,8 +53,6 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
                         )
                     )
                 );
-
-
 
             @Effect({dispatch: false})
             Logout$: Observable<any> = this.actions$

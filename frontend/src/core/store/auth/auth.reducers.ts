@@ -3,6 +3,8 @@ import * as authActions from './auth.actions';
 
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Actions } from '@ngrx/effects';
+import { AuthGuard } from 'src/core/guards/auth/auth.guard';
+import { store } from '@angular/core/src/render3';
 
 
 export const initialState: authState.AuthState = {
@@ -11,7 +13,7 @@ export const initialState: authState.AuthState = {
     errorMessage: null,
 };
 
-const getLoginFeatureState = createFeatureSelector<authState.AuthState>('authLogin');
+const getLoginFeatureState = createFeatureSelector<authState.AuthState>('auth');
 
 export const getLoginAuth = createSelector(
     getLoginFeatureState,
@@ -61,6 +63,7 @@ export function authReducer (
         case authActions.AuthActionTypes.RELOAD_SUCCESS:
         return {
             ...state,
+            isAuthenticated: localStorage.getItem('token') ? true : false,
             user: actions.payload
         };
 
