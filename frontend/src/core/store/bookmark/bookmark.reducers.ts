@@ -104,7 +104,6 @@ export function bookmarkReducer(
             ...state,
             bookmarks: [...state.bookmarks, action.payload],
             erroMessage: null
-
         };
 
         case bookmarkActions.bookmarkTypes.ADD_BOOKMARK_FAILD:

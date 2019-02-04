@@ -13,13 +13,9 @@ export class Example1Component implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   getAcivateRole(value) {
     this.selected = value;
-
   }
-
-
 }

@@ -67,12 +67,12 @@ export class SubpageService {
   update(values): Observable<any> {
     return this.apollo.mutate({
     mutation: updateBookmarkMutation,
-    variables: {
-      id: values.payload.id,
-      title: values.payload.title,
-      content: values.payload.content,
-      position: values.payload.position
-    }
+      variables: {
+        id: values.payload.id,
+        title: values.payload.title,
+        content: values.payload.content,
+        position: values.payload.position
+      }
     });
  }
 
