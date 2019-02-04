@@ -1,12 +1,12 @@
-<section
-  [ngSwitch]="url"
-  infiniteScroll
-  [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="50"
-  (scrolled)="onScroll()"
-  [immediateCheck]="true"
->
-  <div *ngSwitchCase="'/main'">
+<section [ngSwitch]="url">
+  <div 
+    *ngSwitchCase="'/main'" 
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    [infiniteScrollDisabled]="loading$ | async"
+    (scrolled)="onScroll()"
+    [immediateCheck]="true">
     <app-doc-prev *ngFor="let prev of (prevs$ | async)" [preview]="prev">
     </app-doc-prev>
   </div>
