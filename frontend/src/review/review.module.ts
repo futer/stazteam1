@@ -10,6 +10,12 @@ import { SharedModule } from 'src/shared/shared.module';
 import { DocumentModule } from 'src/document/document.module';
 import { ReviewDocComponent } from './review-doc/review-doc.component';
 
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { reviewModuleReducers } from './store/review.reducers';
+import { ReviewEffects } from './store/review.effects';
+
 @NgModule({
   declarations: [
     TooltipComponent,
@@ -24,6 +30,8 @@ import { ReviewDocComponent } from './review-doc/review-doc.component';
     CommonModule,
     SharedModule,
     DocumentModule,
+    StoreModule.forFeature('review', reviewModuleReducers),
+    EffectsModule.forFeature([ReviewEffects]),
   ],
   exports: [
     ReviewComponent,

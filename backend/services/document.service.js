@@ -8,6 +8,12 @@ async function getDocuments() {
   return documents;
 }
 
+async function getDocumentsByStatus(status) {
+  database.connect();
+  console.log(status);
+  return await Document.find(status).populate('comments.reviewer');
+}
+
 async function getDocument(data) {
   database.connect();
   const document = await Document.findById({ _id: data.id });
@@ -43,4 +49,5 @@ module.exports = {
   addDocument,
   updateDocument,
   //deleteDocument,
+  getDocumentsByStatus,
 };

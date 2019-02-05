@@ -13,6 +13,15 @@ const documentQueries = {
     type: new GraphQLList(documentType),
     resolve: documentResolver.getDocuments
   },
+  documentsByStatus: {
+    type: new GraphQLList(documentType),
+    args: {
+      status: { 
+        type: new GraphQLNonNull(getStatusEnum('statusGetDocuments'))
+      }
+    },
+    resolve: documentResolver.getDocumentsByStatus
+  },
   document: {
     type: documentType,
     resolve: documentResolver.getDocument,
