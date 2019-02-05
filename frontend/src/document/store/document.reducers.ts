@@ -103,10 +103,9 @@ export function docReducer(
     switch (action.type) {
         case Actions.docTypes.FETCH_DOC:
             return {
+                ...state,
                 loading: true,
                 loaded: false,
-                document: null,
-                errorMessage: null
             };
 
         case Actions.docTypes.FETCH_DOC_SUCCESS:

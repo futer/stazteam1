@@ -40,7 +40,7 @@ export class FetchLiked implements Action {
 
 export class FetchDoc implements Action {
     readonly type = docTypes.FETCH_DOC;
-    constructor(public payload: number) {}
+    constructor(public payload: string) {}
 }
 
 export class FetchPrevsSuccess implements Action {

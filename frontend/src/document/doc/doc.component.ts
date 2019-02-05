@@ -16,10 +16,12 @@ export class DocComponent implements OnInit, OnDestroy {
     checkRoute: Subscription;
     docData: Subscription;
     url: string;
-    id: number;
+
+    id = this.route.snapshot.paramMap.get('id');
     document: DocumentModel = {
         data: {
             document: {
+                id: '',
                 author: '',
                 content: '',
                 date: '',
@@ -35,36 +37,38 @@ export class DocComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.checkRoute = this.route.params.subscribe(params => {
-            this.id = params['id'];
-            this.docData = this.store.select(getDoc).subscribe(doc => {
-                if (!doc) {
-                    this.store.dispatch(new Actions.FetchDoc(this.id));
-                }
-                if (doc) {
-                    const decode = atob(doc.data.document.content);
-                    const pdfBlob = new Blob([decode], {type: 'application/pdf'});
+        console.log(this.route.snapshot.paramMap.get('id'));
 
-                    this.url = URL.createObjectURL(pdfBlob);
+        console.log('i went with such id: ', this.id);
+        this.docData = this.store.select(getDoc).subscribe(doc => {
+            console.log('asd', doc, this.id);
+            if (doc && doc.data.document.id === this.id) {
+                console.log('dis iz mi doc', doc);
+                const decode = atob(doc.data.document.content);
+                const pdfBlob = new Blob([decode], { type: 'application/pdf' });
 
-                    this.document = {
-                        data: {
-                            document: {
-                                author: doc.data.document.author,
-                                content: decode,
-                                date: doc.data.document.date,
-                                title: doc.data.document.title
-                            },
-                            like: doc.data.like
-                        }
-                    };
-                }
-            });
+                this.url = URL.createObjectURL(pdfBlob);
+
+                this.document = {
+                    data: {
+                        document: {
+                            id: doc.data.document.id,
+                            author: doc.data.document.author,
+                            content: decode,
+                            date: doc.data.document.date,
+                            title: doc.data.document.title
+                        },
+                        like: doc.data.like
+                    }
+                };
+            } else {
+                console.log('i dont have this doc');
+                this.store.dispatch(new Actions.FetchDoc(this.id));
+            }
         });
     }
 
     ngOnDestroy() {
-        this.checkRoute.unsubscribe();
         this.docData.unsubscribe();
     }
 
@@ -78,21 +82,21 @@ export class DocComponent implements OnInit, OnDestroy {
 
         switch (event.target.checked) {
             case true: {
-               // add like, mutation and store change if success
-               console.log('sad');
-               this.store.dispatch(new Actions.AddLike(this.id.toString()));
-               break;
+                // add like, mutation and store change if success
+                console.log('sad');
+                this.store.dispatch(new Actions.AddLike(this.id.toString()));
+                break;
             }
             case false: {
-               // delete like, mutation and store change if success
-               console.log('sad_delete');
-               this.store.dispatch(new Actions.DeleteLike(this.id.toString()));
-               break;
+                // delete like, mutation and store change if success
+                console.log('sad_delete');
+                this.store.dispatch(new Actions.DeleteLike(this.id.toString()));
+                break;
             }
             default: {
-               console.log('what default?');
-               break;
+                console.log('what default?');
+                break;
             }
-         }
+        }
     }
 }

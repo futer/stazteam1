@@ -19,6 +19,7 @@ const PrevQuery = gql`
 const DocQuery = gql`
   query Document($id: String!) {
     document(id:$id){
+      id
       author
       content
       date
