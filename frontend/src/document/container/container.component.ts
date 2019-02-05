@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { PrevState } from '../store/document.states';
@@ -9,7 +9,8 @@ import {
     arePrevsLoaded,
     areLikedLoaded,
     getLiked,
-    getLikedError
+    getLikedError,
+    arePrevsLoading
 } from '../store/document.selectors';
 import { ErrorData } from '../models/error.model';
 import { Router } from '@angular/router';
@@ -19,11 +20,12 @@ import { Router } from '@angular/router';
     templateUrl: './container.component.html',
     styleUrls: ['./container.component.scss']
 })
-export class ContainerComponent implements OnInit, OnDestroy {
+export class ContainerComponent implements OnInit {
     prevs$: Observable<any>;
     liked$: Observable<any>;
     errorHandler$: Observable<ErrorData>;
-    checkLoad: Subscription;
+
+    loading$: Observable<boolean> = this.store.select(arePrevsLoading);
 
     constructor(private router: Router, private store: Store<PrevState>) {}
 
@@ -31,7 +33,7 @@ export class ContainerComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         if (this.url === '/main') {
-            this.checkLoad = this.store
+            this.store
                 .select(arePrevsLoaded)
                 .subscribe(load => {
                     if (!load) {
@@ -40,11 +42,11 @@ export class ContainerComponent implements OnInit, OnDestroy {
 
                     this.prevs$ = this.store.select(getPrevs);
                     this.errorHandler$ = this.store.select(getPrevsError);
-                });
+                }).unsubscribe();
         }
 
         if (this.url === '/favourites') {
-            this.checkLoad = this.store
+            this.store
                 .select(areLikedLoaded)
                 .subscribe(load => {
                     if (!load) {
@@ -53,12 +55,8 @@ export class ContainerComponent implements OnInit, OnDestroy {
 
                     this.prevs$ = this.store.select(getLiked);
                     this.errorHandler$ = this.store.select(getLikedError);
-                });
+                }).unsubscribe();
         }
-    }
-
-    ngOnDestroy() {
-        this.checkLoad.unsubscribe();
     }
 
     onScroll() {
