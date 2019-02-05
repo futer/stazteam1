@@ -3,16 +3,22 @@ import { DocumentModel, DocumentsModel } from '../models/document.model';
 import { ErrorData } from '../../app/models/error.model';
 import { StatusEnum } from '../models/status.enum';
 
-export enum prevsTypes {
-  FETCH_PREVS = '[Review] Fetch Prevs',
-  FETCH_PREVS_SUCCESS = '[Review] Fetch Prevs Success',
-  FETCH_PREVS_ERROR = '[Review] Fetch Prevs Error',
+export enum acceptedPrevsTypes {
+  FETCH_ACCEPTED_PREVS = '[Review] Fetch Accepted Prevs',
+  FETCH_ACCEPTED_PREVS_SUCCESS = '[Review] Fetch Accepted Prevs Success',
+  FETCH_ACCEPTED_PREVS_ERROR = '[Review] Fetch Accepted Prevs Error'
 }
 
-export enum prevsByStatusTypes {
-  FETCH_PREVS_BY_STATUS = '[Review] Fetch Prevs By Status',
-  FETCH_PREVS_BY_STATUS_SUCCESS = '[Review] Fetch Prevs By Status Success',
-  FETCH_PREVS_BY_STATUS_ERROR = '[Review] Fetch Prevs By Status Error',
+export enum pendingPrevsTypes {
+  FETCH_PENDING_PREVS = '[Review] Fetch Pending Prevs',
+  FETCH_PENDING_PREVS_SUCCESS = '[Review] Fetch Pending Prevs Success',
+  FETCH_PENDING_PREVS_ERROR = '[Review] Fetch Pending Prevs Error',
+}
+
+export enum rejectedPrevsTypes {
+  FETCH_REJECTED_PREVS = '[Review] Fetch Rejected Prevs',
+  FETCH_REJECTED_PREVS_SUCCESS = '[Review] Fetch Rejected Prevs Success',
+  Fetch_REJECTED_PREVS_ERROR = '[Review] Fetch Rejected Prevs Error',
 }
 
 export enum docTypes {
@@ -21,33 +27,48 @@ export enum docTypes {
   FETCH_DOC_ERROR = '[Review] Fetch Doc Error',
 }
 
-export class FetchPrevs implements Action {
-  readonly type = prevsTypes.FETCH_PREVS;
+export class FetchAcceptedPrevs implements Action {
+  readonly type = acceptedPrevsTypes.FETCH_ACCEPTED_PREVS;
   constructor() {}
 }
 
-export class FetchPrevsSuccess implements Action {
-  readonly type = prevsTypes.FETCH_PREVS_SUCCESS;
+export class FetchAcceptedPrevsSuccess implements Action {
+  readonly type = acceptedPrevsTypes.FETCH_ACCEPTED_PREVS_SUCCESS;
   constructor(public payload: DocumentsModel) {}
 }
 
-export class FetchPrevsError implements Action {
-  readonly type = prevsTypes.FETCH_PREVS_ERROR;
+export class FetchAcceptedPrevsError implements Action {
+  readonly type = acceptedPrevsTypes.FETCH_ACCEPTED_PREVS_ERROR;
   constructor(readonly payload: ErrorData) {}
 }
 
-export class FetchPrevsByStatus implements Action {
-  readonly type = prevsByStatusTypes.FETCH_PREVS_BY_STATUS;
-  constructor(public payload: StatusEnum) {}
+export class FetchPendingPrevs implements Action {
+  readonly type = pendingPrevsTypes.FETCH_PENDING_PREVS;
+  constructor() {}
 }
 
-export class FetchPrevsByStatusSuccess implements Action {
-  readonly type = prevsByStatusTypes.FETCH_PREVS_BY_STATUS_SUCCESS;
+export class FetchPendingPrevsSuccess implements Action {
+  readonly type = pendingPrevsTypes.FETCH_PENDING_PREVS_SUCCESS;
   constructor(public payload: DocumentsModel) {}
 }
 
-export class FetchPrevsByStatusError implements Action {
-  readonly type = prevsByStatusTypes.FETCH_PREVS_BY_STATUS_ERROR;
+export class FetchPendingPrevsError implements Action {
+  readonly type = pendingPrevsTypes.FETCH_PENDING_PREVS_ERROR;
+  constructor(readonly payload: ErrorData) {}
+}
+
+export class FetchRejectedPrevs implements Action {
+  readonly type = rejectedPrevsTypes.FETCH_REJECTED_PREVS;
+  constructor() {}
+}
+
+export class FetchRejectedPrevsSuccess implements Action {
+  readonly type = rejectedPrevsTypes.FETCH_REJECTED_PREVS_SUCCESS;
+  constructor(public payload: DocumentsModel) {}
+}
+
+export class FetchRejectedPrevsError implements Action {
+  readonly type = rejectedPrevsTypes.Fetch_REJECTED_PREVS_ERROR;
   constructor(readonly payload: ErrorData) {}
 }
 
@@ -66,15 +87,18 @@ export class FetchDocError implements Action {
   constructor(readonly payload: ErrorData) {}
 }
 
-export type AllPrevs =
-  | FetchPrevs
-  | FetchPrevsSuccess
-  | FetchPrevsError
-  | FetchPrevsByStatus
-  | FetchPrevsByStatusSuccess
-  | FetchPrevsByStatusError;
+export type AllPrevsTypes =
+  | FetchAcceptedPrevs
+  | FetchAcceptedPrevsSuccess
+  | FetchAcceptedPrevsError
+  | FetchPendingPrevs
+  | FetchPendingPrevsSuccess
+  | FetchPendingPrevsError
+  | FetchRejectedPrevs
+  | FetchRejectedPrevsSuccess
+  | FetchRejectedPrevsError;
 
-export type AllDoc =
+export type AllDocTypes =
   | FetchDoc
   | FetchDocSuccess
   | FetchDocError;

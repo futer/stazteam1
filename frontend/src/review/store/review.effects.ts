@@ -7,7 +7,7 @@ import { ReviewService } from '../services/review.service';
 import * as AllActions from './review.actions';
 import { DocumentsModel, DocumentModel } from '../models/document.model';
 import { ErrorData } from '../../app/models/error.model';
-import { Fetch } from 'src/admin/store/admin.actions';
+import { StatusEnum } from '../models/status.enum';
 
 @Injectable()
 export class ReviewEffects {
@@ -16,39 +16,56 @@ export class ReviewEffects {
     private reviewService: ReviewService,
   ) {}
 
-  @Effect()
-  FetchPrevs$: Observable<any> = this.actions$
-    .ofType(AllActions.prevsTypes.FETCH_PREVS)
-      .pipe(
-        switchMap(
-          () => this.reviewService.fetchPrevs()
-            .pipe(
-              map(
-                (docs: DocumentsModel) => new AllActions.FetchPrevsSuccess(docs)
-              ),
-              catchError(
-                (error: ErrorData) => of(new AllActions.FetchPrevsError(error))
-              )
-            )
+@Effect()
+FetchAcceptedPrevs$: Observable<any> = this.actions$
+  .ofType(AllActions.acceptedPrevsTypes.FETCH_ACCEPTED_PREVS)
+  .pipe(
+    switchMap(
+      () => this.reviewService.fetchPrevsByStatus(StatusEnum.ACCEPTED)
+        .pipe(
+          map(
+            (prevs: DocumentsModel) => new AllActions.FetchAcceptedPrevsSuccess(prevs)
+          ),
+          catchError(
+            (error: ErrorData) => of(new AllActions.FetchAcceptedPrevsError(error))
+          )
         )
-      );
+    )
+  );
 
-  @Effect()
-  FetchPrevsByStatus$: Observable<any> = this.actions$
-    .ofType(AllActions.prevsByStatusTypes.FETCH_PREVS_BY_STATUS)
-      .pipe(
-        switchMap(
-          prevAction => this.reviewService.fetchPrevsByStatus(prevAction['payload'])
-            .pipe(
-              map(
-                (prevs: DocumentsModel) => new AllActions.FetchPrevsByStatusSuccess(prevs)
-              ),
-              catchError(
-                (error: ErrorData) => of(new AllActions.FetchPrevsByStatusError(error))
-              )
-            )
+@Effect()
+FetchPendingPrevs$: Observable<any> = this.actions$
+  .ofType(AllActions.pendingPrevsTypes.FETCH_PENDING_PREVS)
+  .pipe(
+    switchMap(
+      () => this.reviewService.fetchPrevsByStatus(StatusEnum.PENDING)
+        .pipe(
+          map(
+            (prevs: DocumentsModel) => new AllActions.FetchPendingPrevsSuccess(prevs)
+          ),
+          catchError(
+            (error: ErrorData) => of(new AllActions.FetchPendingPrevsError(error))
+          )
         )
-      );
+    )
+  );
+
+@Effect()
+FetchRejectedPrevs$: Observable<any> = this.actions$
+  .ofType(AllActions.rejectedPrevsTypes.FETCH_REJECTED_PREVS)
+  .pipe(
+    switchMap(
+      () => this.reviewService.fetchPrevsByStatus(StatusEnum.REJECTED)
+        .pipe(
+          map(
+            (prevs: DocumentsModel) => new AllActions.FetchRejectedPrevsSuccess(prevs)
+          ),
+          catchError(
+            (error: ErrorData) => of(new AllActions.FetchRejectedPrevsError(error))
+          )
+        )
+    )
+  );
 
   @Effect()
   FetchDoc$: Observable<any> = this.actions$

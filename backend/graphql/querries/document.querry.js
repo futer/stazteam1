@@ -11,16 +11,12 @@ const documentResolver = require('../resolvers/document.resolver');
 const documentQueries = {
   documents: {
     type: new GraphQLList(documentType),
-    resolve: documentResolver.getDocuments
-  },
-  documentsByStatus: {
-    type: new GraphQLList(documentType),
     args: {
       status: { 
-        type: new GraphQLNonNull(getStatusEnum('statusGetDocuments'))
+        type: getStatusEnum('statusGetDocuments')
       }
     },
-    resolve: documentResolver.getDocumentsByStatus
+    resolve: documentResolver.getDocuments
   },
   document: {
     type: documentType,

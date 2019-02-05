@@ -2,5 +2,5 @@
   <app-nav-menu [navMenuStyle]="'nav-bar'" (clickedEmitter)="clickedTab($event)"></app-nav-menu>
 </div>
 <div>
-  <app-prev-container>{{ message }}</app-prev-container>
+  <app-doc-prev *ngFor="let prev of prevs?.data.documents" [preview]="prev"></app-doc-prev>
 </div>

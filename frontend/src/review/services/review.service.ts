@@ -31,7 +31,7 @@ const PrevQuery = gql`
 
 const PrevByStatusQuery = gql`
   query Document($status: statusGetDocuments!) {
-    documentsByStatus(status: $status) {
+    documents(status: $status) {
       id
       author
       content

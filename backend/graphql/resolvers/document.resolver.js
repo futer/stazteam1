@@ -1,11 +1,7 @@
 const documentService = require('../../services/document.service');
 
 function getDocuments(root, args, context) {
-  return documentService.getDocuments();
-}
-
-function getDocumentsByStatus(root, args, context) {
-  return documentService.getDocumentsByStatus(args);
+  return documentService.getDocuments(args);
 }
 
 function getDocument(root, args, context) {
@@ -31,7 +27,6 @@ function deleteDocument(root, args, context) {
 
 module.exports = {
   getDocuments,
-  getDocumentsByStatus,
   getDocument,
   addDocument,
   updateDocument,

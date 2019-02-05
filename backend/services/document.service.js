@@ -1,17 +1,10 @@
 const database = require('../helpers/database');
 const Document = require('../models/document.model');
 
-async function getDocuments() {
+async function getDocuments(data) {
   database.connect();
-  const documents = await Document.find().populate('comments.reviewer');
 
-  return documents;
-}
-
-async function getDocumentsByStatus(status) {
-  database.connect();
-  console.log(status);
-  return await Document.find(status).populate('comments.reviewer');
+  return await Document.find(data).populate('comments.reviewer');;
 }
 
 async function getDocument(data) {
@@ -49,5 +42,4 @@ module.exports = {
   addDocument,
   updateDocument,
   //deleteDocument,
-  getDocumentsByStatus,
 };

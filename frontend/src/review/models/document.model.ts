@@ -1,19 +1,23 @@
-import { CommentModel } from 'src/app/models/comment.model';
+import { CommentModel } from '../../app/models/comment.model';
+import { StatusEnum } from './status.enum';
 
 export interface DocumentModel {
   data: {
-    document: {
-      author: string;
-      content: string;
-      date: string;
-      title: string;
-      comments: CommentModel
-    };
+    document: DocModel;
   };
+}
+
+interface DocModel {
+  author: string;
+  content: string;
+  status: StatusEnum;
+  date: string;
+  title: string;
+  comments: CommentModel;
 }
 
 export interface DocumentsModel {
   data: {
-    documents: [DocumentModel];
+    documents: DocModel[];
   };
 }
