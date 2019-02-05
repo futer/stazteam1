@@ -22,6 +22,9 @@ import { Router } from '@angular/router';
     styleUrls: ['./container.component.scss']
 })
 export class ContainerComponent implements OnInit {
+    static prevPage = -1;
+    static likedPage = -1;
+
     prevs$: Observable<any> = this.store.select(getPrevs);
     liked$: Observable<any> = this.store.select(getLiked);
 
@@ -34,8 +37,6 @@ export class ContainerComponent implements OnInit {
     constructor(private router: Router, private store: Store<PrevState>) {}
 
     url = this.router.url;
-    prevPage = -1;
-    likedPage = -1;
 
     ngOnInit() {
         if (this.url === '/main') {
@@ -43,7 +44,7 @@ export class ContainerComponent implements OnInit {
                 .select(arePrevsLoaded)
                 .subscribe(load => {
                     if (!load) {
-                        this.store.dispatch(new Actions.FetchPrevs(++this.prevPage));
+                        this.store.dispatch(new Actions.FetchPrevs(++ContainerComponent.prevPage));
                     }
                 }).unsubscribe();
         }
@@ -53,17 +54,17 @@ export class ContainerComponent implements OnInit {
                 .select(areLikedLoaded)
                 .subscribe(load => {
                     if (!load) {
-                        this.store.dispatch(new Actions.FetchLiked(++this.likedPage));
+                        this.store.dispatch(new Actions.FetchLiked(++ContainerComponent.likedPage));
                     }
                 }).unsubscribe();
         }
     }
 
     onScrollPrev() {
-        this.store.dispatch(new Actions.FetchPrevs(++this.prevPage));
+        this.store.dispatch(new Actions.FetchPrevs(++ContainerComponent.prevPage));
     }
 
     onScrollLiked() {
-        this.store.dispatch(new Actions.FetchLiked(++this.likedPage));
+        this.store.dispatch(new Actions.FetchLiked(++ContainerComponent.likedPage));
     }
 }
