@@ -4,7 +4,7 @@ import { ErrorData } from '../models/error.model';
 export interface PrevState {
     loading: boolean;
     loaded: boolean;
-    previews: PreviewsModel | null;
+    previews: any[] | null;
     errorMessage: ErrorData | null;
 }
 

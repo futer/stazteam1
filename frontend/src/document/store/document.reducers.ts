@@ -4,7 +4,7 @@ import * as Actions from './document.actions';
 export const initialPrevState: States.PrevState = {
     loading: false,
     loaded: false,
-    previews: null,
+    previews: [],
     errorMessage: null
 };
 
@@ -39,7 +39,7 @@ export function prevReducer(
                 ...state,
                 loading: false,
                 loaded: true,
-                previews: action.payload.data.documents,
+                previews: [...state.previews, ...action.payload.data.documents],
                 errorMessage: null
             };
 

@@ -3,7 +3,7 @@
     *ngSwitchCase="'/main'" 
     infiniteScroll
     [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="50"
+    [infiniteScrollThrottle]="750"
     [infiniteScrollDisabled]="loading$ | async"
     (scrolled)="onScroll()"
     [immediateCheck]="true">

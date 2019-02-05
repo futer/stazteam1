@@ -19,8 +19,8 @@ export class DocumentEffects {
     FetchPrevs$: Observable<any> = this.actions$
         .ofType(AllActions.prevsTypes.FETCH_PREVS)
         .pipe(
-            switchMap(() =>
-                this.documentService.fetchPrevs().pipe(
+            switchMap(docAction =>
+                this.documentService.fetchPrevs(docAction['payload']).pipe(
                     map(
                         (docs: PreviewsModel) =>
                             new AllActions.FetchPrevsSuccess(docs)
