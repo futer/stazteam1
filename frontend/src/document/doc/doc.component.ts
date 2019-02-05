@@ -37,13 +37,8 @@ export class DocComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        console.log(this.route.snapshot.paramMap.get('id'));
-
-        console.log('i went with such id: ', this.id);
         this.docData = this.store.select(getDoc).subscribe(doc => {
-            console.log('asd', doc, this.id);
             if (doc && doc.data.document.id === this.id) {
-                console.log('dis iz mi doc', doc);
                 const decode = atob(doc.data.document.content);
                 const pdfBlob = new Blob([decode], { type: 'application/pdf' });
 
@@ -62,7 +57,6 @@ export class DocComponent implements OnInit, OnDestroy {
                     }
                 };
             } else {
-                console.log('i dont have this doc');
                 this.store.dispatch(new Actions.FetchDoc(this.id));
             }
         });
@@ -73,23 +67,16 @@ export class DocComponent implements OnInit, OnDestroy {
     }
 
     downloadPDF() {
-        console.log('begin download');
         window.location.href = this.url;
     }
 
     checkIfLiked(event) {
-        console.log('ichecked', event.target.checked);
-
         switch (event.target.checked) {
             case true: {
-                // add like, mutation and store change if success
-                console.log('sad');
                 this.store.dispatch(new Actions.AddLike(this.id.toString()));
                 break;
             }
             case false: {
-                // delete like, mutation and store change if success
-                console.log('sad_delete');
                 this.store.dispatch(new Actions.DeleteLike(this.id.toString()));
                 break;
             }
