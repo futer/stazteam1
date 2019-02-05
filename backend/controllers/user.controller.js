@@ -30,6 +30,7 @@ router.get('/isEditor', isEditor);
 router.get('/isModerator', isModerator);
 router.get('/isReviewer', isReviewer);
 router.get('/getCurrentUser', getCurrentUser);
+router.post('/socialAuthenticate', socialAuthenticate)
 module.exports = router;
 
 function register(req,res,next){
@@ -60,6 +61,12 @@ function getCurrentUser(req,res,next){
 function authenticate(req,res,next){
     userService.authenticate(req.body)
         .then(user => user ? res.json(user) : res.status(400).json({ message: 'Email or password incorrect'}))
+        .catch(err => next(err));
+}
+
+function socialAuthenticate(req,res,next){
+    userService.socialAuthenticate(req.body.payload.payload)
+        .then(elo => console.log('elo', elo))
         .catch(err => next(err));
 }
 

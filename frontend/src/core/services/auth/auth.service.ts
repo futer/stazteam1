@@ -78,6 +78,11 @@ export class AuthService {
     });
   }
 
+  socialLogin(payload: any): Observable<Object> {
+    console.log('socialLogin', payload);
+    return this.http.post(this.adress + 'users/socialAuthenticate', {payload});
+  }
+
   reload(): Observable<Object> {
     return this.http.get(this.adress + 'users/getCurrentUser', { headers: {
       'Authorization': 'Bearer ' + this.getToken()

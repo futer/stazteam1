@@ -9,8 +9,11 @@ import { LoginModel } from 'src/app/models/login.model';
 
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/auth/auth.state';
-import { LogIn } from '../store/auth/auth.actions';
+import { LogIn, SocialLogIn } from '../store/auth/auth.actions';
 import * as loginAuthReducer from '../store/auth/auth.reducers';
+
+import { AuthService as SocialMediaAuthService, SocialUser } from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } from 'angularx-social-login';
 
 
 
@@ -24,6 +27,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: HttpErrorResponse;
   user: LoginModel;
+  private socialUser: SocialUser;
+  private loggedIn: boolean;
 
 
   constructor(
@@ -31,6 +36,7 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private navSerice: NavService,
     private store: Store<AuthState>,
+    private socialMediaAuthService: SocialMediaAuthService
   ) { }
 
   ngOnInit() {
@@ -64,5 +70,23 @@ export class LoginComponent implements OnInit {
         password: this.loginForm.value.password
       };
       this.store.dispatch(new LogIn(payload));
+    }
+
+    signInWithGoogle(): void {
+      this.socialMediaAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    }
+
+    signInWithFB(): void {
+      this.socialMediaAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+      this.socialMediaAuthService.authState.subscribe((user) => {
+        this.user = user;
+        this.loggedIn = (user != null);
+        console.log('signWithFB', this.user);
+        this.store.dispatch(new SocialLogIn(this.user));
+      });
+    }
+
+    signOut(): void {
+      this.socialMediaAuthService.signOut();
     }
   }

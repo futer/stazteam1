@@ -2,11 +2,14 @@ const User = require('../models/user.model');
 const database = require('../helpers/database');
 const jwt = require('jsonwebtoken');
 const config = require('../enviromental/enviroments');
+const FB = require('fb');
+const request = require('request').defaults({ encoding: null });
 
 module.exports = {
     registrationLocal,
     getById,
     authenticate,
+    socialAuthenticate,
     isBanned,
     banUser,
     isAdmin,
@@ -75,6 +78,56 @@ async function authenticate({email,password}) {
             pic: user.pic
         };
     }   
+}
+
+async function socialAuthenticate(user) {
+    db = database.connect();
+    const u = user;
+    try{
+        await FB.api('me',{ fields: ['email'], access_token: u.authToken }, function (res) {
+            if (res.email === u.email) { 
+                User.findOne({email: 'test@test.com'}).then((user) => {
+                    if (user){
+                        if (user.registered === 'LOCAL_FACEBOOK'){
+                            user.registered = 'LOCAL_FACEBOOK'
+                            user.firstName = u.firstName,
+                            user.lastName = u.lastName;
+                            
+                            request.get(u.photoUrl, function (error, response, body) {
+                                if (!error && response.statusCode == 200) {
+                                    data = new Buffer(body).toString('base64');
+                                    user.pic = data;
+    
+                                    User.findOneAndUpdate({_id: user._id}, user, { new: true }).then(user => {
+                                        const { password, pic, ...userWithoutPass } = user.toObject();
+                                        const jwtOptions = { expiresIn: '1d' };
+                                        const token = jwt.sign({sub: userWithoutPass}, config.JWT_SECRET, jwtOptions);
+                                        database.disconnect();
+                                        console.log(token);
+                                        return {
+                                            token: token, 
+                                            pic: user.pic
+                                        };
+                                        
+                                    });
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        console.log('nouser')
+                    }
+                })
+             }
+            else { console.log('ole')}
+        });
+
+    }catch{
+
+    }
+        
+    
+    
 }
 
 async function isBanned(id) {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService as SocialMediaAuthService, SocialUser  } from 'angularx-social-login';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(
+    private socialMediaAuthService: SocialMediaAuthService
+  ) { }
 
   ngOnInit() {
+
   }
 
 }
