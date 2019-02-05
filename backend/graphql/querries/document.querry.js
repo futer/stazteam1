@@ -1,7 +1,8 @@
 const {
   GraphQLList,
   GraphQLNonNull,
-  GraphQLString,GraphQLInt
+  GraphQLString,
+  GraphQLInt
 } = require('graphql');
 
 const { documentType, getStatusEnum } = require('../types/document.type');

@@ -4,15 +4,22 @@
     infiniteScroll
     [infiniteScrollDistance]="2"
     [infiniteScrollThrottle]="750"
-    [infiniteScrollDisabled]="loading$ | async"
-    (scrolled)="onScroll()"
+    [infiniteScrollDisabled]="prevLoading$ | async"
+    (scrolled)="onScrollPrev()"
     [immediateCheck]="true">
     <app-doc-prev *ngFor="let prev of (prevs$ | async)" [preview]="prev">
     </app-doc-prev>
   </div>
 
-  <div *ngSwitchCase="'/favourites'">
-    <app-doc-prev *ngFor="let prev of (prevs$ | async)" [preview]="prev">
+  <div 
+    *ngSwitchCase="'/favourites'"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="750"
+    [infiniteScrollDisabled]="likedLoading$ | async"
+    (scrolled)="onScrollLiked()"
+    [immediateCheck]="true">
+    <app-doc-prev *ngFor="let prev of (liked$ | async)" [preview]="prev">
     </app-doc-prev>
   </div>
 </section>

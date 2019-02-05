@@ -10,7 +10,8 @@ import {
     areLikedLoaded,
     getLiked,
     getLikedError,
-    arePrevsLoading
+    arePrevsLoading,
+    areLikedLoading
 } from '../store/document.selectors';
 import { ErrorData } from '../models/error.model';
 import { Router } from '@angular/router';
@@ -22,26 +23,28 @@ import { Router } from '@angular/router';
 })
 export class ContainerComponent implements OnInit {
     prevs$: Observable<any> = this.store.select(getPrevs);
-    liked$: Observable<any>;
-    errorHandler$: Observable<ErrorData>;
+    liked$: Observable<any> = this.store.select(getLiked);
 
-    loading$: Observable<boolean> = this.store.select(arePrevsLoading);
+    prevErrorHandler$: Observable<ErrorData> = this.store.select(getPrevsError);
+    likedErrorHandler$: Observable<ErrorData> = this.store.select(getLikedError);
+
+    prevLoading$: Observable<boolean> = this.store.select(arePrevsLoading);
+    likedLoading$: Observable<boolean> = this.store.select(areLikedLoading);
 
     constructor(private router: Router, private store: Store<PrevState>) {}
 
     url = this.router.url;
-    page = -1;
+    prevPage = -1;
+    likedPage = -1;
+
     ngOnInit() {
         if (this.url === '/main') {
             this.store
                 .select(arePrevsLoaded)
                 .subscribe(load => {
                     if (!load) {
-                        this.store.dispatch(new Actions.FetchPrevs(++this.page));
+                        this.store.dispatch(new Actions.FetchPrevs(++this.prevPage));
                     }
-
-                    // this.prevs$ = this.store.select(getPrevs);
-                    // this.errorHandler$ = this.store.select(getPrevsError);
                 }).unsubscribe();
         }
 
@@ -50,16 +53,17 @@ export class ContainerComponent implements OnInit {
                 .select(areLikedLoaded)
                 .subscribe(load => {
                     if (!load) {
-                        this.store.dispatch(new Actions.FetchLiked());
+                        this.store.dispatch(new Actions.FetchLiked(++this.likedPage));
                     }
-
-                    this.prevs$ = this.store.select(getLiked);
-                    this.errorHandler$ = this.store.select(getLikedError);
                 }).unsubscribe();
         }
     }
 
-    onScroll() {
-        this.store.dispatch(new Actions.FetchPrevs(++this.page));
+    onScrollPrev() {
+        this.store.dispatch(new Actions.FetchPrevs(++this.prevPage));
+    }
+
+    onScrollLiked() {
+        this.store.dispatch(new Actions.FetchLiked(++this.likedPage));
     }
 }

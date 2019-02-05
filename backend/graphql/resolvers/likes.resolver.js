@@ -2,7 +2,7 @@ const likesService = require('../../services/likes.service');
 
 function getLikes(root, args, context) {
 
-  return likesService.getLikes(context.user.sub._id);
+  return likesService.getLikes(args,context.user.sub._id);
 }
 
 function checkLike(root, args, context) {

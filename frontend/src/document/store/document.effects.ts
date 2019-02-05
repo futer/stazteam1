@@ -36,8 +36,8 @@ export class DocumentEffects {
     FetchLiked$: Observable<any> = this.actions$
         .ofType(AllActions.likedTypes.FETCH_LIKED)
         .pipe(
-            switchMap(() =>
-                this.documentService.fetchLiked().pipe(
+            switchMap(docAction =>
+                this.documentService.fetchLiked(docAction['payload']).pipe(
                     map(
                         (docs: PreviewsModel) =>
                             new AllActions.FetchLikedSuccess(docs)

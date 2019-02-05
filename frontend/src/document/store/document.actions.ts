@@ -35,7 +35,7 @@ export class FetchPrevs implements Action {
 
 export class FetchLiked implements Action {
     readonly type = likedTypes.FETCH_LIKED;
-    constructor() {}
+    constructor(public payload: number) {}
 }
 
 export class FetchDoc implements Action {

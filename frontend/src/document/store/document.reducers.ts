@@ -11,7 +11,7 @@ export const initialPrevState: States.PrevState = {
 export const initialLikedState: States.LikedState = {
     loading: false,
     loaded: false,
-    previews: null,
+    previews: [],
     errorMessage: null
 };
 
@@ -66,17 +66,17 @@ export function likedReducer(
     switch (action.type) {
         case Actions.likedTypes.FETCH_LIKED:
             return {
+                ...state,
                 loading: true,
                 loaded: false,
-                previews: null,
-                errorMessage: null
             };
 
         case Actions.likedTypes.FETCH_LIKED_SUCCESS:
             return {
+                ...state,
                 loading: false,
                 loaded: true,
-                previews: action.payload.data.likes.docs,
+                previews: [...state.previews, ...action.payload.data.likes.docs],
                 errorMessage: null
             };
 

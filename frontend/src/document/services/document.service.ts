@@ -29,8 +29,8 @@ const DocQuery = gql`
 `;
 
 const LikedQuery = gql`
-  query Likes {
-    likes{
+  query Likes($page: Int!) {
+    likes(page:$page){
       docs{id
       author
       date
@@ -74,7 +74,7 @@ export class DocumentService {
     private apollo: Apollo
   ) { }
 
-  fetchPrevs(page): Observable<any> {
+  fetchPrevs(page: number): Observable<any> {
     return this.apollo.watchQuery({
       query: PrevQuery,
       variables: {
@@ -83,8 +83,13 @@ export class DocumentService {
     }).valueChanges;
   }
 
-  fetchLiked(): Observable<any> {
-    return this.apollo.watchQuery({query: LikedQuery}).valueChanges;
+  fetchLiked(page: number): Observable<any> {
+    return this.apollo.watchQuery({
+      query: LikedQuery,
+      variables: {
+        page: page
+      }
+    }).valueChanges;
   }
 
   fetchDocument(id: number): Observable<any> {
