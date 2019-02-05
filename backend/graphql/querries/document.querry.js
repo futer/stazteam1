@@ -1,7 +1,8 @@
 const {
   GraphQLList,
   GraphQLNonNull,
-  GraphQLString
+  GraphQLString,
+  GraphQLInt
 } = require('graphql');
 
 const { documentType, getStatusEnum } = require('../types/document.type');
@@ -11,7 +12,12 @@ const documentResolver = require('../resolvers/document.resolver');
 const documentQueries = {
   documents: {
     type: new GraphQLList(documentType),
-    resolve: documentResolver.getDocuments
+    resolve: documentResolver.getDocuments,
+    args: {
+      page: {
+        type: GraphQLInt
+      }
+    }
   },
   document: {
     type: documentType,

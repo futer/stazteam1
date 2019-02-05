@@ -5,8 +5,8 @@ import gql from 'graphql-tag';
 import { environment } from '../../environments/environment';
 
 const PrevQuery = gql`
-  query Documents {
-    documents{
+  query Documents($page: Int!) {
+    documents(page:$page){
       id
       author
       date
@@ -17,8 +17,9 @@ const PrevQuery = gql`
 `;
 
 const DocQuery = gql`
-  query Document($id: String!){
+  query Document($id: String!) {
     document(id:$id){
+      id
       author
       content
       date
@@ -29,8 +30,8 @@ const DocQuery = gql`
 `;
 
 const LikedQuery = gql`
-  query Likes {
-    likes{
+  query Likes($page: Int!) {
+    likes(page:$page){
       docs{id
       author
       date
@@ -74,12 +75,22 @@ export class DocumentService {
     private apollo: Apollo
   ) { }
 
-  fetchPrevs(): Observable<any> {
-    return this.apollo.watchQuery({query: PrevQuery}).valueChanges;
+  fetchPrevs(page: number): Observable<any> {
+    return this.apollo.watchQuery({
+      query: PrevQuery,
+      variables: {
+        page: page
+      }
+    }).valueChanges;
   }
 
-  fetchLiked(): Observable<any> {
-    return this.apollo.watchQuery({query: LikedQuery}).valueChanges;
+  fetchLiked(page: number): Observable<any> {
+    return this.apollo.watchQuery({
+      query: LikedQuery,
+      variables: {
+        page: page
+      }
+    }).valueChanges;
   }
 
   fetchDocument(id: number): Observable<any> {
