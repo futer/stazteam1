@@ -83,51 +83,70 @@ async function authenticate({email,password}) {
 async function socialAuthenticate(user) {
     db = database.connect();
     const u = user;
-    try{
-        await FB.api('me',{ fields: ['email'], access_token: u.authToken }, function (res) {
-            if (res.email === u.email) { 
-                User.findOne({email: 'test@test.com'}).then((user) => {
-                    if (user){
-                        if (user.registered === 'LOCAL_FACEBOOK'){
-                            user.registered = 'LOCAL_FACEBOOK'
-                            user.firstName = u.firstName,
-                            user.lastName = u.lastName;
-                            
-                            request.get(u.photoUrl, function (error, response, body) {
-                                if (!error && response.statusCode == 200) {
-                                    data = new Buffer(body).toString('base64');
-                                    user.pic = data;
-    
-                                    User.findOneAndUpdate({_id: user._id}, user, { new: true }).then(user => {
-                                        const { password, pic, ...userWithoutPass } = user.toObject();
-                                        const jwtOptions = { expiresIn: '1d' };
-                                        const token = jwt.sign({sub: userWithoutPass}, config.JWT_SECRET, jwtOptions);
-                                        database.disconnect();
-                                        console.log(token);
-                                        return {
-                                            token: token, 
-                                            pic: user.pic
-                                        };
-                                        
-                                    });
-                                }
-                            });
-                        }
-                    }
-                    else {
-                        console.log('nouser')
-                    }
-                })
-             }
-            else { console.log('ole')}
-        });
+    console.log('UUUUU', u);
 
-    }catch{
+    const checkUserFB = new Promise ((resolve, reject) => {
+        FB.api('me',{ fields: ['email'], access_token: u.authToken }, function (res) {
+            if (res.email === u.email) {
+                resolve(u.email)
+            } else resolve('Access token is for different user than user asking for login')
+        })
+    })
 
-    }
-        
+    const getUser = new Promise ((resolve, reject) => {
+        User.findOne({email: 'test@te23st.com'}).then((user) => {
+            // if (user){
+            //     if (user.registered === 'LOCAL_FACEBOOK'/*CHANGE TO LOCAL*/){
+            //         user.registered = 'LOCAL_FACEBOOK'
+            //         user.firstName = u.firstName,
+            //         user.lastName = u.lastName;
+            //     }
+            if (user) {
+                resolve(user);
+            } else {
+                resolve('No user')
+            }
+        }); 
+    });
     
-    
+    const getProfilePic = new Promise ((resolve, reject) => {
+        request.get(u.photoUrl, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                data = new Buffer(body).toString('base64');
+                resolve(data);
+            }
+        })
+    })
+
+    return await Promise.all([checkUserFB, getUser, getProfilePic]).then(function(values) {
+        console.log("VAL1", values[1])
+        if (values[0] === 'Access token is for different user than user asking for login'){
+            value = values[0];
+            const err = new Error(value);
+            err.status = 406;
+            err.name = 'Method Not Allowed';
+            throw err;
+        }
+        if (values[1] === 'No user'){
+            console.log('TUJESTEM')
+            const newUser = new User({
+                firstName: u.firstName,
+                lastName: u.lastName,
+                email: u.email,
+                registered: 'FACEBOOK',
+                // pic: values[2]
+            })
+            console.log(newUser);
+            newUser.save();
+            //resolve(newUser);
+        } else {
+            if (values[1].registered === 'LOCAL'){
+                //UPDATE USER
+            } else {
+                //LOGIN
+            }
+        }
+    });
 }
 
 async function isBanned(id) {

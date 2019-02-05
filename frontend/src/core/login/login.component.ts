@@ -81,9 +81,13 @@ export class LoginComponent implements OnInit {
       this.socialMediaAuthService.authState.subscribe((user) => {
         this.user = user;
         this.loggedIn = (user != null);
-        console.log('signWithFB', this.user);
-        this.store.dispatch(new SocialLogIn(this.user));
+        console.log(this.loggedIn);
+        if (this.loggedIn) {
+          console.log('signWithFB', this.user);
+          this.store.dispatch(new SocialLogIn(this.user));
+        }
       });
+
     }
 
     signOut(): void {
