@@ -83,24 +83,17 @@ async function authenticate({email,password}) {
 async function socialAuthenticate(user) {
     db = database.connect();
     const u = user;
-    console.log('UUUUU', u);
 
     const checkUserFB = new Promise ((resolve, reject) => {
         FB.api('me',{ fields: ['email'], access_token: u.authToken }, function (res) {
             if (res.email === u.email) {
-                resolve(u.email)
+                resolve(res)
             } else resolve('Access token is for different user than user asking for login')
         })
     })
 
     const getUser = new Promise ((resolve, reject) => {
-        User.findOne({email: 'test@te23st.com'}).then((user) => {
-            // if (user){
-            //     if (user.registered === 'LOCAL_FACEBOOK'/*CHANGE TO LOCAL*/){
-            //         user.registered = 'LOCAL_FACEBOOK'
-            //         user.firstName = u.firstName,
-            //         user.lastName = u.lastName;
-            //     }
+        User.findOne({email: u.email}).then((user) => {
             if (user) {
                 resolve(user);
             } else {
@@ -118,8 +111,7 @@ async function socialAuthenticate(user) {
         })
     })
 
-    return await Promise.all([checkUserFB, getUser, getProfilePic]).then(function(values) {
-        console.log("VAL1", values[1])
+    return await Promise.all([checkUserFB, getUser, getProfilePic]).then(async function(values) {
         if (values[0] === 'Access token is for different user than user asking for login'){
             value = values[0];
             const err = new Error(value);
@@ -128,22 +120,27 @@ async function socialAuthenticate(user) {
             throw err;
         }
         if (values[1] === 'No user'){
-            console.log('TUJESTEM')
+
             const newUser = new User({
                 firstName: u.firstName,
                 lastName: u.lastName,
                 email: u.email,
                 registered: 'FACEBOOK',
-                // pic: values[2]
+                pic: values[2]
             })
-            console.log(newUser);
-            newUser.save();
-            //resolve(newUser);
+            await newUser.save().catch(err => {console.log(err); reject(err)});
+
+            return newUser;
         } else {
-            if (values[1].registered === 'LOCAL'){
-                //UPDATE USER
+            if (values[1].registered === 'LOCAL_FACEBOOK'){
+                values[1].firstName = u.firstName,
+                values[1].lastName = u.lastName,
+                values[1].pic = values[2],
+                values[1].registered = 'LOCAL_FACEBOOK'
+                await User.findOneAndUpdate({ _id: values[1]._id }, values[1], { new: true }).catch(err => reject(err));
+                return values[1];
             } else {
-                //LOGIN
+                return values[1];
             }
         }
     });
