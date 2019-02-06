@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { PageGeneratorService } from '../services/page-generator.service';
 
 @Component({
   selector: 'app-editor-view',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditorViewComponent implements OnInit {
 
-  constructor() { }
+  pages$ = this.pageGen.pagesSource.asObservable();
+
+  constructor(
+    private pageGen: PageGeneratorService
+  ) { }
 
   ngOnInit() {
+    this.pageGen.addPage('1');
   }
 
 }
