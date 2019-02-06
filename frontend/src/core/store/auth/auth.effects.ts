@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import * as AuthActions from './auth.actions';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, catchError, tap } from 'rxjs/operators';
-import { LoginModel, LoginModel2 } from 'src/app/models/login.model';
+import { LoginModel, TokenPicModel } from 'src/app/models/login.model';
 import { UserModel } from 'src/app/models/user.model';
 import { ErrorData } from 'src/document/models/error.model';
 import { Router } from '@angular/router';
@@ -45,7 +45,7 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
                 .pipe(
                     switchMap((payload) =>
                         this.authService.socialLogin(payload).pipe(
-                            map((user: LoginModel2) => {
+                            map((user: TokenPicModel) => {
                                 this.authService.setToken(user.token);
                                 this.router.navigate(['/main']);
                                 let u: UserModel;

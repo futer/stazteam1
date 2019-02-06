@@ -5,7 +5,7 @@ export interface LoginModel {
     pic?: string;
 }
 
-export interface LoginModel2 {
+export interface TokenPicModel {
     token?: string;
     pic?: string;
 }
