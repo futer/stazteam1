@@ -11,7 +11,7 @@
     <div class="header-user-info">
       <div class="dropdown-container">
         <input type="checkbox" id="drop" />
-        <label for="drop">{{(firstName$ | async)?.firstName}} {{(firstName$ | async)?.lastName}}</label>
+        <label for="drop">{{(name$ | async)?.firstName}} {{(name$ | async)?.lastName}}</label>
         <ul class="content">
           <li><i class="fa fa-user"></i>Profile</li>
           <li (click)="logOut()"><i class="fa fa-sign-out"></i>Sign out</li>

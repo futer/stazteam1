@@ -2,10 +2,9 @@ import { Action } from '@ngrx/store';
 import { LoginModel } from '../../../app/models/login.model';
 import { ErrorData } from 'src/document/models/error.model';
 
-
-
 export enum AuthActionTypes {
     LOGIN = '[Auth] Login',
+    SOCIAL_LOGIN = '[Auth] Social Login',
     LOGIN_SUCCES = '[Auth] Login Succes',
     LOGIN_FAIL = '[Auth] Login Fail',
     LOGOUT = '[Auth] Logout',
@@ -16,6 +15,11 @@ export enum AuthActionTypes {
 
 export class LogIn implements Action {
     readonly type = AuthActionTypes.LOGIN;
+    constructor(public payload: any) {}
+  }
+
+export class SocialLogIn implements Action {
+    readonly type = AuthActionTypes.SOCIAL_LOGIN;
     constructor(public payload: any) {}
   }
 
@@ -52,6 +56,7 @@ export class LogIn implements Action {
 
   export type All =
     | LogIn
+    | SocialLogIn
     | LogInSucces
     | LogInFail
     | Logout
