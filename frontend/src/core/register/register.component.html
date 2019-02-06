@@ -110,18 +110,12 @@
                   [formInputStyle]="'register-form__file'" 
                   [type]="'file'" 
                   [accept]="'image/*'"
-                  [value]=""
                   (change)="pictureUpload($event)">
               </app-input>
               <app-image
                 [url]="getPic()" 
                 [className]="'profile-img'">
               </app-image>
-              <!-- <app-image 
-                *ngIf ="pictureUrl" 
-                [url]="pictureUrl" 
-                [className]="'profile-img'">
-              </app-image> -->
             </div>
       <app-submit-btn
         [buttonStyle]="'register-form__submit'"
