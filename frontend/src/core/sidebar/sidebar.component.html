@@ -1,6 +1,7 @@
 <div class="sidebar">
   <ul>
-      <li><a (click)="navigateToFav()">Favourites</a></li>
+    <li *ngIf=""><a (click)="navigateToAdminUserEditor()"></a></li>
+    <li><a (click)="navigateToFav()">Favourites</a></li>
   </ul>
   <ul *ngFor="let item of bookmark$ | async">
     <li *ngIf="item.position === 'RIGHT'"(click)="navigateToSubpage(item.title)"><a >{{item.title}}</a></li>
