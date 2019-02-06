@@ -52,10 +52,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // if (this.loginForm.invalid) {
-    //   console.log(false);
-    //   return;
-    // }
+    if (this.loginForm.invalid) {
+      console.log(false);
+      return;
+    }
     // this.auth.login(this.loginForm.value).subscribe(
     //   (res: JWT) => {
     //     this.auth.setToken(res.token);
@@ -65,6 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     //     console.log(err);
     //     this.error = err;
     //   });
+
     //   this.user = this.loginForm.value;
     //   console.log(this.user);
 

@@ -36,6 +36,7 @@
     "graphql": "^0.13.2",
     "graphql-tag": "^2.10.0",
     "ngrx-actions": "^4.0.0",
+    "ngx-infinite-scroll": "^7.0.1",
     "node-sass": "^4.11.0",
     "pdfjs-dist": "^2.0.943",
     "rxjs": "~6.3.3",

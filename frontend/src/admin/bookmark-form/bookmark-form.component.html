@@ -1,0 +1,65 @@
+<div class="bookmark-edit">
+  <form class="bookmark-edit__form" 
+    [formGroup]="bookmarkEditForm" 
+    (ngSubmit)="updateBookmark(bookmarkEditForm)"
+    >
+    <div class="form-group">
+      <label for="title">Title: </label>
+      <app-input 
+        [id]="'title'" 
+        [formInputStyle]="'bookmark-editor__input'" 
+        [type]="'text'" 
+        [controlName]="bookmarkEditForm.controls.title"
+        [value]="bookmarkEditForm.controls['title'].value">
+      </app-input>
+      <app-error 
+        [class]="'error-msg-addBookmark'" 
+        *ngIf="bookmarkEditForm.get('title').errors?.required && bookmarkEditForm.get('title').touched">
+        Title can't be ampty
+      </app-error>
+    </div>
+    <div class="form-group">
+      <label for="content">Content: </label>
+      <textarea 
+        class="bookmark-ediotr__textarea" 
+        id="content" 
+        rows="6" 
+        cols="20" 
+        [formControl]="bookmarkEditForm.controls.content">
+      </textarea>
+      <app-error 
+        [class]="'error-msg-addBookmark'" 
+        *ngIf="bookmarkEditForm.get('content').errors?.required && bookmarkEditForm.get('content').touched">
+        Content can't be empty
+      </app-error>
+    </div>
+    <div class="form-group_position">
+      <label for="position">Position: </label>
+      <label class="bookmar-edit-form__label--position">
+        <app-input 
+            [id]="'position'" 
+            [name]="'position'" 
+            [type]="'radio'" 
+            [controlName]="bookmarkEditForm.controls.position"
+            [value]="positions.top" 
+            [checked]="bookmarkEditForm.controls['position'].value === 'TOP'? true : false ">
+        </app-input>TOP
+      </label>
+      <label class="bookmar-edit-form__label--position">
+        <app-input 
+            [id]="'position'" 
+            [name]="'position'" 
+            [type]="'radio'" 
+            [controlName]="bookmarkEditForm.controls.position"
+            [value]="positions.right" 
+            [checked]="bookmarkEditForm.controls['position'].value === 'RIGHT'? true : false ">
+        </app-input>RIGHT
+      </label>
+    </div>
+    <app-submit-btn 
+        [disabled]="bookmarkEditForm.invalid" 
+        [buttonStyle]="'button'" 
+        [type]="'submit'"> Save changes
+    </app-submit-btn>
+  </form>
+</div>

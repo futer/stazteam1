@@ -4,6 +4,12 @@ function getBookmarks(root, args, context) {
   return bookmarkService.getBookmarks();
 }
 
+function getBookmark(root, args, context) { 
+  bookmark = bookmarkService.getBookmark(args);
+
+  return bookmark;
+}
+
 function addBookmark(root, args, context) {
   const bookmark = bookmarkService.addBookmark(args);
 
@@ -27,4 +33,5 @@ module.exports = {
   addBookmark,
   updateBookmark,
   deleteBookmark,
+  getBookmark
 }

@@ -6,16 +6,20 @@ import { StoreModule } from '@ngrx/store';
 import { userReducer } from './store/admin.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from './store/admin.effects';
-import { BookmarkCreatorComponent } from './bookmark-creator/bookmark-creator.component';
+import { BookmarkPanelComponent } from './bookmark-panel/bookmark-panel.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AdminRouting } from './admin.routing.module';
 import { SharedModule } from 'src/shared/shared.module';
+import { BookmarkInfoComponent } from './bookmark-info/bookmark-info.component';
+import { BookmarkFormComponent } from './bookmark-form/bookmark-form.component';
+import { AdminRouting } from './admin.routing.module';
 
 
 @NgModule({
   declarations: [
     AdminUserEditorComponent,
-    BookmarkCreatorComponent,
+    BookmarkPanelComponent,
+    BookmarkInfoComponent,
+    BookmarkFormComponent,
   ],
   imports: [
     CommonModule,
@@ -28,8 +32,7 @@ import { SharedModule } from 'src/shared/shared.module';
     SharedModule,
   ],
   exports: [
-    AdminUserEditorComponent,
-    BookmarkCreatorComponent
+    BookmarkPanelComponent,
   ]
 })
 export class AdminModule { }

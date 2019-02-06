@@ -12,6 +12,7 @@ import { DocumentEffects } from 'src/document/store/document.effects';
 import { DocumentRoutingModule } from './document-routing.module';
 import { PdfViewComponent } from './pdf-view/pdf-view.component';
 import { FormsModule } from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
     declarations: [ContainerComponent, DocPrevComponent, DocComponent, PdfViewComponent],
@@ -21,6 +22,7 @@ import { FormsModule } from '@angular/forms';
         HttpClientModule,
         DocumentRoutingModule,
         FormsModule,
+        InfiniteScrollModule,
         StoreModule.forFeature('docModule', docModuleReducers ),
         EffectsModule.forFeature([DocumentEffects]),
     ],

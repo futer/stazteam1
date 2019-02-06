@@ -1,7 +1,7 @@
 const documentService = require('../../services/document.service');
 
 function getDocuments(root, args, context) {
-  return documentService.getDocuments();
+  return documentService.getDocuments(args);
 }
 
 function getDocument(root, args, context) {

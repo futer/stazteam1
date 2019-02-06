@@ -1,7 +1,5 @@
-import * as fromAuth from './auth/auth.reducers';
 import * as fromBookmark from '././bookmark/bookmark.reducers';
 import * as BookmarkState from './bookmark/bookmark.state';
-import * as AuthState from './auth/auth.state';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface CoreState {
@@ -24,3 +22,12 @@ export const getBookmarksSubpage = createSelector(
     fromBookmark.getBookmarksSubpage
 );
 
+export const getLoading = createSelector (
+    getBookmarkState,
+    state => state.loading
+);
+
+export const getLoaded = createSelector(
+    getBookmarkState,
+    state => state.loaded
+);

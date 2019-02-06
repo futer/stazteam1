@@ -1,3 +1,9 @@
-<p>
-  test1 works!
-</p>
+<app-radio-buttons (radioButtonChange)="getAcivateRole($event)">
+
+</app-radio-buttons>
+<div  *ngIf="selected==='TOP'">  
+  top radio button selected  
+</div>  
+<div  *ngIf="selected==='RIGHT'">  
+  right radio button selected  
+</div>   

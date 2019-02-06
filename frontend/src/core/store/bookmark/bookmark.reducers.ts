@@ -2,34 +2,42 @@ import * as bookmarkState from './bookmark.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as bookmarkActions from './bookmark.actions';
 
-
 export const initialState: bookmarkState.BookmarkState = {
+    currentBookmarkId: null,
+    bookmarks: [],
+    erroMessage: null,
     loading: false,
-    loaded: false,
-    subpage: null,
-    erroMessage: null
+    loaded: false
 };
 
 export const bookmarkFeature = createFeatureSelector<bookmarkState.BookmarkState>('bookmarks');
 
-export const isLoading = createSelector (
+export const getCurrentBookmarkId = createSelector (
     bookmarkFeature,
-    (state: bookmarkState.BookmarkState) => state.loading
+    state => state.currentBookmarkId
 );
 
-export const isLoaded = createSelector(
+export const getBookmarks = createSelector (
     bookmarkFeature,
-    (state: bookmarkState.BookmarkState) => state.loaded
+    state => state.bookmarks
 );
 
-export const Subpage = createSelector (
+export const getError = createSelector (
     bookmarkFeature,
-    (state: bookmarkState.BookmarkState) => state.subpage
+    state => state.erroMessage
 );
 
-export const Error = createSelector (
+export const getCurrentBookmark = createSelector(
     bookmarkFeature,
-    (state: bookmarkState.BookmarkState) => state.erroMessage
+    getCurrentBookmarkId,
+    (state, currentBookmarkId ) => {
+        if ( currentBookmarkId) {
+            return state.bookmarks.find(b => b.id === currentBookmarkId);
+        } else {
+            return null;
+        }
+    }
+
 );
 
 export function bookmarkReducer(
@@ -37,38 +45,84 @@ export function bookmarkReducer(
     action: bookmarkActions.All
 ): bookmarkState.BookmarkState {
     switch (action.type) {
-        case bookmarkActions.bookmarkTypes.FETCH:
-
+        case bookmarkActions.bookmarkTypes.SET_CURRENT_BOOKMARK:
         return {
+            ...state,
+            currentBookmarkId: action.payload.id
+        };
+
+        case bookmarkActions.bookmarkTypes.FETCH_BOOKMARK:
+        return {
+            ...state,
             loading: true,
-            loaded: false,
-            subpage: null,
-            erroMessage: null
+            loaded: false
         };
 
-        case bookmarkActions.bookmarkTypes.FETCH_SUCCESS:
-
+        case bookmarkActions.bookmarkTypes.FETCH_BOOKMARK_SUCCESS:
         return {
+           ...state,
+           bookmarks: action.payload,
+           erroMessage: null,
+           loading: false,
+           loaded: true
+       };
+
+        case bookmarkActions.bookmarkTypes.FETCH_BOOKMARK_FAILD:
+        return{
+            ...state,
             loading: false,
-            loaded: true,
-            subpage: action.payload,
+            loaded: false,
+            bookmarks: [],
+            erroMessage: action.payload
+        };
+
+        case bookmarkActions.bookmarkTypes.UPDATE_SUCCESS:
+            return {
+                ...state,
+                bookmarks: state.bookmarks.map(
+                    item => action.payload.payload.id
+                         === item.id
+                         ? action.payload.payload
+                         : item
+                        )
+            };
+
+        case bookmarkActions.bookmarkTypes.UPDATE_FAILD:
+        return {
+            ...state,
+            erroMessage: action.payload
+        };
+
+        case bookmarkActions.bookmarkTypes.DELETE_SUCCESS:
+        return {
+            ...state,
+            bookmarks: state.bookmarks.filter(bookmark => bookmark.id !== action.payload.payload),
+            currentBookmarkId: null,
             erroMessage: null
         };
 
-        case bookmarkActions.bookmarkTypes.FETCH_FAILD:
+        case bookmarkActions.bookmarkTypes.DELETE_FAILD:
+        return {
+            ...state,
+            erroMessage: action.payload
+        };
 
-        return{
-            loading: false,
-            loaded: false,
-            subpage: null,
+        case bookmarkActions.bookmarkTypes.ADD_BOOKMARK_SUCCESS:
+        return {
+            ...state,
+            bookmarks: [...state.bookmarks, action.payload],
+            erroMessage: null
+        };
+
+        case bookmarkActions.bookmarkTypes.ADD_BOOKMARK_FAILD:
+        return {
+            ...state,
             erroMessage: action.payload
         };
 
         default:
-
         return state;
-
     }
 }
 export default bookmarkReducer;
-export const getBookmarksSubpage = (state: bookmarkState.BookmarkState) => state.subpage;
+export const getBookmarksSubpage = (state: bookmarkState.BookmarkState) => state.bookmarks;

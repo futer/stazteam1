@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NavService } from '../services/nav/nav.service';
 import { AuthService } from '../services/auth/auth.service';
 import { Store } from '@ngrx/store';
@@ -7,12 +7,11 @@ import { Logout } from '../store/auth/auth.actions';
 import { SubpageService } from 'src/shared/services/subpage.service';
 import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
 import * as AuthActions from '../../core/store/auth/auth.actions';
-import * as fromStore from '../../core/store/index';
-import { map } from 'rxjs/operators';
 import { CoreState } from '../store';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/observable';
 import { AuthService as SocialMediaAuthService } from 'angularx-social-login';
+import * as fromAuth from '../store/auth/auth.reducers';
 
 @Component({
     selector: 'app-nav',
@@ -20,7 +19,8 @@ import { AuthService as SocialMediaAuthService } from 'angularx-social-login';
     styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-    bookmark$: Observable<any>;
+   @Input() bookmark$: Observable<any>;
+   name$: Observable<any> = this.store.select(fromAuth.User);
 
     constructor(
         private authService: AuthService,
@@ -31,8 +31,8 @@ export class NavComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.bookmark$ = this.store.select(fromStore.getBookmarksSubpage);
-        this.store.dispatch(new bookmarkActions.Fetch());
+        this.store.dispatch(new bookmarkActions.FetchBookmark());
+        this.name$.subscribe(res => console.log(res));
     }
 
     logOut() {

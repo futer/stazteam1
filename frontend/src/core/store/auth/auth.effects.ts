@@ -46,7 +46,6 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
                     switchMap((payload) =>
                         this.authService.socialLogin(payload).pipe(
                             map((user: LoginModel2) => {
-                                console.log('EGZIT', user);
                                 this.authService.setToken(user.token);
                                 this.router.navigate(['/main']);
                                 let u: UserModel;
