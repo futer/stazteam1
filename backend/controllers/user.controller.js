@@ -60,7 +60,7 @@ function getCurrentUser(req,res,next){
 function authenticate(req,res,next){
     userService.authenticate(req.body)
         .then(user => user ? res.json(user) : res.status(400).json({ message: 'Email or password incorrect'}))
-        .catch(err => next(err));
+        .catch(err => res.status(500).json({ message: err.message}))
 }
 
 function editUser(req,res,next){

@@ -8,6 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NavService } from '../services/nav/nav.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -23,7 +24,7 @@ private validationMessages = {
   matchingPassword: 'Password doesnt match',
 };
 
-pictureUrl;
+picture;
 user: RegisterModel;
 error: HttpErrorResponse;
 
@@ -50,24 +51,18 @@ error: HttpErrorResponse;
 
   }
 
-  // pictureUpload(event) {
-  //   this.pictureUrl = event.target.files[0];
-  //   console.log(this.pictureUrl);
-  //   const reader = new FileReader;
-  //   reader.onload = () => {
-  //     this.pictureUrl = reader.result;
-  //     console.log(this.pictureUrl);
-  //   };
-  //   reader.readAsDataURL(this.pictureUrl);
-  // }
-
   pictureUpload(event) {
-    this.pictureUrl = event.target.files[0];
+    this.picture = event.target.files[0];
     const reader = new FileReader;
-    reader.readAsDataURL(this.pictureUrl);
+    reader.readAsDataURL(this.picture);
     reader.onload = () => {
-      this.pictureUrl = reader.result.slice(22);
-      this.registerForm.get('pic').setValue(this.pictureUrl);
+      this.picture = reader.result.split(',')[1];
+      if (this.picture.length <= 106000) {
+        this.registerForm.get('pic').setValue(this.picture);
+      } else {
+        this.picture = null;
+        window.alert('This image is too big');
+      }
     };
   }
 
@@ -86,9 +81,10 @@ error: HttpErrorResponse;
     }
     );
   }
+
   getPic() {
-    if (this.pictureUrl) {
-      return this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${this.pictureUrl}`);
+    if (this.picture) {
+      return this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${this.picture}`);
     }
 
     return '../..//assets/img/avatar.png';
