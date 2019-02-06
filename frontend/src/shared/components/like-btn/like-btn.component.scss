@@ -1,0 +1,58 @@
+ /* Customize the label (the container) */
+.container {
+  
+  display: block;
+  position: relative;
+  padding-left: 36px;
+  margin-bottom: 44px;
+  cursor: pointer;
+  font-size: 28px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.heart {
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 44px;
+  width: 44px;
+  background-color: #ccc;
+  text-align: center;
+  padding: 6px 0;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .heart {
+  color: #ffaffb;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .heart {
+  color: #fc0000;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.heart:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .heart:after {
+  display: block;
+}

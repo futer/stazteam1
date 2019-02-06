@@ -1,10 +1,14 @@
 const database = require('../helpers/database');
 const Document = require('../models/document.model');
 
-async function getDocuments(data) {
+async function getDocuments(page, data) {
   database.connect();
 
-  return await Document.find(data).populate('comments.reviewer');;
+  return await Document.find(data)
+    .populate('comments.reviewer')
+    .sort({'date': -1})
+    .limit(10)
+    .skip(page*10);
 }
 
 async function getDocument(data) {

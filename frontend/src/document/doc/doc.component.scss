@@ -32,7 +32,7 @@
         //     margin: 0 0 0 auto;
         //     text-align: right;
         // }
-        app-submit-btn {
+        app-like-btn {
             margin: 0 0 0 auto;
             text-align: right;
         }
@@ -52,5 +52,6 @@
 }
 
 .sideNav {
-    width: 30%
+    position: absolute;
+    width: 30%;
 }

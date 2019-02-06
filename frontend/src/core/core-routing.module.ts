@@ -19,13 +19,13 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'register', component: RegisterComponent },
     { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
+    { path: 'favourites', component: MainComponent, canActivate: [AuthGuard] },
     {
       path: 'doc/:id',
       loadChildren: '../document/document.module#DocumentModule'
     },
-    { path: 'user-editor', loadChildren: '../user/user.module#UserModule'},
-    { path: 'bookmark-panel', component: BookmarkPanelComponent},
-    { path: 'subpage/:title', component: SubpageContainerComponent},
+    { path: 'bookmark-panel', component: BookmarkPanelComponent, canActivate: [AuthGuard]},
+    { path: 'subpage/:title', component: SubpageContainerComponent, canActivate: [AuthGuard]},
     { path: 'user-editor', loadChildren: '../user/user.module#UserModule'},
     { path: 'admin', component: AdminUserEditorComponent, canActivate: [AdminGuard] }
   ];

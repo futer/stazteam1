@@ -1,5 +1,11 @@
 @import '../../assets/main-style.scss';
 
+.loading-spinner {
+    display: flex;
+    justify-content: center ;
+    align-items: flex-end;
+}
+
 .container {
     display: flex;
     margin-top: 60px;

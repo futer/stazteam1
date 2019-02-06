@@ -35,7 +35,7 @@ import { ChatModule } from 'src/chat/chat.module';
     ExampleRouting,
     ExamplesModule,
     CoreRoutingModule,
-    StoreModule.forRoot({doc: docReducer, auth: authReducer}),
+    StoreModule.forRoot({auth: authReducer}),
     ReactiveFormsModule,
     DocumentModule,
     UserModule,
