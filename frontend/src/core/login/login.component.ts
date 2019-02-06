@@ -21,7 +21,7 @@ import { getLoginAuth } from '../store/auth/auth.reducers';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   user: LoginModel;
@@ -44,10 +44,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       password: ['', [Validators.required, Validators.minLength(5)]],
       }, {
     });
-  }
-
-  ngOnDestroy() {
-    this.loggedInSub.unsubscribe();
   }
 
   onSubmit() {
