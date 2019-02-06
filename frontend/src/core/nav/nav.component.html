@@ -5,18 +5,30 @@
     <div *ngIf="bookmark$ | async" class="logo-bookmarks-container">
       <h3 class="logo"><a href="#">LOGO</a></h3>
       <ul class="bookmarks" *ngFor="let item of bookmark$ | async">
-        <li *ngIf="item?.position === 'TOP'" (click)="navigateToSubpage(item.title)" ><a >{{item.title}}</a></li>
+        <li 
+        *ngIf="item?.position === 'TOP'" 
+        (click)="navigateToSubpage(item.title)" >
+        <a >{{item.title}}</a>
+        </li>
       </ul>
     </div>
-    <div class="header-user-info">
-      <div class="dropdown-container">
-        <input type="checkbox" id="drop" />
-        <label for="drop">{{(name$ | async)?.firstName}} {{(name$ | async)?.lastName}}</label>
-        <ul class="content">
-          <li><i class="fa fa-user"></i>Profile</li>
-          <li (click)="logOut()"><i class="fa fa-sign-out"></i>Sign out</li>
-        </ul>
+      <div class="dropdown">
+        <app-button [class]="'dropdown__button'">
+          {{(name$ | async)?.firstName}} {{(name$ | async)?.lastName}}
+          <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </app-button>
+        <div class="dropdown--list">
+          <app-router-btn 
+            [class]="'dropdown--link'" 
+            [link]="'/user-editor'"> 
+            Edit Profile<i class="fa fa-user dropdown__icon" ></i>
+          </app-router-btn>
+          <app-router-btn 
+            (click)="logOut()" 
+            [class]="'dropdown--link'" 
+            href="#">Sign out<i class="fa fa-sign-out dropdown__icon"></i>
+          </app-router-btn>
+        </div>
       </div>
-    </div>
-  </nav>
-</header>
+    </nav>
+  </header>
