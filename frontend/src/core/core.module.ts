@@ -18,6 +18,7 @@ import { UserModule } from 'src/user/user.module';
 
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import { EditorModule } from 'src/editor/editor.module';
 
 const config = new AuthServiceConfig([
   // {
@@ -49,6 +50,7 @@ export function provideConfig() {
     HttpClientModule,
     DocumentModule,
     UserModule,
+    EditorModule,
     StoreModule.forFeature('core', reducers),
     EffectsModule.forFeature([BookmarkEffect]),
     SocialLoginModule,
