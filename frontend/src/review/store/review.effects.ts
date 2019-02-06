@@ -21,7 +21,7 @@ FetchAcceptedPrevs$: Observable<any> = this.actions$
   .ofType(AllActions.acceptedPrevsTypes.FETCH_ACCEPTED_PREVS)
   .pipe(
     switchMap(
-      () => this.reviewService.fetchPrevsByStatus(StatusEnum.ACCEPTED)
+      prevAction => this.reviewService.fetchPrevsByStatus(prevAction['payload'], StatusEnum.ACCEPTED)
         .pipe(
           map(
             (prevs: DocumentsModel) => new AllActions.FetchAcceptedPrevsSuccess(prevs)
@@ -38,7 +38,7 @@ FetchPendingPrevs$: Observable<any> = this.actions$
   .ofType(AllActions.pendingPrevsTypes.FETCH_PENDING_PREVS)
   .pipe(
     switchMap(
-      () => this.reviewService.fetchPrevsByStatus(StatusEnum.PENDING)
+      prevAction => this.reviewService.fetchPrevsByStatus(prevAction['payload'], StatusEnum.PENDING)
         .pipe(
           map(
             (prevs: DocumentsModel) => new AllActions.FetchPendingPrevsSuccess(prevs)
@@ -55,7 +55,7 @@ FetchRejectedPrevs$: Observable<any> = this.actions$
   .ofType(AllActions.rejectedPrevsTypes.FETCH_REJECTED_PREVS)
   .pipe(
     switchMap(
-      () => this.reviewService.fetchPrevsByStatus(StatusEnum.REJECTED)
+      prevAction => this.reviewService.fetchPrevsByStatus(prevAction['payload'], StatusEnum.REJECTED)
         .pipe(
           map(
             (prevs: DocumentsModel) => new AllActions.FetchRejectedPrevsSuccess(prevs)

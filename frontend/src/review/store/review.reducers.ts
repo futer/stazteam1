@@ -1,12 +1,11 @@
 import * as States from './review.states';
 import * as Actions from './review.actions';
 import docModuleReducers from 'src/document/store/document.reducers';
-import { prevsTypes } from 'src/document/store/document.actions';
 
 export const initialPrevState: States.PrevState = {
   loading: false,
   loaded: false,
-  previews: null,
+  previews: { data: { documents: [] } },
   errorMessage: null,
 };
 
@@ -24,9 +23,9 @@ export function prevsReducer(
   switch (action.type) {
     case Actions.acceptedPrevsTypes.FETCH_ACCEPTED_PREVS:
       return {
+        ...state,
         loading: true,
         loaded: false,
-        previews: null,
         errorMessage: null,
       };
 
@@ -36,7 +35,7 @@ export function prevsReducer(
         loaded: true,
         previews: {
           data: {
-            documents: action.payload.data.documents,
+            documents: [...state.previews.data.documents, ...action.payload.data.documents],
           }
         },
         errorMessage: null,
@@ -46,7 +45,7 @@ export function prevsReducer(
       return {
         loading: false,
         loaded: false,
-        previews: null,
+        previews: { data: { documents: [] } },
         errorMessage: {
           type: action.type,
           error: action.payload,
@@ -55,9 +54,9 @@ export function prevsReducer(
 
     case Actions.pendingPrevsTypes.FETCH_PENDING_PREVS:
       return {
+        ...state,
         loading: true,
         loaded: false,
-        previews: null,
         errorMessage: null,
       };
 
@@ -67,7 +66,7 @@ export function prevsReducer(
         loaded: true,
         previews: {
           data: {
-            documents: action.payload.data.documents,
+            documents: [...state.previews.data.documents, ...action.payload.data.documents],
           }
         },
         errorMessage: null,
@@ -75,9 +74,9 @@ export function prevsReducer(
 
     case Actions.pendingPrevsTypes.FETCH_PENDING_PREVS_ERROR:
       return {
+        ...state,
         loading: false,
         loaded: false,
-        previews: null,
         errorMessage: {
           type: action.type,
           error: action.payload,
@@ -86,9 +85,9 @@ export function prevsReducer(
 
     case Actions.rejectedPrevsTypes.FETCH_REJECTED_PREVS:
       return {
+        ...state,
         loading: true,
         loaded: false,
-        previews: null,
         errorMessage: null,
       };
 
@@ -98,7 +97,7 @@ export function prevsReducer(
         loaded: true,
         previews: {
           data: {
-            documents: action.payload.data.documents,
+            documents: [...state.previews.data.documents, ...action.payload.data.documents],
           }
         },
         errorMessage: null,
@@ -108,7 +107,7 @@ export function prevsReducer(
       return {
         loading: false,
         loaded: false,
-        previews: null,
+        previews: { data: { documents: [] } },
         errorMessage: {
           type: action.type,
           error: action.payload,

@@ -7,7 +7,7 @@ export interface DocumentModel {
   };
 }
 
-interface DocModel {
+export interface DocModel {
   author: string;
   content: string;
   status: StatusEnum;

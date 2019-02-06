@@ -1,6 +1,20 @@
 <div>
-  <app-nav-menu [navMenuStyle]="'nav-bar'" (clickedEmitter)="clickedTab($event)"></app-nav-menu>
-</div>
-<div>
-  <app-doc-prev *ngFor="let prev of prevs?.data.documents" [preview]="prev"></app-doc-prev>
+  <app-nav-menu 
+    [navMenuStyle]="'nav-bar'" 
+    (clickedEmitter)="onClickTab($event)"></app-nav-menu>
+
+  <div 
+    *ngIf="prevs"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="750"
+    [infiniteScrollDisabled]="prevLoading$ | async"
+    (scrolled)="onScrollPrev()"
+    [immediateCheck]="true">
+
+      <app-doc-prev 
+        *ngFor="let prev of (prevs | async).data.documents" 
+        [preview]="prev"></app-doc-prev>
+
+  </div>
 </div>

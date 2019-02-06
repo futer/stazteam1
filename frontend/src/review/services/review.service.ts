@@ -30,8 +30,8 @@ const PrevQuery = gql`
 `;
 
 const PrevByStatusQuery = gql`
-  query Document($status: statusGetDocuments!) {
-    documents(status: $status) {
+  query Document($page: Int!, $status: statusGetDocuments!) {
+    documents(page: $page, status: $status) {
       id
       author
       content
@@ -85,10 +85,11 @@ export class ReviewService {
     return this.apollo.watchQuery({ query: PrevQuery }).valueChanges;
   }
 
-  fetchPrevsByStatus(status: StatusEnum): Observable<any> {
+  fetchPrevsByStatus(page: number, status: StatusEnum): Observable<any> {
     return this.apollo.watchQuery({
       query: PrevByStatusQuery,
       variables: {
+        page: page,
         status: status
       }
     }).valueChanges;

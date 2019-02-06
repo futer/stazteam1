@@ -9,20 +9,19 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { ReviewComponent } from './review/review.component';
 import { DocPrevComponent } from './doc-prev/doc-prev.component';
-import { PrevContainerComponent } from './prev-container/prev-container.component';
 import { NavMenuPrevComponent } from './nav-menu-prev/nav-menu-prev.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { ReviewDocComponent } from './review-doc/review-doc.component';
 
 import { reviewModuleReducers } from './store/review.reducers';
 import { ReviewEffects } from './store/review.effects';
+import { ReviewRoutingModule } from './review-routing.module';
 
 @NgModule({
   declarations: [
     TooltipComponent,
     ReviewComponent,
     DocPrevComponent,
-    PrevContainerComponent,
     NavMenuPrevComponent,
     NavMenuComponent,
     ReviewDocComponent,
@@ -32,12 +31,13 @@ import { ReviewEffects } from './store/review.effects';
     SharedModule,
     DocumentModule,
     InfiniteScrollModule,
+    ReviewRoutingModule,
     StoreModule.forFeature('review', reviewModuleReducers),
     EffectsModule.forFeature([ReviewEffects]),
   ],
   exports: [
     ReviewComponent,
-    PrevContainerComponent,
+    ReviewDocComponent,
   ]
 })
 export class ReviewModule { }

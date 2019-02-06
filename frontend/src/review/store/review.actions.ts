@@ -29,7 +29,7 @@ export enum docTypes {
 
 export class FetchAcceptedPrevs implements Action {
   readonly type = acceptedPrevsTypes.FETCH_ACCEPTED_PREVS;
-  constructor() {}
+  constructor(public payload: number) {}
 }
 
 export class FetchAcceptedPrevsSuccess implements Action {
@@ -44,7 +44,7 @@ export class FetchAcceptedPrevsError implements Action {
 
 export class FetchPendingPrevs implements Action {
   readonly type = pendingPrevsTypes.FETCH_PENDING_PREVS;
-  constructor() {}
+  constructor(public payload: number) {}
 }
 
 export class FetchPendingPrevsSuccess implements Action {
@@ -59,7 +59,7 @@ export class FetchPendingPrevsError implements Action {
 
 export class FetchRejectedPrevs implements Action {
   readonly type = rejectedPrevsTypes.FETCH_REJECTED_PREVS;
-  constructor() {}
+  constructor(public payload: number) {}
 }
 
 export class FetchRejectedPrevsSuccess implements Action {

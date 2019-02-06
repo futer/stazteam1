@@ -1,5 +1,6 @@
 import { DocumentsModel, DocumentModel } from '../models/document.model';
 import { ErrorData } from '../../app/models/error.model';
+import { StatusEnum } from '../models/status.enum';
 
 export interface PrevState {
   loading: boolean;

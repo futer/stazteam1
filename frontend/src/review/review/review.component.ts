@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { StatusEnum } from '../models/status.enum';
 
 import { Store } from '@ngrx/store';
-import { DocState } from '../store/review.states';
+import { Observable } from 'rxjs';
+
 import * as Actions from '../store/review.actions';
 import * as Selectors from '../store/review.selectors';
-import { ReviewService } from '../services/review.service';
-import { ReviewModuleState } from '../store/review.states';
+
 import { DocumentsModel } from '../models/document.model';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-review',
@@ -17,80 +16,70 @@ import { Subscription } from 'rxjs';
 })
 export class ReviewComponent implements OnInit {
 
-  prevs: DocumentsModel;
-  prevsSub: Subscription;
+  static acceptedPrevPage = -1;
+  static pendingPrevPage = -1;
+  static rejectedPrevPage = -1;
 
-  private acceptedPrevsLength: number;
-  private pendingPrevsLength: number;
-  private rejectedPrevsLength: number;
+  prevs: Observable<DocumentsModel>;
+  prevLoading: Observable<boolean>;
+
+  clickedTab: StatusEnum;
 
   constructor(
     private store: Store<any>,
   ) {
-    this.store.dispatch(new Actions.FetchPendingPrevs);
-
-    // this.store.select(a => a).subscribe(b => console.log(b));
-
-    this.prevsSub = this.store.select(Selectors.getAcceptedPrevs).subscribe(prevs => {
-      if (prevs) {
-        this.prevs = prevs;
-        this.tmp();
-
-        console.log(this.prevs);
-      }
-    }
-    );
+    this.prevLoading = this.store.select(Selectors.arePrevsLoading);
   }
 
   ngOnInit() {
   }
 
-  clickedTab(clicked: StatusEnum) {
-    this.prevsSub.unsubscribe();
+  onClickTab(clicked: StatusEnum) {
+    this.clickedTab = clicked;
     switch (clicked) {
       case StatusEnum.ACCEPTED:
-        this.store.dispatch(new Actions.FetchAcceptedPrevs);
-        this.prevsSub = this.store.select(Selectors.getAcceptedPrevs).subscribe(prevs => {
-          if (prevs) { this.prevs = prevs; this.tmp(); }
-        });
+        this.store.select(Selectors.getAcceptedPrevsLength)
+          .subscribe(prevs => {
+            if (prevs === 0) {
+              this.store.dispatch(new Actions.FetchAcceptedPrevs(++ReviewComponent.acceptedPrevPage));
+            }
+            this.prevs = this.store.select(Selectors.getAcceptedPrevs);
+          }).unsubscribe();
         break;
       case StatusEnum.PENDING:
-        this.store.dispatch(new Actions.FetchPendingPrevs);
-        this.prevsSub = this.store.select(Selectors.getPendingPrevs).subscribe(prevs => {
-          if (prevs) { this.prevs = prevs; this.tmp(); }
-        });
+        this.store.select(Selectors.getPendingPrevsLength)
+          .subscribe(prevs => {
+            if (prevs === 0) {
+              this.store.dispatch(new Actions.FetchPendingPrevs(++ReviewComponent.pendingPrevPage));
+            }
+            this.prevs = this.store.select(Selectors.getPendingPrevs);
+          })
+          .unsubscribe();
         break;
       case StatusEnum.REJECTED:
-        this.store.dispatch(new Actions.FetchRejectedPrevs);
-        this.prevsSub = this.store.select(Selectors.getRejectedPrevs).subscribe(prevs => {
-          if (prevs) { this.prevs = prevs; this.tmp(); }
-        });
+        this.store.select(Selectors.getRejectedPrevsLength)
+          .subscribe(prevs => {
+            if (prevs === 0) {
+              this.store.dispatch(new Actions.FetchRejectedPrevs(++ReviewComponent.rejectedPrevPage));
+            }
+            this.prevs = this.store.select(Selectors.getRejectedPrevs);
+          })
+          .unsubscribe();
         break;
     }
-
   }
 
-  tmp() {
-    this.acceptedPrevsLength = 0;
-    this.pendingPrevsLength = 0;
-    this.rejectedPrevsLength = 0;
-
-    this.prevs.data.documents.forEach(prev => {
-      switch (prev.status) {
-        case StatusEnum.ACCEPTED:
-          this.acceptedPrevsLength++;
-          break;
-        case StatusEnum.PENDING:
-          this.pendingPrevsLength++;
-          break;
-        case StatusEnum.REJECTED:
-          this.rejectedPrevsLength++;
-          break;
-      }
-    });
-
-    console.log('accepted: ', this.acceptedPrevsLength);
-    console.log('pending: ', this.pendingPrevsLength);
-    console.log('rejected: ', this.rejectedPrevsLength);
+  onScrollPrev() {
+    switch (this.clickedTab) {
+      case StatusEnum.ACCEPTED:
+        this.store.dispatch(new Actions.FetchAcceptedPrevs(++ReviewComponent.acceptedPrevPage));
+        break;
+      case StatusEnum.PENDING:
+        this.store.dispatch(new Actions.FetchPendingPrevs(++ReviewComponent.pendingPrevPage));
+        break;
+      case StatusEnum.REJECTED:
+        this.store.dispatch(new Actions.FetchRejectedPrevs(++ReviewComponent.rejectedPrevPage));
+        break;
+    }
   }
 }
