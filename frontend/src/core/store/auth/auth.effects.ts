@@ -4,14 +4,13 @@ import { AuthService } from '../../services/auth/auth.service';
 import * as AuthActions from './auth.actions';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, catchError, tap } from 'rxjs/operators';
-import { LoginModel } from 'src/app/models/login.model';
+import { LoginModel, TokenPicModel } from 'src/app/models/login.model';
 import { UserModel } from 'src/app/models/user.model';
 import { ErrorData } from 'src/document/models/error.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { tokenKey } from '@angular/core/src/view';
 import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
-
 
 @Injectable()
     export class AuthEffect {
@@ -39,7 +38,26 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
                             )
                         )
                     )
-                );
+            );
+
+            @Effect()
+            SocialLogIn$: Observable<any> = this.actions$
+                .ofType(AuthActions.AuthActionTypes.SOCIAL_LOGIN)
+                .pipe(
+                    switchMap((payload) =>
+                        this.authService.socialLogin(payload).pipe(
+                            map((user: TokenPicModel) => {
+                                this.authService.setToken(user.token);
+                                this.router.navigate(['/main']);
+                                let u: UserModel;
+                                u = this.authService.decode(user.token).sub;
+                                u.pic = user.pic;
+                                return new AuthActions.LogInSucces(u);
+                            }),
+                            catchError((error: ErrorData) => of(new AuthActions.LogInFail(error)))
+                        )
+                    )
+            );
 
             @Effect()
             Reload$: Observable<any> = this.actions$

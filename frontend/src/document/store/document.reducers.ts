@@ -4,14 +4,14 @@ import * as Actions from './document.actions';
 export const initialPrevState: States.PrevState = {
     loading: false,
     loaded: false,
-    previews: null,
+    previews: [],
     errorMessage: null
 };
 
 export const initialLikedState: States.LikedState = {
     loading: false,
     loaded: false,
-    previews: null,
+    previews: [],
     errorMessage: null
 };
 
@@ -29,17 +29,17 @@ export function prevReducer(
     switch (action.type) {
         case Actions.prevsTypes.FETCH_PREVS:
             return {
+                ...state,
                 loading: true,
                 loaded: false,
-                previews: null,
-                errorMessage: null
             };
 
         case Actions.prevsTypes.FETCH_PREVS_SUCCESS:
             return {
+                ...state,
                 loading: false,
                 loaded: true,
-                previews: action.payload.data.documents,
+                previews: [...state.previews, ...action.payload.data.documents],
                 errorMessage: null
             };
 
@@ -66,17 +66,17 @@ export function likedReducer(
     switch (action.type) {
         case Actions.likedTypes.FETCH_LIKED:
             return {
+                ...state,
                 loading: true,
                 loaded: false,
-                previews: null,
-                errorMessage: null
             };
 
         case Actions.likedTypes.FETCH_LIKED_SUCCESS:
             return {
+                ...state,
                 loading: false,
                 loaded: true,
-                previews: action.payload.data.likes.docs,
+                previews: [...state.previews, ...action.payload.data.likes.docs],
                 errorMessage: null
             };
 
@@ -103,10 +103,9 @@ export function docReducer(
     switch (action.type) {
         case Actions.docTypes.FETCH_DOC:
             return {
+                ...state,
                 loading: true,
                 loaded: false,
-                document: null,
-                errorMessage: null
             };
 
         case Actions.docTypes.FETCH_DOC_SUCCESS:

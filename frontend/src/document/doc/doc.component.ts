@@ -16,10 +16,12 @@ export class DocComponent implements OnInit, OnDestroy {
     checkRoute: Subscription;
     docData: Subscription;
     url: string;
-    id: number;
+
+    id = this.route.snapshot.paramMap.get('id');
     document: DocumentModel = {
         data: {
             document: {
+                id: '',
                 author: '',
                 content: '',
                 date: '',
@@ -35,64 +37,53 @@ export class DocComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.checkRoute = this.route.params.subscribe(params => {
-            this.id = params['id'];
-            this.docData = this.store.select(getDoc).subscribe(doc => {
-                if (!doc) {
-                    this.store.dispatch(new Actions.FetchDoc(this.id));
-                }
-                if (doc) {
-                    const decode = atob(doc.data.document.content);
-                    const pdfBlob = new Blob([decode], {type: 'application/pdf'});
+        this.docData = this.store.select(getDoc).subscribe(doc => {
+            if (doc && doc.data.document.id === this.id) {
+                const decode = atob(doc.data.document.content);
+                const pdfBlob = new Blob([decode], { type: 'application/pdf' });
 
-                    this.url = URL.createObjectURL(pdfBlob);
+                this.url = URL.createObjectURL(pdfBlob);
 
-                    this.document = {
-                        data: {
-                            document: {
-                                author: doc.data.document.author,
-                                content: decode,
-                                date: doc.data.document.date,
-                                title: doc.data.document.title
-                            },
-                            like: doc.data.like
-                        }
-                    };
-                }
-            });
+                this.document = {
+                    data: {
+                        document: {
+                            id: doc.data.document.id,
+                            author: doc.data.document.author,
+                            content: decode,
+                            date: doc.data.document.date,
+                            title: doc.data.document.title
+                        },
+                        like: doc.data.like
+                    }
+                };
+            } else {
+                this.store.dispatch(new Actions.FetchDoc(this.id));
+            }
         });
     }
 
     ngOnDestroy() {
-        this.checkRoute.unsubscribe();
         this.docData.unsubscribe();
     }
 
     downloadPDF() {
-        console.log('begin download');
         window.location.href = this.url;
     }
 
     checkIfLiked(event) {
-        console.log('ichecked', event.target.checked);
-
         switch (event.target.checked) {
             case true: {
-               // add like, mutation and store change if success
-               console.log('sad');
-               this.store.dispatch(new Actions.AddLike(this.id.toString()));
-               break;
+                this.store.dispatch(new Actions.AddLike(this.id.toString()));
+                break;
             }
             case false: {
-               // delete like, mutation and store change if success
-               console.log('sad_delete');
-               this.store.dispatch(new Actions.DeleteLike(this.id.toString()));
-               break;
+                this.store.dispatch(new Actions.DeleteLike(this.id.toString()));
+                break;
             }
             default: {
-               console.log('what default?');
-               break;
+                console.log('what default?');
+                break;
             }
-         }
+        }
     }
 }

@@ -30,17 +30,17 @@ export enum docTypes {
 
 export class FetchPrevs implements Action {
     readonly type = prevsTypes.FETCH_PREVS;
-    constructor() {}
+    constructor(public payload: number) {}
 }
 
 export class FetchLiked implements Action {
     readonly type = likedTypes.FETCH_LIKED;
-    constructor() {}
+    constructor(public payload: number) {}
 }
 
 export class FetchDoc implements Action {
     readonly type = docTypes.FETCH_DOC;
-    constructor(public payload: number) {}
+    constructor(public payload: string) {}
 }
 
 export class FetchPrevsSuccess implements Action {

@@ -2,11 +2,14 @@ const database = require('../helpers/database');
 
 const Likes = require('../models/likes.model');
 
-async function getLikes(userId) {
+async function getLikes(data,userId) {
   database.connect();
   
-  const likes = await Likes.findOne({ userId: userId }).populate('docs');
-  console.log(likes);
+  const likes = await Likes.findOne({ userId: userId })
+  .populate('docs')
+  .limit(10)
+  .skip(data.page*10);
+
   return likes;
 }
 
