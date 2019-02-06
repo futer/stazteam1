@@ -54,7 +54,7 @@ error: HttpErrorResponse;
     const reader = new FileReader;
     reader.readAsDataURL(this.picture);
     reader.onload = () => {
-      this.picture = reader.result.split(',')[1];
+      this.picture = reader.result.toString().split(',')[1];
       if (this.picture.length <= 106000) {
         this.registerForm.get('pic').setValue(this.picture);
       } else {
