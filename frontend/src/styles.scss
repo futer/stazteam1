@@ -113,5 +113,10 @@ body {
       right: 15%;
       width: 280px;
     }
+
+    app-editor-view {
+      grid-column: 2/7;
+      grid-row: 2/3;
+    }
   }
 }
