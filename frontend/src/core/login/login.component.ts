@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
 
@@ -14,22 +14,22 @@ import * as loginAuthReducer from '../store/auth/auth.reducers';
 
 import { AuthService as SocialMediaAuthService, SocialUser } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } from 'angularx-social-login';
-
-
+import { Observable, Subscription } from 'rxjs';
+import { getLoginAuth } from '../store/auth/auth.reducers';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
   error: HttpErrorResponse;
   user: LoginModel;
   private socialUser: SocialUser;
   private loggedIn: boolean;
-
+  loggedInSub: Subscription;
 
   constructor(
     private loginFormBuilder: FormBuilder,
@@ -45,7 +45,10 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(5)]],
       }, {
     });
+  }
 
+  ngOnDestroy() {
+    this.loggedInSub.unsubscribe();
   }
 
   onSubmit() {
@@ -78,19 +81,12 @@ export class LoginComponent implements OnInit {
 
     signInWithFB(): void {
       this.socialMediaAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-      this.socialMediaAuthService.authState.subscribe((user) => {
+      this.loggedInSub = this.socialMediaAuthService.authState.subscribe((user) => {
         this.user = user;
         this.loggedIn = (user != null);
-        console.log(this.loggedIn);
         if (this.loggedIn) {
-          console.log('signWithFB', this.user);
           this.store.dispatch(new SocialLogIn(this.user));
         }
       });
-
     }
-
-    signOut(): void {
-      this.socialMediaAuthService.signOut();
-    }
-  }
+}

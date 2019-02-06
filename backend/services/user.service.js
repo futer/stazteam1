@@ -120,7 +120,6 @@ async function socialAuthenticate(user) {
             throw err;
         }
         if (values[1] === 'No user'){
-
             const newUser = new User({
                 firstName: u.firstName,
                 lastName: u.lastName,
@@ -128,22 +127,37 @@ async function socialAuthenticate(user) {
                 registered: 'FACEBOOK',
                 pic: values[2]
             })
-            await newUser.save().catch(err => {console.log(err); reject(err)});
+            await newUser.save()
+                .catch(err => { throw err; });
 
-            return newUser;
+            return tokenFromUser(values[1]);
+
         } else {
-            if (values[1].registered === 'LOCAL_FACEBOOK'){
+            if (values[1].registered === 'LOCAL'){
                 values[1].firstName = u.firstName,
                 values[1].lastName = u.lastName,
                 values[1].pic = values[2],
                 values[1].registered = 'LOCAL_FACEBOOK'
-                await User.findOneAndUpdate({ _id: values[1]._id }, values[1], { new: true }).catch(err => reject(err));
-                return values[1];
+
+                await User.findOneAndUpdate({ _id: values[1]._id }, values[1], { new: true })
+                    .catch(err => { throw err; });
+
+                return tokenFromUser(values[1]);
             } else {
-                return values[1];
+               return tokenFromUser(values[1]);
             }
         }
     });
+}
+
+function tokenFromUser(user){
+    const { password, pic, ...userWithoutPass } = user.toObject();
+    const jwtOptions = { expiresIn: '1d' };
+    const token = jwt.sign({sub: userWithoutPass}, config.JWT_SECRET, jwtOptions);
+    return {
+        token: token, 
+        pic: user.pic
+    };
 }
 
 async function isBanned(id) {

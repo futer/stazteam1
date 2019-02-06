@@ -12,7 +12,6 @@ import { Store } from '@ngrx/store';
 import { tokenKey } from '@angular/core/src/view';
 import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 
-
 @Injectable()
     export class AuthEffect {
         constructor(
@@ -47,7 +46,7 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
                     switchMap((payload) =>
                         this.authService.socialLogin(payload).pipe(
                             map((user: LoginModel2) => {
-                                console.log(user);
+                                console.log('EGZIT', user);
                                 this.authService.setToken(user.token);
                                 this.router.navigate(['/main']);
                                 let u: UserModel;
@@ -59,7 +58,6 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
                         )
                     )
             );
-
 
             @Effect()
             Reload$: Observable<any> = this.actions$
@@ -74,8 +72,6 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
                         )
                     )
                 );
-
-
 
             @Effect({dispatch: false})
             Logout$: Observable<any> = this.actions$

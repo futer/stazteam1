@@ -79,8 +79,7 @@ export class AuthService {
   }
 
   socialLogin(payload: any): Observable<Object> {
-    console.log('socialLogin', payload);
-    return this.http.post(this.adress + 'users/socialAuthenticate', {payload});
+    return this.http.post(this.adress + 'users/socialAuthenticate', { payload });
   }
 
   reload(): Observable<Object> {
@@ -88,7 +87,6 @@ export class AuthService {
       'Authorization': 'Bearer ' + this.getToken()
     }});
   }
-
 
   loginNavigate() {
     this.router.navigate(['/login']);

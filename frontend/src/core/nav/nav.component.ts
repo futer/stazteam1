@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 import { CoreState } from '../store';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/observable';
+import { AuthService as SocialMediaAuthService } from 'angularx-social-login';
 
 @Component({
     selector: 'app-nav',
@@ -21,12 +22,12 @@ import { Observable } from 'rxjs/observable';
 export class NavComponent implements OnInit {
     bookmark$: Observable<any>;
 
-
     constructor(
         private authService: AuthService,
         private store: Store<CoreState>,
         private subpageService: SubpageService,
-        private router: Router
+        private router: Router,
+        private socialMediaAuthService: SocialMediaAuthService
     ) {}
 
     ngOnInit() {
@@ -36,6 +37,7 @@ export class NavComponent implements OnInit {
 
     logOut() {
         this.store.dispatch(new AuthActions.Logout());
+        this.socialMediaAuthService.signOut();
     }
 
     navigateToSubpage(title: string) {
