@@ -4,7 +4,6 @@ header {
   background-color: $sec-back-color;
   margin: 0;
   height: 75px;
-  padding-top: 0px;
   box-shadow:  3px 2px 25px rgba(0, 0, 0, 0.75);
 
   @media (min-width: tablet) {
@@ -15,9 +14,8 @@ header {
     background-color: $sec-back-color;
 
   }
-  #toggle {
+  .toggle {
     display: none;
-
   }
 
   label {
@@ -95,18 +93,18 @@ header {
     position:relative;
     margin-right: 40px;
 
-    .dropdown--list{
-    background-color:#fff;
-    box-shadow:0 4px 8px rgba(0,0,0,0.2);
-    z-index:1;
-    visibility:hidden;
-    position:absolute;
-    min-width:100%;
-    padding: 15px;
-    opacity:0;
-    transition:.3s;
-    text-align: center;
-  }
+    .dropdown--list {
+      background-color:#fff;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      z-index:10;
+      visibility:hidden;
+      position:absolute;
+      min-width:100%;
+      padding: 15px;
+      opacity:0;
+      transition:.3s;
+      text-align: center;
+    }
 
   .dropdown__icon {
     color: $main-color;
