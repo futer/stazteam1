@@ -8,7 +8,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NavService } from '../services/nav/nav.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
