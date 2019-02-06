@@ -8,9 +8,9 @@
       ></app-input>
       <i class="fa fa-envelope input-icon"></i>
       <app-error
-      *ngIf="error"
+      *ngIf="error$ | async"
       [class]="'error-msg'" >
-        {{error.error.message}}
+        {{ (error$ | async)?.error.message }}
     </app-error>
     </div>
 
