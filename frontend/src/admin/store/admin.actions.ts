@@ -8,7 +8,8 @@ export enum userTypes {
     FETCH_ERROR = '[User] Fetch Error',
     SEND = '[User] Send',
     SEND_SUCCESS = '[User] Send Success',
-    SEND_ERROR = '[User] Send Error'
+    SEND_ERROR = '[User] Send Error',
+    DESTROY = '[User] Destroy'
 }
 
 export class Fetch implements Action {
@@ -41,10 +42,16 @@ export class SentError implements Action {
     constructor(readonly payload: ErrorData) {}
 }
 
+export class Destroy implements Action {
+    readonly type = userTypes.DESTROY;
+    constructor() {}
+}
+
 export type All =
     | Fetch
     | FetchSuccess
     | FetchError
     | Send
     | SendSuccess
-    | SentError;
+    | SentError
+    | Destroy;

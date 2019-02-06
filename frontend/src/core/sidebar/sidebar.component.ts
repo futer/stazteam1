@@ -32,12 +32,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.store.dispatch(new bookmarkActions.FetchBookmark);
     this.role$ = this.authStore.select(User);
-    // this.rolesub = this.role$.subscribe(user => {
-    //   if (user.role === 'admin') {
-    //     this.role = user.role;
-    //   }
-    //   console.log(this.role);
-    // });
   }
 
   ngOnDestroy() {

@@ -5,7 +5,8 @@ import { ErrorData } from '../models/error.model';
 export enum currentTypes {
     SEND = '[Current] Send',
     SEND_SUCCESS = '[Current] Send Success',
-    SEND_ERROR = '[Current] Send Error'
+    SEND_ERROR = '[Current] Send Error',
+    DESTROY = '[Current] Destroy',
 }
 
 export class Send implements Action {
@@ -23,7 +24,13 @@ export class SendError implements Action {
     constructor(readonly payload: ErrorData) {}
 }
 
+export class Destroy implements Action {
+    readonly type = currentTypes.DESTROY;
+    constructor() {}
+}
+
 export type All =
     | Send
     | SendSuccess
-    | SendError;
+    | SendError
+    | Destroy;

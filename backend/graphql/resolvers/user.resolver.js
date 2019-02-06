@@ -7,7 +7,8 @@ function getUsers(root, args, context) {
 
 async function updateUser(root, args, context) {
     let user;
-    if (jwt.decode(context.headers.authorization).sub._id === args.user.id){
+    console.log(jwt.decode(context.headers.authorization.slice(7)).sub._id)
+    if (jwt.decode(context.headers.authorization.slice(7)).sub._id === args.user.id){
         if (args.user.password){    
             await userService.isAdmin(context.headers.authorization)
                 .then(() => {
@@ -33,7 +34,7 @@ async function updateUser(root, args, context) {
         user = userService.updateUser(args.user).catch(error => {throw error});
     }
     else {
-        await userService.isAdmin(context.headers.authorization)
+        await userService.isAdmin(context.headers.authorization.slice(7))
         .then(() => {
             user = userService.updateUser(args.user);
         })
