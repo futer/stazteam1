@@ -8,9 +8,9 @@
       ></app-input>
       <i class="fa fa-envelope input-icon"></i>
       <app-error
-      *ngIf="error"
+      *ngIf="error$ | async"
       [class]="'error-msg'" >
-        {{error.error.message}}
+        {{ (error$ | async)?.error.message }}
     </app-error>
     </div>
 
@@ -40,15 +40,14 @@
   </section>
 
   <section class="login-form__part login-form__part--last">
-    <button class="login-form__FB">
+    <button class="login-form__FB" (click)="signInWithFB()" type="button">
       <i class="fa fa-facebook-official"></i>
       <p class="login-form__FB--text">Log In With Facebook</p>
     </button>
 
-    <button class="login-form__GM">
+    <button class="login-form__GM" >
         <i class="fa fa-google"></i>
         <p class="login-form__GM--text">Log In With Gmail</p>
       </button>
   </section>
 </form> 
-

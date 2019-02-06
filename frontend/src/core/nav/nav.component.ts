@@ -10,6 +10,7 @@ import * as AuthActions from '../../core/store/auth/auth.actions';
 import { CoreState } from '../store';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/observable';
+import { AuthService as SocialMediaAuthService } from 'angularx-social-login';
 import * as fromAuth from '../store/auth/auth.reducers';
 
 @Component({
@@ -19,22 +20,24 @@ import * as fromAuth from '../store/auth/auth.reducers';
 })
 export class NavComponent implements OnInit {
    @Input() bookmark$: Observable<any>;
-   firstName$: Observable<any> = this.store.select(fromAuth.User);
+   name$: Observable<any> = this.store.select(fromAuth.User);
 
     constructor(
         private authService: AuthService,
         private store: Store<CoreState>,
         private subpageService: SubpageService,
-        private router: Router
+        private router: Router,
+        private socialMediaAuthService: SocialMediaAuthService
     ) {}
 
     ngOnInit() {
         this.store.dispatch(new bookmarkActions.FetchBookmark());
-        this.firstName$.subscribe(res => console.log(res));
+        this.name$.subscribe(res => console.log(res));
     }
 
     logOut() {
         this.store.dispatch(new AuthActions.Logout());
+        this.socialMediaAuthService.signOut();
     }
 
     navigateToSubpage(title: string) {

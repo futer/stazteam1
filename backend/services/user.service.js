@@ -2,11 +2,14 @@ const User = require('../models/user.model');
 const database = require('../helpers/database');
 const jwt = require('jsonwebtoken');
 const config = require('../enviromental/enviroments');
+const FB = require('fb');
+const request = require('request').defaults({ encoding: null });
 
 module.exports = {
     registrationLocal,
     getById,
     authenticate,
+    socialAuthenticate,
     isBanned,
     banUser,
     isAdmin,
@@ -61,6 +64,7 @@ async function authenticate({email,password}) {
         const err = new Error(value);
         err.status = 500;
         err.name = "Email is not registered";
+        err.message = "Email is not registered";
         throw err;
     }
 
@@ -75,6 +79,86 @@ async function authenticate({email,password}) {
             pic: user.pic
         };
     }   
+}
+
+async function socialAuthenticate(user) {
+    db = database.connect();
+    const u = user;
+
+    const checkUserFB = new Promise ((resolve, reject) => {
+        FB.api('me',{ fields: ['email'], access_token: u.authToken }, function (res) {
+            if (res.email === u.email) {
+                resolve(res)
+            } else resolve('Access token is for different user than user asking for login')
+        })
+    })
+
+    const getUser = new Promise ((resolve, reject) => {
+        User.findOne({email: u.email}).then((user) => {
+            if (user) {
+                resolve(user);
+            } else {
+                resolve('No user')
+            }
+        }); 
+    });
+    
+    const getProfilePic = new Promise ((resolve, reject) => {
+        request.get(u.photoUrl, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                data = new Buffer(body).toString('base64');
+                resolve(data);
+            }
+        })
+    })
+
+    return await Promise.all([checkUserFB, getUser, getProfilePic]).then(async function(values) {
+        if (values[0] === 'Access token is for different user than user asking for login'){
+            value = values[0];
+            const err = new Error(value);
+            err.status = 406;
+            err.name = 'Method Not Allowed';
+            throw err;
+        }
+        if (values[1] === 'No user'){
+            const newUser = new User({
+                firstName: u.firstName,
+                lastName: u.lastName,
+                email: u.email,
+                registered: 'FACEBOOK',
+                pic: values[2]
+            })
+            await newUser.save()
+                .catch(err => { throw err; });
+
+            return tokenFromUser(values[1]);
+
+        } else {
+            if (values[1].registered === 'LOCAL'){
+                values[1].firstName = u.firstName,
+                values[1].lastName = u.lastName,
+                values[1].pic = values[2],
+                values[1].registered = 'LOCAL_FACEBOOK'
+
+                await User.findOneAndUpdate({ _id: values[1]._id }, values[1], { new: true })
+                    .catch(err => { throw err; });
+
+                return tokenFromUser(values[1]);
+            } else {
+               return tokenFromUser(values[1]);
+            }
+        }
+    });
+}
+
+function tokenFromUser(user){
+    const { password, pic, ...userWithoutPass } = user.toObject();
+    const jwtOptions = { expiresIn: '1d' };
+    const token = jwt.sign({sub: userWithoutPass}, config.JWT_SECRET, jwtOptions);
+    return {
+        token: token, 
+        pic: user.pic
+    };
 }
 
 async function isBanned(id) {

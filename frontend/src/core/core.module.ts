@@ -16,6 +16,23 @@ import { EffectsModule } from '@ngrx/effects';
 import { BookmarkEffect } from './store/bookmark/bookmark.effects';
 import { UserModule } from 'src/user/user.module';
 
+import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+
+const config = new AuthServiceConfig([
+  // {
+  //   id: GoogleLoginProvider.PROVIDER_ID,
+  //   provider: new GoogleLoginProvider("Google-OAuth-Client-Id")
+  // },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('316325069018310')
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -34,12 +51,17 @@ import { UserModule } from 'src/user/user.module';
     UserModule,
     StoreModule.forFeature('core', reducers),
     EffectsModule.forFeature([BookmarkEffect]),
+    SocialLoginModule,
   ],
   exports: [
     NavComponent,
     SidebarComponent
   ],
   providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
   ]
 })
 export class CoreModule { }

@@ -54,8 +54,8 @@ ngOnInit() {
            this.store.dispatch(new Reload());
            shouldIReload = true;
          }
-         this.isActive = true;
        });
+       this.isActive = true;
      }
     });
 
