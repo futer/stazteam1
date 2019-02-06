@@ -84,7 +84,6 @@ export class AuthService {
       }});
   }
 
-
   loginNavigate() {
     this.router.navigate(['/login']);
   }
@@ -100,6 +99,4 @@ export class AuthService {
   decode(token: string) {
     return this.jwtHelper.decodeToken(token);
   }
-
-
 }

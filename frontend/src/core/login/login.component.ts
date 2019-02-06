@@ -37,12 +37,10 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(5)]],
       }, {
     });
-    this.error$.subscribe(res => console.log(res));
   }
 
   onSubmit() {
     if (this.loginForm.invalid) {
-      console.log(false);
       return;
     }
       const payload = {

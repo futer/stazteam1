@@ -8,7 +8,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NavService } from '../services/nav/nav.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -48,7 +47,6 @@ error: HttpErrorResponse;
       pic: '',
     });
     this.navService.hide();
-
   }
 
   pictureUpload(event) {
@@ -73,10 +71,8 @@ error: HttpErrorResponse;
   register(form): void {
     this.authService.createUser(form.value).subscribe(data => {
     this.authService.loginNavigate();
-    console.log(data);
     },
     err => {
-      console.log(err);
       this.error = err;
     }
     );
@@ -86,6 +82,6 @@ error: HttpErrorResponse;
     if (this.picture) {
       return this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${this.picture}`);
     }
-    return '../..//assets/img/avatar.png';
+    return '../../assets/img/avatar.png';
   }
 }
