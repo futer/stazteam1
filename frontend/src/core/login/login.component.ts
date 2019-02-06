@@ -6,13 +6,11 @@ import { JWT } from '../models/jwt.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavService } from '../services/nav/nav.service';
 import { LoginModel } from 'src/app/models/login.model';
-
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/auth/auth.state';
 import { LogIn } from '../store/auth/auth.actions';
 import * as fromAuth from '../store/auth/auth.reducers';
 import { Observable } from 'rxjs';
-
 
 
 @Component({
@@ -39,9 +37,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(5)]],
       }, {
     });
-
     this.error$.subscribe(res => console.log(res));
-
   }
 
   onSubmit() {
@@ -49,19 +45,6 @@ export class LoginComponent implements OnInit {
       console.log(false);
       return;
     }
-    // this.auth.login(this.loginForm.value).subscribe(
-    //   (res: JWT) => {
-    //     this.auth.setToken(res.token);
-    //     this.auth.mainNavigate();
-    //   },
-    //   err => {
-    //     console.log(err);
-    //     this.error = err;
-    //   });
-
-    //   this.user = this.loginForm.value;
-    //   console.log(this.user);
-
       const payload = {
         email: this.loginForm.value.email,
         password: this.loginForm.value.password

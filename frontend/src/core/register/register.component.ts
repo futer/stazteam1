@@ -85,7 +85,6 @@ error: HttpErrorResponse;
     if (this.picture) {
       return this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${this.picture}`);
     }
-
     return '../..//assets/img/avatar.png';
   }
 }

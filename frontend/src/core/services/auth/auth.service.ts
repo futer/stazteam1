@@ -39,8 +39,6 @@ export class AuthService {
     delete data.passwordGroup;
     delete data.repeatPassword;
 
-    console.log(user);
-
     return this.http.post<RegisterModel>(this.adress + 'users/register', data)
      .pipe(catchError(this.errorHandler));
   }
