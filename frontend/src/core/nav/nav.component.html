@@ -17,7 +17,7 @@
         <input type="checkbox" id="drop" />
         <label for="drop">{{(name$ | async)?.firstName}} {{(name$ | async)?.lastName}}</label>
         <ul class="content">
-          <li>
+          <li (click)="navigateToProfileEditor()">
             <i class="fa fa-user"></i>
             Profile
           </li>

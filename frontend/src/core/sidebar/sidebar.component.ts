@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, AfterViewInit, OnChanges } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CoreState } from '../store';
 import * as fromStore from '../../core/store/index';
@@ -32,13 +32,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.store.dispatch(new bookmarkActions.FetchBookmark);
     this.role$ = this.authStore.select(User);
-    this.rolesub = this.role$.subscribe(user => {
-      this.role = user.role;
-      console.log(this.role);
-    });
+    // this.rolesub = this.role$.subscribe(user => {
+    //   if (user.role === 'admin') {
+    //     this.role = user.role;
+    //   }
+    //   console.log(this.role);
+    // });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.rolesub.unsubscribe();
   }
 
@@ -50,7 +52,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.router.navigate(['/favourites']);
   }
 
-  navigateToAdminUserEditor(){
-    //TODO
+  navigateToAdminUserEditor() {
+    this.router.navigate(['/admin']);
   }
 }

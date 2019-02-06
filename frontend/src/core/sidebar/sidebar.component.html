@@ -1,6 +1,6 @@
 <div class="sidebar">
-  <ul>
-    <li *ngIf=""><a (click)="navigateToAdminUserEditor()"></a></li>
+  <ul >
+    <li *ngIf="(role$ | async)?.role === 'admin'"><a (click)="navigateToAdminUserEditor()">{{(role$ | async)?.role}}</a></li>
     <li><a (click)="navigateToFav()">Favourites</a></li>
   </ul>
   <ul *ngFor="let item of bookmark$ | async">
