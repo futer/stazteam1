@@ -6,6 +6,7 @@ import { RegisterModel } from '../../app/models/register.model';
 import { AuthService } from '../services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavService } from '../services/nav/nav.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,8 @@ error: HttpErrorResponse;
     private registerFormBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private navService: NavService
+    private navService: NavService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
@@ -42,21 +44,31 @@ error: HttpErrorResponse;
       }, {validator: passwordMatcher}),
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      picture: '',
+      pic: '',
     });
     this.navService.hide();
 
   }
 
+  // pictureUpload(event) {
+  //   this.pictureUrl = event.target.files[0];
+  //   console.log(this.pictureUrl);
+  //   const reader = new FileReader;
+  //   reader.onload = () => {
+  //     this.pictureUrl = reader.result;
+  //     console.log(this.pictureUrl);
+  //   };
+  //   reader.readAsDataURL(this.pictureUrl);
+  // }
+
   pictureUpload(event) {
     this.pictureUrl = event.target.files[0];
-    console.log(this.pictureUrl);
     const reader = new FileReader;
-    reader.onload = () => {
-      this.pictureUrl = reader.result;
-    };
     reader.readAsDataURL(this.pictureUrl);
-
+    reader.onload = () => {
+      this.pictureUrl = reader.result.slice(22);
+      this.registerForm.get('pic').setValue(this.pictureUrl);
+    };
   }
 
   navigate(): void {
@@ -65,8 +77,8 @@ error: HttpErrorResponse;
 
   register(form): void {
     this.authService.createUser(form.value).subscribe(data => {
-      this.authService.loginNavigate();
-      console.log(data);
+    this.authService.loginNavigate();
+    console.log(data);
     },
     err => {
       console.log(err);
@@ -74,5 +86,11 @@ error: HttpErrorResponse;
     }
     );
   }
+  getPic() {
+    if (this.pictureUrl) {
+      return this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${this.pictureUrl}`);
+    }
 
+    return '../..//assets/img/avatar.png';
+  }
 }

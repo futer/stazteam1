@@ -61,6 +61,7 @@ async function authenticate({email,password}) {
         const err = new Error(value);
         err.status = 500;
         err.name = "Email is not registered";
+        err.message = "Email is not registered";
         throw err;
     }
 

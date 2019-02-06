@@ -10,7 +10,8 @@ import { LoginModel } from 'src/app/models/login.model';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/auth/auth.state';
 import { LogIn } from '../store/auth/auth.actions';
-import * as loginAuthReducer from '../store/auth/auth.reducers';
+import * as fromAuth from '../store/auth/auth.reducers';
+import { Observable } from 'rxjs';
 
 
 
@@ -22,9 +23,8 @@ import * as loginAuthReducer from '../store/auth/auth.reducers';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  error: HttpErrorResponse;
   user: LoginModel;
-
+  error$: Observable<any> = this.store.select(fromAuth.Erros);
 
   constructor(
     private loginFormBuilder: FormBuilder,
@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(5)]],
       }, {
     });
+
+    this.error$.subscribe(res => console.log(res));
 
   }
 

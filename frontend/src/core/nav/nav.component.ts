@@ -19,7 +19,7 @@ import * as fromAuth from '../store/auth/auth.reducers';
 })
 export class NavComponent implements OnInit {
    @Input() bookmark$: Observable<any>;
-   firstName$: Observable<any> = this.store.select(fromAuth.User);
+   name$: Observable<any> = this.store.select(fromAuth.User);
 
     constructor(
         private authService: AuthService,
@@ -30,7 +30,7 @@ export class NavComponent implements OnInit {
 
     ngOnInit() {
         this.store.dispatch(new bookmarkActions.FetchBookmark());
-        this.firstName$.subscribe(res => console.log(res));
+        // this.name$.subscribe(res => console.log(res));
     }
 
     logOut() {

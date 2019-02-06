@@ -35,7 +35,8 @@ import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
                                 u.pic = user.pic;
                                 return new AuthActions.LogInSucces(u);
                             }),
-                            catchError((error: ErrorData) => of(new AuthActions.LogInFail(error)))
+                            catchError((error: ErrorData) => of(new AuthActions.LogInFail(error))
+                            )
                         )
                     )
                 );
