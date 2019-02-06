@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./text-page.component.scss']
 })
 export class TextPageComponent implements OnInit {
+  container = document.getElementsByClassName('container');
 
   constructor() { }
 
   ngOnInit() {
+    document.execCommand('DefaultParagraphSeparator', false, 'p');
+
+    console.log(this.container);
   }
 
 }

@@ -6,7 +6,7 @@ import { AuthGuard } from 'src/core/guards/auth/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'docedit',
+    path: 'doc-edit',
     component: EditorViewComponent,
     canActivate: [AuthGuard]
   }

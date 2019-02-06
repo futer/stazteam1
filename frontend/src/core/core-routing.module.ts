@@ -25,7 +25,7 @@ const routes: Routes = [
     { path: 'user-editor', loadChildren: '../user/user.module#UserModule'},
     { path: 'admin', component: AdminUserEditorComponent, canActivate: [AdminGuard] },
     {
-      path: 'docedit',
+      path: 'doc-edit',
       loadChildren: '../editor/editor.module#EditorModule'
     },
   ];
