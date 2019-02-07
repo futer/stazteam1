@@ -32,7 +32,7 @@ export class SubpageContainerComponent implements OnInit {
             if (res) {
               res.filter((subpage) => {
                 if (subpage.title === this.title) {
-                  this.subpageData = subpage;
+                 this.subpageData = subpage;
                 }
               });
             }
