@@ -1,66 +1,37 @@
 import {
     Component,
     OnInit,
-    AfterViewInit,
     ViewChild,
     ElementRef,
     HostListener,
+    Renderer2,
 } from '@angular/core';
-import { PageGeneratorService } from '../services/page-generator.service';
 
 @Component({
     selector: 'app-text-page',
     templateUrl: './text-page.component.html',
     styleUrls: ['./text-page.component.scss']
 })
-export class TextPageComponent implements OnInit, AfterViewInit {
-    pageHeight = -1;
-    pageHeightSet = false;
-    pageGenerated = false;
-    keyStatus = false;
+export class TextPageComponent implements OnInit {
+    height = 1000;
     @ViewChild('page') page: ElementRef;
     @HostListener('document:keydown', ['$event']) onkeydownHandler(
         event: KeyboardEvent
     ) {
-        //if (this.keyStatus) { return; }
-        //console.log('pressed');
-
-        //this.keyStatus = true;
-        // console.log('pressed');
-        if (this.pageHeight < this.page.nativeElement.scrollHeight && !this.pageGenerated) {
-          this.pageGen.pagesSource.subscribe(pages => {
-              pages.push('2');
-              console.log(pages);
-              return;
-          }).unsubscribe();
+        console.log(this.page.nativeElement.clientHeight, this.page.nativeElement.scrollHeight);
+        if (this.page.nativeElement.clientHeight < this.page.nativeElement.scrollHeight) {
+            console.log(this.page.nativeElement);
+            this.renderer.setStyle(
+                this.page.nativeElement,
+                'height',
+                (this.height = this.height + 1000) + 'px'
+            );
         }
     }
 
-  //   @HostListener('document:keyup', ['$event']) onkeyupHandler(
-  //     event: KeyboardEvent
-  // ) {
-  //     this.keyStatus = false;
-  //     // if (this.pageHeight < this.page.nativeElement.scrollHeight && !this.pageGenerated) {
-  //     //   this.pageGen.pagesSource.subscribe(pages => {
-  //     //       // pages.push('2');
-  //     //       console.log(pages);
-  //     //       return;
-  //     //   }).unsubscribe();
-  //     // }
-  // }
-
     constructor(
-      private pageGen: PageGeneratorService
-    ) {
-        document.execCommand('DefaultParagraphSeparator', false, 'p');
-    }
+      private renderer: Renderer2
+    ) {}
 
     ngOnInit() {}
-
-    ngAfterViewInit() {
-        setTimeout(() => {
-            this.pageHeight = this.page.nativeElement.scrollHeight;
-            console.log(this.pageHeight);
-        }, 100);
-    }
 }
