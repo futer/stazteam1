@@ -6,7 +6,6 @@ import { JWT } from '../models/jwt.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavService } from '../services/nav/nav.service';
 import { LoginModel } from 'src/app/models/login.model';
-
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/auth/auth.state';
 import { LogIn, SocialLogIn } from '../store/auth/auth.actions';
@@ -22,11 +21,11 @@ import { getLoginAuth } from '../store/auth/auth.reducers';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  error: HttpErrorResponse;
   user: LoginModel;
+  error$: Observable<any> = this.store.select(loginAuthReducer.Erros);
   private socialUser: SocialUser;
   private loggedIn: boolean;
   loggedInSub: Subscription;
@@ -47,28 +46,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.loggedInSub.unsubscribe();
-  }
-
   onSubmit() {
     if (this.loginForm.invalid) {
-      console.log(false);
       return;
     }
-    // this.auth.login(this.loginForm.value).subscribe(
-    //   (res: JWT) => {
-    //     this.auth.setToken(res.token);
-    //     this.auth.mainNavigate();
-    //   },
-    //   err => {
-    //     console.log(err);
-    //     this.error = err;
-    //   });
-
-    //   this.user = this.loginForm.value;
-    //   console.log(this.user);
-
       const payload = {
         email: this.loginForm.value.email,
         password: this.loginForm.value.password

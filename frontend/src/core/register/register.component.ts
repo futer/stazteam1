@@ -6,6 +6,7 @@ import { RegisterModel } from '../../app/models/register.model';
 import { AuthService } from '../services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavService } from '../services/nav/nav.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,7 @@ private validationMessages = {
   matchingPassword: 'Password doesnt match',
 };
 
-pictureUrl;
+picture;
 user: RegisterModel;
 error: HttpErrorResponse;
 
@@ -30,7 +31,8 @@ error: HttpErrorResponse;
     private registerFormBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private navService: NavService
+    private navService: NavService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
@@ -42,21 +44,24 @@ error: HttpErrorResponse;
       }, {validator: passwordMatcher}),
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      picture: '',
+      pic: '',
     });
     this.navService.hide();
-
   }
 
   pictureUpload(event) {
-    this.pictureUrl = event.target.files[0];
-    console.log(this.pictureUrl);
+    this.picture = event.target.files[0];
     const reader = new FileReader;
+    reader.readAsDataURL(this.picture);
     reader.onload = () => {
-      this.pictureUrl = reader.result;
+      this.picture = reader.result.toString().split(',')[1];
+      if (this.picture.length <= 106000) {
+        this.registerForm.get('pic').setValue(this.picture);
+      } else {
+        this.picture = null;
+        window.alert('This image is too big');
+      }
     };
-    reader.readAsDataURL(this.pictureUrl);
-
   }
 
   navigate(): void {
@@ -65,14 +70,18 @@ error: HttpErrorResponse;
 
   register(form): void {
     this.authService.createUser(form.value).subscribe(data => {
-      this.authService.loginNavigate();
-      console.log(data);
+    this.authService.loginNavigate();
     },
     err => {
-      console.log(err);
       this.error = err;
     }
     );
   }
 
+  getPic() {
+    if (this.picture) {
+      return this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${this.picture}`);
+    }
+    return '../../assets/img/avatar.png';
+  }
 }

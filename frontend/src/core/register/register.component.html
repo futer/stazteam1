@@ -109,18 +109,11 @@
                   [id]="'file'"
                   [formInputStyle]="'register-form__file'" 
                   [type]="'file'" 
-                  [controlName]="registerForm.controls.picture"
                   [accept]="'image/*'"
                   (change)="pictureUpload($event)">
               </app-input>
-              <app-image 
-                *ngIf ="!pictureUrl" 
-                [url]="'../../assets/img/avatar.png'" 
-                [className]="'profile-img'">
-              </app-image>
-              <app-image 
-                *ngIf ="pictureUrl" 
-                [url]="pictureUrl" 
+              <app-image
+                [url]="getPic()" 
                 [className]="'profile-img'">
               </app-image>
             </div>
