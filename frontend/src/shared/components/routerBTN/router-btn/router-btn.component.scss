@@ -24,3 +24,18 @@ a {
         color: $btn-color;
     }
 }
+
+//DROPDOWN
+.dropdown--link{
+    display:block;
+    text-decoration:none;
+    padding:8px;
+    color:#000;
+    transition:.1s;
+    white-space:nowrap;
+  }
+
+  .dropdown--link:hover{
+    background-color:rgba(224, 169, 5, 0.8);;
+    color:#fff;
+  }
