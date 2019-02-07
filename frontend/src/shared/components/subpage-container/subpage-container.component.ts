@@ -48,6 +48,4 @@ export class SubpageContainerComponent implements OnInit {
   getSubpageTitle() {
     this.title = this.route.snapshot.paramMap.get('title');
   }
-
-
 }
