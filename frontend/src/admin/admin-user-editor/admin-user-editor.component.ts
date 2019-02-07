@@ -66,6 +66,7 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.usersub.unsubscribe();
+    this.store.dispatch(new Actions.Destroy);
   }
 
   updateUser(form) {

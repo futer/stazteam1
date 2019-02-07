@@ -95,6 +95,9 @@ export function userReducer (
                 sent: false
             };
 
+            case userActions.userTypes.DESTROY:
+            return initialState;
+
             default:
                 return state;
         }
