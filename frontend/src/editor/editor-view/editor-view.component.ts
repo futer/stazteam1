@@ -16,7 +16,10 @@ export class EditorViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.pageGen.addPage('1');
+    this.pageGen.pagesSource.subscribe(pages => {
+      pages.push('1');
+      console.log(pages);
+    }).unsubscribe();
   }
 
 }

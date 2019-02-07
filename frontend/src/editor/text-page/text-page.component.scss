@@ -1,6 +1,8 @@
 @import "../../assets/main-style.scss";
 
 .container {
+  border-bottom: 3em $main-font-color solid;
+  border-top: 3em $main-font-color solid;
   background: $main-font-color;
   color: #000000;
   height: 1000px;

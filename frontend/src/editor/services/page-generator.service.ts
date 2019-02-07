@@ -9,8 +9,4 @@ export class PageGeneratorService {
   constructor() { }
 
   pagesSource = new BehaviorSubject<Array<string>>([]);
-
-  addPage(page: string) {
-    this.pagesSource.next([page]);
-  }
 }
