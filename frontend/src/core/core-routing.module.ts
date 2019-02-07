@@ -16,6 +16,7 @@ import { AdminUserEditorComponent } from 'src/admin/admin-user-editor/admin-user
 import { AdminGuard } from './guards/admin/admin.guard';
 
 const routes: Routes = [
+    {path: '', redirectTo: '/main', pathMatch: 'full'},
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'register', component: RegisterComponent },
     { path: 'main', component: MainComponent, canActivate: [AuthGuard] },

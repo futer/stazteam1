@@ -48,6 +48,9 @@ body {
         app-sidebar {
             grid-column: 7/9;
             grid-row: 2/3;
+            width: 70%;
+            margin-top: 48px;
+
         }
         
         app-bookmark-panel {

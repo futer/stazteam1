@@ -49,4 +49,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   navigateToAdminUserEditor() {
     this.router.navigate(['/admin']);
   }
+
+  navigateToBookmarkEditor() {
+    this.router.navigate(['/bookmark-panel']);
+  }
 }
