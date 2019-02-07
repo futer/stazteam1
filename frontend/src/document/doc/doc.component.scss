@@ -3,9 +3,9 @@
 .doc {
     background: $sec-back-color;
     color: $main-font-color;
-    margin: 0.5em 0;
+    margin: 2em 0;
     padding: 0.5em;
-    width: 70%;
+    width: 90%;
 
     app-submit-btn {
         text-align: right;
@@ -51,7 +51,3 @@
     }
 }
 
-.sideNav {
-    position: absolute;
-    width: 30%;
-}
