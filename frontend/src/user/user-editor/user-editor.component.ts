@@ -28,6 +28,8 @@ export class UserEditorComponent implements OnInit, OnDestroy {
   send$: Observable<boolean>;
 
   updateUserForm: FormGroup;
+  disconnectForm: FormGroup;
+  keep: boolean;
 
   private validationMessages = {
     password: 'Password must be longer than 5 characters',
@@ -37,6 +39,7 @@ export class UserEditorComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<any>,
     private changeUserFormBuilder: FormBuilder,
+    private disconnectFromBuilder: FormBuilder,
     private userService: UserService,
   ) {
     this.current = { id: '', firstName: '', lastName: '', pic: '' };
@@ -49,6 +52,7 @@ export class UserEditorComponent implements OnInit, OnDestroy {
         this.current.firstName = user.firstName;
         this.current.lastName = user.lastName;
         this.current.pic = user.pic;
+        this.current.registered = user.registered;
       }
     });
 
@@ -63,7 +67,6 @@ export class UserEditorComponent implements OnInit, OnDestroy {
       this.send = sent;
     });
 
-
     this.updateUserForm = this.changeUserFormBuilder.group({
       firstName: ['', [Validators.minLength(2)]],
       lastName: ['', [Validators.minLength(2)]],
@@ -75,6 +78,13 @@ export class UserEditorComponent implements OnInit, OnDestroy {
           repeatPassword: ['']
         }, { validator: passwordMatcher }),
       }, { validator: passwordTouchedChecker })
+    });
+
+    this.disconnectForm = this.disconnectFromBuilder.group({
+      passwordGroup: this.changeUserFormBuilder.group({
+        password: ['', [Validators.required, Validators.minLength(5 )]],
+        repeatPassword: ['',[Validators.required]]
+      }, { validator: passwordMatcher }),
     });
   }
 
@@ -94,5 +104,22 @@ export class UserEditorComponent implements OnInit, OnDestroy {
         ? undefined : form.value.changePasswordGroup.oldPassword
     };
     this.store.dispatch(new Send(user));
+  }
+
+  disconnect_keep(form) {
+    this.userService.disconnect(this.current.id, form.value.passwordGroup.password)
+      .subscribe(data => console.log(data));
+  }
+
+  disconnect_delete() {
+    console.log('delete');
+  }
+
+  disconnect_changeKeep() {
+    this.keep = true;
+  }
+
+  changeKeep(change: boolean) {
+    this.keep = false;
   }
 }

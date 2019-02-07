@@ -31,6 +31,7 @@ router.get('/isModerator', isModerator);
 router.get('/isReviewer', isReviewer);
 router.get('/getCurrentUser', getCurrentUser);
 router.post('/socialAuthenticate', socialAuthenticate)
+router.post('/disconnect', disconnect)
 module.exports = router;
 
 function register(req,res,next){
@@ -108,4 +109,11 @@ function isModerator(req,res,next) {
     userService.isModerator(req.get('Authorization').slice(7))
         .then(moderator => res.json(moderator))
         .catch(err => next(err));
+}
+
+function disconnect(req,res,next) {
+    console.log(req);
+    userService.disconnect(req.body)
+        .then(elo => {res.json(elo); console.log(elo)})
+        .catch(err => console.log(err));
 }

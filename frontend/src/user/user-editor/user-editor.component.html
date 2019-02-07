@@ -142,3 +142,119 @@
     </app-submit-btn>
   </form>
 </div>
+
+<app-button 
+  [class]="'add-bookmark'" 
+  (clickEvent)="showModal = !showModal">
+  <i class="fa fa-plus-circle add-bookmark__icon"></i>
+</app-button>
+
+<app-modal [(visible)]="showModal" (visibleChange)="changeKeep($event)">
+    <div class="user-editor__disconnect-FB-modal-container">
+      <div class="user-editor__disconnect-FB-modal-container--FACEBOOK" *ngIf="(current.registered === 'LOCAL')">
+        <p>
+          Your account was created with your Facebook profile.
+          Would you like to delete your account permanently, or would you like
+          to keep local account?
+        </p>
+        <app-button 
+          [class]="'user-editor__disconnect-FB-modal-container-button'" 
+          (click)="disconnect_delete()">
+            Delete
+        </app-button>
+
+        <app-button 
+          [class]="'user-editor__disconnect-FB-modal-container-button'"
+          (click)='disconnect_changeKeep()'>
+            Keep local account
+        </app-button>
+
+        <app-button 
+          [class]="'user-editor__disconnect-FB-modal-container-button'" 
+          (clickEvent)="showModal = !showModal; changeKeep()">
+            Cancel
+        </app-button> 
+
+      </div>
+
+      <div class="user-editor__disconnect-FB-modal-container--LOCAL-FACEBOOK" *ngIf="current.registered === 'LOCAL_FACEBOOK'">
+        <p>
+          Are you sure you want to disconnect your account from your Facebook account?
+        </p>
+
+        <app-button 
+          [class]="'user-editor__disconnect-FB-modal-container-button'" 
+          (click)="disconnect()">
+            Yes
+        </app-button>
+
+        <app-button 
+          [class]="'user-editor__disconnect-FB-modal-container-button'" 
+          (clickEvent)="showModal = !showModal">
+            No
+        </app-button>
+      </div>
+
+      <div class="user-editor__disconnect-FB-modal-container--keep" *ngIf="keep">
+        <p>
+          In order to keep local account, you have to set password for your account:
+        </p>
+
+        <form
+          class="user-editor__update-user--disconnect"
+          [formGroup]="disconnectForm"
+          (ngSubmit)="disconnect_keep(disconnectForm)">
+
+          <p>New password:</p>
+          <app-input
+            [id]="'password'"
+            [formInputStyle]="'user-editor__input'"
+            [placeholder]="'New password'"
+            [type]="'password'"
+            [controlName]="disconnectForm.controls.passwordGroup.controls.password">
+          </app-input>
+          <app-error
+            [class]="'user-editor__input-error-msg'"
+            *ngIf="disconnectForm.get('passwordGroup.password').errors?.required
+            && disconnectForm.get('passwordGroup.password').touched">
+            {{ validationMessages.required }}
+          </app-error>
+          <app-error
+            [class]="'user-editor__input-error-msg'"
+            *ngIf="disconnectForm.get('passwordGroup.password').errors?.minlength
+            && disconnectForm.get('passwordGroup.password').touched">
+            {{ validationMessages.password }}
+          </app-error>
+
+          <p>Confirm new password:</p>
+
+          <app-input
+            ng-blur="visitedEmail=true"
+            [id]="'repeatPassword'"
+            [formInputStyle]="'user-editor__input'"
+            [placeholder]="'Confirm password'"
+            [type]="'password'"
+            [controlName]="disconnectForm.controls.passwordGroup.controls.repeatPassword">
+          </app-input>
+          <app-error
+            [class]="'user-editor__input-error-msg'"
+            *ngIf="disconnectForm.get('passwordGroup.repeatPassword').errors?.required
+              && disconnectForm.get('passwordGroup.repeatPassword').dirty">
+            {{ validationMessages.required }}
+          </app-error>
+          <app-error
+            [class]="'user-editor__input-error-msg'"
+            *ngIf="disconnectForm.get('passwordGroup').errors?.match">
+            {{ validationMessages.matchingPassword }}
+          </app-error>
+
+          <app-submit-btn
+            [buttonStyle]="''"
+            [type]="'submit'"
+            [disabled]="disconnectForm.invalid">
+              Disconnect from Facebook
+          </app-submit-btn>
+        </form>
+      </div>
+    </div>
+</app-modal>

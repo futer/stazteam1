@@ -19,7 +19,9 @@ module.exports = {
     isLogged,
     getAll,
     getCurrent,
-    updateUser
+    updateUser,
+    disconnect,
+    disconnect_delete,
 };
 
 async function registrationLocal(userParam){
@@ -276,4 +278,14 @@ async function updateUser(data) {
     database.connect();
     const user = await User.findOneAndUpdate({_id: data.id}, data, {new: true});
     return user;
+}
+
+async function disconnect() {
+    console.log('disconnect')
+    return ('elo')
+}
+
+
+async function disconnect_delete(){
+    console.log('elo')
 }
