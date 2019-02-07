@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -13,6 +13,9 @@ import * as PDFJS from 'pdfjs-dist';
     styleUrls: ['./doc.component.scss']
 })
 export class DocComponent implements OnInit, OnDestroy {
+
+    @Input() returnTo = '/main';
+
     checkRoute: Subscription;
     docData: Subscription;
     url: string;

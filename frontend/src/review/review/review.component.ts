@@ -36,20 +36,29 @@ export class ReviewComponent implements OnInit {
 
   onClickTab(clicked: StatusEnum) {
     this.clickedTab = clicked;
-    switch (clicked) {
+    this.dispatchPrevs(this.clickedTab, this.isEmpty);
+  }
+
+  onScrollPrev() {
+    this.dispatchPrevs(this.clickedTab, this.remainderIsZero);
+  }
+
+  dispatchPrevs(clickedTab: StatusEnum, func: Function) {
+    switch (clickedTab) {
       case StatusEnum.ACCEPTED:
         this.store.select(Selectors.getAcceptedPrevsLength)
-          .subscribe(prevs => {
-            if (prevs === 0) {
+          .subscribe(prev => {
+            if (func(prev)) {
               this.store.dispatch(new Actions.FetchAcceptedPrevs(++ReviewComponent.acceptedPrevPage));
             }
             this.prevs = this.store.select(Selectors.getAcceptedPrevs);
-          }).unsubscribe();
+          })
+          .unsubscribe();
         break;
       case StatusEnum.PENDING:
         this.store.select(Selectors.getPendingPrevsLength)
-          .subscribe(prevs => {
-            if (prevs === 0) {
+          .subscribe(prev => {
+            if (func(prev)) {
               this.store.dispatch(new Actions.FetchPendingPrevs(++ReviewComponent.pendingPrevPage));
             }
             this.prevs = this.store.select(Selectors.getPendingPrevs);
@@ -58,8 +67,8 @@ export class ReviewComponent implements OnInit {
         break;
       case StatusEnum.REJECTED:
         this.store.select(Selectors.getRejectedPrevsLength)
-          .subscribe(prevs => {
-            if (prevs === 0) {
+          .subscribe(prev => {
+            if (func(prev)) {
               this.store.dispatch(new Actions.FetchRejectedPrevs(++ReviewComponent.rejectedPrevPage));
             }
             this.prevs = this.store.select(Selectors.getRejectedPrevs);
@@ -69,17 +78,11 @@ export class ReviewComponent implements OnInit {
     }
   }
 
-  onScrollPrev() {
-    switch (this.clickedTab) {
-      case StatusEnum.ACCEPTED:
-        this.store.dispatch(new Actions.FetchAcceptedPrevs(++ReviewComponent.acceptedPrevPage));
-        break;
-      case StatusEnum.PENDING:
-        this.store.dispatch(new Actions.FetchPendingPrevs(++ReviewComponent.pendingPrevPage));
-        break;
-      case StatusEnum.REJECTED:
-        this.store.dispatch(new Actions.FetchRejectedPrevs(++ReviewComponent.rejectedPrevPage));
-        break;
-    }
+  isEmpty(prev: number): boolean {
+    return prev === 0;
+  }
+
+  remainderIsZero(prev: number): boolean {
+    return prev % 10 === 0;
   }
 }

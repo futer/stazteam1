@@ -8,13 +8,14 @@
     infiniteScroll
     [infiniteScrollDistance]="2"
     [infiniteScrollThrottle]="750"
-    [infiniteScrollDisabled]="prevLoading$ | async"
+    [infiniteScrollDisabled]="prevLoading | async"
     (scrolled)="onScrollPrev()"
     [immediateCheck]="true">
 
       <app-doc-prev 
         *ngFor="let prev of (prevs | async).data.documents" 
-        [preview]="prev"></app-doc-prev>
+        [preview]="prev"
+        [prefixAddress]="'review'"></app-doc-prev>
 
   </div>
 </div>
