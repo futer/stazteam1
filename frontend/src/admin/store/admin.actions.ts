@@ -3,13 +3,13 @@ import { UserModel, UserWithoutPass, User } from '../../app/models/user-editor.m
 import { ErrorData } from '../models/error.model';
 
 export enum userTypes {
-    FETCH = '[User] Fetch',
-    FETCH_SUCCESS = '[User] Fetch Success',
-    FETCH_ERROR = '[User] Fetch Error',
-    SEND = '[User] Send',
-    SEND_SUCCESS = '[User] Send Success',
-    SEND_ERROR = '[User] Send Error',
-    DESTROY = '[User] Destroy'
+    FETCH = '[User] FETCH',
+    FETCH_SUCCESS = '[User] FETCH SUCCESS',
+    FETCH_ERROR = '[User] FETCH ERROR',
+    SEND = '[User] SEND',
+    SEND_SUCCESS = '[User] SEND SUCCESS',
+    SEND_ERROR = '[User] SEND ERROR',
+    DESTROY = '[User] DESTROY'
 }
 
 export class Fetch implements Action {

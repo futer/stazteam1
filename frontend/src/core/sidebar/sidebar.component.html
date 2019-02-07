@@ -1,7 +1,11 @@
 <div class="sidebar">
-  <ul >
-    <li *ngIf="(role$ | async)?.role === 'admin'"><a (click)="navigateToAdminUserEditor()">User editor</a></li>
-    <li><a (click)="navigateToFav()">Favourites</a></li>
+  <ul>
+    <li *ngIf="(role$ | async)?.role === 'admin'">
+      <a (click)="navigateToAdminUserEditor()">User editor</a>
+    </li>
+    <li>
+      <a (click)="navigateToFav()">Favourites</a>
+    </li>
   </ul>
   <ul *ngFor="let item of bookmark$ | async">
     <li *ngIf="item.position === 'RIGHT'"(click)="navigateToSubpage(item.title)"><a >{{item.title}}</a></li>

@@ -3,10 +3,10 @@ import { UserModel, UserFormModel } from '../models/user.model';
 import { ErrorData } from '../models/error.model';
 
 export enum currentTypes {
-    SEND = '[Current] Send',
-    SEND_SUCCESS = '[Current] Send Success',
-    SEND_ERROR = '[Current] Send Error',
-    DESTROY = '[Current] Destroy',
+    SEND = '[Current] SEND',
+    SEND_SUCCESS = '[Current] SEND SUCCESS',
+    SEND_ERROR = '[Current] SEND ERROR',
+    DESTROY = '[Current] DESTROY',
 }
 
 export class Send implements Action {
