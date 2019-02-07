@@ -8,13 +8,14 @@ import { passwordMatcher, passwordTouchedChecker } from 'src/shared/reusable-fun
 import { UserService } from '../services/user.service';
 import { Send } from '../store/user.actions';
 import { Errors, SendSuccess } from '../store/user.reducers';
+import * as Actions from '../store/user.actions';
 
 @Component({
   selector: 'app-user-editor',
   templateUrl: './user-editor.component.html',
   styleUrls: ['./user-editor.component.scss']
 })
-export class UserEditorComponent implements OnInit {
+export class UserEditorComponent implements OnInit, OnDestroy {
   currentsub: Subscription;
   errorsub: Subscription;
   sentsub: Subscription;
@@ -75,6 +76,10 @@ export class UserEditorComponent implements OnInit {
         }, { validator: passwordMatcher }),
       }, { validator: passwordTouchedChecker })
     });
+  }
+
+  ngOnDestroy() {
+    this.store.dispatch(new Actions.Destroy);
   }
 
   updateUser(form) {

@@ -4,3 +4,9 @@ export interface LoginModel {
     token?: string;
     pic?: string;
 }
+
+export interface TokenPicModel {
+    token?: string;
+    pic?: string;
+}
+
