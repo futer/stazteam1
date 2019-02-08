@@ -3,9 +3,9 @@
 .doc {
     background: $sec-back-color;
     color: $main-font-color;
-    margin: 0.5em 0;
+    margin: 2em 0;
     padding: 0.5em;
-    width: 100%;
+    width: 95%;
 
     app-submit-btn {
         text-align: right;
@@ -50,3 +50,4 @@
         justify-content: space-between;
     }
 }
+

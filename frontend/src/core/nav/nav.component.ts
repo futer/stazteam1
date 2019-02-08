@@ -32,7 +32,6 @@ export class NavComponent implements OnInit {
 
     ngOnInit() {
         this.store.dispatch(new bookmarkActions.FetchBookmark());
-        this.name$.subscribe(res => console.log(res));
     }
 
     logOut() {
@@ -42,5 +41,9 @@ export class NavComponent implements OnInit {
 
     navigateToSubpage(title: string) {
         this.router.navigate(['/subpage', title]);
+    }
+
+    navigateToProfileEditor() {
+        this.router.navigate(['/user-editor']);
     }
 }
