@@ -141,17 +141,20 @@
       Update user
     </app-submit-btn>
   </form>
+  <app-button 
+    [class]="'facebook-disconnect'" 
+    (clickEvent)="showModal = !showModal">
+    <i class="fa fa-facebook-official"></i>
+    Disconnect from Facebook
+  </app-button>
 </div>
 
-<app-button 
-  [class]="'add-bookmark'" 
-  (clickEvent)="showModal = !showModal">
-  <i class="fa fa-plus-circle add-bookmark__icon"></i>
-</app-button>
+
 
 <app-modal [(visible)]="showModal" (visibleChange)="changeKeep($event)">
     <div class="user-editor__disconnect-FB-modal-container">
-      <div class="user-editor__disconnect-FB-modal-container--FACEBOOK" *ngIf="(current.registered === 'LOCAL')">
+      <div class="user-editor__disconnect-FB-modal-container--FACEBOOK" *ngIf="(current.registered === 'FACEBOOK') && (!deleted)">
+        {{current.registered}}
         <p>
           Your account was created with your Facebook profile.
           Would you like to delete your account permanently, or would you like
@@ -165,26 +168,27 @@
 
         <app-button 
           [class]="'user-editor__disconnect-FB-modal-container-button'"
-          (click)='disconnect_changeKeep()'>
+          (click)='changeKeep(false)'>
             Keep local account
         </app-button>
 
         <app-button 
           [class]="'user-editor__disconnect-FB-modal-container-button'" 
-          (clickEvent)="showModal = !showModal; changeKeep()">
+          (clickEvent)="showModal = !showModal; changeKeep(true)">
             Cancel
         </app-button> 
 
       </div>
 
-      <div class="user-editor__disconnect-FB-modal-container--LOCAL-FACEBOOK" *ngIf="current.registered === 'LOCAL_FACEBOOK'">
+      <div class="user-editor__disconnect-FB-modal-container--LOCAL-FACEBOOK" *ngIf="(current.registered === 'LOCAL_FACEBOOK' && (!disconnected))">
+        {{current.registered}}
         <p>
           Are you sure you want to disconnect your account from your Facebook account?
         </p>
 
         <app-button 
           [class]="'user-editor__disconnect-FB-modal-container-button'" 
-          (click)="disconnect()">
+          (click)="disconnect_local()">
             Yes
         </app-button>
 
@@ -255,6 +259,23 @@
               Disconnect from Facebook
           </app-submit-btn>
         </form>
+      </div>
+      <div class="user-editor__disconnect-FB-modal-container--keep" *ngIf="deleted">
+        <p>
+          Your accout has been disconnected from your Facebook account.
+          Now you can log in using your email: {{current.email}} and password
+          you just provided.
+        </p>
+      </div>
+      <div class="user-editor__disconnect-FB-modal-container--keep" *ngIf="disconnected">
+        <p>
+          Your account has been disconnected from you Facebook account.
+        </p>
+      </div>
+      <div class="user-editor__disconnect-FB-modal-container--keep" *ngIf="byebye">
+        <p>
+          <img src="https://media.giphy.com/media/UQaRUOLveyjNC/giphy.gif">
+        </p>
       </div>
     </div>
 </app-modal>

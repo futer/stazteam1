@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import { Store } from '@ngrx/store';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { AuthService as SocialMediaAuthService, SocialUser } from 'angularx-social-login';
 
 const UserEditorMutation = gql`
   mutation EditUser ($us: userInput!) {
@@ -22,11 +23,13 @@ const UserEditorMutation = gql`
 })
 export class UserService {
   adress = environment.adress;
+  user: SocialUser;
 
   constructor(
     private apollo: Apollo,
     private store: Store<any>,
     private http: HttpClient,
+    private socialMediaAuthService: SocialMediaAuthService,
   ) { }
 
   sendUser(user): Observable<any> {
@@ -34,11 +37,39 @@ export class UserService {
   }
 
   disconnect(id, password): Observable<Object> {
-    console.log('tujestem');
-    return this.http.post(this.adress + 'users/disconnect', {
-      id: id,
-      password: password
+    this.socialMediaAuthService.authState.subscribe(user => {
+      this.user = user;
     });
+
+    if (this.user) {
+      return this.http.post(this.adress + 'users/disconnect', { id: id, password: password, user: this.user}, { headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }});
+    }
+  }
+
+  disconnect_delete(id): Observable<Object> {
+    this.socialMediaAuthService.authState.subscribe(user => {
+      this.user = user;
+    });
+
+    if (this.user) {
+      return this.http.post(this.adress + 'users/disconnect_delete', { id: id, user: this.user}, { headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }});
+    }
+  }
+
+  disconnect_local(): Observable<Object> {
+    this.socialMediaAuthService.authState.subscribe(user => {
+      this.user = user;
+    });
+
+    if (this.user) {
+      return this.http.post(this.adress + 'users/disconnect_local', { user: this.user}, { headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      }});
+    }
   }
 }
 

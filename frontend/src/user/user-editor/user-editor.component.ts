@@ -9,6 +9,7 @@ import { UserService } from '../services/user.service';
 import { Send } from '../store/user.actions';
 import { Errors, SendSuccess } from '../store/user.reducers';
 import * as Actions from '../store/user.actions';
+import * as AuthActions from '../../core/store/auth/auth.actions';
 
 @Component({
   selector: 'app-user-editor',
@@ -29,7 +30,11 @@ export class UserEditorComponent implements OnInit, OnDestroy {
 
   updateUserForm: FormGroup;
   disconnectForm: FormGroup;
+
   keep: boolean;
+  deleted: boolean;
+  byebye: boolean;
+  disconnected: boolean;
 
   private validationMessages = {
     password: 'Password must be longer than 5 characters',
@@ -43,6 +48,9 @@ export class UserEditorComponent implements OnInit, OnDestroy {
     private userService: UserService,
   ) {
     this.current = { id: '', firstName: '', lastName: '', pic: '' };
+    this.deleted = false;
+    this.byebye = false;
+    this.disconnected = false;
   }
 
   ngOnInit() {
@@ -53,8 +61,11 @@ export class UserEditorComponent implements OnInit, OnDestroy {
         this.current.lastName = user.lastName;
         this.current.pic = user.pic;
         this.current.registered = user.registered;
+        this.current.email = user.email;
       }
     });
+
+
 
     this.error$ = this.store.select(Errors);
     this.send$ = this.store.select(SendSuccess);
@@ -83,7 +94,7 @@ export class UserEditorComponent implements OnInit, OnDestroy {
     this.disconnectForm = this.disconnectFromBuilder.group({
       passwordGroup: this.changeUserFormBuilder.group({
         password: ['', [Validators.required, Validators.minLength(5 )]],
-        repeatPassword: ['',[Validators.required]]
+        repeatPassword: ['', [Validators.required]]
       }, { validator: passwordMatcher }),
     });
   }
@@ -108,18 +119,40 @@ export class UserEditorComponent implements OnInit, OnDestroy {
 
   disconnect_keep(form) {
     this.userService.disconnect(this.current.id, form.value.passwordGroup.password)
-      .subscribe(data => console.log(data));
+      .subscribe(data => {
+        if (data === true) {
+          this.keep = false;
+          this.deleted = true;
+        }
+      });
+      //ttodo sth went wrong
   }
 
   disconnect_delete() {
-    console.log('delete');
+    this.byebye = true;
+    this.userService.disconnect_delete(this.current.id)
+      .subscribe(data => {
+        if (data === true) {
+          this.store.dispatch(new AuthActions.Logout());
+        }
+      });
+      //TODO STH WENT WRONG
   }
 
-  disconnect_changeKeep() {
-    this.keep = true;
+  disconnect_local() {
+    this.userService.disconnect_local().subscribe(data => {
+      if (data === true) {
+        this.disconnected = true;
+      }
+    });
+    //todo sth went wrong
   }
 
-  changeKeep(change: boolean) {
-    this.keep = false;
+  changeKeep(i: boolean) {
+    if (i) {
+      this.keep = false;
+    } else {
+      this.keep = true;
+    }
   }
 }

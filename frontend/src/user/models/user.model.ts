@@ -6,6 +6,7 @@ export interface UserModel {
     lastName: string;
     pic: string;
     registered?: RegisteredEnum;
+    email?: string;
 }
 
 export interface UserFormModel {

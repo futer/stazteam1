@@ -22,6 +22,7 @@ module.exports = {
     updateUser,
     disconnect,
     disconnect_delete,
+    disconnect_local,
 };
 
 async function registrationLocal(userParam){
@@ -280,12 +281,71 @@ async function updateUser(data) {
     return user;
 }
 
-async function disconnect() {
-    console.log('disconnect')
-    return ('elo')
+async function disconnect(payload) {
+    //console.log('id', payload.id,'password', payload.password,'user', payload.user)
+    database.connect();
+    
+    const deletePermissions = new Promise((resolve,reject) => {
+        FB.api('me/permissions', 'DELETE',{ access_token: payload.user.authToken }, function (res) {
+            resolve(res);
+        })
+    });
+
+    const updateUser = new Promise((resolve,reject) => {
+        User.findOne({email: payload.user.email}).then(user => {
+            user.password = payload.password;
+            user.registered = 'LOCAL';
+            resolve(user);
+        })
+        
+    });
+
+    return await Promise.all([deletePermissions, updateUser]).then(async function(values) {
+        if (values[0].success === true) {
+            console.log('jestem');
+            updatedUser = await User.findOneAndUpdate({ email: payload.user.email }, values[1], { new: true })
+                .catch(error => { return(error) });
+            return(true);
+        }
+    });
 }
 
 
-async function disconnect_delete(){
-    console.log('elo')
+async function disconnect_delete(payload) {
+    database.connect();
+    const deletePermissions = new Promise((resolve,reject) => {
+        FB.api('me/permissions', 'DELETE',{ access_token: payload.user.authToken }, function (res) {
+            resolve(res);
+        })
+    });
+
+    const deleteUser = new Promise((resolve,reject) => {
+        User.findOne({email: payload.user.email}).then(user => {
+            resolve(user);
+        }) 
+    });
+
+    return await Promise.all([deletePermissions, deleteUser]).then(async function(values) {
+        if (values[0].success === true) {
+            User.findOneAndDelete({email: payload.user.email})
+                .catch(error => { return error })
+            return (true);
+
+            // updatedUser = await User.findOneAndUpdate({ email: payload.user.email }, values[1], { new: true })
+            //     .catch(error => { return(error) });
+            // return(true);
+        }
+    });
+}
+
+async function disconnect_local(user) {
+    const disconnect = new Promise((resolve,reject) => {
+        FB.api('me/permissions', 'DELETE',{ access_token: user.user.authToken }, function (res) {
+        if (res.success === true){
+            resolve(res.success)
+            }
+            else reject(res)
+        }) 
+    })
+    return disconnect;
 }
