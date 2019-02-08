@@ -12,32 +12,19 @@ export const initialState: bookmarkState.BookmarkState = {
 
 export const bookmarkFeature = createFeatureSelector<bookmarkState.BookmarkState>('bookmarks');
 
-export const getCurrentBookmarkId = createSelector (
-    bookmarkFeature,
-    state => state.currentBookmarkId
-);
-
 export const getBookmarks = createSelector (
     bookmarkFeature,
     state => state.bookmarks
 );
 
-export const getError = createSelector (
+export const getLoading = createSelector (
     bookmarkFeature,
-    state => state.erroMessage
+    state => state.loading
 );
 
-export const getCurrentBookmark = createSelector(
+export const getLoaded = createSelector (
     bookmarkFeature,
-    getCurrentBookmarkId,
-    (state, currentBookmarkId ) => {
-        if ( currentBookmarkId) {
-            return state.bookmarks.find(b => b.id === currentBookmarkId);
-        } else {
-            return null;
-        }
-    }
-
+    state => state.loaded
 );
 
 export function bookmarkReducer(
@@ -125,4 +112,3 @@ export function bookmarkReducer(
     }
 }
 export default bookmarkReducer;
-export const getBookmarksSubpage = (state: bookmarkState.BookmarkState) => state.bookmarks;

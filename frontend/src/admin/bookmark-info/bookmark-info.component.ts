@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SubpageService } from 'src/shared/services/subpage.service';
 import { Store } from '@ngrx/store';
-import { CoreState } from 'src/core/store';
 import * as bookmarkActions from 'src/core/store/bookmark/bookmark.actions';
+import { BookmarkState } from 'src/core/store/bookmark/bookmark.state';
 
 @Component({
   selector: 'app-bookmark-info',
@@ -18,7 +18,7 @@ export class BookmarkInfoComponent implements OnInit {
 
   constructor( private editFormBuilder: FormBuilder,
     private subpageService: SubpageService,
-    private store: Store<CoreState>) { }
+    private store: Store<BookmarkState>) { }
 
   ngOnInit() {
   }
