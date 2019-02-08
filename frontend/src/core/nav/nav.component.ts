@@ -36,6 +36,7 @@ export class NavComponent implements OnInit {
 
     logOut() {
         this.store.dispatch(new AuthActions.Logout());
+        this.store.dispatch(new AuthActions.ClearStore());
         this.socialMediaAuthService.signOut();
     }
 
