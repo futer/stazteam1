@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {  NavigationEnd, Router } from '@angular/router';
 import {  filter } from 'rxjs/operators';
-import { CoreState } from 'src/core/store';
 import { Observable } from 'rxjs';
-import * as fromStore from 'src/core/store/index';
+import * as bookmarState from 'src/core/store/bookmark/bookmark.reducers';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../core/store/auth/auth.state';
 import { Reload } from '../core/store/auth/auth.actions';
@@ -63,7 +62,7 @@ ngOnInit() {
   }
 
   getBookmarks() {
-   this.bookmark$ =  this.store.select(fromStore.getBookmarksSubpage);
+   this.bookmark$ =  this.store.select(bookmarState.getBookmarks);
   }
 }
 

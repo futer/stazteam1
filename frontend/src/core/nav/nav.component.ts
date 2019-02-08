@@ -7,11 +7,11 @@ import { Logout } from '../store/auth/auth.actions';
 import { SubpageService } from 'src/shared/services/subpage.service';
 import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
 import * as AuthActions from '../../core/store/auth/auth.actions';
-import { CoreState } from '../store';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/observable';
 import { AuthService as SocialMediaAuthService } from 'angularx-social-login';
 import * as fromAuth from '../store/auth/auth.reducers';
+import { BookmarkState } from '../store/bookmark/bookmark.state';
 
 @Component({
     selector: 'app-nav',
@@ -24,7 +24,7 @@ export class NavComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
-        private store: Store<CoreState>,
+        private store: Store<BookmarkState>,
         private subpageService: SubpageService,
         private router: Router,
         private socialMediaAuthService: SocialMediaAuthService

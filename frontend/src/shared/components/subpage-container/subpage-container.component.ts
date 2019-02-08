@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { SubpageService } from 'src/shared/services/subpage.service';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { CoreState } from 'src/core/store';
 import * as bookmarkActions from '../../../core/store/bookmark/bookmark.actions';
-import * as fromStore from '../../../core/store/index';
+import * as bookmarkStore from '../../../core/store/bookmark/bookmark.reducers';
 import { BookmarkModel } from 'src/app/models/bookmark.model';
-import { Observable } from 'apollo-link';
-import { ActivatedRoute, RouteReuseStrategy, Router, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { BookmarkState } from 'src/core/store/bookmark/bookmark.state';
 
 
 @Component({
@@ -17,11 +16,11 @@ import { ActivatedRoute, RouteReuseStrategy, Router, NavigationEnd } from '@angu
 })
 export class SubpageContainerComponent implements OnInit {
 
-  bookmark$: any = this.store.select(fromStore.getBookmarksSubpage);
+  bookmark$: any = this.store.select(bookmarkStore.getBookmarks);
   title: string;
   subpageData;
 
-  constructor( private store: Store<CoreState>,
+  constructor( private store: Store<BookmarkState>,
     private route: ActivatedRoute,
     private router: Router
     ) {
