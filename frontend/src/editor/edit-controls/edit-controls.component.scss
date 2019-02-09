@@ -1,0 +1,12 @@
+@import "../../assets/main-style.scss";
+
+.controls{
+    position: fixed;
+    top: 40vh;
+    left: 65%;
+    width: 3em;
+    > * {
+        display: block;
+        margin: 1px 0;
+    }
+}

@@ -13,7 +13,7 @@ import {
     styleUrls: ['./text-page.component.scss']
 })
 export class TextPageComponent implements OnInit {
-    height = 250;
+    height = 200;
     @ViewChild('page') page: ElementRef;
     @HostListener('document:keydown', ['$event']) onkeydownHandler(
         event: KeyboardEvent
@@ -22,7 +22,7 @@ export class TextPageComponent implements OnInit {
             this.renderer.setStyle(
                 this.page.nativeElement,
                 'height',
-                (this.height = this.height + 250) + 'vh'
+                (this.height = this.height + 200) + 'vh'
             );
         }
     }
