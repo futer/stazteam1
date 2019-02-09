@@ -25,18 +25,6 @@ export class TextPageComponent implements OnInit {
                 (this.height = this.height + 250) + 'vh'
             );
         }
-        if (this.page.nativeElement.clientWidth < this.page.nativeElement.scrollWidth) {
-            const textNode = this.page.nativeElement.childNodes[this.page.nativeElement.childNodes.length - 2];
-            const newTextNode = textNode.splitText(textNode.data.length - 1);
-
-            const br = this.renderer.createElement('br');
-
-            this.page.nativeElement.appendChild(newTextNode);
-            this.page.nativeElement.appendChild(br);
-
-            const selection = window.getSelection();
-            selection.collapse(this.page.nativeElement.childNodes[this.page.nativeElement.childNodes.length - 2], 1);
-        }
     }
 
     constructor(
