@@ -6,6 +6,7 @@ import {
     HostListener,
     Renderer2,
 } from '@angular/core';
+import { ToolboxActionsService } from '../services/toolbox-actions.service';
 
 @Component({
     selector: 'app-text-page',
@@ -17,7 +18,7 @@ export class TextPageComponent implements OnInit {
     @ViewChild('page') page: ElementRef;
     @HostListener('document:keydown', ['$event']) onkeydownHandler(
         event: KeyboardEvent
-    ) {console.log(this.page.nativeElement);
+    ) {
         if (this.page.nativeElement.clientHeight < this.page.nativeElement.scrollHeight) {
             this.renderer.setStyle(
                 this.page.nativeElement,
@@ -28,10 +29,12 @@ export class TextPageComponent implements OnInit {
     }
 
     constructor(
-      private renderer: Renderer2
+      private renderer: Renderer2,
+      private refShare: ToolboxActionsService
     ) {}
 
     ngOnInit() {
         this.page.nativeElement.focus();
+        this.refShare.shareText(this.page);
     }
 }
