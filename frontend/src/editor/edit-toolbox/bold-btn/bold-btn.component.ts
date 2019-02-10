@@ -12,4 +12,7 @@ export class BoldBtnComponent implements OnInit {
   ngOnInit() {
   }
 
+  toggleBold() {
+    document.execCommand('bold', false);
+  }
 }

@@ -17,7 +17,7 @@ export class TextPageComponent implements OnInit {
     @ViewChild('page') page: ElementRef;
     @HostListener('document:keydown', ['$event']) onkeydownHandler(
         event: KeyboardEvent
-    ) {
+    ) {console.log(this.page.nativeElement);
         if (this.page.nativeElement.clientHeight < this.page.nativeElement.scrollHeight) {
             this.renderer.setStyle(
                 this.page.nativeElement,
@@ -31,5 +31,7 @@ export class TextPageComponent implements OnInit {
       private renderer: Renderer2
     ) {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.page.nativeElement.focus();
+    }
 }
