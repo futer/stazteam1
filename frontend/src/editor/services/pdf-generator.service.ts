@@ -9,52 +9,64 @@ import { PositionModel } from '../models/position.model';
 export class PdfGeneratorService {
     constructor() {}
 
+    beginPointXY = 10;
+    maxLength = 187;
+
     generatePDF(src: ElementRef): jsPDF {
         const doc = new jsPDF();
 
         const position: PositionModel = {
-          x: 10,
-          y: 10
+          x: this.beginPointXY,
+          y: this.beginPointXY
         };
-
-        const maxLength = 187;
 
         src.nativeElement.childNodes.forEach(node => {
           switch (node.nodeName) {
             case '#text':
-              // write text, collapse if too long
-              doc.text(node.textContent, position.x, position.y, {maxWidth: maxLength});
-
-              // move pointer
-              const textDimensions = doc.getTextDimensions(node.textContent);
-              if (textDimensions.w > maxLength) {
-                const multilines = Math.floor(textDimensions.w / maxLength);
-                position.y = position.y + (6.48 * multilines);
-                position.x = 10 + (textDimensions.w - maxLength * multilines) + 2.2;
-              } else {
-                position.x = position.x + textDimensions.w + 0.2;
-              }
-
+              this.insertText(doc, node.textContent, position);
               break;
             case 'BR':
-              position.x = 10;
+              position.x = this.beginPointXY;
               position.y = position.y + 6.48;
               break;
             case 'B':
-              
+              doc.setFontStyle('bold');
+              this.insertText(doc, node.firstChild.textContent, position);
+              doc.setFontStyle('normal');
+
               break;
             case 'I':
-              
+              doc.setFontStyle('italic');
+              this.insertText(doc, node.firstChild.textContent, position);
+              doc.setFontStyle('normal');
+
               break;
             case 'U':
-              
-              break;
+              doc.setFontStyle('underline');
+              this.insertText(doc, node.firstChild.textContent, position);
+              doc.setFontStyle('normal');
 
+              break;
             default:
               break;
           }
         });
 
         return doc;
+    }
+
+    insertText(doc: jsPDF, text: string, position: PositionModel): void {
+      // write text, collapse if too long
+      doc.text(text, position.x, position.y, {maxWidth: this.maxLength});
+
+      // move pointer
+      const textDimensions = doc.getTextDimensions(text);
+      if (textDimensions.w > this.maxLength) {
+        const multilines = Math.floor(textDimensions.w / this.maxLength);
+        position.y = position.y + (6.48 * multilines);
+        position.x = this.beginPointXY + (textDimensions.w - this.maxLength * multilines) + 2.2;
+      } else {
+        position.x = position.x + textDimensions.w + 0.2;
+      }
     }
 }
