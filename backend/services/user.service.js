@@ -282,7 +282,6 @@ async function updateUser(data) {
 }
 
 async function disconnect(payload) {
-    //console.log('id', payload.id,'password', payload.password,'user', payload.user)
     database.connect();
     
     const deletePermissions = new Promise((resolve,reject) => {
@@ -296,20 +295,25 @@ async function disconnect(payload) {
             user.password = payload.password;
             user.registered = 'LOCAL';
             resolve(user);
-        })
+        }).catch(error => resolve(error))
         
     });
 
     return await Promise.all([deletePermissions, updateUser]).then(async function(values) {
         if (values[0].success === true) {
-            console.log('jestem');
             updatedUser = await User.findOneAndUpdate({ email: payload.user.email }, values[1], { new: true })
-                .catch(error => { return(error) });
+                .catch(error => { return error });
             return(true);
+        }
+        else {
+            value = 'Your Facebook access token is invalid';
+            const err = new Error(value);
+            err.status = 500;
+            err.name = "Access token invalid";
+            throw err;
         }
     });
 }
-
 
 async function disconnect_delete(payload) {
     database.connect();
@@ -319,21 +323,24 @@ async function disconnect_delete(payload) {
         })
     });
 
-    const deleteUser = new Promise((resolve,reject) => {
+    const findUserToDeleteUser = new Promise((resolve,reject) => {
         User.findOne({email: payload.user.email}).then(user => {
             resolve(user);
         }) 
     });
 
-    return await Promise.all([deletePermissions, deleteUser]).then(async function(values) {
+    return await Promise.all([deletePermissions, findUserToDeleteUser
+    ]).then(async function(values) {
         if (values[0].success === true) {
             User.findOneAndDelete({email: payload.user.email})
-                .catch(error => { return error })
+                .catch(error => { throw new Error(error) })
             return (true);
-
-            // updatedUser = await User.findOneAndUpdate({ email: payload.user.email }, values[1], { new: true })
-            //     .catch(error => { return(error) });
-            // return(true);
+        } else {
+            value = 'Your Facebook access token is invalid';
+            const err = new Error(value);
+            err.status = 500;
+            err.name = "Access token invalid";
+            throw err;
         }
     });
 }
@@ -347,5 +354,26 @@ async function disconnect_local(user) {
             else reject(res)
         }) 
     })
-    return disconnect;
+
+    const updateUser = new Promise((resolve,reject) => {
+        User.findOne({email: user.user.email}).then(user => {
+            user.registered = 'LOCAL';
+            resolve(user);
+        }).catch(error => resolve(error))
+    });
+
+    return await Promise.all([disconnect, updateUser]).then(async function(values) {
+        if (values[0] === true) {
+            updatedUser = await User.findOneAndUpdate({ email: user.user.email }, values[1], { new: true })
+                .catch(error => { return error });
+            return(true);
+        }
+        else {
+            value = 'Your Facebook access token is invalid';
+            const err = new Error(value);
+            err.status = 500;
+            err.name = "Access token invalid";
+            throw err;
+        }
+    });
 }

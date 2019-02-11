@@ -142,6 +142,7 @@
     </app-submit-btn>
   </form>
   <app-button 
+   *ngIf="(current.registered !== 'LOCAL')"
     [class]="'facebook-disconnect'" 
     (clickEvent)="showModal = !showModal">
     <i class="fa fa-facebook-official"></i>
@@ -152,9 +153,10 @@
 
 
 <app-modal [(visible)]="showModal" (visibleChange)="changeKeep($event)">
-    <div class="user-editor__disconnect-FB-modal-container">
+    {{disconnectError}}
+    <div class="user-editor__disconnect-FB-modal-container" *ngIf="!disconnectError">
+
       <div class="user-editor__disconnect-FB-modal-container--FACEBOOK" *ngIf="(current.registered === 'FACEBOOK') && (!deleted)">
-        {{current.registered}}
         <p>
           Your account was created with your Facebook profile.
           Would you like to delete your account permanently, or would you like
@@ -180,8 +182,8 @@
 
       </div>
 
-      <div class="user-editor__disconnect-FB-modal-container--LOCAL-FACEBOOK" *ngIf="(current.registered === 'LOCAL_FACEBOOK' && (!disconnected))">
-        {{current.registered}}
+      <div class="user-editor__disconnect-FB-modal-container--LOCAL-FACEBOOK" 
+        *ngIf="(current.registered === 'LOCAL_FACEBOOK' && (!disconnected))">
         <p>
           Are you sure you want to disconnect your account from your Facebook account?
         </p>
@@ -231,7 +233,6 @@
           </app-error>
 
           <p>Confirm new password:</p>
-
           <app-input
             ng-blur="visitedEmail=true"
             [id]="'repeatPassword'"

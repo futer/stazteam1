@@ -116,17 +116,17 @@ function isModerator(req,res,next) {
 function disconnect(req,res,next) {
     userService.disconnect(req.body)
         .then(resp => { res.json(resp) })
-        .catch(err => console.log(err));
+        .catch(err => { res.json(err) });
 }
 
 function disconnect_delete(req,res,next) {
     userService.disconnect_delete(req.body)
         .then(resp => { console.log(resp); res.json(resp) })
-        .catch(err => console.log(err));
+        .catch(err => { res.json(err) });
 }
 
 function disconnect_local(req,res,next) {
     userService.disconnect_local(req.body)        
-        .then(resp => { console.log('restp', resp); res.json(resp) })
-        .catch(err => console.log(err));
+        .then(resp => { res.json(resp) })
+        .catch(err => { console.log(err); res.json(err) });
 }

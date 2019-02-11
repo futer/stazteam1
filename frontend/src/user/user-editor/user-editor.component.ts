@@ -10,6 +10,8 @@ import { Send } from '../store/user.actions';
 import { Errors, SendSuccess } from '../store/user.reducers';
 import * as Actions from '../store/user.actions';
 import * as AuthActions from '../../core/store/auth/auth.actions';
+import { Reload } from '../../core/store/auth/auth.actions';
+import { AuthState } from 'src/core/store/auth/auth.state';
 
 @Component({
   selector: 'app-user-editor',
@@ -35,6 +37,7 @@ export class UserEditorComponent implements OnInit, OnDestroy {
   deleted: boolean;
   byebye: boolean;
   disconnected: boolean;
+  disconnectError: string;
 
   private validationMessages = {
     password: 'Password must be longer than 5 characters',
@@ -43,6 +46,7 @@ export class UserEditorComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<any>,
+    private authStore: Store<AuthState>,
     private changeUserFormBuilder: FormBuilder,
     private disconnectFromBuilder: FormBuilder,
     private userService: UserService,
@@ -123,9 +127,11 @@ export class UserEditorComponent implements OnInit, OnDestroy {
         if (data === true) {
           this.keep = false;
           this.deleted = true;
+          this.store.dispatch(new Reload());
+        } else {
+          this.disconnectError = data['name'];
         }
       });
-      //ttodo sth went wrong
   }
 
   disconnect_delete() {
@@ -134,18 +140,23 @@ export class UserEditorComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         if (data === true) {
           this.store.dispatch(new AuthActions.Logout());
+          this.store.dispatch(new Reload());
+        } else {
+          this.disconnectError = data['name'];
         }
       });
-      //TODO STH WENT WRONG
+
   }
 
   disconnect_local() {
     this.userService.disconnect_local().subscribe(data => {
       if (data === true) {
         this.disconnected = true;
+        this.store.dispatch(new Reload());
+      } else {
+        this.disconnectError = data['name'];
       }
     });
-    //todo sth went wrong
   }
 
   changeKeep(i: boolean) {
