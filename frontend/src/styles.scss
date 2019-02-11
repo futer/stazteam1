@@ -46,8 +46,11 @@ body {
     }
 
         app-sidebar {
-            grid-column: 8/9;
+            grid-column: 7/9;
             grid-row: 2/3;
+            width: 70%;
+            margin-top: 48px;
+
         }
         
         app-bookmark-panel {
@@ -68,7 +71,7 @@ body {
 
     app-main,
     app-example1{
-      grid-column: 2/8;
+      grid-column: 2/7;
       position: relative;
 
         app-subpage-container {
@@ -89,7 +92,7 @@ body {
     }
 
     app-doc {
-      grid-column: 2/8;
+      grid-column: 2/7;
       grid-row: 2/3;
       position: relative;
 
@@ -101,7 +104,7 @@ body {
 
     app-subpage-container {
       grid-row: 2/3;
-      grid-column: 1/8;
+      grid-column: 2/7;
       display: flex;
       justify-content: center;
     }

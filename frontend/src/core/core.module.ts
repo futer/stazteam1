@@ -11,13 +11,13 @@ import { MainComponent } from './main/main.component';
 import { DocumentModule } from 'src/document/document.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { BookmarkEffect } from './store/bookmark/bookmark.effects';
 import { UserModule } from 'src/user/user.module';
 
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import bookmarkReducer from './store/bookmark/bookmark.reducers';
 
 const config = new AuthServiceConfig([
   // {
@@ -49,7 +49,7 @@ export function provideConfig() {
     HttpClientModule,
     DocumentModule,
     UserModule,
-    StoreModule.forFeature('core', reducers),
+    StoreModule.forFeature('bookmarks', bookmarkReducer),
     EffectsModule.forFeature([BookmarkEffect]),
     SocialLoginModule,
   ],
