@@ -19,7 +19,10 @@ module.exports = {
     isLogged,
     getAll,
     getCurrent,
-    updateUser
+    updateUser,
+    disconnect,
+    disconnect_delete,
+    disconnect_local,
 };
 
 async function registrationLocal(userParam){
@@ -276,4 +279,101 @@ async function updateUser(data) {
     database.connect();
     const user = await User.findOneAndUpdate({_id: data.id}, data, {new: true});
     return user;
+}
+
+async function disconnect(payload) {
+    database.connect();
+    
+    const deletePermissions = new Promise((resolve,reject) => {
+        FB.api('me/permissions', 'DELETE',{ access_token: payload.user.authToken }, function (res) {
+            resolve(res);
+        })
+    });
+
+    const updateUser = new Promise((resolve,reject) => {
+        User.findOne({email: payload.user.email}).then(user => {
+            user.password = payload.password;
+            user.registered = 'LOCAL';
+            resolve(user);
+        }).catch(error => resolve(error))
+        
+    });
+
+    return await Promise.all([deletePermissions, updateUser]).then(async function(values) {
+        if (values[0].success === true) {
+            updatedUser = await User.findOneAndUpdate({ email: payload.user.email }, values[1], { new: true })
+                .catch(error => { return error });
+            return(true);
+        }
+        else {
+            value = 'Your Facebook access token is invalid';
+            const err = new Error(value);
+            err.status = 500;
+            err.name = "Access token invalid";
+            throw err;
+        }
+    });
+}
+
+async function disconnect_delete(payload) {
+    database.connect();
+    const deletePermissions = new Promise((resolve,reject) => {
+        FB.api('me/permissions', 'DELETE',{ access_token: payload.user.authToken }, function (res) {
+            resolve(res);
+        })
+    });
+
+    const findUserToDeleteUser = new Promise((resolve,reject) => {
+        User.findOne({email: payload.user.email}).then(user => {
+            resolve(user);
+        }) 
+    });
+
+    return await Promise.all([deletePermissions, findUserToDeleteUser
+    ]).then(async function(values) {
+        if (values[0].success === true) {
+            User.findOneAndDelete({email: payload.user.email})
+                .catch(error => { throw new Error(error) })
+            return (true);
+        } else {
+            value = 'Your Facebook access token is invalid';
+            const err = new Error(value);
+            err.status = 500;
+            err.name = "Access token invalid";
+            throw err;
+        }
+    });
+}
+
+async function disconnect_local(user) {
+    const disconnect = new Promise((resolve,reject) => {
+        FB.api('me/permissions', 'DELETE',{ access_token: user.user.authToken }, function (res) {
+        if (res.success === true){
+            resolve(res.success)
+            }
+            else reject(res)
+        }) 
+    })
+
+    const updateUser = new Promise((resolve,reject) => {
+        User.findOne({email: user.user.email}).then(user => {
+            user.registered = 'LOCAL';
+            resolve(user);
+        }).catch(error => resolve(error))
+    });
+
+    return await Promise.all([disconnect, updateUser]).then(async function(values) {
+        if (values[0] === true) {
+            updatedUser = await User.findOneAndUpdate({ email: user.user.email }, values[1], { new: true })
+                .catch(error => { return error });
+            return(true);
+        }
+        else {
+            value = 'Your Facebook access token is invalid';
+            const err = new Error(value);
+            err.status = 500;
+            err.name = "Access token invalid";
+            throw err;
+        }
+    });
 }
