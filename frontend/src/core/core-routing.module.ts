@@ -25,7 +25,7 @@ const routes: Routes = [
       path: 'doc/:id',
       loadChildren: '../document/document.module#DocumentModule'
     },
-    { path: 'bookmark-panel', component: BookmarkPanelComponent, canActivate: [AuthGuard]},
+    { path: 'bookmark-panel', component: BookmarkPanelComponent, canActivate: [AdminGuard]},
     { path: 'subpage/:title', component: SubpageContainerComponent, canActivate: [AuthGuard]},
     { path: 'user-editor', loadChildren: '../user/user.module#UserModule'},
     { path: 'admin', component: AdminUserEditorComponent, canActivate: [AdminGuard] }

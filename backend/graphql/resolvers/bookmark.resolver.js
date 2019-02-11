@@ -1,4 +1,6 @@
 const bookmarkService = require("../../services/bookmark.service");
+const userService = require("../../services/user.service");
+const jwt = require('jsonwebtoken');
 
 function getBookmarks(root, args, context) {
   return bookmarkService.getBookmarks();
@@ -10,20 +12,39 @@ function getBookmark(root, args, context) {
   return bookmark;
 }
 
-function addBookmark(root, args, context) {
-  const bookmark = bookmarkService.addBookmark(args);
+async function addBookmark(root, args, context) {
+  let bookmark;
+  let token = context.headers.authorization.slice(7);
 
+  await userService.isAdmin(token)
+  .then(() => {
+   bookmark = bookmarkService.addBookmark(args);
+  }).catch(error => {throw error});
+  
   return bookmark;
+   
 };
 
-function updateBookmark(root, args, context) {
-  const bookmark = bookmarkService.updateBookmark(args);
+async function updateBookmark(root, args, context) {
+  let bookmark;
+  let token = context.headers.authorization.slice(7);
 
+  await userService.isAdmin(token)
+    .then(() => {
+      bookmark = bookmarkService.updateBookmark(args);
+    }).catch(err => {throw err});
+   
   return bookmark;
 }
 
-function deleteBookmark(root, args, context) {
-  const bookmark = bookmarkService.deleteBookmark(args.id);
+async function deleteBookmark(root, args, context) {
+  let bookmark;
+  let token = context.headers.authorization.slice(7);
+
+  await userService.isAdmin(token)
+    .then(() => {
+      bookmark = bookmarkService.deleteBookmark(args.id);
+    }).catch(err => {throw error});
 
   return bookmark;
 }
