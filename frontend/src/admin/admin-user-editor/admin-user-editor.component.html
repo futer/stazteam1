@@ -5,6 +5,8 @@
   <div class="admin-user-editor__success-msg" *ngIf="send">
     User has been updated
   </div>
+
+
   
   <div class='admin-user-editor__container'>
     <p class="admin-user-editor__text">User editor:</p>
@@ -22,6 +24,7 @@
     </select>
   
     <div *ngIf="selectedUser">
+      {{selectedUser.role}}
       <form
         class="admin-user-editor__update-user"
         [formGroup]="updateUserForm"
@@ -79,6 +82,14 @@
               [className]="'profile-pic-editor'">
             </app-image>
           </div>
+
+          <select formControlName="role" class="admin-user-editor__selector">
+            <option 
+            class="admin-user-editor__options" 
+            [selected]="role === selectedUser.role" *ngFor="let role of roles">
+              {{ role }}
+            </option>
+          </select>
   
           <div class="admin-user-editor__input-group">
             <p>New password:</p>

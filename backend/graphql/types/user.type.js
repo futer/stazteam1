@@ -14,6 +14,7 @@ const userType = new GraphQLObjectType({
         },
         firstName: { type: GraphQLString },
         lastName: { type: GraphQLString },
+        role: { type: GraphQLString },
         pic: { type: GraphQLString },
     })
 })
@@ -26,6 +27,7 @@ const userObject = new GraphQLInputObjectType({
         lastName: { type: GraphQLString },
         password: { type: GraphQLString },
         oldPassword: { type: GraphQLString },
+        role: { type: GraphQLString },
         pic: { type: GraphQLString },
     })
 })

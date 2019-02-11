@@ -11,6 +11,7 @@ const AdminUserEditorQuery = gql`
       id
       firstName
       lastName
+      role
       pic
     }
   }
@@ -21,6 +22,7 @@ const AdminUserEditorMutation = gql`
         id
         firstName
         lastName
+        role
         pic
       }
     }
