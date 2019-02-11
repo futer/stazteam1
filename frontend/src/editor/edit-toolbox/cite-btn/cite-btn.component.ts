@@ -19,7 +19,7 @@ export class CiteBtnComponent implements OnInit {
   toggleQuoteMarks() {
     this.textRef.textSource.subscribe(ref => {
       // TODO
-      console.log(window.getSelection().getRangeAt(0));
+      console.log(ref.nativeElement);
     }).unsubscribe();
   }
 }

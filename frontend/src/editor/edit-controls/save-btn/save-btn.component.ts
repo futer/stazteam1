@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PdfGeneratorService } from 'src/editor/services/pdf-generator.service';
+import jsPDF from 'jspdf';
+import { ToolboxActionsService } from 'src/editor/services/toolbox-actions.service';
 
 @Component({
   selector: 'app-save-btn',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SaveBtnComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private pdfGenerator: PdfGeneratorService,
+    private textRef: ToolboxActionsService
+  ) { }
 
   ngOnInit() {
   }
 
+  savePDF() {
+    this.textRef.textSource.subscribe(ref => {
+      const doc = this.pdfGenerator.generatePDF(ref);
+      doc.save();
+    }).unsubscribe();
+  }
 }
