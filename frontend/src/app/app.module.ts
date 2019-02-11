@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from '../core/core.module';
 import { DocumentModule } from 'src/document/document.module';
 import { CoreRoutingModule } from '../core/core-routing.module';
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
 import { docReducer } from '../document/store/document.reducers';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ExampleRouting } from '../examples/example.routing';
@@ -21,6 +21,22 @@ import authReducer from '../core/store/auth/auth.reducers';
 import { AuthEffect } from '../core/store/auth/auth.effects';
 import { ChatComponent } from 'src/chat/chat/chat.component';
 import { ChatModule } from 'src/chat/chat.module';
+
+
+export const rootReducer = {
+  auth: authReducer
+};
+
+export function clearState(reducer: ActionReducer<any>): ActionReducer<any> {
+  return function( state, action) {
+    if ( action.type === 'CLEAR STORE') {
+      state = undefined;
+    }
+    return reducer(state, action);
+  };
+}
+
+export const metaReducers: MetaReducer<any>[] = [clearState];
 
 @NgModule({
   declarations: [
@@ -35,11 +51,10 @@ import { ChatModule } from 'src/chat/chat.module';
     ExampleRouting,
     ExamplesModule,
     CoreRoutingModule,
-    StoreModule.forRoot({auth: authReducer}),
     ReactiveFormsModule,
     DocumentModule,
     UserModule,
-    // StoreModule.forRoot({userReducer}),
+    StoreModule.forRoot(rootReducer, {metaReducers}),
     EffectsModule.forRoot([AuthEffect]),
     StoreDevtoolsModule.instrument({
       maxAge: 10
