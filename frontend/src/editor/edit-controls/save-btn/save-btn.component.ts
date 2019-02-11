@@ -20,8 +20,8 @@ export class SaveBtnComponent implements OnInit {
 
   savePDF() {
     this.textRef.textSource.subscribe(ref => {
-      const doc = this.pdfGenerator.generatePDF(ref);
-      doc.save();
+       const doc = this.pdfGenerator.generatePDF(ref);
+       doc.save();
     }).unsubscribe();
   }
 }
