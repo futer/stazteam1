@@ -154,9 +154,13 @@
 
 <app-modal [(visible)]="showModal" (visibleChange)="changeKeep($event)">
     {{disconnectError}}
-    <div class="user-editor__disconnect-FB-modal-container" *ngIf="!disconnectError">
+    <div 
+      class="user-editor__disconnect-FB-modal-container" 
+      *ngIf="!disconnectError">
 
-      <div class="user-editor__disconnect-FB-modal-container--FACEBOOK" *ngIf="(current.registered === 'FACEBOOK') && (!deleted)">
+      <div 
+        class="user-editor__disconnect-FB-modal-container--FACEBOOK" 
+        *ngIf="(current.registered === 'FACEBOOK') && (!deleted)">
         <p>
           Your account was created with your Facebook profile.
           Would you like to delete your account permanently, or would you like
@@ -182,7 +186,8 @@
 
       </div>
 
-      <div class="user-editor__disconnect-FB-modal-container--LOCAL-FACEBOOK" 
+      <div 
+        class="user-editor__disconnect-FB-modal-container--LOCAL-FACEBOOK" 
         *ngIf="(current.registered === 'LOCAL_FACEBOOK' && (!disconnected))">
         <p>
           Are you sure you want to disconnect your account from your Facebook account?
@@ -261,19 +266,25 @@
           </app-submit-btn>
         </form>
       </div>
-      <div class="user-editor__disconnect-FB-modal-container--keep" *ngIf="deleted">
+      <div 
+        class="user-editor__disconnect-FB-modal-container--keep" 
+        *ngIf="deleted">
         <p>
           Your accout has been disconnected from your Facebook account.
           Now you can log in using your email: {{current.email}} and password
           you just provided.
         </p>
       </div>
-      <div class="user-editor__disconnect-FB-modal-container--keep" *ngIf="disconnected">
+      <div 
+        class="user-editor__disconnect-FB-modal-container--keep" 
+        *ngIf="disconnected">
         <p>
           Your account has been disconnected from you Facebook account.
         </p>
       </div>
-      <div class="user-editor__disconnect-FB-modal-container--keep" *ngIf="byebye">
+      <div 
+        class="user-editor__disconnect-FB-modal-container--keep" 
+        *ngIf="byebye">
         <p>
           <img src="https://media.giphy.com/media/UQaRUOLveyjNC/giphy.gif">
         </p>
