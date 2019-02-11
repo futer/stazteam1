@@ -121,12 +121,12 @@ function disconnect(req,res,next) {
 
 function disconnect_delete(req,res,next) {
     userService.disconnect_delete(req.body)
-        .then(resp => { console.log(resp); res.json(resp) })
+        .then(resp => { res.json(resp) })
         .catch(err => { res.json(err) });
 }
 
 function disconnect_local(req,res,next) {
     userService.disconnect_local(req.body)        
         .then(resp => { res.json(resp) })
-        .catch(err => { console.log(err); res.json(err) });
+        .catch(err => { res.json(err) });
 }
