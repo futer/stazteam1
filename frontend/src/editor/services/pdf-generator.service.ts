@@ -70,7 +70,11 @@ export class PdfGeneratorService {
                     } else {
                         doc.setFontStyle('bold');
                     }
-                    position.x = position.x + 0.4;
+
+                    if (position.offset !== this.maxLength) {
+                        position.x = position.x + 0.4;
+                    }
+
                     this.formatText(doc, nodes[processed].childNodes, position);
                     doc.setFontStyle('normal');
                     processed++;
@@ -82,7 +86,11 @@ export class PdfGeneratorService {
                     } else {
                         doc.setFontStyle('italic');
                     }
-                    position.x = position.x + 0.8;
+
+                    if (position.offset !== this.maxLength) {
+                        position.x = position.x + 0.8;
+                    }
+
                     this.formatText(doc, nodes[processed].childNodes, position);
                     doc.setFontStyle('normal');
                     processed++;
