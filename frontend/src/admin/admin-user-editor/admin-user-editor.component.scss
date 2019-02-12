@@ -53,7 +53,7 @@
         }
 }
 
-.admin-user-editor__selector {
+.admin-user-editor__selector, .admin-user-editor__selector--role {
     background-color: transparent;
     color: $border-color;
     width: 30%;
@@ -72,10 +72,12 @@
     .admin-user-editor__options {
         background-color: $sec-back-color;
         border: 1px solid $border-color;
-
     }
     
     .admin-user-editor__options::content{
         color: whitesmoke;
     }     
+}
+.admin-user-editor__selector--role {
+    margin-bottom: 5px;
 }

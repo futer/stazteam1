@@ -40,13 +40,13 @@
         <p class="user-editor__change-creds">Change your profile picture:</p>
         <div class="user-editor__input-file">
           <app-label [for]="'pic__input'" [labelStyle]="'user-editor__form-file'">
-            <i class="fa fa-arrow-down" aria-hidden="true"></i> Select your profile image
+            <i class="fa fa-arrow-down" aria-hidden="true"></i> 
+              Select your profile image
           </app-label>
           <app-input
             [id]="'pic__input'"
             [formInputStyle]="'user-editor__form-file'"
             [type]="'file'"
-            [controlName]="updateUserForm.controls.picture"
             [accept]="'image/*'"
             (change)="pictureUpload($event)">
           </app-input>
@@ -54,15 +54,9 @@
       </div>
 
       <div class="user-editor__profile-pic-wrapper">
-        <app-image
-          *ngIf="!pictureUrl"
-          [url]="'../../assets/img/avatar.png'"
-          [className]="'profile-pic-editor'">
-        </app-image>
-        <app-image
-          *ngIf="pictureUrl"
-          [url]="pictureUrl"
-          [className]="'profile-pic-editor'">
+          <app-image
+          [url]="getPic()" 
+          [className]="'user-editor__profile-img'">
         </app-image>
       </div>
 
