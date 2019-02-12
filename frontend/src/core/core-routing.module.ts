@@ -16,6 +16,7 @@ import { AdminUserEditorComponent } from 'src/admin/admin-user-editor/admin-user
 import { AdminGuard } from './guards/admin/admin.guard';
 
 const routes: Routes = [
+    {path: '', redirectTo: '/main', pathMatch: 'full'},
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'register', component: RegisterComponent },
     { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
@@ -24,7 +25,7 @@ const routes: Routes = [
       path: 'doc/:id',
       loadChildren: '../document/document.module#DocumentModule'
     },
-    { path: 'bookmark-panel', component: BookmarkPanelComponent, canActivate: [AuthGuard]},
+    { path: 'bookmark-panel', component: BookmarkPanelComponent, canActivate: [AdminGuard]},
     { path: 'subpage/:title', component: SubpageContainerComponent, canActivate: [AuthGuard]},
     { path: 'user-editor', loadChildren: '../user/user.module#UserModule'},
     { path: 'admin', component: AdminUserEditorComponent, canActivate: [AdminGuard] }

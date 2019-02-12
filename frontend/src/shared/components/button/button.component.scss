@@ -65,3 +65,34 @@
     transition:.3s;
     cursor:pointer;
   }
+
+  .user-editor__disconnect-FB-modal-container-button{
+    background: $main-color;
+    border: none;
+    color: $main-font-color;
+    cursor: pointer;
+    display: inline-block;
+    font-size: $btn-font-size;
+    margin:  0.5em 0.2em;
+    padding: 1rem;
+    border-radius: 3px;
+    width:11em;
+    transition: 0.4s;
+        &:hover {
+            background-color: #cd9b05;
+        }
+}
+
+.facebook-disconnect{ 
+    border: 0.25em solid #1d336c;
+    background: #4267b2;
+    color: $main-font-color; 
+    padding: 1em;
+    margin: 0.5em 0;
+    width: 100%;
+    transition: 0.1s all ease-in-out, 0.1s transform ease-in-out;
+    
+    &:hover {
+        border: 0.5em solid #1d336c;
+    }
+}

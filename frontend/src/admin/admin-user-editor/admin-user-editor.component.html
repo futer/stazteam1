@@ -5,7 +5,7 @@
   <div class="admin-user-editor__success-msg" *ngIf="send">
     User has been updated
   </div>
-  
+
   <div class='admin-user-editor__container'>
     <p class="admin-user-editor__text">User editor:</p>
     <input 
@@ -68,17 +68,26 @@
           </div>
   
           <div class="admin-user-editor__profile-pic-wrapper">
-            <app-image
-              *ngIf="!pictureUrl"
-              [url]="'../../assets/img/avatar.png'"
-              [className]="'profile-pic-editor'">
-            </app-image>
-            <app-image
-              *ngIf="pictureUrl"
-              [url]="pictureUrl"
-              [className]="'profile-pic-editor'">
-            </app-image>
+              <div class="user-editor__profile-pic-wrapper">
+                  <app-image
+                  [url]="getPic()" 
+                  [className]="'admin-user-editor__profile-img'">
+                </app-image>
+              </div>
           </div>
+
+          <p>
+              Change user role:
+          </p>
+          <select 
+            formControlName="role" 
+            class="admin-user-editor__selector--role">
+            <option 
+              class="admin-user-editor__options" 
+              [selected]="role === selectedUser.role" *ngFor="let role of roles">
+                {{ role }}
+            </option>
+          </select>
   
           <div class="admin-user-editor__input-group">
             <p>New password:</p>
