@@ -12,6 +12,7 @@ import * as Actions from '../store/user.actions';
 import * as AuthActions from '../../core/store/auth/auth.actions';
 import { Reload } from '../../core/store/auth/auth.actions';
 import { AuthState } from 'src/core/store/auth/auth.state';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-editor',
@@ -38,6 +39,7 @@ export class UserEditorComponent implements OnInit, OnDestroy {
   byebye: boolean;
   disconnected: boolean;
   disconnectError: string;
+  picture;
 
   private validationMessages = {
     password: 'Password must be longer than 5 characters',
@@ -50,6 +52,7 @@ export class UserEditorComponent implements OnInit, OnDestroy {
     private changeUserFormBuilder: FormBuilder,
     private disconnectFromBuilder: FormBuilder,
     private userService: UserService,
+    private sanitizer: DomSanitizer
   ) {
     this.current = { id: '', firstName: '', lastName: '', pic: '' };
     this.deleted = false;
@@ -69,8 +72,6 @@ export class UserEditorComponent implements OnInit, OnDestroy {
       }
     });
 
-
-
     this.error$ = this.store.select(Errors);
     this.send$ = this.store.select(SendSuccess);
 
@@ -85,7 +86,7 @@ export class UserEditorComponent implements OnInit, OnDestroy {
     this.updateUserForm = this.changeUserFormBuilder.group({
       firstName: ['', [Validators.minLength(2)]],
       lastName: ['', [Validators.minLength(2)]],
-      picture: '',
+      pic: '',
       changePasswordGroup: this.changeUserFormBuilder.group({
         oldPassword: ['', [Validators.minLength(5)]],
         passwordGroup: this.changeUserFormBuilder.group({
@@ -145,7 +146,6 @@ export class UserEditorComponent implements OnInit, OnDestroy {
           this.disconnectError = data['name'];
         }
       });
-
   }
 
   disconnect_local() {
@@ -165,5 +165,27 @@ export class UserEditorComponent implements OnInit, OnDestroy {
     } else {
       this.keep = true;
     }
+  }
+
+  pictureUpload(event) {
+    this.picture = event.target.files[0];
+    const reader = new FileReader;
+    reader.readAsDataURL(this.picture);
+    reader.onload = () => {
+      this.picture = reader.result.toString().split(',')[1];
+      if (this.picture.length <= 106000) {
+        this.updateUserForm.get('pic').setValue(this.picture);
+      } else {
+        this.picture = null;
+        window.alert('This image is too big');
+      }
+    };
+  }
+
+  getPic() {
+    if (this.picture) {
+      return this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${this.picture}`);
+    }
+    return '../../assets/img/avatar.png';
   }
 }

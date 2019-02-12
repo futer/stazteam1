@@ -22,7 +22,6 @@
     </select>
   
     <div *ngIf="selectedUser">
-      {{selectedUser.role}}
       <form
         class="admin-user-editor__update-user"
         [formGroup]="updateUserForm"
@@ -69,23 +68,24 @@
           </div>
   
           <div class="admin-user-editor__profile-pic-wrapper">
-            <app-image
-              *ngIf="!pictureUrl"
-              [url]="'../../assets/img/avatar.png'"
-              [className]="'profile-pic-editor'">
-            </app-image>
-            <app-image
-              *ngIf="pictureUrl"
-              [url]="pictureUrl"
-              [className]="'profile-pic-editor'">
-            </app-image>
+              <div class="user-editor__profile-pic-wrapper">
+                  <app-image
+                  [url]="getPic()" 
+                  [className]="'admin-user-editor__profile-img'">
+                </app-image>
+              </div>
           </div>
 
-          <select formControlName="role" class="admin-user-editor__selector">
+          <p>
+              Change user role:
+          </p>
+          <select 
+            formControlName="role" 
+            class="admin-user-editor__selector--role">
             <option 
-            class="admin-user-editor__options" 
-            [selected]="role === selectedUser.role" *ngFor="let role of roles">
-              {{ role }}
+              class="admin-user-editor__options" 
+              [selected]="role === selectedUser.role" *ngFor="let role of roles">
+                {{ role }}
             </option>
           </select>
   
