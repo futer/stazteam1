@@ -17,7 +17,8 @@ export class PdfGeneratorService {
         const position: PositionModel = {
             x: this.beginPointXY,
             y: this.beginPointXY,
-            offset: this.maxLength
+            offset: this.maxLength,
+            lines: 1
         };
 
         const nodes = src.nativeElement.childNodes;
@@ -49,12 +50,22 @@ export class PdfGeneratorService {
         position.x = this.beginPointXY;
         position.y = position.y + 6.48;
         position.offset = this.maxLength;
+        position.lines++;
     }
 
     formatText(doc: jsPDF, nodes: any, position: PositionModel): void {
         let processed = 0;
 
         while (processed < nodes.length) {
+
+            if (position.lines % 45 === 0) {
+                doc.addPage();
+                position.x = this.beginPointXY;
+                position.y = this.beginPointXY;
+                position.offset = this.maxLength;
+                position.lines++;
+            }
+
             switch (nodes[processed].nodeName) {
                 case '#text':
                     this.insertText(doc, nodes[processed], position);
