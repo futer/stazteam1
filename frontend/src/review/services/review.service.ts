@@ -4,6 +4,8 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { environment } from '../../environments/environment';
 import { StatusEnum } from '../models/status.enum';
+import { CommentModel } from 'src/app/models/comment.model';
+import { AddCommentModel } from '../models/add-comment.model';
 
 const PrevQuery = gql`
   query Documents {
@@ -69,6 +71,25 @@ const DocQuery = gql`
   }
 `;
 
+const AddCommentMutation = gql`
+mutation Document($input: addCommentInput!){
+  addComment(input: $input) {
+    id
+    page
+    content
+    markedText {
+      line
+      content
+    }
+    reviewer {
+      id
+      firstName
+      lastName
+    }
+  }
+}
+`;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -102,5 +123,14 @@ export class ReviewService {
         id: id
       }
     }).valueChanges;
+  }
+
+  addCommentMutation(comment: AddCommentModel): Observable<any> {
+    return this.apollo.mutate({
+      mutation: AddCommentMutation,
+      variables: {
+        input: comment
+      }
+    });
   }
 }

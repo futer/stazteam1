@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tooltip',
@@ -7,9 +8,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TooltipComponent implements OnInit {
 
-  constructor() { }
+  @Input() tooltipPositionStyles: object;
+  @Input() tooltipStyle: string;
+  @Input() markedText: string;
+
+  @Output() commentEmitter = new EventEmitter<any>();
+
+  addCommentForm: FormGroup;
+
+  constructor(
+    private formBuilder: FormBuilder,
+  ) {
+    this.tooltipStyle = '';
+    this.markedText = '';
+    this.addCommentForm = this.formBuilder.group({
+      content: [
+        '',
+        Validators.required
+      ]
+    });
+  }
 
   ngOnInit() {
   }
 
+  send(addCommentForm) {
+    this.commentEmitter.emit(addCommentForm.value);
+    this.addCommentForm.setValue({ content: '' });
+  }
 }

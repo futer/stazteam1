@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { DocumentService } from '../services/document.service';
 
 declare const require;
 const PDFJS = require('pdfjs-dist/build/pdf');
@@ -18,7 +19,9 @@ export class PdfViewComponent implements OnInit, OnChanges {
     pagesAmount: number;
     pageNr: number;
 
-    constructor() {}
+    constructor(
+        private docService: DocumentService,
+    ) {}
 
     ngOnInit() {
         this.pageNr = 1;
@@ -60,6 +63,7 @@ export class PdfViewComponent implements OnInit, OnChanges {
     }
 
     changePage() {
+        this.docService.sendPageNr(this.pageNr);
         this.getPages.getPage(this.pageNr).then(page => this.actualPage = page.getTextContent());
     }
 }

@@ -1,0 +1,6 @@
+<div *ngIf="markedText">
+    <span *ngFor="let line of markedText">
+      <span class="number">{{ line.line  + 1}}</span>
+      {{ line.content }}
+    </span>
+</div>

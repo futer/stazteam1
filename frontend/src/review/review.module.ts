@@ -15,6 +15,8 @@ import { ReviewDocComponent } from './review-doc/review-doc.component';
 import { reviewModuleReducers } from './store/review.reducers';
 import { ReviewEffects } from './store/review.effects';
 import { ReviewRoutingModule } from './review-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MarkedTextComponent } from './marked-text/marked-text.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { ReviewRoutingModule } from './review-routing.module';
     NavMenuPrevComponent,
     NavMenuComponent,
     ReviewDocComponent,
+    MarkedTextComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +33,7 @@ import { ReviewRoutingModule } from './review-routing.module';
     DocumentModule,
     InfiniteScrollModule,
     ReviewRoutingModule,
+    ReactiveFormsModule,
     StoreModule.forFeature('review', reviewModuleReducers),
     EffectsModule.forFeature([ReviewEffects]),
   ],

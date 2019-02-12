@@ -1,6 +1,7 @@
 const commentService = require('../../services/comment.service');
 
 function addComment(root, args, context) {
+  args.input.reviewer = context.user.sub._id;
   return commentService.addComment(args.input);
 }
 

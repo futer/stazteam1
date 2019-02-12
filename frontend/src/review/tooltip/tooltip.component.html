@@ -1,3 +1,20 @@
-<p>
-  tooltip works!
-</p>
+<div [ngStyle]="tooltipPositionStyles" [class]="tooltipStyle">
+  <app-marked-text [markedText]="markedText"></app-marked-text>
+  <form 
+  [class]="''" 
+  [formGroup]="addCommentForm" 
+  [autocomplete]="'off'"
+  (ngSubmit)="send(addCommentForm)" >
+
+    <app-input 
+      [id]="'comment'"
+      [controlName]="addCommentForm.controls.content" 
+      [placeholder]="'enter your comment'" 
+      [type]="'text'" 
+      [formInputStyle]="'chat__input'"></app-input>
+    <app-submit-btn 
+    
+      [buttonStyle]="'add-comment__submit'"
+      [disabled]="addCommentForm.invalid">Add</app-submit-btn>
+  </form>
+</div>

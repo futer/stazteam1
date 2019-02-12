@@ -1,0 +1,22 @@
+div {
+  text-align: left;
+  font-family: monospace;
+  background-color: rgb(39, 39, 39);
+  min-width: 300px;
+  margin: 10px;
+  padding: 0 5px 0 0;
+
+  .number {
+    display: inline-block;
+    border-right: 1px solid rgb(114, 114, 114);
+    padding: 0 .5em;
+    margin-right: .5em;
+    color: #c4c4c4;
+  }
+
+  span {
+    display: block;
+    line-height: 1.5rem;
+    color: #c4c4c4;
+  }
+}

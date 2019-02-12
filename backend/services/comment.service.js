@@ -26,7 +26,9 @@ async function updateComment(id, data) {
   if (!document) { return null; }
 
   const comment = document.comments.id(id);
+
   Object.assign(comment, data);
+
   await document.save();
 
   return comment;
