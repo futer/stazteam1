@@ -109,7 +109,6 @@ export class UserEditorComponent implements OnInit, OnDestroy {
   }
 
   updateUser(form) {
-    console.log(form.value)
     const user: UserFormModel = {
       id: this.current.id,
       firstName: form.value.firstName === '' ? undefined : form.value.firstName,
