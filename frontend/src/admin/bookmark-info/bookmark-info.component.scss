@@ -1,22 +1,35 @@
 @import '../../assets/main-style.scss';
 .bookmark-info {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px 15px;
+    @media (min-width: $tablet) {
+        flex-direction: row;
+      }
                
     &:last-child {
         border:none;
     }
 
     .bookmark-info--title {
-        width: 170px;
+        width: 100%;
+        text-align: center;
+
+        @media (min-width: $tablet) {
+            width: 150px;
+          }
     }
 
     .bookmark-info--position {
-        width: 170px;
-        margin-left: 10px;
+        width:100%;
+        text-align: center;
+
+        @media (min-width: $tablet) {
+            width: 170px;
+            margin-left: 10px;
+          }
     }
     
     .bookmark-info--data {
