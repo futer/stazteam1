@@ -12,27 +12,32 @@
         </li>
       </ul>
     </div>
-      <div class="dropdown">
-        <app-button 
-          [class]="'dropdown__button'">
-          {{(name$ | async)?.firstName}} {{(name$ | async)?.lastName}}
-          <i class="fa fa-chevron-down" aria-hidden="true"></i>
-        </app-button>
-        <div class="dropdown--list" (click)="navigateToProfileEditor()">
-          <app-router-btn 
-            [class]="'dropdown--link'" 
-            [link]="'/user-editor'"> 
-              Edit Profile
-            <i class="fa fa-user dropdown__icon" ></i>
-          </app-router-btn>
-          <app-router-btn 
-            (click)="logOut()" 
-            [class]="'dropdown--link'" 
-            href="#">
-              Sign out
-            <i class="fa fa-sign-out dropdown__icon"></i>
-          </app-router-btn>
-        </div>
+    <div class="navbar-user-info">
+      <div class="img-wrapper">
+        <img class="av" src="../../assets/img/avatar.png">
       </div>
+        <div class="dropdown">
+            <app-button 
+              [class]="'dropdown__button'">
+              {{(name$ | async)?.firstName}} {{(name$ | async)?.lastName}}
+              <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </app-button>
+            <div class="dropdown--list" (click)="navigateToProfileEditor()">
+              <app-router-btn 
+                [class]="'dropdown--link'" 
+                [link]="'/user-editor'"> 
+                  Edit Profile
+                <i class="fa fa-user dropdown__icon" ></i>
+              </app-router-btn>
+              <app-router-btn 
+                (click)="logOut()" 
+                [class]="'dropdown--link'" 
+                href="#">
+                  Sign out
+                <i class="fa fa-sign-out dropdown__icon"></i>
+              </app-router-btn>
+            </div>
+          </div>
+    </div>
     </nav>
   </header>

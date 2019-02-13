@@ -72,6 +72,7 @@ export class UserEditorComponent implements OnInit, OnDestroy {
       }
     });
     this.picture = this.current.pic;
+    console.log(this.picture);
 
     this.error$ = this.store.select(Errors);
     this.send$ = this.store.select(SendSuccess);

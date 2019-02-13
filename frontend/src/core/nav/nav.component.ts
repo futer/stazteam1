@@ -8,10 +8,12 @@ import { SubpageService } from 'src/shared/services/subpage.service';
 import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
 import * as AuthActions from '../../core/store/auth/auth.actions';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/observable';
+import { Subscription, Observable } from 'rxjs';
 import { AuthService as SocialMediaAuthService } from 'angularx-social-login';
 import * as fromAuth from '../store/auth/auth.reducers';
 import { BookmarkState } from '../store/bookmark/bookmark.state';
+import { from } from 'zen-observable';
+
 
 @Component({
     selector: 'app-nav',
@@ -21,6 +23,8 @@ import { BookmarkState } from '../store/bookmark/bookmark.state';
 export class NavComponent implements OnInit {
    @Input() bookmark$: Observable<any>;
    name$: Observable<any> = this.store.select(fromAuth.User);
+   pic;
+   currentSub: Subscription;
 
     constructor(
         private authService: AuthService,
@@ -31,7 +35,14 @@ export class NavComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.store.dispatch(new bookmarkActions.FetchBookmark());
+      this.store.dispatch(new bookmarkActions.FetchBookmark());
+      this.store.select(fromAuth.User).subscribe(user => {
+            if (user) {
+                this.pic = user.pic;
+                // console.log(this.pic);
+            }
+       });
+    // console.log(this.pic);
     }
 
     logOut() {
