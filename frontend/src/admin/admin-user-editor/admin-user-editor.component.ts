@@ -34,7 +34,6 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
   searchbox: string;
   roles: string[];
   picture;
-  files;
 
   private validationMessages = {
     password: 'Password must be longer than 5 characters',
