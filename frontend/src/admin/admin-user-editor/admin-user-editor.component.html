@@ -14,7 +14,7 @@
       class="admin-user-editor__searchbox" 
       (keyup)="filter()">
   
-    <select *ngIf="users" [(ngModel)]="selectedUser" class="admin-user-editor__selector">
+    <select *ngIf="users" [(ngModel)]="selectedUser" class="admin-user-editor__selector" (change)='updatePic()'>
       <option class="admin-user-editor__selected" [ngValue]="undefined" selected hidden>Select user</option>
       <option class="admin-user-editor__options" *ngFor="let user of usersfiltered.data.users" [ngValue]="user">
         {{ user.firstName }} {{ user.lastName }}
@@ -56,11 +56,12 @@
               <app-label [for]="'pic__input'" [labelStyle]="'admin-user-editor__form-file'">
                 <i class="fa fa-arrow-down" aria-hidden="true"></i> Select your profile image
               </app-label>
-              <app-input
+
+              <app-input #pic
                 [id]="'pic__input'"
                 [formInputStyle]="'admin-user-editor__form-file'"
+                [controlName]="updateUserForm.controls.pic"
                 [type]="'file'"
-                [controlName]="updateUserForm.controls.picture"
                 [accept]="'image/*'"
                 (change)="pictureUpload($event)">
               </app-input>
@@ -69,16 +70,14 @@
   
           <div class="admin-user-editor__profile-pic-wrapper">
               <div class="user-editor__profile-pic-wrapper">
-                  <app-image
+                <app-image
                   [url]="getPic()" 
                   [className]="'admin-user-editor__profile-img'">
                 </app-image>
               </div>
           </div>
 
-          <p>
-              Change user role:
-          </p>
+          <p>Change user role:</p>
           <select 
             formControlName="role" 
             class="admin-user-editor__selector--role">
@@ -113,7 +112,6 @@
             </app-error>
   
             <p>Confirm new password:</p>
-  
             <app-input
               ng-blur="visitedEmail=true"
               [id]="'repeatPassword'"
@@ -140,7 +138,7 @@
           [buttonStyle]="''"
           [type]="'submit'"
           [disabled]="updateUserForm.invalid">
-          Update user
+            Update user
         </app-submit-btn>
       </form>
     </div>
