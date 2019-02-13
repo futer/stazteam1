@@ -1,0 +1,12 @@
+@import "../../assets/main-style.scss";
+
+.toolbox{
+    position: fixed;
+    top: 100px;
+    left: 65%;
+    width: 3em;
+    > * {
+        display: block;
+        margin: 1px 0;
+    }
+}
