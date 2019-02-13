@@ -1,0 +1,5 @@
+<div [ngSwitch]="alert?.type">
+  <app-error *ngSwitchCase="'error'">ACHTUNG!</app-error>
+  <app-error [class]="'error-msg'" *ngSwitchCase="'success'">good boi</app-error>
+  <p *ngSwitchDefault></p>
+</div>

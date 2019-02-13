@@ -12,12 +12,28 @@ import { BoldBtnComponent } from './edit-toolbox/bold-btn/bold-btn.component';
 import { ItalicBtnComponent } from './edit-toolbox/italic-btn/italic-btn.component';
 import { UnderBtnComponent } from './edit-toolbox/under-btn/under-btn.component';
 import { CiteBtnComponent } from './edit-toolbox/cite-btn/cite-btn.component';
+import { AlertComponent } from './alert/alert.component';
+import { SharedModule } from 'src/shared/shared.module';
 
 @NgModule({
-  declarations: [EditorViewComponent, TextPageComponent, EditControlsComponent, CancelBtnComponent, SaveBtnComponent, SendBtnComponent, EditToolboxComponent, BoldBtnComponent, ItalicBtnComponent, UnderBtnComponent, CiteBtnComponent],
-  imports: [
-    CommonModule,
-    EditorRoutingModule
-  ]
+    declarations: [
+        EditorViewComponent,
+        TextPageComponent,
+        EditControlsComponent,
+        CancelBtnComponent,
+        SaveBtnComponent,
+        SendBtnComponent,
+        EditToolboxComponent,
+        BoldBtnComponent,
+        ItalicBtnComponent,
+        UnderBtnComponent,
+        CiteBtnComponent,
+        AlertComponent
+    ],
+    imports: [
+        CommonModule,
+        EditorRoutingModule,
+        SharedModule
+    ]
 })
-export class EditorModule { }
+export class EditorModule {}
