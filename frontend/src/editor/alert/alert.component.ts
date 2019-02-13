@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OperationsService } from '../services/operations.service';
 import { AlertModel } from '../models/alert.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-alert',
@@ -14,25 +15,15 @@ export class AlertComponent implements OnInit, OnDestroy {
   ) { }
 
   alert: AlertModel;
+  alertStatus: Subscription;
 
   ngOnInit() {
-    this.operations.sendStatus.subscribe(res => {
-      if (res['errors']) {
-        this.alert = {
-          type: 'error',
-          message: 'An error occured...'
-        };
-      }
-      if (res['data']) {
-        this.alert = {
-          type: 'success',
-          message: 'Your Doc ID: ' + res['data'].addDocument.id
-        };
-      }
+    this.alertStatus = this.operations.sendStatus.subscribe(res => {
+      this.alert = res;
     });
   }
 
   ngOnDestroy() {
-    this.operations.sendStatus.unsubscribe();
+    this.alertStatus.unsubscribe();
   }
 }

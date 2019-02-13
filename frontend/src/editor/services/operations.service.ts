@@ -4,6 +4,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { environment } from '../../environments/environment';
 import { UserSendDataModel } from '../models/usersend.model';
+import { AlertModel } from '../models/alert.model';
 
 const addDocMutation = gql`
 mutation AddDocument(
@@ -30,7 +31,7 @@ mutation AddDocument(
 })
 export class OperationsService {
   adress = environment.adress;
-  sendStatus = new Subject<any>();
+  sendStatus = new Subject<AlertModel>();
 
   constructor(
     private apollo: Apollo
@@ -39,7 +40,7 @@ export class OperationsService {
   sendToReview(data: UserSendDataModel) {
     this.apollo.mutate({
       mutation: addDocMutation,
-      variables : {
+      variables: {
         author: data.author,
         content: data.content,
         preview: data.preview,
@@ -47,7 +48,13 @@ export class OperationsService {
         userId: data.userId
       }
     }).toPromise()
-    .then(res => this.sendStatus.next(res))
-    .catch(err => this.sendStatus.next(err));
+      .then(res => this.sendStatus.next(<AlertModel>{
+        type: 'success',
+        message: 'Your Doc ID: ' + res['data'].addDocument.id
+      }))
+      .catch(err => this.sendStatus.next(<AlertModel>{
+        type: 'error',
+        message: 'An error occured...'
+      }));
   }
 }
