@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { PdfGeneratorService } from 'src/editor/services/pdf-generator.service';
-import jsPDF from 'jspdf';
 import { ToolboxActionsService } from 'src/editor/services/toolbox-actions.service';
 
 @Component({

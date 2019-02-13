@@ -4,6 +4,7 @@ import { ToolboxActionsService } from 'src/editor/services/toolbox-actions.servi
 import { Store } from '@ngrx/store';
 import { zip } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UserSendModel } from 'src/editor/models/usersend.model';
 
 @Component({
   selector: 'app-send-btn',
@@ -24,7 +25,10 @@ export class SendBtnComponent implements OnInit {
   sendPDF() {
     zip(
       this.textRef.textSource,
-      this.store.pipe(map(data => data.auth.user))
+      this.store.pipe(map(data => <UserSendModel>{
+        _id: data.auth.user._id,
+        author: data.auth.user.firstName + ' ' + data.auth.user.lastName
+      }))
     ).subscribe(res => {
       const doc = this.pdfGenerator.generatePDF(res[0]);
       doc.output('datauri');
