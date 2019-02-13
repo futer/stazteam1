@@ -99,20 +99,3 @@
         border: 0.5em solid #1d336c;
     }
 }
-
-//ERROR PAGE
-.error-container__button{
-    margin-top: 15px;
-    border: none;
-    color: $main-font-color;
-    cursor: pointer;
-    background-color: $main-color;
-    padding: 0.7rem;
-    border-radius: 2px;
-    text-transform: uppercase;
-    transform: 0.3s;
-
-        &:hover{
-            background-color: #cd9b05;
-        }
-}
