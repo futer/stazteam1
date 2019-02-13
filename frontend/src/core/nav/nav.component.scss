@@ -27,14 +27,10 @@ header {
     margin: 5px;
     cursor: pointer;
     font-size: 25px;
-    // padding-top: 20px;
-    // padding-left: 20px;
-    // padding-bottom: 10px;
 
     &:hover{
       border-radius: 50%;
       background-color: rgba(0,0,0,0.2);
-
     }
 
     @media (min-width: 640px) {
@@ -51,7 +47,6 @@ header {
           justify-content: space-between;
           height: 75px;
           width: 100vw;
-          
       }
   }
    
@@ -64,7 +59,6 @@ header {
       height: 100%;
       text-align: center;
   }
-
 
   .logo-bookmarks-container {
     @media (min-width: 640px) {
@@ -110,8 +104,6 @@ header {
     @media (min-width: 640px) {
       margin-top: 0;
     }
-
-
 
     .dropdown--list {
       background-color:#fff;
