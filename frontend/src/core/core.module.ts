@@ -19,7 +19,6 @@ import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { EditorModule } from 'src/editor/editor.module';
 import bookmarkReducer from './store/bookmark/bookmark.reducers';
-import { ErrorPageComponent } from './error-page/error-page.component';
 
 const config = new AuthServiceConfig([
   // {
@@ -43,7 +42,6 @@ export function provideConfig() {
     NavComponent,
     MainComponent,
     SidebarComponent,
-    ErrorPageComponent,
   ],
   imports: [
     CommonModule,
