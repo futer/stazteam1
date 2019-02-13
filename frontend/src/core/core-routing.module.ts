@@ -10,7 +10,6 @@ import { AdminModule } from 'src/admin/admin.module';
 import { SubpageContainerComponent } from 'src/shared/components/subpage-container/subpage-container.component';
 import { AdminUserEditorComponent } from 'src/admin/admin-user-editor/admin-user-editor.component';
 import { AdminGuard } from './guards/admin/admin.guard';
-import { ErrorPageComponent } from './error-page/error-page.component';
 
 const routes: Routes = [
     {path: '', redirectTo: '/main', pathMatch: 'full'},
@@ -30,7 +29,6 @@ const routes: Routes = [
       path: 'doc-edit',
       loadChildren: '../editor/editor.module#EditorModule'
     },
-    { path: '**', component: ErrorPageComponent, canActivate: [AuthGuard]}
   ];
 
 @NgModule({
