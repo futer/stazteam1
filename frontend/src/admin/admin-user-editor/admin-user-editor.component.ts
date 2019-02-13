@@ -110,10 +110,6 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  // getPic() {
-  //   return pictureUploadFunctions.getPic(this.picture, this.sanitizer);
-  // }
-
   getPic() {
     if (this.picture) {
       return this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${this.picture}`);
