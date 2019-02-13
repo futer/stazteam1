@@ -54,7 +54,6 @@ error: HttpErrorResponse;
     pictureUploadFunctions.pictureUpload(event).then(pic => {
       if (pic) {
         this.picture = pic;
-        this.registerForm.get('pic').setValue(pic);
       } else {
         window.alert('This image is too big');
       }
@@ -70,7 +69,7 @@ error: HttpErrorResponse;
   }
 
   register(form): void {
-    this.authService.createUser(form.value).subscribe(data => {
+    this.authService.createUser(form.value, this.picture).subscribe(data => {
     this.authService.loginNavigate();
     },
     err => {
