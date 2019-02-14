@@ -7,6 +7,7 @@ import { AuthService } from '../services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavService } from '../services/nav/nav.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import * as pictureUploadFunctions from '../../shared/reusable-functions/pictureUpload';
 
 @Component({
   selector: 'app-register',
@@ -50,18 +51,17 @@ error: HttpErrorResponse;
   }
 
   pictureUpload(event) {
-    this.picture = event.target.files[0];
-    const reader = new FileReader;
-    reader.readAsDataURL(this.picture);
-    reader.onload = () => {
-      this.picture = reader.result.toString().split(',')[1];
-      if (this.picture.length <= 106000) {
-        this.registerForm.get('pic').setValue(this.picture);
+    pictureUploadFunctions.pictureUpload(event).then(pic => {
+      if (pic) {
+        this.picture = pic;
       } else {
-        this.picture = null;
         window.alert('This image is too big');
       }
-    };
+    });
+  }
+
+  getPic() {
+    return pictureUploadFunctions.getPic(this.picture, this.sanitizer);
   }
 
   navigate(): void {
@@ -69,19 +69,12 @@ error: HttpErrorResponse;
   }
 
   register(form): void {
-    this.authService.createUser(form.value).subscribe(data => {
+    this.authService.createUser(form.value, this.picture).subscribe(data => {
     this.authService.loginNavigate();
     },
     err => {
       this.error = err;
     }
     );
-  }
-
-  getPic() {
-    if (this.picture) {
-      return this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${this.picture}`);
-    }
-    return '../../assets/img/avatar.png';
   }
 }

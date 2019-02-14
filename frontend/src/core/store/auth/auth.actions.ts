@@ -10,7 +10,8 @@ export enum AuthActionTypes {
     LOGOUT = '[Auth] Logout',
     RELOAD = '[Auth] Reload',
     RELOAD_SUCCESS = '[Auth] Reload Success',
-    RELOAD_FAIL = '[Auth] Reload Fail'
+    RELOAD_FAIL = '[Auth] Reload Fail',
+    CLEAR_STORE = 'CLEAR STORE'
 }
 
 export class LogIn implements Action {
@@ -54,6 +55,11 @@ export class SocialLogIn implements Action {
       constructor( public payload: ErrorData) {}
   }
 
+  export class ClearStore implements Action {
+      readonly type = AuthActionTypes.CLEAR_STORE;
+      constructor () {}
+  }
+
   export type All =
     | LogIn
     | SocialLogIn
@@ -62,4 +68,5 @@ export class SocialLogIn implements Action {
     | Logout
     | Reload
     | ReloadSuccess
-    | ReloadFail;
+    | ReloadFail
+    | ClearStore;

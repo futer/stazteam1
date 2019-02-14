@@ -45,7 +45,7 @@ export function authReducer (
            ...state,
            isAuthenticated: true,
            user: actions.payload,
-           errorMessage: null
+           errorMessage: null,
         };
 
         case authActions.AuthActionTypes.LOGIN_FAIL:
@@ -70,7 +70,7 @@ export function authReducer (
         case authActions.AuthActionTypes.RELOAD_FAIL:
         return {
             ...state,
-            errorMessage: actions.payload
+            isAuthenticated: false
         };
 
         default: {

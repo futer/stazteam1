@@ -8,10 +8,13 @@ import { SubpageService } from 'src/shared/services/subpage.service';
 import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
 import * as AuthActions from '../../core/store/auth/auth.actions';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/observable';
+import { Subscription, Observable } from 'rxjs';
 import { AuthService as SocialMediaAuthService } from 'angularx-social-login';
 import * as fromAuth from '../store/auth/auth.reducers';
 import { BookmarkState } from '../store/bookmark/bookmark.state';
+import { from } from 'zen-observable';
+import * as pictureUpload from '../../shared/reusable-functions/pictureUpload';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-nav',
@@ -21,21 +24,25 @@ import { BookmarkState } from '../store/bookmark/bookmark.state';
 export class NavComponent implements OnInit {
    @Input() bookmark$: Observable<any>;
    name$: Observable<any> = this.store.select(fromAuth.User);
+   pic$ = this.store.select(fromAuth.User);
+   currentSub: Subscription;
 
     constructor(
         private authService: AuthService,
         private store: Store<BookmarkState>,
         private subpageService: SubpageService,
         private router: Router,
-        private socialMediaAuthService: SocialMediaAuthService
+        private socialMediaAuthService: SocialMediaAuthService,
+        private sanitizer: DomSanitizer
     ) {}
 
     ngOnInit() {
-        this.store.dispatch(new bookmarkActions.FetchBookmark());
+      this.store.dispatch(new bookmarkActions.FetchBookmark());
     }
 
     logOut() {
         this.store.dispatch(new AuthActions.Logout());
+        this.store.dispatch(new AuthActions.ClearStore());
         this.socialMediaAuthService.signOut();
     }
 
@@ -46,4 +53,6 @@ export class NavComponent implements OnInit {
     navigateToProfileEditor() {
         this.router.navigate(['/user-editor']);
     }
+
 }
+

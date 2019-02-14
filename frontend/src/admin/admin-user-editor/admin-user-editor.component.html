@@ -5,7 +5,7 @@
   <div class="admin-user-editor__success-msg" *ngIf="send">
     User has been updated
   </div>
-  
+
   <div class='admin-user-editor__container'>
     <p class="admin-user-editor__text">User editor:</p>
     <input 
@@ -14,7 +14,7 @@
       class="admin-user-editor__searchbox" 
       (keyup)="filter()">
   
-    <select *ngIf="users" [(ngModel)]="selectedUser" class="admin-user-editor__selector">
+    <select *ngIf="users" [(ngModel)]="selectedUser" class="admin-user-editor__selector" (change)='updatePic()'>
       <option class="admin-user-editor__selected" [ngValue]="undefined" selected hidden>Select user</option>
       <option class="admin-user-editor__options" *ngFor="let user of usersfiltered.data.users" [ngValue]="user">
         {{ user.firstName }} {{ user.lastName }}
@@ -56,11 +56,12 @@
               <app-label [for]="'pic__input'" [labelStyle]="'admin-user-editor__form-file'">
                 <i class="fa fa-arrow-down" aria-hidden="true"></i> Select your profile image
               </app-label>
-              <app-input
+
+              <app-input #pic
                 [id]="'pic__input'"
                 [formInputStyle]="'admin-user-editor__form-file'"
+                [controlName]="updateUserForm.controls.pic"
                 [type]="'file'"
-                [controlName]="updateUserForm.controls.picture"
                 [accept]="'image/*'"
                 (change)="pictureUpload($event)">
               </app-input>
@@ -68,17 +69,24 @@
           </div>
   
           <div class="admin-user-editor__profile-pic-wrapper">
-            <app-image
-              *ngIf="!pictureUrl"
-              [url]="'../../assets/img/avatar.png'"
-              [className]="'profile-pic-editor'">
-            </app-image>
-            <app-image
-              *ngIf="pictureUrl"
-              [url]="pictureUrl"
-              [className]="'profile-pic-editor'">
-            </app-image>
+              <div class="user-editor__profile-pic-wrapper">
+                <app-image
+                  [url]="getPic()" 
+                  [className]="'admin-user-editor__profile-img'">
+                </app-image>
+              </div>
           </div>
+
+          <p>Change user role:</p>
+          <select 
+            formControlName="role" 
+            class="admin-user-editor__selector--role">
+            <option 
+              class="admin-user-editor__options" 
+              [selected]="role === selectedUser.role" *ngFor="let role of roles">
+                {{ role }}
+            </option>
+          </select>
   
           <div class="admin-user-editor__input-group">
             <p>New password:</p>
@@ -104,7 +112,6 @@
             </app-error>
   
             <p>Confirm new password:</p>
-  
             <app-input
               ng-blur="visitedEmail=true"
               [id]="'repeatPassword'"
@@ -131,7 +138,7 @@
           [buttonStyle]="''"
           [type]="'submit'"
           [disabled]="updateUserForm.invalid">
-          Update user
+            Update user
         </app-submit-btn>
       </form>
     </div>

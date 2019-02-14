@@ -9,9 +9,14 @@
 .container {
     display: flex;
     margin-top: 60px;
-    width: 600px;
-    align-content: space-between;
+    width: 95%;
+    margin: 60px auto 0px auto;
+    // align-content: space-between;
     flex-direction: column;
+
+    @media (min-width: $tablet) {
+        width:550px
+      }
 
     .add-bookmark {
         display: flex;
@@ -39,6 +44,12 @@
         border-bottom: 1px solid black;
         align-items: center;
         background-color: $sec-back-color;
+        justify-content: center;
+
+        @media (min-width: $desktop) {
+           flex-direction: row;
+           justify-content: space-between;
+          }
     }  
 }
 

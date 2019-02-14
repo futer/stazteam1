@@ -109,6 +109,7 @@
                   [id]="'file'"
                   [formInputStyle]="'register-form__file'" 
                   [type]="'file'" 
+                  [controlName]="registerForm.controls.pic"
                   [accept]="'image/*'"
                   (change)="pictureUpload($event)">
               </app-input>

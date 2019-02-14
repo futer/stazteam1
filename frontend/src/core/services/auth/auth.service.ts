@@ -34,10 +34,11 @@ export class AuthService {
     this.jwtHelper = new JwtHelperService();
   }
 
-  createUser(user: RegisterModel) {
+  createUser(user: RegisterModel, pic: string) {
     const data = {...user, ...user.passwordGroup};
     delete data.passwordGroup;
     delete data.repeatPassword;
+    data.pic = pic;
 
     return this.http.post<RegisterModel>(this.adress + 'users/register', data)
      .pipe(catchError(this.errorHandler));
@@ -59,6 +60,14 @@ export class AuthService {
     return false;
   }
 
+  isEditor(): boolean {
+    const token = localStorage.getItem('token');
+    const role = (this.jwtHelper.decodeToken(token)).sub.role;
+    if (role === 'editor') {
+      return true;
+    }
+    return false;
+  }
   setToken(JWtoken) {
     localStorage.setItem('token', JWtoken);
   }
