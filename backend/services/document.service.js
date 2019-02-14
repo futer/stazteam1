@@ -13,7 +13,7 @@ async function getDocuments(page, data) {
 
 async function getDocument(data) {
   database.connect();
-  const document = await Document.findById({ _id: data.id });
+  const document = await Document.findById({ _id: data.id }).populate('comments.reviewer');
 
   return document;
 }

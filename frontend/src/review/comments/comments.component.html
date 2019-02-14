@@ -1,0 +1,4 @@
+<div *ngFor="let comment of comments">
+  {{ comment.reviewer.firstName }}
+  <app-marked-text [markedText]="comment.markedText"></app-marked-text>
+</div>

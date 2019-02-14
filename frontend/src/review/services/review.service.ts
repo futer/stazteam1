@@ -7,6 +7,25 @@ import { StatusEnum } from '../models/status.enum';
 import { CommentModel } from 'src/app/models/comment.model';
 import { AddCommentModel } from '../models/add-comment.model';
 
+const DocCommentsQuery = gql`
+query Comments($documentId: String){
+  comments(documentId: $documentId) {
+    id
+    page
+    content
+    markedText {
+      line
+      content
+    }
+    reviewer {
+      firstName
+      lastName
+      role
+    }
+  }
+}
+`;
+
 const PrevQuery = gql`
   query Documents {
     documents{
@@ -48,29 +67,6 @@ const PrevByStatusQuery = gql`
   }
 `;
 
-const DocQuery = gql`
-  query Document($id: String!){
-    document(id: $id){
-      author
-      content
-      date
-      title
-      comments {
-        id
-        start
-        length
-        page
-        content
-        reviewer {
-          id
-          firstName
-          lastName
-        }
-      }
-    }
-  }
-`;
-
 const AddCommentMutation = gql`
 mutation Document($input: addCommentInput!){
   addComment(input: $input) {
@@ -102,6 +98,16 @@ export class ReviewService {
     this.address = environment.adress;
   }
 
+  fetchDocumentComments(documentId: string): Observable<any> {
+    return this.apollo.watchQuery({
+      query: DocCommentsQuery,
+      variables: {
+        documentId: documentId
+      },
+      fetchPolicy: 'no-cache',
+    }).valueChanges;
+  }
+
   fetchPrevs(): Observable<any> {
     return this.apollo.watchQuery({ query: PrevQuery }).valueChanges;
   }
@@ -116,21 +122,13 @@ export class ReviewService {
     }).valueChanges;
   }
 
-  fetchDoc(id: string): Observable<any> {
-    return this.apollo.watchQuery({
-      query: DocQuery,
-      variables: {
-        id: id
-      }
-    }).valueChanges;
-  }
-
   addCommentMutation(comment: AddCommentModel): Observable<any> {
     return this.apollo.mutate({
       mutation: AddCommentMutation,
       variables: {
         input: comment
-      }
+      },
+      fetchPolicy: 'no-cache',
     });
   }
 }

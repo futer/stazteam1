@@ -2,6 +2,13 @@ import { Action } from '@ngrx/store';
 import { DocumentModel, DocumentsModel } from '../models/document.model';
 import { ErrorData } from '../../app/models/error.model';
 import { StatusEnum } from '../models/status.enum';
+import { CommentModel } from 'src/app/models/comment.model';
+
+export enum fetchDocumentCommentsTypes {
+  FETCH_DOCUMENT_COMMENTS = '[Review] Fetch Document Comments',
+  FETCH_DOCUMENT_COMMENTS_SUCCESS = '[Review] Fetch Document Comments Success',
+  FETCH_DOCUMENT_COMMENTS_ERROR = '[Review] Fetch Document Comments Error'
+}
 
 export enum acceptedPrevsTypes {
   FETCH_ACCEPTED_PREVS = '[Review] Fetch Accepted Prevs',
@@ -21,10 +28,19 @@ export enum rejectedPrevsTypes {
   Fetch_REJECTED_PREVS_ERROR = '[Review] Fetch Rejected Prevs Error',
 }
 
-export enum docTypes {
-  FETCH_DOC = '[Review] Fetch Doc',
-  FETCH_DOC_SUCCESS = '[Review] Fetch Doc Success',
-  FETCH_DOC_ERROR = '[Review] Fetch Doc Error',
+export class FetchDocumentComments implements Action {
+  readonly type = fetchDocumentCommentsTypes.FETCH_DOCUMENT_COMMENTS;
+  constructor(public payload: string) {}
+}
+
+export class FetchDocumentCommentsSuccess implements Action {
+  readonly type = fetchDocumentCommentsTypes.FETCH_DOCUMENT_COMMENTS_SUCCESS;
+  constructor(public payload: CommentModel[]) {}
+}
+
+export class FetchDocumentCommentsError implements Action {
+  readonly type = fetchDocumentCommentsTypes.FETCH_DOCUMENT_COMMENTS_ERROR;
+  constructor(readonly payload: ErrorData) {}
 }
 
 export class FetchAcceptedPrevs implements Action {
@@ -72,20 +88,10 @@ export class FetchRejectedPrevsError implements Action {
   constructor(readonly payload: ErrorData) {}
 }
 
-export class FetchDoc implements Action {
-  readonly type = docTypes.FETCH_DOC;
-  constructor(public payload: string) {}
-}
-
-export class FetchDocSuccess implements Action {
-  readonly type = docTypes.FETCH_DOC_SUCCESS;
-  constructor(public payload: DocumentModel) {}
-}
-
-export class FetchDocError implements Action {
-  readonly type = docTypes.FETCH_DOC_ERROR;
-  constructor(readonly payload: ErrorData) {}
-}
+export type AllDocumentCommentsTypes =
+  | FetchDocumentComments
+  | FetchDocumentCommentsSuccess
+  | FetchDocumentCommentsError;
 
 export type AllPrevsTypes =
   | FetchAcceptedPrevs
@@ -97,8 +103,3 @@ export type AllPrevsTypes =
   | FetchRejectedPrevs
   | FetchRejectedPrevsSuccess
   | FetchRejectedPrevsError;
-
-export type AllDocTypes =
-  | FetchDoc
-  | FetchDocSuccess
-  | FetchDocError;

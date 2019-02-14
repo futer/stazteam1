@@ -13,7 +13,7 @@ export interface DocModel {
   status: StatusEnum;
   date: string;
   title: string;
-  comments: CommentModel;
+  comments: CommentModel[];
 }
 
 export interface DocumentsModel {

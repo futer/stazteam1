@@ -27,6 +27,10 @@ const DocQuery = gql`
       comments {
         page
         content
+        reviewer {
+          firstName
+          lastName
+        }
         markedText {
           line
           content

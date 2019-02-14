@@ -1,6 +1,6 @@
-import { DocumentsModel, DocumentModel } from '../models/document.model';
+import { DocumentsModel } from '../models/document.model';
+import { CommentModel } from 'src/app/models/comment.model';
 import { ErrorData } from '../../app/models/error.model';
-import { StatusEnum } from '../models/status.enum';
 
 export interface PrevState {
   loading: boolean;
@@ -9,14 +9,14 @@ export interface PrevState {
   errorMessage: ErrorData | null;
 }
 
-export interface DocState {
+export interface CommentsState {
   loading: boolean;
   loaded: boolean;
-  document: DocumentModel | null;
+  comments: CommentModel[] | null;
   errorMessage: ErrorData | null;
 }
 
 export interface ReviewModuleState {
   prevs: PrevState;
-  doc: DocState;
+  comments: CommentsState;
 }

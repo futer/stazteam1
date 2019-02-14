@@ -17,6 +17,7 @@ import { ReviewEffects } from './store/review.effects';
 import { ReviewRoutingModule } from './review-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MarkedTextComponent } from './marked-text/marked-text.component';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MarkedTextComponent } from './marked-text/marked-text.component';
     NavMenuComponent,
     ReviewDocComponent,
     MarkedTextComponent,
+    CommentsComponent,
   ],
   imports: [
     CommonModule,

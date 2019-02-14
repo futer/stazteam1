@@ -4,25 +4,34 @@ import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { StatusEnum } from '../models/status.enum';
 import { DocumentsModel, DocModel } from '../models/document.model';
 
-export const docFeature = createFeatureSelector<States.ReviewModuleState>('review');
+export const reviewFeature = createFeatureSelector<States.ReviewModuleState>('review');
+
+export const getComments = (page: number) => createSelector(
+  reviewFeature,
+  (state: States.ReviewModuleState) => {
+    if (state.comments.comments) {
+      return state.comments.comments.filter(comment => comment.page === page);
+    }
+  }
+);
 
 export const arePrevsLoading = createSelector(
-  docFeature,
+  reviewFeature,
   (state: States.ReviewModuleState) => state.prevs.loading
 );
 
 export const arePrevsLoaded = createSelector(
-  docFeature,
+  reviewFeature,
   (state: States.ReviewModuleState) => state.prevs.loaded
 );
 
 export const getPrevs = createSelector(
-  docFeature,
+  reviewFeature,
   (state: States.ReviewModuleState) => state.prevs.previews
 );
 
 export const getAcceptedPrevs = createSelector(
-  docFeature,
+  reviewFeature,
   (state: States.ReviewModuleState) => {
     const prevsByStatus: DocumentsModel = { data: { documents: null } };
 
@@ -33,7 +42,7 @@ export const getAcceptedPrevs = createSelector(
 );
 
 export const getAcceptedPrevsLength = createSelector(
-  docFeature,
+  reviewFeature,
   (state: States.ReviewModuleState) => {
     const prevsByStatus: DocumentsModel = { data: { documents: null } };
 
@@ -44,7 +53,7 @@ export const getAcceptedPrevsLength = createSelector(
 );
 
 export const getPendingPrevs = createSelector(
-  docFeature,
+  reviewFeature,
   (state: States.ReviewModuleState) => {
     const prevsByStatus: DocumentsModel = { data: { documents: null } };
 
@@ -55,7 +64,7 @@ export const getPendingPrevs = createSelector(
 );
 
 export const getPendingPrevsLength = createSelector(
-  docFeature,
+  reviewFeature,
   (state: States.ReviewModuleState) => {
     const prevsByStatus: DocumentsModel = { data: { documents: null } };
 
@@ -66,7 +75,7 @@ export const getPendingPrevsLength = createSelector(
 );
 
 export const getRejectedPrevs = createSelector(
-  docFeature,
+  reviewFeature,
   (state: States.ReviewModuleState) => {
     const prevsByStatus: DocumentsModel = { data: { documents: null } };
 
@@ -77,7 +86,7 @@ export const getRejectedPrevs = createSelector(
 );
 
 export const getRejectedPrevsLength = createSelector(
-  docFeature,
+  reviewFeature,
   (state: States.ReviewModuleState) => {
     const prevsByStatus: DocumentsModel = { data: { documents: null } };
 
@@ -88,28 +97,8 @@ export const getRejectedPrevsLength = createSelector(
 );
 
 export const getPrevsError = createSelector(
-  docFeature,
+  reviewFeature,
   (state: States.ReviewModuleState) => state.prevs.errorMessage
-);
-
-export const isDocLoading = createSelector(
-  docFeature,
-  (state: States.ReviewModuleState) => state.doc.loading
-);
-
-export const isDocLoaded = createSelector(
-  docFeature,
-  (state: States.ReviewModuleState) => state.doc.loaded
-);
-
-export const getDoc = createSelector(
-  docFeature,
-  (state: States.ReviewModuleState) => state.doc.document
-);
-
-export const getDocError = createSelector(
-  docFeature,
-  (state: States.ReviewModuleState) => state.doc.errorMessage
 );
 
 function filterByStatus(status: StatusEnum, array: DocModel[]) {

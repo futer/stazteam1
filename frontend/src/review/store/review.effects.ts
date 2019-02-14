@@ -67,20 +67,20 @@ FetchRejectedPrevs$: Observable<any> = this.actions$
     )
   );
 
-  @Effect()
-  FetchDoc$: Observable<any> = this.actions$
-  .ofType(AllActions.docTypes.FETCH_DOC)
-    .pipe(
-      switchMap(
-        docAction => this.reviewService.fetchDoc(docAction['payload'])
-          .pipe(
-              map(
-                (doc: DocumentModel) => new AllActions.FetchDocSuccess(doc)
-              ),
-              catchError(
-                (error: ErrorData) => of(new AllActions.FetchDocError(error))
-              )
+@Effect()
+FetchDocumentComments$: Observable<any> = this.actions$
+  .ofType(AllActions.fetchDocumentCommentsTypes.FETCH_DOCUMENT_COMMENTS)
+  .pipe(
+    switchMap(
+      action => this.reviewService.fetchDocumentComments(action['payload'])
+        .pipe(
+          map(
+            (comments) => new AllActions.FetchDocumentCommentsSuccess(comments.data.comments)
+          ),
+          catchError(
+            (error: ErrorData) => of(new AllActions.FetchDocumentCommentsError(error))
           )
-      )
-    );
+        )
+    )
+  );
 }

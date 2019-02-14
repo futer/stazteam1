@@ -8,14 +8,16 @@ import { MarkedTextModel } from '../models/marked-text.model';
 import { TooltipComponent } from '../tooltip/tooltip.component';
 
 import { Store } from '@ngrx/store';
-import { zip, Subscription, combineLatest } from 'rxjs';
+import { Subscription, combineLatest, concat } from 'rxjs';
 
-import * as Actions from '../../document/store/document.actions';
-import * as Selectors from '../../document/store/document.selectors';
+import * as Actions from '../store/review.actions';
+import * as Selectors from '../store/review.selectors';
 import { ReviewService } from '../services/review.service';
 import { CommentModel } from 'src/app/models/comment.model';
 import { DocumentService } from 'src/document/services/document.service';
-import { DocumentModel } from 'src/document/models/document.model';
+import { flatMap } from 'rxjs/operators';
+import { load } from '@angular/core/src/render3';
+
 
 @Component({
     selector: 'app-review-doc',
@@ -45,15 +47,20 @@ export class ReviewDocComponent implements OnInit, OnDestroy {
     ) {
     this.id = this.route.snapshot.paramMap.get('id');
 
-    this.subscription = combineLatest(
-      this.docService.getPageNr(),
-      this.store.select(Selectors.getDoc),
-    )
-      .subscribe(data => {
-          this.pageNr = data[0];
-          this.comments = data[1].data.document.comments.filter(doc => doc.page === this.pageNr);
-        }
-      );
+    this.store.dispatch(new Actions.FetchDocumentComments(this.id));
+
+    this.pageNr = 1;
+
+    // this.subscription = this.docService.getPageNr().pipe(
+    //   flatMap(
+    //     (pageNr) => {
+    //       this.pageNr = pageNr;
+    //       return this.store.select(Selectors.getComments(pageNr));
+    //     }
+    //   )
+    // ).subscribe(comments => {
+    //   // this.comments = comments;
+    // });
 
     this.tooltipPositionStyles = this.getTooltipStyles();
   }
@@ -73,8 +80,6 @@ export class ReviewDocComponent implements OnInit, OnDestroy {
       event.pageX - (tooltipWidth / 2),
       'visible',
     );
-
-    console.log(this.tooltipPositionStyles);
   }
 
   hideTooltip() {
@@ -111,7 +116,6 @@ export class ReviewDocComponent implements OnInit, OnDestroy {
 
     if (!markedTxtLines) { return; }
 
-    console.log(markedTxtLines);
     this.markedText =  this.createMarkedTextModel(markedTxtArray, markedTxtLines);
     this.showTooltip(event);
 
@@ -187,11 +191,11 @@ export class ReviewDocComponent implements OnInit, OnDestroy {
       documentId: this.id,
       markedText: this.markedText,
       page: this.pageNr,
-    })
-      .subscribe(comments => {
-        this.comments = comments;
-      })
-      .unsubscribe();
+    }).toPromise()
+      .then(() => {
+        console.log('dispatch');
+        this.store.dispatch(new Actions.FetchDocumentComments(this.id));
+      });
 
     this.hideTooltip();
   }

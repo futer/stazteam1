@@ -1,5 +1,8 @@
 const database = require('../helpers/database');
 
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+
 const Document = require('../models/document.model');
 
 async function addComment(data) {
@@ -53,10 +56,11 @@ async function deleteComment(id) {
   return null;
 }
 
-async function getComments() {
+async function getComments(data) {
   database.connect();
 
   let comments = await Document.aggregate([
+    { $match: data },
     { $unwind: '$comments' },
     {
       $lookup: {
@@ -70,10 +74,9 @@ async function getComments() {
     { 
       $project: {
         _id: '$comments._id',
-        start: '$comments.start',
-        length: '$comments.length',
         page: '$comments.page',
         content: '$comments.content',
+        markedText: '$comments.markedText',
         reviewer: '$reviewerData'
       }
     },

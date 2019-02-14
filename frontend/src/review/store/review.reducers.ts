@@ -1,6 +1,5 @@
 import * as States from './review.states';
 import * as Actions from './review.actions';
-import docModuleReducers from 'src/document/store/document.reducers';
 
 export const initialPrevState: States.PrevState = {
   loading: false,
@@ -9,10 +8,10 @@ export const initialPrevState: States.PrevState = {
   errorMessage: null,
 };
 
-export const initialDocState: States.DocState = {
+export const initialCommentsState: States.CommentsState = {
   loading: false,
   loaded: false,
-  document: null,
+  comments: [],
   errorMessage: null,
 };
 
@@ -119,38 +118,37 @@ export function prevsReducer(
   }
 }
 
-export function docReducer(
-  state: States.DocState = initialDocState,
-  action: Actions.AllDocTypes
-): States.DocState {
+export function commentsReducer(
+  state: States.CommentsState = initialCommentsState,
+  action: Actions.AllDocumentCommentsTypes
+): States.CommentsState {
   switch (action.type) {
-    case Actions.docTypes.FETCH_DOC:
+    case Actions.fetchDocumentCommentsTypes.FETCH_DOCUMENT_COMMENTS:
       return {
         loading: true,
         loaded: false,
-        document: null,
+        comments: [],
         errorMessage: null,
       };
 
-    case Actions.docTypes.FETCH_DOC_SUCCESS:
+    case Actions.fetchDocumentCommentsTypes.FETCH_DOCUMENT_COMMENTS_SUCCESS:
       return {
         loading: false,
         loaded: true,
-        document: action.payload,
+        comments: action.payload,
         errorMessage: null,
       };
 
-    case Actions.docTypes.FETCH_DOC_ERROR:
+    case Actions.fetchDocumentCommentsTypes.FETCH_DOCUMENT_COMMENTS_ERROR:
       return {
         loading: false,
         loaded: false,
-        document: null,
+        comments: [],
         errorMessage: {
           type: action.type,
           error: action.payload,
-        }
+        },
       };
-
     default:
       return state;
   }
@@ -158,7 +156,7 @@ export function docReducer(
 
 export const reviewModuleReducers = {
   prevs: prevsReducer,
-  doc: docReducer,
+  comments: commentsReducer,
 };
 
-export default docModuleReducers;
+export default reviewModuleReducers;

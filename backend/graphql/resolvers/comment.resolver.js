@@ -1,5 +1,8 @@
 const commentService = require('../../services/comment.service');
 
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+
 function addComment(root, args, context) {
   args.input.reviewer = context.user.sub._id;
   return commentService.addComment(args.input);
@@ -17,7 +20,12 @@ function deleteComment(root, args, context) {
 }
 
 function getComments(root, args, context) {
-  return commentService.getComments();
+  let data = args;
+  if (Object.keys(args).length !== 0) {
+    data = { _id: ObjectId(args.documentId) }
+  }
+
+  return commentService.getComments(data);
 }
 
 function getComment(root, args, context) {
