@@ -22,7 +22,6 @@ async function addDocument(root, args, context) {
 }
 
 function updateDocument(root, args, context) {
-  let document;
   const document = documentService.updateDocument(args);
 
   return document;
