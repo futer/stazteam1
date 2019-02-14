@@ -38,14 +38,6 @@ export class NavComponent implements OnInit {
 
     ngOnInit() {
       this.store.dispatch(new bookmarkActions.FetchBookmark());
-      this.pic$.subscribe(res => console.log(res));
-    //   this.store.select(fromAuth.User).subscribe(user => {
-    //         if (user) {
-    //             this.pic = user.pic;
-    //             console.log(this.pic);
-    //         }
-    //    });
-    // console.log(this.pic);
     }
 
     logOut() {
