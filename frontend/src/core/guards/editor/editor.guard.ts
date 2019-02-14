@@ -12,7 +12,7 @@ export class EditorGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      if (this.authService.isEditor()) {
+      if (this.authService.isEditor() || this.authService.isAdmin()) {
         return true;
       }
       this.authService.mainNavigate();
