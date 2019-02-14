@@ -13,12 +13,14 @@ async function addDocument(root, args, context) {
   let document;
   let token = context.headers.authorization.slice(7);
 
-  await userService.isEditor(token)
-    .then(() => {
-      document = documentService.addDocument(args);
-    }).catch(err => {throw err});
-  
-  return document;
+  if(context.user.sub.role === 'admin' || context.user.sub.role === 'editor') {
+    document = documentService.addDocument(args);
+    return document;
+  }
+  else {
+    throw err;
+  }
+
 }
 
 function updateDocument(root, args, context) {
