@@ -56,7 +56,7 @@ import { SuccessComponent } from './components/success/success.component';
     ModalComponent,
     RadioButtonsComponent,
     LoadingSpinnerComponent,
-    NavImgComponent
+    NavImgComponent,
     SuccessComponent
   ]
 })
