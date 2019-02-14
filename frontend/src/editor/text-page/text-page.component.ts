@@ -25,10 +25,10 @@ export class TextPageComponent implements OnInit, OnDestroy {
     @HostListener('document:keydown', ['$event']) onkeydownHandler(
         event: KeyboardEvent
     ) {
-        if (this.page.nativeElement.clientHeight < this.page.nativeElement.scrollHeight) {
+        if (this.page.nativeElement.offsetHeight > this.height) {
             this.renderer.setStyle(
                 this.page.nativeElement,
-                'height',
+                'min-height',
                 (this.height = this.height + 1000) + 'px'
             );
         }
