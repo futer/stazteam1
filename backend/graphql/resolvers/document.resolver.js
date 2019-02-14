@@ -11,8 +11,6 @@ function getDocument(root, args, context) {
 
 async function addDocument(root, args, context) {
   let document;
-  let token = context.headers.authorization.slice(7);
-
   if(context.user.sub.role === 'admin' || context.user.sub.role === 'editor') {
     document = documentService.addDocument(args);
     return document;
