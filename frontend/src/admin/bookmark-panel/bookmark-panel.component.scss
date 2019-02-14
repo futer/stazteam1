@@ -11,12 +11,20 @@
     margin-top: 60px;
     width: 95%;
     margin: 60px auto 0px auto;
-    // align-content: space-between;
     flex-direction: column;
 
     @media (min-width: $tablet) {
         width:550px
       }
+
+    .container--succes-message{
+        background-color: rgba(45,183,0,0.5);
+        text-align: center;
+        padding: 15px;
+        border-radius: 2px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
 
     .add-bookmark {
         display: flex;
