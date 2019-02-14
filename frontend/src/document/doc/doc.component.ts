@@ -6,7 +6,7 @@ import { DocState } from '../store/document.states';
 import { getDoc } from '../store/document.selectors';
 import * as Actions from '../store/document.actions';
 import { DocumentModel } from '../models/document.model';
-import * as PDFJS from 'pdfjs-dist';
+
 @Component({
     selector: 'app-doc',
     templateUrl: './doc.component.html',

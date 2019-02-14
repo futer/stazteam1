@@ -13,6 +13,7 @@ import * as AuthActions from '../../core/store/auth/auth.actions';
 import { Reload } from '../../core/store/auth/auth.actions';
 import { AuthState } from 'src/core/store/auth/auth.state';
 import { DomSanitizer } from '@angular/platform-browser';
+import * as pictureUploadFunctions from '../../shared/reusable-functions/pictureUpload';
 
 @Component({
   selector: 'app-user-editor',
@@ -48,7 +49,6 @@ export class UserEditorComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<any>,
-    private authStore: Store<AuthState>,
     private changeUserFormBuilder: FormBuilder,
     private disconnectFromBuilder: FormBuilder,
     private userService: UserService,
@@ -71,6 +71,7 @@ export class UserEditorComponent implements OnInit, OnDestroy {
         this.current.email = user.email;
       }
     });
+    this.picture = this.current.pic;
 
     this.error$ = this.store.select(Errors);
     this.send$ = this.store.select(SendSuccess);
@@ -113,7 +114,7 @@ export class UserEditorComponent implements OnInit, OnDestroy {
       id: this.current.id,
       firstName: form.value.firstName === '' ? undefined : form.value.firstName,
       lastName: form.value.lastName === '' ? undefined : form.value.lastName,
-      pic: form.value.pic,
+      pic: this.picture,
       password: form.value.changePasswordGroup.passwordGroup.password === ''
         ? undefined : form.value.changePasswordGroup.passwordGroup.password,
       oldPassword: form.value.changePasswordGroup.oldPassword === ''
@@ -168,24 +169,16 @@ export class UserEditorComponent implements OnInit, OnDestroy {
   }
 
   pictureUpload(event) {
-    this.picture = event.target.files[0];
-    const reader = new FileReader;
-    reader.readAsDataURL(this.picture);
-    reader.onload = () => {
-      this.picture = reader.result.toString().split(',')[1];
-      if (this.picture.length <= 106000) {
-        this.updateUserForm.get('pic').setValue(this.picture);
+    pictureUploadFunctions.pictureUpload(event).then(pic => {
+      if (pic) {
+        this.picture = pic;
       } else {
-        this.picture = null;
         window.alert('This image is too big');
       }
-    };
+    });
   }
 
   getPic() {
-    if (this.picture) {
-      return this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${this.picture}`);
-    }
-    return '../../assets/img/avatar.png';
+    return pictureUploadFunctions.getPic(this.picture, this.sanitizer);
   }
 }

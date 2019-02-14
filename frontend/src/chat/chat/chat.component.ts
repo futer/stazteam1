@@ -80,7 +80,7 @@ export class ChatComponent implements OnInit {
       message => {
         this.chatService.handleCommand(this.messages, this.loggedUser, message);
       },
-      err => console.log(err)
+      err => { throw new Error(err); }
     );
 
     const loginMsg = this.getLoginLogoutCMDModel(this.loggedUser);

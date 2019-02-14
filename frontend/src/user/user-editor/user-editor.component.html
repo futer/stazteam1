@@ -46,6 +46,7 @@
           <app-input
             [id]="'pic__input'"
             [formInputStyle]="'user-editor__form-file'"
+            [controlName]="updateUserForm.controls.pic"
             [type]="'file'"
             [accept]="'image/*'"
             (change)="pictureUpload($event)">
@@ -144,8 +145,6 @@
   </app-button>
 </div>
 
-
-
 <app-modal [(visible)]="showModal" (visibleChange)="changeKeep($event)">
     {{disconnectError}}
     <div 
@@ -165,19 +164,16 @@
           (click)="disconnect_delete()">
             Delete
         </app-button>
-
         <app-button 
           [class]="'user-editor__disconnect-FB-modal-container-button'"
           (click)='changeKeep(false)'>
             Keep local account
         </app-button>
-
         <app-button 
           [class]="'user-editor__disconnect-FB-modal-container-button'" 
           (clickEvent)="showModal = !showModal; changeKeep(true)">
             Cancel
         </app-button> 
-
       </div>
 
       <div 
@@ -186,13 +182,11 @@
         <p>
           Are you sure you want to disconnect your account from your Facebook account?
         </p>
-
         <app-button 
           [class]="'user-editor__disconnect-FB-modal-container-button'" 
           (click)="disconnect_local()">
             Yes
         </app-button>
-
         <app-button 
           [class]="'user-editor__disconnect-FB-modal-container-button'" 
           (clickEvent)="showModal = !showModal">
@@ -204,7 +198,6 @@
         <p>
           In order to keep local account, you have to set password for your account:
         </p>
-
         <form
           class="user-editor__update-user--disconnect"
           [formGroup]="disconnectForm"

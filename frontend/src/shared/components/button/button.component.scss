@@ -9,9 +9,10 @@
     display: inline-block;
     font-size: $btn-font-size;
     margin: 0.5em;
-    padding: 1rem;
+    padding: 0.7rem;
     border-radius: 3px;
     transition: 0.4s;
+    width: 80px;
         &:hover {
             background-color: #cd9b05;
         }
@@ -25,9 +26,11 @@
     display: inline-block;
     font-size: $btn-font-size;
     margin: 0.5em;
-    padding: 1rem;
+    padding: 0.7rem;
+    width: 80px;
     border-radius: 3px;
     transition: 0.4s;
+    margin-right: 10px;
 
         &:hover {
                 background-color: #2C87D8;

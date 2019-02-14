@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { UserModel, User } from '../../app/models/user-editor.model';
 import { Store } from '@ngrx/store';
@@ -8,14 +8,17 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { passwordMatcher } from 'src/shared/reusable-functions/passwordMatcher';
 import { ErrorData } from '../models/error.model';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import * as pictureUploadFunctions from '../../shared/reusable-functions/pictureUpload';
+import { InputComponent } from 'src/shared/forms/input/input.component';
 
 @Component({
   selector: 'app-admin-user-editor',
   templateUrl: './admin-user-editor.component.html',
   styleUrls: ['./admin-user-editor.component.scss']
 })
+
 export class AdminUserEditorComponent implements OnInit, OnDestroy {
+  @ViewChild('pic', {read: ElementRef}) myInputVariable: ElementRef;
   usersub: Subscription;
   users$: Observable<any>;
 
@@ -80,12 +83,13 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
       id: this.selectedUser.id,
       firstName: form.value.firstName === '' ? undefined : form.value.firstName,
       lastName: form.value.lastName === '' ? undefined : form.value.lastName,
-      pic: form.value.pic,
+      pic: this.picture,
       role: form.value.role,
       password: form.value.changePasswordGroup.password === ''
        ? undefined : form.value.changePasswordGroup.password
     };
     this.store.dispatch(new Actions.Send(user));
+    this.myInputVariable.nativeElement.childNodes[0].value = '';
   }
 
   filter() {
@@ -95,18 +99,13 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
   }
 
   pictureUpload(event) {
-    this.picture = event.target.files[0];
-    const reader = new FileReader;
-    reader.readAsDataURL(this.picture);
-    reader.onload = () => {
-      this.picture = reader.result.toString().split(',')[1];
-      if (this.picture.length <= 106000) {
-        this.updateUserForm.get('pic').setValue(this.picture);
+    pictureUploadFunctions.pictureUpload(event).then(pic => {
+      if (pic) {
+        this.picture = pic;
       } else {
-        this.picture = null;
         window.alert('This image is too big');
       }
-    };
+    });
   }
 
   getPic() {
@@ -114,5 +113,9 @@ export class AdminUserEditorComponent implements OnInit, OnDestroy {
       return this.sanitizer.bypassSecurityTrustUrl(`data:image/png;base64, ${this.picture}`);
     }
     return '../../assets/img/avatar.png';
+  }
+
+  updatePic() {
+    this.picture = this.selectedUser.pic;
   }
 }

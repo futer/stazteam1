@@ -34,10 +34,11 @@ export class AuthService {
     this.jwtHelper = new JwtHelperService();
   }
 
-  createUser(user: RegisterModel) {
+  createUser(user: RegisterModel, pic: string) {
     const data = {...user, ...user.passwordGroup};
     delete data.passwordGroup;
     delete data.repeatPassword;
+    data.pic = pic;
 
     return this.http.post<RegisterModel>(this.adress + 'users/register', data)
      .pipe(catchError(this.errorHandler));

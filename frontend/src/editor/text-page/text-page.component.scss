@@ -1,0 +1,14 @@
+@import "../../assets/main-style.scss";
+
+.container {
+  border-bottom: 3em $main-font-color solid;
+  border-top: 3em $main-font-color solid;
+  background: $main-font-color;
+  color: #000000;
+  font-family: sans-serif;
+  height: 1000px;
+  margin: 2em 0;
+  padding: 0 3em;
+  width: 100%;
+  word-break: break-all;
+}
