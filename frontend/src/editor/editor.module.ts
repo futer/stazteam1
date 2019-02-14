@@ -14,6 +14,7 @@ import { UnderBtnComponent } from './edit-toolbox/under-btn/under-btn.component'
 import { CiteBtnComponent } from './edit-toolbox/cite-btn/cite-btn.component';
 import { AlertComponent } from './alert/alert.component';
 import { SharedModule } from 'src/shared/shared.module';
+import { UploadBtnComponent } from './edit-controls/upload-btn/upload-btn.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { SharedModule } from 'src/shared/shared.module';
         ItalicBtnComponent,
         UnderBtnComponent,
         CiteBtnComponent,
-        AlertComponent
+        AlertComponent,
+        UploadBtnComponent
     ],
     imports: [
         CommonModule,

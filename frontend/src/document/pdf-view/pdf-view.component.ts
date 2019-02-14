@@ -27,6 +27,7 @@ export class PdfViewComponent implements OnInit, OnChanges {
     ngOnChanges() {
         if (this.adress) {
             PDFJS['getDocument'](this.adress).then(pages => {
+                console.log(pages);
                 this.getPages = pages;
                 this.pagesAmount = pages.numPages;
                 this.changePage();

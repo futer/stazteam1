@@ -7,6 +7,7 @@ import {
     Renderer2,
 } from '@angular/core';
 import { ToolboxActionsService } from '../services/toolbox-actions.service';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
     selector: 'app-text-page',
@@ -15,6 +16,8 @@ import { ToolboxActionsService } from '../services/toolbox-actions.service';
 })
 export class TextPageComponent implements OnInit {
     height = 1000;
+    allpages: Observable<Array<any>>;
+
     @ViewChild('page') page: ElementRef;
     @HostListener('document:keydown', ['$event']) onkeydownHandler(
         event: KeyboardEvent
@@ -36,5 +39,8 @@ export class TextPageComponent implements OnInit {
     ngOnInit() {
         this.page.nativeElement.focus();
         this.refShare.shareText(this.page);
+        this.refShare.pdfSource.subscribe(res => {
+            this.allpages = res;
+        });
     }
 }
