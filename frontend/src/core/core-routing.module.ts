@@ -29,8 +29,7 @@ const routes: Routes = [
     { path: 'admin', component: AdminUserEditorComponent, canActivate: [AdminGuard] },
     {
       path: 'doc-edit',
-      loadChildren: '../editor/editor.module#EditorModule',
-      canActivate: [EditorGuard]
+      loadChildren: '../editor/editor.module#EditorModule'
     },
     { path: '**', component: ErrorPageComponent, canActivate: [AuthGuard]}
   ];
