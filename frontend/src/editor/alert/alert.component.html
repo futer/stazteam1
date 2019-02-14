@@ -1,0 +1,5 @@
+<div class="edit-alert" [ngSwitch]="alert?.type">
+  <app-error [class]="'edit-alert__error'" *ngSwitchCase="'error'">{{alert.message}}</app-error>
+  <app-success [class]="'edit-alert__success'" *ngSwitchCase="'success'">{{alert.message}}</app-success>
+  <p *ngSwitchDefault></p>
+</div>

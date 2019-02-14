@@ -46,6 +46,7 @@
           <app-input
             [id]="'pic__input'"
             [formInputStyle]="'user-editor__form-file'"
+            [controlName]="updateUserForm.controls.pic"
             [type]="'file'"
             [accept]="'image/*'"
             (change)="pictureUpload($event)">

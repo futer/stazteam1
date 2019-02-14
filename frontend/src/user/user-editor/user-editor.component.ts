@@ -114,7 +114,7 @@ export class UserEditorComponent implements OnInit, OnDestroy {
       id: this.current.id,
       firstName: form.value.firstName === '' ? undefined : form.value.firstName,
       lastName: form.value.lastName === '' ? undefined : form.value.lastName,
-      pic: form.value.pic,
+      pic: this.picture,
       password: form.value.changePasswordGroup.passwordGroup.password === ''
         ? undefined : form.value.changePasswordGroup.passwordGroup.password,
       oldPassword: form.value.changePasswordGroup.oldPassword === ''
@@ -172,7 +172,6 @@ export class UserEditorComponent implements OnInit, OnDestroy {
     pictureUploadFunctions.pictureUpload(event).then(pic => {
       if (pic) {
         this.picture = pic;
-        this.updateUserForm.get('pic').setValue(pic);
       } else {
         window.alert('This image is too big');
       }

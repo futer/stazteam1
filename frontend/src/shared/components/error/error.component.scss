@@ -75,3 +75,15 @@
     text-align: center;
     margin-left: 65px;
 }
+
+.edit-alert__error {
+    background-color: rgba(248,000,000,0.75);
+    color: #FFF;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-bottom: 10px;
+    padding: 10px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
