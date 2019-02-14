@@ -14,7 +14,7 @@
     </div>
     <div class="navbar-user-info">
       <div class="img-wrapper">
-        <img class="av" src="../../assets/img/avatar.png">
+        <app-nav-img [class]="'av'" [data]="(pic$ | async)?.pic"></app-nav-img>
       </div>
         <div class="dropdown">
             <app-button 

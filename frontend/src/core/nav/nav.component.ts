@@ -13,7 +13,8 @@ import { AuthService as SocialMediaAuthService } from 'angularx-social-login';
 import * as fromAuth from '../store/auth/auth.reducers';
 import { BookmarkState } from '../store/bookmark/bookmark.state';
 import { from } from 'zen-observable';
-
+import * as pictureUpload from '../../shared/reusable-functions/pictureUpload';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-nav',
@@ -23,7 +24,7 @@ import { from } from 'zen-observable';
 export class NavComponent implements OnInit {
    @Input() bookmark$: Observable<any>;
    name$: Observable<any> = this.store.select(fromAuth.User);
-   pic;
+   pic$ = this.store.select(fromAuth.User);
    currentSub: Subscription;
 
     constructor(
@@ -31,17 +32,19 @@ export class NavComponent implements OnInit {
         private store: Store<BookmarkState>,
         private subpageService: SubpageService,
         private router: Router,
-        private socialMediaAuthService: SocialMediaAuthService
+        private socialMediaAuthService: SocialMediaAuthService,
+        private sanitizer: DomSanitizer
     ) {}
 
     ngOnInit() {
       this.store.dispatch(new bookmarkActions.FetchBookmark());
-      this.store.select(fromAuth.User).subscribe(user => {
-            if (user) {
-                this.pic = user.pic;
-                // console.log(this.pic);
-            }
-       });
+      this.pic$.subscribe(res => console.log(res));
+    //   this.store.select(fromAuth.User).subscribe(user => {
+    //         if (user) {
+    //             this.pic = user.pic;
+    //             console.log(this.pic);
+    //         }
+    //    });
     // console.log(this.pic);
     }
 
@@ -58,4 +61,6 @@ export class NavComponent implements OnInit {
     navigateToProfileEditor() {
         this.router.navigate(['/user-editor']);
     }
+
 }
+
