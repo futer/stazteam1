@@ -58,13 +58,9 @@ import { TextboxComponent } from './components/textbox/textbox.component';
     ModalComponent,
     RadioButtonsComponent,
     LoadingSpinnerComponent,
-<<<<<<< HEAD
     SuccessComponent,
-    TextboxComponent
-=======
+    TextboxComponent,
     NavImgComponent,
-    SuccessComponent
->>>>>>> master
   ]
 })
 export class SharedModule { }
