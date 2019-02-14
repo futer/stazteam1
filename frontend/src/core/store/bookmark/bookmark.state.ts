@@ -7,4 +7,5 @@ export interface BookmarkState {
     erroMessage: ErrorData;
     loading: boolean;
     loaded: boolean;
+    status: string;
 }
