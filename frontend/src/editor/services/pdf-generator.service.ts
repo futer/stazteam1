@@ -114,6 +114,17 @@ export class PdfGeneratorService {
                     processed++;
 
                     break;
+                case 'DIV':
+                    this.formatText(doc, nodes[processed].childNodes, position);
+                    processed++;
+
+                    break;
+                case 'P':
+                    this.formatText(doc, nodes[processed].childNodes, position);
+                    this.moveToNextLine(position);
+                    processed++;
+
+                    break;
                 default:
                     processed++;
                     break;

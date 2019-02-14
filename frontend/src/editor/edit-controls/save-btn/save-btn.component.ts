@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PdfGeneratorService } from 'src/editor/services/pdf-generator.service';
 import { ToolboxActionsService } from 'src/editor/services/toolbox-actions.service';
+import { zip } from 'rxjs';
 
 @Component({
   selector: 'app-save-btn',
@@ -18,9 +19,18 @@ export class SaveBtnComponent implements OnInit {
   }
 
   savePDF() {
-    this.textRef.textSource.subscribe(ref => {
-       const doc = this.pdfGenerator.generatePDF(ref);
-       doc.save();
+    zip(
+      this.textRef.textSource,
+      this.textRef.titleSource
+    ).subscribe(ref => {
+      const doc = this.pdfGenerator.generatePDF(ref[0]);
+
+      if (ref[1].nativeElement.firstChild.value !== '') {
+        doc.save(ref[1].nativeElement.firstChild.value + '.pdf');
+      } else {
+        this.textRef.changeTitleStatus(false);
+      }
+
     }).unsubscribe();
   }
 }

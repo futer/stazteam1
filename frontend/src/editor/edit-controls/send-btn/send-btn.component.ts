@@ -30,20 +30,25 @@ export class SendBtnComponent implements OnInit {
       this.store.pipe(map(data => <UserSendModel>{
         _id: data.auth.user._id,
         author: data.auth.user.firstName + ' ' + data.auth.user.lastName
-      }))
+      })),
+      this.textRef.titleSource
     ).subscribe(res => {
       const doc = this.pdfGenerator.generatePDF(res[0]);
       let encodedData = doc.output('datauristring');
       encodedData = encodedData.split(',');
       const prevData = res[0].nativeElement.textContent.substring(0, 200) + '...';
 
-      this.operations.sendToReview(<UserSendDataModel>{
-        author: res[1].author,
-        content: encodedData[1],
-        preview: prevData,
-        title: 'testEditor',
-        userId: res[1]._id
-      });
+      if (res[2].nativeElement.firstChild.value !== '') {
+        this.operations.sendToReview(<UserSendDataModel>{
+          author: res[1].author,
+          content: encodedData[1],
+          preview: prevData,
+          title: res[2].nativeElement.firstChild.value,
+          userId: res[1]._id
+        });
+      } else {
+        this.textRef.changeTitleStatus(false);
+      }
     }).unsubscribe();
   }
 }
