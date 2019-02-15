@@ -6,7 +6,7 @@ import { PositionModel } from '../models/position.model';
     providedIn: 'root'
 })
 export class PdfGeneratorService {
-    constructor() {}
+    constructor() { }
 
     beginPointXY = 10;
     maxLength = 187;
@@ -100,10 +100,8 @@ export class PdfGeneratorService {
 
                     break;
                 case 'U':
-                    // doc.setFontStyle('underline');
                     this.drawUnderline(doc, nodes[processed], position);
                     this.formatText(doc, nodes[processed].childNodes, position);
-                    // doc.setFontStyle('normal');
                     processed++;
 
                     break;
@@ -133,18 +131,24 @@ export class PdfGeneratorService {
             lines: position.lines
         };
 
-        const textDimensions = doc.getTextDimensions(textNode.textContent);
-        let lineWidth = textDimensions.w;
-
-        while (lineWidth > 0) {
-            if (lineWidth > linePosition.offset) {
-                doc.line(linePosition.x, linePosition.y, linePosition.x + linePosition.offset, linePosition.y);
-                lineWidth = lineWidth - linePosition.offset;
+        textNode.childNodes.forEach(node => {
+            if (node.nodeName === 'BR') {
                 this.moveToNextLine(linePosition);
-            } else {
-                doc.line(linePosition.x, linePosition.y, linePosition.x + lineWidth, linePosition.y);
-                lineWidth = 0;
             }
-        }
+
+            const nodeDimensions = doc.getTextDimensions(node.textContent);
+            let lineWidth = nodeDimensions.w;
+
+            while (lineWidth > 0) {
+                if (lineWidth > linePosition.offset) {
+                    doc.line(linePosition.x, linePosition.y, linePosition.x + linePosition.offset, linePosition.y);
+                    lineWidth = lineWidth - linePosition.offset;
+                    this.moveToNextLine(linePosition);
+                } else {
+                    doc.line(linePosition.x, linePosition.y, linePosition.x + lineWidth, linePosition.y);
+                    lineWidth = 0;
+                }
+            }
+        });
     }
 }
