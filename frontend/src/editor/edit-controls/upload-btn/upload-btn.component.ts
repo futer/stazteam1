@@ -14,6 +14,7 @@ export class UploadBtnComponent implements OnInit {
   pages;
   actpage;
   allpages: Array<any>;
+
   constructor(
     private refShare: ToolboxActionsService,
   ) { }
@@ -23,28 +24,32 @@ export class UploadBtnComponent implements OnInit {
   }
 
   async pdfUpload(event) {
+    this.allpages = [];
     let pdf = event.target.files[0];
+    this.allpages.push(pdf.name.substring(0, pdf.name.length - 4));
     const reader = new FileReader;
     reader.readAsDataURL(pdf);
+
     await new Promise((resolve, reject) => {
         reader.onload = () => {
             pdf = reader.result.toString().split(',')[1];
             const decode = atob(pdf);
             const pdfBlob = new Blob([decode], { type: 'application/pdf' });
             const url = URL.createObjectURL(pdfBlob);
+
             PDFJS['getDocument'](url).then(data => {
               this.pages = data;
+
               for (let i = 1; i < this.pages.numPages + 1; i++) {
                 this.pages.getPage(i).then(elo => {
                   this.actpage = elo.getTextContent();
                   this.actpage.then(page => { this.allpages.push(page); });
                 });
-                console.log(this.allpages)
                 this.refShare.sharePDF(this.allpages);
               }
              });
           };
     });
   }
-
+  
 }

@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { ToolboxActionsService } from '../services/toolbox-actions.service';
 import { Subscription, Observable } from 'rxjs';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
     selector: 'app-text-page',
@@ -17,10 +18,13 @@ import { Subscription, Observable } from 'rxjs';
 })
 export class TextPageComponent implements OnInit, OnDestroy {
     height = 1000;
-    allpages: Observable<Array<any>>;
-    titleStatus = true;
+    allpages: Array<any>;
+    titleStatus: boolean;
     titleSub: Subscription;
     uploadSub: Subscription;
+    loadedTitle: string;
+    res;
+    showModal = false;
 
     @ViewChild('page') page: ElementRef;
     @ViewChild('title', { read: ElementRef }) title: ElementRef;
@@ -39,15 +43,29 @@ export class TextPageComponent implements OnInit, OnDestroy {
     constructor(
         private renderer: Renderer2,
         private refShare: ToolboxActionsService
-    ) {}
+    ) {
+
+    }
 
     ngOnInit() {
+        this.allpages = [];
         this.page.nativeElement.focus();
         this.refShare.shareText(this.page);
         this.refShare.shareTitle(this.title);
 
         this.uploadSub = this.refShare.pdfSource.subscribe(res => {
-            this.allpages = res;
+            if (res) {
+                console.log(this.page.nativeElement.innerText);
+                if (this.page.nativeElement.innerText !== '' && this.allpages[1] !== '') {
+                    //this.res = res;
+                    this.showModal = true;
+                } else {
+                    this.loadedTitle = res[0];
+                    console.log(this.allpages);
+                    this.allpages = res;
+                }
+
+            }
         });
         this.titleSub = this.refShare.titleExistance.subscribe(res => {
             this.titleStatus = res;
@@ -63,5 +81,85 @@ export class TextPageComponent implements OnInit, OnDestroy {
         if (!this.titleStatus) {
             this.titleStatus = true;
         }
+    }
+
+    swap() {
+        //this.page.nativeElement.textContent = '';
+        console.log('page', this.page);
+        this.refShare.pdfSource.subscribe(res => {
+            console.log(res);
+            // this.page.nativeElement.innerHTML = '';
+            this.allpages = res;
+            // this.page.nativeElement.childNodes.forEach(element => {
+            //     element.data = [];
+            // });
+
+            // let child = this.page.nativeElement;
+            // while (child.firstChild) {
+            //     console.log(child.firstChild)
+            //     if (child.firstChild.tagName === "SPAN"){
+            //         child = child.firstChild.nextSibling;
+            //     }
+            //     child.remove(child.firstChild);
+            // }
+            // for (let i = 0; i < this.page.nativeElement.children.length; i++) {
+            //     console.log(this.page.nativeElement.children[i])
+            // }
+
+            // console.log('res',res);
+            // this.loadedTitle = res[0];
+            // let temp = '';
+            // for (let i = 1; i < res.length; i++){
+            //     console.log('elo');
+            //     for (let j = 0; j < res[i].items.length; j++){
+            //         console.log('ELOOO', res[i].items[j].str);
+            //         console.log('elo');
+            //         temp += res[i].items[j].str + '<br>';
+            //     }
+            // }
+            // console.log(temp);
+
+            // this.loadedTitle = res[0];
+            // const temp = [];
+            // for (let i = 1; i < res.length; i++){
+            //     for (let j = 0; j < res[i].items.length; j++){
+            //         temp.push(res[i].items[j].str);
+            //     }
+            //     this.allpages.push(temp);
+            // }
+            // console.log(res);
+
+            // // this.allpages.forEach(element => {
+            // //     this.renderer.setProperty(this.page.nativeElement.childNodes, 'textContent', element + '\n');
+            // // });
+            // console.log(res.length)
+            // for (let i = 1; i < res.length; i++) {
+            //     if (this.page.nativeElement.childNodes[i].nodeType = 3)
+            //     {
+            //         this.renderer.setProperty(this.page.nativeElement.childNodes[i], 'textContent', 'elo');
+
+            //     }
+            // }
+        }).unsubscribe();
+        this.showModal = false;
+        // console.log('allpages', this.allpages, 'loaded', this.loadedTitle);
+    }
+
+    elo() {
+        console.log(this.page.nativeElement.textContent);
+
+        // console.log(this.page);
+        // this.refShare.pdfSource.subscribe(res => {
+        //     const child = this.page.nativeElement;
+        //     console.log(child.firstChild)
+        //     while (child.firstChild) {
+        //         console.log(child.firstChild)
+        //         child.removeChild(child.firstChild);
+        //     }
+        //     console.log('res', res[0]);
+        //     this.loadedTitle = res[0];
+        //     this.allpages = res;
+        // }).unsubscribe();
+        // this.showModal = false;
     }
 }
