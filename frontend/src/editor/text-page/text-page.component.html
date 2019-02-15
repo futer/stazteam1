@@ -1,9 +1,21 @@
+<app-label labelStyle="edit-title" for="title">Title:</app-label>
+<app-textbox 
+    #title id="title" 
+    placeholder="New Title" 
+    textboxStyle="edit-title"
+    (keydown)="titleExists()"
+    >
+</app-textbox>
+<div *ngIf="!titleStatus">
+    <app-error class="error-msg">Title Required</app-error>
+</div>
+
 <p #page class="container" contenteditable="true">
-    <span *ngIf="allpages">
-        <div *ngFor="let page of allpages">
-            <p *ngFor="let line of page.items">
-                {{line.str}}
-            </p>
-        </div>
-    </span>
-</p>
+        <span *ngIf="allpages">
+            <div *ngFor="let page of allpages">
+                <p *ngFor="let line of page.items">
+                    {{line.str}}
+                </p>
+            </div>
+        </span>
+    </p>

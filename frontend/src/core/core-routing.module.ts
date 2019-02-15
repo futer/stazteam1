@@ -11,6 +11,7 @@ import { SubpageContainerComponent } from 'src/shared/components/subpage-contain
 import { AdminUserEditorComponent } from 'src/admin/admin-user-editor/admin-user-editor.component';
 import { AdminGuard } from './guards/admin/admin.guard';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { EditorGuard } from './guards/editor/editor.guard';
 
 const routes: Routes = [
     {path: '', redirectTo: '/main', pathMatch: 'full'},

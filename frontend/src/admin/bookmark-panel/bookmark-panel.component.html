@@ -7,6 +7,11 @@
             <i class="fa fa-plus-circle add-bookmark__icon"></i>
         </app-button>
     </div>
+    <div 
+        class="container--succes-message"
+        *ngIf="status$ | async">
+        {{status$ | async}}
+    </div>
     <div class="loading-spinner" *ngIf="isLoading$ | async">
         <app-loading-spinner>
         </app-loading-spinner>
