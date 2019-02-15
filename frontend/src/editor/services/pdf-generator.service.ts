@@ -41,7 +41,7 @@ export class PdfGeneratorService {
         } else {
             const clearedText = textNode.textContent.replace(/\n/g, '');
             doc.text(clearedText, position.x, position.y);
-            position.x = position.x + textDimensions.w + 0.2;
+            position.x = position.x + textDimensions.w + 0.5;
             position.offset = position.offset - textDimensions.w;
         }
     }
@@ -82,10 +82,6 @@ export class PdfGeneratorService {
                         doc.setFontStyle('bold');
                     }
 
-                    if (position.offset !== this.maxLength) {
-                        position.x = position.x + 0.4;
-                    }
-
                     this.formatText(doc, nodes[processed].childNodes, position);
                     doc.setFontStyle('normal');
                     processed++;
@@ -96,10 +92,6 @@ export class PdfGeneratorService {
                         doc.setFontStyle('bolditalic');
                     } else {
                         doc.setFontStyle('italic');
-                    }
-
-                    if (position.offset !== this.maxLength) {
-                        position.x = position.x + 0.8;
                     }
 
                     this.formatText(doc, nodes[processed].childNodes, position);
