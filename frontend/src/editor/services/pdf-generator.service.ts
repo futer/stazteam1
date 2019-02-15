@@ -100,9 +100,10 @@ export class PdfGeneratorService {
 
                     break;
                 case 'U':
-                    doc.setFontStyle('underline');
+                    // doc.setFontStyle('underline');
+                    this.drawUnderline(doc, nodes[processed], position);
                     this.formatText(doc, nodes[processed].childNodes, position);
-                    doc.setFontStyle('normal');
+                    // doc.setFontStyle('normal');
                     processed++;
 
                     break;
@@ -120,6 +121,29 @@ export class PdfGeneratorService {
                 default:
                     processed++;
                     break;
+            }
+        }
+    }
+
+    drawUnderline(doc: jsPDF, textNode: Text, position: PositionModel): void {
+        const linePosition: PositionModel = {
+            x: position.x,
+            y: position.y,
+            offset: position.offset,
+            lines: position.lines
+        };
+
+        const textDimensions = doc.getTextDimensions(textNode.textContent);
+        let lineWidth = textDimensions.w;
+
+        while (lineWidth > 0) {
+            if (lineWidth > linePosition.offset) {
+                doc.line(linePosition.x, linePosition.y, linePosition.x + linePosition.offset, linePosition.y);
+                lineWidth = lineWidth - linePosition.offset;
+                this.moveToNextLine(linePosition);
+            } else {
+                doc.line(linePosition.x, linePosition.y, linePosition.x + lineWidth, linePosition.y);
+                lineWidth = 0;
             }
         }
     }
