@@ -52,14 +52,14 @@ export class TextPageComponent implements OnInit, OnDestroy {
         this.refShare.shareTitle(this.title);
 
         this.uploadSub = this.refShare.pdfSource.subscribe(res => {
-            console.log(res);
             if (res) {
                 if (this.page.nativeElement.innerText !== '' && this.allpages[1] !== '') {
                     // this.res = res;
                     this.showModal = true;
                 } else {
-                    this.loadedTitle = res[0];
-                    this.insertUploadedText(res[1]);
+                    console.log(res['pages'][0]);
+                    this.loadedTitle = res['title'];
+                    this.insertUploadedText(res['pages']);
                 }
 
             }
@@ -80,8 +80,8 @@ export class TextPageComponent implements OnInit, OnDestroy {
         }
     }
 
-    insertUploadedText(pages: Object): void {
-        console.log(pages);
+    insertUploadedText(pages: Array<Object>): void {
+        console.log(pages['0']);
     }
 
     swap() {

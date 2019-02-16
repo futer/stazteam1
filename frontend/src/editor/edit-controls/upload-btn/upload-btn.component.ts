@@ -48,7 +48,7 @@ export class UploadBtnComponent {
     for (let i = 1; i < pages.numPages + 1; i++) {
       await pages.getPage(i).then(async page => {
         const actPage = page.getTextContent();
-        this.extractPageData(actPage);
+        await this.extractPageData(actPage);
       });
     }
     this.sendPDF();
