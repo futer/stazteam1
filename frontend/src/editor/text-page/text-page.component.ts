@@ -8,7 +8,7 @@ import {
     OnDestroy
 } from '@angular/core';
 import { ToolboxActionsService } from '../services/toolbox-actions.service';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-text-page',
@@ -17,7 +17,7 @@ import { Subscription, Observable } from 'rxjs';
 })
 export class TextPageComponent implements OnInit, OnDestroy {
     height = 1000;
-    allpages = null;
+    data: string;
     titleStatus = true;
     titleSub: Subscription;
     uploadSub: Subscription;
@@ -53,11 +53,9 @@ export class TextPageComponent implements OnInit, OnDestroy {
 
         this.uploadSub = this.refShare.pdfSource.subscribe(res => {
             if (res) {
-                if (this.page.nativeElement.innerText !== '' && this.allpages[1] !== '') {
-                    // this.res = res;
+                if (this.page.nativeElement.innerText !== '') {
                     this.showModal = true;
                 } else {
-                    console.log(res['pages'][0]);
                     this.loadedTitle = res['title'];
                     this.insertUploadedText(res['pages']);
                 }
@@ -81,86 +79,22 @@ export class TextPageComponent implements OnInit, OnDestroy {
     }
 
     insertUploadedText(pages: Array<Object>): void {
-        console.log(pages['0']);
+        this.data = '';
+
+        pages.forEach(page => {
+            page['items'].forEach(lines => {
+                this.data += lines.str;
+            });
+        });
+
+        this.page.nativeElement.innerHTML = this.data;
     }
 
     swap() {
-        // this.page.nativeElement.textContent = '';
-        console.log('page', this.page);
         this.refShare.pdfSource.subscribe(res => {
-            console.log(res);
-            // this.page.nativeElement.innerHTML = '';
-            this.allpages = res;
-            // this.page.nativeElement.childNodes.forEach(element => {
-            //     element.data = [];
-            // });
-
-            // let child = this.page.nativeElement;
-            // while (child.firstChild) {
-            //     console.log(child.firstChild)
-            //     if (child.firstChild.tagName === "SPAN"){
-            //         child = child.firstChild.nextSibling;
-            //     }
-            //     child.remove(child.firstChild);
-            // }
-            // for (let i = 0; i < this.page.nativeElement.children.length; i++) {
-            //     console.log(this.page.nativeElement.children[i])
-            // }
-
-            // console.log('res',res);
-            // this.loadedTitle = res[0];
-            // let temp = '';
-            // for (let i = 1; i < res.length; i++){
-            //     console.log('elo');
-            //     for (let j = 0; j < res[i].items.length; j++){
-            //         console.log('ELOOO', res[i].items[j].str);
-            //         console.log('elo');
-            //         temp += res[i].items[j].str + '<br>';
-            //     }
-            // }
-            // console.log(temp);
-
-            // this.loadedTitle = res[0];
-            // const temp = [];
-            // for (let i = 1; i < res.length; i++){
-            //     for (let j = 0; j < res[i].items.length; j++){
-            //         temp.push(res[i].items[j].str);
-            //     }
-            //     this.allpages.push(temp);
-            // }
-            // console.log(res);
-
-            // // this.allpages.forEach(element => {
-            // //     this.renderer.setProperty(this.page.nativeElement.childNodes, 'textContent', element + '\n');
-            // // });
-            // console.log(res.length)
-            // for (let i = 1; i < res.length; i++) {
-            //     if (this.page.nativeElement.childNodes[i].nodeType = 3)
-            //     {
-            //         this.renderer.setProperty(this.page.nativeElement.childNodes[i], 'textContent', 'elo');
-
-            //     }
-            // }
+            this.loadedTitle = res['title'];
+            this.insertUploadedText(res['pages']);
         }).unsubscribe();
         this.showModal = false;
-        // console.log('allpages', this.allpages, 'loaded', this.loadedTitle);
-    }
-
-    elo() {
-        console.log(this.page.nativeElement.textContent);
-
-        // console.log(this.page);
-        // this.refShare.pdfSource.subscribe(res => {
-        //     const child = this.page.nativeElement;
-        //     console.log(child.firstChild)
-        //     while (child.firstChild) {
-        //         console.log(child.firstChild)
-        //         child.removeChild(child.firstChild);
-        //     }
-        //     console.log('res', res[0]);
-        //     this.loadedTitle = res[0];
-        //     this.allpages = res;
-        // }).unsubscribe();
-        // this.showModal = false;
     }
 }
