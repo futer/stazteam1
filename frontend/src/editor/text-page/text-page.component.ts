@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { ToolboxActionsService } from '../services/toolbox-actions.service';
 import { Subscription, Observable } from 'rxjs';
-import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
     selector: 'app-text-page',
@@ -18,12 +17,11 @@ import { forEach } from '@angular/router/src/utils/collection';
 })
 export class TextPageComponent implements OnInit, OnDestroy {
     height = 1000;
-    allpages: Array<any>;
-    titleStatus: boolean;
+    allpages = null;
+    titleStatus = true;
     titleSub: Subscription;
     uploadSub: Subscription;
     loadedTitle: string;
-    res;
     showModal = false;
 
     @ViewChild('page') page: ElementRef;
@@ -48,21 +46,20 @@ export class TextPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.allpages = [];
+        // this.allpages = [];
         this.page.nativeElement.focus();
         this.refShare.shareText(this.page);
         this.refShare.shareTitle(this.title);
 
         this.uploadSub = this.refShare.pdfSource.subscribe(res => {
+            console.log(res);
             if (res) {
-                console.log(this.page.nativeElement.innerText);
                 if (this.page.nativeElement.innerText !== '' && this.allpages[1] !== '') {
-                    //this.res = res;
+                    // this.res = res;
                     this.showModal = true;
                 } else {
                     this.loadedTitle = res[0];
-                    console.log(this.allpages);
-                    this.allpages = res;
+                    this.insertUploadedText(res[1]);
                 }
 
             }
@@ -77,14 +74,18 @@ export class TextPageComponent implements OnInit, OnDestroy {
         this.titleSub.unsubscribe();
     }
 
-    titleExists() {
+    titleExists(): void {
         if (!this.titleStatus) {
             this.titleStatus = true;
         }
     }
 
+    insertUploadedText(pages: Object): void {
+        console.log(pages);
+    }
+
     swap() {
-        //this.page.nativeElement.textContent = '';
+        // this.page.nativeElement.textContent = '';
         console.log('page', this.page);
         this.refShare.pdfSource.subscribe(res => {
             console.log(res);

@@ -1,6 +1,6 @@
 import { Injectable, ElementRef } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { PdfGeneratorService } from './pdf-generator.service';
+import { UploadModel } from '../models/upload.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class ToolboxActionsService {
   constructor() { }
 
   textSource = new BehaviorSubject<ElementRef>(null);
-  pdfSource = new BehaviorSubject<any>(null);
+  pdfSource = new BehaviorSubject<UploadModel>(null);
   titleSource = new BehaviorSubject<ElementRef>(null);
   titleExistance = new Subject<boolean>();
 
@@ -18,7 +18,7 @@ export class ToolboxActionsService {
     this.textSource.next(elRef);
   }
 
-  sharePDF(allpages: Array<any>): void {
+  sharePDF(allpages: UploadModel): void {
     this.pdfSource.next(allpages);
   }
 

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ToolboxActionsService } from 'src/editor/services/toolbox-actions.service';
+import { UploadModel } from 'src/editor/models/upload.model';
 declare const require;
 const PDFJS = require('pdfjs-dist/build/pdf');
 const pdfWorker = require('pdfjs-dist/build/pdf.worker.entry');
@@ -10,27 +11,24 @@ PDFJS.workerSrc = pdfWorker;
   templateUrl: './upload-btn.component.html',
   styleUrls: ['./upload-btn.component.scss']
 })
-export class UploadBtnComponent implements OnInit {
-  pages;
-  actpage;
-  allpages: Array<any>;
+export class UploadBtnComponent {
+  allPages: Array<Object>;
+  pdfTitle: string;
 
   constructor(
     private refShare: ToolboxActionsService,
-  ) { }
+  ) { this.allPages = []; }
 
-  ngOnInit() {
-    this.allpages = [];
-  }
-
+  // my brain hurts when i see so many callbacks >.< --Szw4gier
   async pdfUpload(event) {
-    this.allpages = [];
+    this.allPages = [];
     let pdf = event.target.files[0];
-    this.allpages.push(pdf.name.substring(0, pdf.name.length - 4));
+    this.pdfTitle = pdf.name.substring(0, pdf.name.length - 4);
+
     const reader = new FileReader;
     reader.readAsDataURL(pdf);
 
-    await new Promise((resolve, reject) => {
+    await new Promise((resolve) => {
         reader.onload = () => {
             pdf = reader.result.toString().split(',')[1];
             const decode = atob(pdf);
@@ -38,18 +36,32 @@ export class UploadBtnComponent implements OnInit {
             const url = URL.createObjectURL(pdfBlob);
 
             PDFJS['getDocument'](url).then(data => {
-              this.pages = data;
-
-              for (let i = 1; i < this.pages.numPages + 1; i++) {
-                this.pages.getPage(i).then(elo => {
-                  this.actpage = elo.getTextContent();
-                  this.actpage.then(page => { this.allpages.push(page); });
-                });
-                this.refShare.sharePDF(this.allpages);
-              }
+              resolve(data);
              });
           };
+    }).then(res => {
+      this.getPages(res);
     });
   }
-  
+
+  async getPages(pages: any): Promise<void> {
+    for (let i = 1; i < pages.numPages + 1; i++) {
+      await pages.getPage(i).then(async page => {
+        const actPage = page.getTextContent();
+        this.extractPageData(actPage);
+      });
+    }
+    this.sendPDF();
+  }
+
+  async extractPageData(actPage: Promise<Object>): Promise<void> {
+    await actPage.then(page => { this.allPages.push(page); });
+  }
+
+  sendPDF(): void {
+    this.refShare.sharePDF(<UploadModel>{
+      title: this.pdfTitle,
+      pages: this.allPages
+    });
+  }
 }
