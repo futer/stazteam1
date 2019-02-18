@@ -97,7 +97,7 @@ export class AuthService {
     return throwError(error);
   }
 
-  decode(token: string): UserModel {
+  decode(token: string): any {
     return this.jwtHelper.decodeToken(token);
   }
 }
