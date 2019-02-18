@@ -16,7 +16,9 @@ import { ModalComponent } from './components/modal/modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RadioButtonsComponent } from './forms/radio-buttons/radio-buttons.component';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { NavImgComponent } from './components/nav-img/nav-img.component';
 import { SuccessComponent } from './components/success/success.component';
+import { TextboxComponent } from './components/textbox/textbox.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { SuccessComponent } from './components/success/success.component';
     ModalComponent,
     RadioButtonsComponent,
     LoadingSpinnerComponent,
+    NavImgComponent,
     SuccessComponent,
+    TextboxComponent,
   ],
   imports: [
     CommonModule,
@@ -54,7 +58,9 @@ import { SuccessComponent } from './components/success/success.component';
     ModalComponent,
     RadioButtonsComponent,
     LoadingSpinnerComponent,
-    SuccessComponent
+    SuccessComponent,
+    TextboxComponent,
+    NavImgComponent,
   ]
 })
 export class SharedModule { }

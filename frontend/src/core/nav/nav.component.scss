@@ -95,6 +95,19 @@ header {
     }
   }
 
+  .navbar-user-info {
+    display: flex;
+    justify-content: flex-end;
+    text-align: center;
+    justify-items: center;
+    width: 100%;
+    align-items: center;
+
+    .img-wrapper{
+      width: 75px
+    }
+  }
+
   .dropdown{
     display:inline-block;
     position:relative;
