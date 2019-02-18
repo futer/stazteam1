@@ -21,6 +21,7 @@ import * as AuthActions from '../../core/store/auth/auth.actions';
 import { Reload } from '../../core/store/auth/auth.actions';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as pictureUploadFunctions from '../../shared/reusable-functions/pictureUpload';
+import { DisconnectedFlags } from '../models/flags';
 
 @Component({
   selector: 'app-user-editor',
@@ -28,26 +29,22 @@ import * as pictureUploadFunctions from '../../shared/reusable-functions/picture
   styleUrls: ['./user-editor.component.scss']
 })
 export class UserEditorComponent implements OnInit, OnDestroy {
-  currentsub: Subscription;
-  errorsub: Subscription;
-  sentsub: Subscription;
+  private currentsub: Subscription;
+  private errorsub: Subscription;
+  private sentsub: Subscription;
 
-  current: UserModel;
-  error: ErrorData;
-  send: boolean;
+  private current: UserModel;
+  private error: ErrorData;
+  private send: boolean;
 
-  error$: Observable<ErrorData>;
-  send$: Observable<boolean>;
+  private error$: Observable<ErrorData>;
+  private send$: Observable<boolean>;
 
-  updateUserForm: FormGroup;
-  disconnectForm: FormGroup;
+  private updateUserForm: FormGroup;
+  private disconnectForm: FormGroup;
 
-  keep: boolean;
-  deleted: boolean;
-  byebye: boolean;
-  disconnected: boolean;
-  disconnectError: string;
-  picture;
+  disconnectFlags: DisconnectedFlags;
+  private picture;
 
   private validationMessages = {
     password: 'Password must be longer than 5 characters',
@@ -67,9 +64,11 @@ export class UserEditorComponent implements OnInit, OnDestroy {
       lastName: '',
       pic: ''
     };
-    this.deleted = false;
-    this.byebye = false;
-    this.disconnected = false;
+    this.disconnectFlags = {
+      accountDeleted: false,
+      accountIsBeingDeleted: false,
+      accountDisconnected: false
+    };
   }
 
   ngOnInit() {
@@ -87,12 +86,11 @@ export class UserEditorComponent implements OnInit, OnDestroy {
     });
 
     this.error$ = this.store.select(Errors);
-    this.send$ = this.store.select(SendSuccess);
-
     this.errorsub = this.error$.subscribe(error => {
       this.error = error;
     });
 
+    this.send$ = this.store.select(SendSuccess);
     this.sentsub = this.send$.subscribe(sent => {
       this.send = sent;
     });
@@ -143,44 +141,49 @@ export class UserEditorComponent implements OnInit, OnDestroy {
     this.userService.disconnect(this.current.id, form.value.passwordGroup.password)
       .subscribe(data => {
         if (data === true) {
-          this.keep = false;
-          this.deleted = true;
+          this.disconnectFlags.keepLocal = false;
+          this.disconnectFlags.accountDeleted = true;
           this.store.dispatch(new Reload());
         } else {
-          this.disconnectError = data['name'];
+          this.disconnectFlags.error = data['name'];
         }
       });
   }
 
   disconnect_delete() {
-    this.byebye = true;
+    this.disconnectFlags.accountIsBeingDeleted = true;
     this.userService.disconnect_delete(this.current.id)
       .subscribe(data => {
         if (data === true) {
           this.store.dispatch(new AuthActions.Logout());
           this.store.dispatch(new Reload());
         } else {
-          this.disconnectError = data['name'];
+          this.disconnectFlags.error = data['name'];
         }
       });
   }
 
   disconnect_local() {
-    this.userService.disconnect_local().subscribe(data => {
-      if (data === true) {
-        this.disconnected = true;
-        this.store.dispatch(new Reload());
-      } else {
-        this.disconnectError = data['name'];
-      }
-    });
+    this.userService.disconnect_local()
+      .subscribe(data => {
+        if (data === true) {
+          this.disconnectFlags.accountDisconnected = true;
+          this.store.dispatch(new Reload());
+        } else {
+          this.disconnectFlags.error = data['name'];
+        }
+      });
   }
 
-  changeKeep(i: boolean) {
-    if (i) {
-      this.keep = false;
-    } else {
-      this.keep = true;
+  activateKeep() {
+    if (!this.disconnectFlags.keepLocal) {
+      this.disconnectFlags.keepLocal = true;
+    }
+  }
+
+  deactivateKeep() {
+    if (this.disconnectFlags.keepLocal) {
+      this.disconnectFlags.keepLocal = false;
     }
   }
 
