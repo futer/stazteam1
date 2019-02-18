@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MarkedTextModel } from '../models/marked-text.model';
 
 @Component({
@@ -6,7 +6,7 @@ import { MarkedTextModel } from '../models/marked-text.model';
   templateUrl: './marked-text.component.html',
   styleUrls: ['./marked-text.component.scss']
 })
-export class MarkedTextComponent implements OnInit {
+export class MarkedTextComponent {
 
   @Input() markedText: MarkedTextModel[];
   @Input() markedTextStyle: string;
@@ -14,9 +14,6 @@ export class MarkedTextComponent implements OnInit {
   constructor() {
     this.markedText = [];
     this.markedTextStyle = '';
-  }
-
-  ngOnInit() {
   }
 
 }

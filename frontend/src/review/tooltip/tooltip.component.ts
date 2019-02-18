@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './tooltip.component.html',
   styleUrls: ['./tooltip.component.scss']
 })
-export class TooltipComponent implements OnInit {
+export class TooltipComponent {
 
   @Input() tooltipPositionStyles: object;
   @Input() tooltipStyle: string;
@@ -27,9 +27,6 @@ export class TooltipComponent implements OnInit {
         Validators.required
       ]
     });
-  }
-
-  ngOnInit() {
   }
 
   send(addCommentForm) {

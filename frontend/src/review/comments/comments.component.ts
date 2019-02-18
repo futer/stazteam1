@@ -1,16 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { CommentModel } from 'src/app/models/comment.model';
+import { CommentModel } from '../../app/models/comment.model';
 
 import { ReviewService } from '../services/review.service';
-import { Observable } from 'apollo-link';
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss']
 })
-export class CommentsComponent implements OnInit {
+export class CommentsComponent {
 
   @Input() comments: CommentModel[];
   @Input() commentsStyle: string;
@@ -20,9 +19,6 @@ export class CommentsComponent implements OnInit {
   ) {
     this.comments = [];
     this.commentsStyle = '';
-  }
-
-  ngOnInit() {
   }
 
   onClick(comment: CommentModel) {
@@ -36,8 +32,4 @@ export class CommentsComponent implements OnInit {
         }
       });
   }
-
-  onScrollComments() {
-
- }
 }

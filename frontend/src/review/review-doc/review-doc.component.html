@@ -2,15 +2,16 @@
   <app-doc 
     [returnTo]="'/review'" 
     (mouseup)="onMouseUp($event)" 
-    (mousedown)="hideTooltip()"></app-doc>
-
+    (mousedown)="hideTooltip()">
+  </app-doc>
   <app-comments 
     [commentsStyle]="'comments'"
-    [comments]="comments"></app-comments>
-
+    [comments]="comments">
+  </app-comments>
   <app-tooltip
     [tooltipPositionStyles]="tooltipPositionStyles" 
     [tooltipStyle]="'tooltip'"
     [markedText]="markedText"
-    (commentEmitter)="addComment($event)"></app-tooltip>
+    (commentEmitter)="addComment($event)">
+  </app-tooltip>
 </div>

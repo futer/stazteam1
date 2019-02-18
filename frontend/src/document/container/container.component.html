@@ -7,7 +7,10 @@
     [infiniteScrollDisabled]="prevLoading$ | async"
     (scrolled)="onScrollPrev()"
     [immediateCheck]="true">
-    <app-doc-prev *ngFor="let prev of (prevs$ | async)" [preview]="prev" [prefixAddress]="'doc'">
+    <app-doc-prev 
+      *ngFor="let prev of (prevs$ | async)" 
+      [preview]="prev" 
+      [prefixAddress]="'doc'">
     </app-doc-prev>
   </div>
 
@@ -19,7 +22,10 @@
     [infiniteScrollDisabled]="likedLoading$ | async"
     (scrolled)="onScrollLiked()"
     [immediateCheck]="true">
-    <app-doc-prev *ngFor="let prev of (liked$ | async)" [preview]="prev" [prefixAddress]="'doc'">
+    <app-doc-prev 
+      *ngFor="let prev of (liked$ | async)" 
+      [preview]="prev" 
+      [prefixAddress]="'doc'">
     </app-doc-prev>
   </div>
 </section>

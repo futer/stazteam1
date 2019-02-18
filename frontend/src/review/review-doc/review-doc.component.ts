@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { MarkedTextModel } from '../models/marked-text.model';
@@ -10,8 +10,8 @@ import { Subscription } from 'rxjs';
 import * as Actions from '../store/review.actions';
 import * as Selectors from '../store/review.selectors';
 import { ReviewService } from '../services/review.service';
-import { CommentModel } from 'src/app/models/comment.model';
-import { DocumentService } from 'src/document/services/document.service';
+import { CommentModel } from '../../app/models/comment.model';
+import { DocumentService } from '../../document/services/document.service';
 import { flatMap } from 'rxjs/operators';
 
 
@@ -20,7 +20,7 @@ import { flatMap } from 'rxjs/operators';
     templateUrl: './review-doc.component.html',
     styleUrls: ['./review-doc.component.scss']
 })
-export class ReviewDocComponent implements OnInit, OnDestroy {
+export class ReviewDocComponent implements OnDestroy {
   @ViewChild(TooltipComponent, { read: ElementRef }) tooltipComponent: ElementRef;
 
   id: string;
@@ -58,9 +58,6 @@ export class ReviewDocComponent implements OnInit, OnDestroy {
     });
 
     this.tooltipPositionStyles = this.getTooltipStyles();
-  }
-
-  ngOnInit() {
   }
 
   ngOnDestroy() {
