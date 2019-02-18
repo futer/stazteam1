@@ -1,4 +1,4 @@
-import { PreviewsModel, DocumentModel } from '../models/document.model';
+import { DocumentModel } from '../models/document.model';
 import { ErrorData } from '../models/error.model';
 
 export interface PrevState {

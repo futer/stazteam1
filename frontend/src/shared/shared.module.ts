@@ -9,7 +9,6 @@ import { ImageComponent } from './components/image/image.component';
 import { RouterModule } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
 import { SubpageContainerComponent } from './components/subpage-container/subpage-container.component';
-import { SubpageService } from './services/subpage.service';
 import { LikeBtnComponent } from './components/like-btn/like-btn.component';
 import { ButtonComponent } from './components/button/button.component';
 import { ModalComponent } from './components/modal/modal.component';

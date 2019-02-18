@@ -1,15 +1,13 @@
 <div class="content">
-    <p
+  <p
     *ngFor="let line of (actualPage | async)?.items"
     [ngStyle]="{
       'font-size': line.height+'px',
       'width': line.width+'px'
-    }"
-    >
+    }">
     {{ line.str }}
   </p>
 </div>
-
 
 <div class="controls">
   <button class="controls__btn" (click)="previousPage()">
@@ -22,8 +20,7 @@
     (change)="getContent()" 
     min="1"
     max="2"
-    type="number"
-    />
+    type="number"/>
 
   <button class="controls__btn" (click)="nextPage()">
     <i class="fa fa-arrow-right" aria-hidden="true"></i>
