@@ -133,8 +133,7 @@ async function socialAuthenticate(user) {
             })
             await newUser.save()
                 .catch(err => { throw err; });
-
-            return tokenFromUser(values[1]);
+            return tokenFromUser(newUser);
 
         } else {
             if (values[1].registered === 'LOCAL'){
