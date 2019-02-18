@@ -23,9 +23,9 @@ export class SaveBtnComponent implements OnInit {
       this.textRef.textSource,
       this.textRef.titleSource
     ).subscribe(ref => {
-      const doc = this.pdfGenerator.generatePDF(ref[0]);
 
       if (ref[1].nativeElement.firstChild.value !== '') {
+        const doc = this.pdfGenerator.generatePDF(ref[0]);
         doc.save(ref[1].nativeElement.firstChild.value + '.pdf');
       } else {
         this.textRef.changeTitleStatus(false);

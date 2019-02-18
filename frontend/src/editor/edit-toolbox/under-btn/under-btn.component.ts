@@ -17,9 +17,8 @@ export class UnderBtnComponent implements OnInit {
 
   toggleUnderline() {
     this.textRef.textSource.subscribe(ref => {
-      // document.execCommand('underline', false);
-      // ref.nativeElement.focus();
-      console.log(ref);
+      document.execCommand('underline', false);
+      ref.nativeElement.focus();
     }).unsubscribe();
   }
 }

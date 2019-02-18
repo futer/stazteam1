@@ -6,7 +6,7 @@ import { PositionModel } from '../models/position.model';
     providedIn: 'root'
 })
 export class PdfGeneratorService {
-    constructor() {}
+    constructor() { }
 
     beginPointXY = 10;
     maxLength = 187;
@@ -100,9 +100,8 @@ export class PdfGeneratorService {
 
                     break;
                 case 'U':
-                    doc.setFontStyle('underline');
+                    this.drawUnderline(doc, nodes[processed], position);
                     this.formatText(doc, nodes[processed].childNodes, position);
-                    doc.setFontStyle('normal');
                     processed++;
 
                     break;
@@ -122,5 +121,34 @@ export class PdfGeneratorService {
                     break;
             }
         }
+    }
+
+    drawUnderline(doc: jsPDF, textNode: Text, position: PositionModel): void {
+        const linePosition: PositionModel = {
+            x: position.x,
+            y: position.y,
+            offset: position.offset,
+            lines: position.lines
+        };
+
+        textNode.childNodes.forEach(node => {
+            if (node.nodeName === 'BR') {
+                this.moveToNextLine(linePosition);
+            }
+
+            const nodeDimensions = doc.getTextDimensions(node.textContent);
+            let lineWidth = nodeDimensions.w;
+
+            while (lineWidth > 0) {
+                if (lineWidth > linePosition.offset) {
+                    doc.line(linePosition.x, linePosition.y, linePosition.x + linePosition.offset, linePosition.y);
+                    lineWidth = lineWidth - linePosition.offset;
+                    this.moveToNextLine(linePosition);
+                } else {
+                    doc.line(linePosition.x, linePosition.y, linePosition.x + lineWidth, linePosition.y);
+                    lineWidth = 0;
+                }
+            }
+        });
     }
 }
