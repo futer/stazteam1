@@ -3,22 +3,30 @@
     <li 
       *ngIf="(role$ | async)?.role === 'admin'"
       (click)="navigateToAdminUserEditor()">
-      <a>User editor</a>
+        <a>
+          User editor
+        </a>
     </li>
     <li 
       *ngIf="(role$ | async)?.role === 'admin'"
       (click)="navigateToBookmarkEditor()">
-      <a>Bookmark editor</a>
+        <a>
+          Bookmark editor
+        </a>
     </li>
     <li (click)="navigateToFav()">
-      <a>Favourites</a>
+      <a>
+        Favourites
+      </a>
     </li>
   </ul>
   <ul *ngFor="let item of bookmark$ | async">
     <li 
       *ngIf="item.position === 'RIGHT'"
       (click)="navigateToSubpage(item.title)">
-      <a >{{item.title}}</a>
+        <a>
+          {{item.title}}
+        </a>
     </li>
   </ul>
 </div>

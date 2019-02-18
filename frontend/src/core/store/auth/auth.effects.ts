@@ -3,14 +3,16 @@ import { Actions, Effect } from '@ngrx/effects';
 import { AuthService } from '../../services/auth/auth.service';
 import * as AuthActions from './auth.actions';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, catchError, tap } from 'rxjs/operators';
+import {
+    map,
+    switchMap,
+    catchError,
+    tap
+} from 'rxjs/operators';
 import { LoginModel, TokenPicModel } from 'src/app/models/login.model';
 import { UserModel } from 'src/app/models/user.model';
 import { ErrorData } from 'src/document/models/error.model';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { tokenKey } from '@angular/core/src/view';
-import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
     export class AuthEffect {

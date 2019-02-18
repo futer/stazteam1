@@ -18,9 +18,9 @@ import { BookmarkState } from '../store/bookmark/bookmark.state';
 export class SidebarComponent implements OnInit, OnDestroy {
   @Input() bookmark$: Observable<any>;
 
-  rolesub: Subscription;
-  role$: Observable<UserModel>;
-  role: RoleEnum;
+  private rolesub: Subscription;
+  private role$: Observable<UserModel>;
+  private role: RoleEnum;
 
   constructor(
     private store: Store<BookmarkState>,

@@ -7,7 +7,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { RoleEnum } from 'src/app/models/role.enum';
-import { UserModel } from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,13 +30,11 @@ export class AuthService {
     data.pic = pic;
 
     return this.http.post<RegisterModel>(this.adress + 'users/register', data)
-     .pipe(catchError(this.errorHandler));
+      .pipe(catchError(this.errorHandler));
   }
 
   isAuthenticated(): boolean {
     const token = this.getToken();
-    // Check whether the token is expired and return
-    // true or false
     return !this.jwtHelper.isTokenExpired(token);
   }
 

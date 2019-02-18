@@ -1,4 +1,4 @@
-import * as auth from './auth.reducers';
+
 import { UserModel } from '../../../app/models/user.model';
 import { ErrorData } from 'src/document/models/error.model';
 

@@ -24,7 +24,6 @@ export enum bookmarkTypes {
 
 export class SetCurrentBookmark implements Action {
     readonly type = bookmarkTypes.SET_CURRENT_BOOKMARK;
-
     constructor(public payload: BookmarkModel) {}
 }
 

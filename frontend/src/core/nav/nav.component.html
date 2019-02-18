@@ -1,43 +1,61 @@
 <header>
   <label for="toggle">&#9776;</label>
-  <input type="checkbox" id="toggle" class="toggle" />
+  <input 
+    type="checkbox"
+    id="toggle"
+    class="toggle"/>
   <nav>
-    <div *ngIf="bookmark$ | async" class="logo-bookmarks-container">
-      <h3 class="logo"><a href="#">LOGO</a></h3>
-      <ul class="bookmarks" *ngFor="let item of bookmark$ | async">
-          <li 
+    <div 
+      *ngIf="bookmark$ | async"
+      class="logo-bookmarks-container">
+      <h3 class="logo">
+        <a href="#">
+          LOGO
+        </a>
+      </h3>
+      <ul
+        class="bookmarks"
+        *ngFor="let item of bookmark$ | async">
+          <li
             *ngIf="item?.position === 'TOP'" 
             (click)="navigateToSubpage(item.title)">
-            <a >{{item.title}}</a>
+              <a>
+                {{item.title}}
+              </a>
         </li>
       </ul>
     </div>
     <div class="navbar-user-info">
       <div class="img-wrapper">
-        <app-nav-img [class]="'av'" [data]="(pic$ | async)?.pic"></app-nav-img>
+        <app-nav-img
+          [class]="'av'"
+          [data]="(pic$ | async)?.pic">
+        </app-nav-img>
       </div>
         <div class="dropdown">
-            <app-button 
-              [class]="'dropdown__button'">
-              {{(name$ | async)?.firstName}} {{(name$ | async)?.lastName}}
-              <i class="fa fa-chevron-down" aria-hidden="true"></i>
-            </app-button>
-            <div class="dropdown--list" (click)="navigateToProfileEditor()">
-              <app-router-btn 
-                [class]="'dropdown--link'" 
-                [link]="'/user-editor'"> 
-                  Edit Profile
-                <i class="fa fa-user dropdown__icon" ></i>
-              </app-router-btn>
-              <app-router-btn 
-                (click)="logOut()" 
-                [class]="'dropdown--link'" 
-                href="#">
-                  Sign out
-                <i class="fa fa-sign-out dropdown__icon"></i>
-              </app-router-btn>
-            </div>
-          </div>
+        <app-button 
+          [class]="'dropdown__button'">
+            {{(name$ | async)?.firstName}} {{(name$ | async)?.lastName}}
+            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </app-button>
+        <div
+          class="dropdown--list"
+          (click)="navigateToProfileEditor()">
+          <app-router-btn 
+            [class]="'dropdown--link'" 
+            [link]="'/user-editor'"> 
+              Edit Profile
+              <i class="fa fa-user dropdown__icon" ></i>
+          </app-router-btn>
+          <app-router-btn 
+            (click)="logOut()" 
+            [class]="'dropdown--link'" 
+            href="#">
+              Sign out
+              <i class="fa fa-sign-out dropdown__icon"></i>
+          </app-router-btn>
+        </div>
+      </div>
     </div>
-    </nav>
-  </header>
+  </nav>
+</header>
