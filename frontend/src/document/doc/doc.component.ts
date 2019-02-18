@@ -1,4 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    OnDestroy
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -14,10 +18,10 @@ import { DocumentModel } from '../models/document.model';
 })
 export class DocComponent implements OnInit, OnDestroy {
     checkRoute: Subscription;
-    docData: Subscription;
-    url: string;
+    private docData: Subscription;
+    private url: string;
+    private id: string;
 
-    id = this.route.snapshot.paramMap.get('id');
     document: DocumentModel = {
         data: {
             document: {
@@ -34,7 +38,9 @@ export class DocComponent implements OnInit, OnDestroy {
     constructor(
         private store: Store<DocState>,
         private route: ActivatedRoute
-    ) {}
+    ) {
+        this.id = this.route.snapshot.paramMap.get('id');
+    }
 
     ngOnInit() {
         this.docData = this.store.select(getDoc).subscribe(doc => {
@@ -81,7 +87,6 @@ export class DocComponent implements OnInit, OnDestroy {
                 break;
             }
             default: {
-                console.log('what default?');
                 break;
             }
         }
