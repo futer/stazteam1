@@ -17,17 +17,12 @@ import { Subscription } from 'rxjs';
 })
 export class TextPageComponent implements OnInit, OnDestroy {
     height = 1000;
-<<<<<<< HEAD
-    titleStatus = true;
-    titleSub: Subscription;
-=======
     data: string;
     titleStatus = true;
     titleSub: Subscription;
     uploadSub: Subscription;
     loadedTitle: string;
     showModal = false;
->>>>>>> c2ff3499d4ca2f40b6d4b0207599526829c7d9f8
 
     @ViewChild('page') page: ElementRef;
     @ViewChild('title', { read: ElementRef }) title: ElementRef;
@@ -80,8 +75,6 @@ export class TextPageComponent implements OnInit, OnDestroy {
         if (!this.titleStatus) {
             this.titleStatus = true;
         }
-<<<<<<< HEAD
-=======
     }
 
     insertUploadedText(pages: Array<Object>): void {
@@ -102,6 +95,5 @@ export class TextPageComponent implements OnInit, OnDestroy {
             this.insertUploadedText(res['pages']);
         }).unsubscribe();
         this.showModal = false;
->>>>>>> c2ff3499d4ca2f40b6d4b0207599526829c7d9f8
     }
 }

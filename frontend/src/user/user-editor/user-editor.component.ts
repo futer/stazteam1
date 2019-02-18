@@ -1,9 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { UserModel, UserFormModel } from '../models/user.model';
 import { ErrorData } from '../models/error.model';
 import { Store } from '@ngrx/store';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators
+} from '@angular/forms';
 import { passwordMatcher, passwordTouchedChecker } from 'src/shared/reusable-functions/passwordMatcher';
 import { UserService } from '../services/user.service';
 import { Send } from '../store/user.actions';
@@ -11,7 +19,6 @@ import { Errors, SendSuccess } from '../store/user.reducers';
 import * as Actions from '../store/user.actions';
 import * as AuthActions from '../../core/store/auth/auth.actions';
 import { Reload } from '../../core/store/auth/auth.actions';
-import { AuthState } from 'src/core/store/auth/auth.state';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as pictureUploadFunctions from '../../shared/reusable-functions/pictureUpload';
 
@@ -54,23 +61,29 @@ export class UserEditorComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private sanitizer: DomSanitizer
   ) {
-    this.current = { id: '', firstName: '', lastName: '', pic: '' };
+    this.current = {
+      id: '',
+      firstName: '',
+      lastName: '',
+      pic: ''
+    };
     this.deleted = false;
     this.byebye = false;
     this.disconnected = false;
   }
 
   ngOnInit() {
-    this.currentsub = this.store.select(wholeStore => wholeStore.auth.user).subscribe(user => {
-      if (user) {
-        this.current.id = user._id;
-        this.current.firstName = user.firstName;
-        this.current.lastName = user.lastName;
-        this.current.pic = user.pic;
-        this.current.registered = user.registered;
-        this.current.email = user.email;
-        this.picture = this.current.pic;
-      }
+    this.currentsub = this.store.select(wholeStore => wholeStore.auth.user)
+      .subscribe(user => {
+        if (user) {
+          this.current.id = user._id;
+          this.current.firstName = user.firstName;
+          this.current.lastName = user.lastName;
+          this.current.pic = user.pic;
+          this.current.registered = user.registered;
+          this.current.email = user.email;
+          this.picture = this.current.pic;
+        }
     });
 
     this.error$ = this.store.select(Errors);
@@ -106,6 +119,9 @@ export class UserEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.currentsub.unsubscribe();
+    this.errorsub.unsubscribe();
+    this.sentsub.unsubscribe();
     this.store.dispatch(new Actions.Destroy);
   }
 
