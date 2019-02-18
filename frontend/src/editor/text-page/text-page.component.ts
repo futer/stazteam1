@@ -18,7 +18,6 @@ import { Subscription } from 'rxjs';
 export class TextPageComponent implements OnInit, OnDestroy {
     private height = 1000;
     private data: string;
-    private titleStatus = true;
     private titleSub: Subscription;
     private uploadSub: Subscription;
     loadedTitle: string;
@@ -29,6 +28,7 @@ export class TextPageComponent implements OnInit, OnDestroy {
     @HostListener('document:keydown', ['$event']) onkeydownHandler(
         event: KeyboardEvent
     ) {
+        this.loadedTitle = this.title.nativeElement.firstChild.value;
         if (this.page.nativeElement.offsetHeight > this.height) {
             this.renderer.setStyle(
                 this.page.nativeElement,
@@ -41,14 +41,14 @@ export class TextPageComponent implements OnInit, OnDestroy {
     constructor(
         private renderer: Renderer2,
         private refShare: ToolboxActionsService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.page.nativeElement.focus();
         this.refShare.shareText(this.page);
         this.refShare.shareTitle(this.title);
 
-        this.uploadSub = this.refShare.pdfSource.subscribe(res => {
+        this.uploadSub = this.refShare.observePDFData$.subscribe(res => {
             if (res) {
                 this.showModal = this.checkInnerHTML();
                 if (!this.showModal) {
@@ -57,8 +57,8 @@ export class TextPageComponent implements OnInit, OnDestroy {
                 }
             }
         });
-        this.titleSub = this.refShare.titleExistance.subscribe(res => {
-            this.titleStatus = res;
+        this.titleSub = this.refShare.observeTitle$.subscribe(res => {
+            this.loadedTitle = res.nativeElement.firstChild.value;
         });
     }
 
@@ -74,12 +74,6 @@ export class TextPageComponent implements OnInit, OnDestroy {
         return false;
     }
 
-    titleExists(): void {
-        if (!this.titleStatus) {
-            this.titleStatus = true;
-        }
-    }
-
     insertUploadedText(pages: Array<Object>): void {
         this.data = '';
 
@@ -92,8 +86,8 @@ export class TextPageComponent implements OnInit, OnDestroy {
         this.page.nativeElement.innerHTML = this.data;
     }
 
-    swap(): void {
-        this.refShare.pdfSource.subscribe(res => {
+    swapPDFData(): void {
+        this.refShare.observePDFData$.subscribe(res => {
             this.loadedTitle = res['title'];
             this.insertUploadedText(res['pages']);
         }).unsubscribe();

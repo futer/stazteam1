@@ -31,7 +31,8 @@ mutation AddDocument(
 })
 export class OperationsService {
   adress = environment.adress;
-  sendStatus = new Subject<AlertModel>();
+  private sendStatus = new Subject<AlertModel>();
+  observeStatus$ = this.sendStatus.asObservable();
 
   constructor(
     private apollo: Apollo

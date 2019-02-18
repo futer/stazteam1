@@ -18,7 +18,7 @@ export class AlertComponent implements OnInit, OnDestroy {
   alert: AlertModel;
 
   ngOnInit() {
-    this.alertStatus = this.operations.sendStatus.subscribe(res => {
+    this.alertStatus = this.operations.observeStatus$.subscribe(res => {
       this.alert = res;
     });
   }

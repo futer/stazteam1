@@ -26,12 +26,15 @@ export class SendBtnComponent implements OnInit {
 
   sendPDF() {
     zip(
-      this.textRef.textSource,
+      this.textRef.observeText$,
       this.store.pipe(map(data => <UserSendModel>{
         _id: data.auth.user._id,
-        author: data.auth.user.firstName + ' ' + data.auth.user.lastName
+        author:
+          data.auth.user.firstName +
+          ' ' +
+          data.auth.user.lastName
       })),
-      this.textRef.titleSource
+      this.textRef.observeTitle$
     ).subscribe(res => {
       const doc = this.pdfGenerator.generatePDF(res[0]);
       let encodedData = doc.output('datauristring');
@@ -46,8 +49,6 @@ export class SendBtnComponent implements OnInit {
           title: res[2].nativeElement.firstChild.value,
           userId: res[1]._id
         });
-      } else {
-        this.textRef.changeTitleStatus(false);
       }
     }).unsubscribe();
   }

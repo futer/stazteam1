@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ToolboxActionsService } from 'src/editor/services/toolbox-actions.service';
 
 @Component({
@@ -6,17 +6,14 @@ import { ToolboxActionsService } from 'src/editor/services/toolbox-actions.servi
   templateUrl: './italic-btn.component.html',
   styleUrls: ['./italic-btn.component.scss']
 })
-export class ItalicBtnComponent implements OnInit {
+export class ItalicBtnComponent {
 
   constructor(
     private textRef: ToolboxActionsService
   ) { }
 
-  ngOnInit() {
-  }
-
   toggleItalic() {
-    this.textRef.textSource.subscribe(ref => {
+    this.textRef.observeText$.subscribe(ref => {
       document.execCommand('italic', false);
       ref.nativeElement.focus();
     }).unsubscribe();

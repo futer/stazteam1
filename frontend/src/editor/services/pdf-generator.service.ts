@@ -8,8 +8,8 @@ import { PositionModel } from '../models/position.model';
 export class PdfGeneratorService {
     constructor() { }
 
-    beginPointXY = 10;
-    maxLength = 187;
+    private beginPointXY = 10;
+    private maxLength = 187;
 
     generatePDF(src: ElementRef): jsPDF {
         const doc = new jsPDF();

@@ -20,17 +20,13 @@ export class SaveBtnComponent implements OnInit {
 
   savePDF() {
     zip(
-      this.textRef.textSource,
-      this.textRef.titleSource
+      this.textRef.observeText$,
+      this.textRef.observeTitle$
     ).subscribe(ref => {
-
       if (ref[1].nativeElement.firstChild.value !== '') {
         const doc = this.pdfGenerator.generatePDF(ref[0]);
         doc.save(ref[1].nativeElement.firstChild.value + '.pdf');
-      } else {
-        this.textRef.changeTitleStatus(false);
       }
-
     }).unsubscribe();
   }
 }
