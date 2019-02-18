@@ -72,5 +72,6 @@ export class PdfViewComponent implements OnInit, OnChanges {
         this.getPages.getPage(this.pageNr).then((page: any) => {
             this.actualPage = page.getTextContent();
         });
+        this.docService.sendPageNr(this.pageNr);
     }
 }
