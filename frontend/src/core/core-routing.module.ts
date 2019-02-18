@@ -11,27 +11,29 @@ import { SubpageContainerComponent } from 'src/shared/components/subpage-contain
 import { AdminUserEditorComponent } from 'src/admin/admin-user-editor/admin-user-editor.component';
 import { AdminGuard } from './guards/admin/admin.guard';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { EditorGuard } from './guards/editor/editor.guard';
 
 const routes: Routes = [
-    {path: '', redirectTo: '/main', pathMatch: 'full'},
+    { path: '', redirectTo: '/main', pathMatch: 'full' },
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'register', component: RegisterComponent },
     { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
     { path: 'favourites', component: MainComponent, canActivate: [AuthGuard] },
+    { path: 'bookmark-panel', component: BookmarkPanelComponent, canActivate: [AdminGuard]},
+    { path: 'subpage/:title', component: SubpageContainerComponent, canActivate: [AuthGuard]},
+    { path: '**', component: ErrorPageComponent, canActivate: [AuthGuard]},
+    { path: 'admin', component: AdminUserEditorComponent, canActivate: [AdminGuard] },
     {
       path: 'doc/:id',
       loadChildren: '../document/document.module#DocumentModule'
     },
-    { path: 'bookmark-panel', component: BookmarkPanelComponent, canActivate: [AdminGuard]},
-    { path: 'subpage/:title', component: SubpageContainerComponent, canActivate: [AuthGuard]},
-    { path: 'user-editor', loadChildren: '../user/user.module#UserModule', canActivate: [AuthGuard]},
-    { path: 'admin', component: AdminUserEditorComponent, canActivate: [AdminGuard] },
     {
       path: 'doc-edit',
       loadChildren: '../editor/editor.module#EditorModule'
     },
-    { path: '**', component: ErrorPageComponent, canActivate: [AuthGuard]}
+    {
+      path: 'user-editor',
+      loadChildren: '../user/user.module#UserModule'
+    },
   ];
 
 @NgModule({
@@ -41,4 +43,5 @@ const routes: Routes = [
     ],
     exports: [RouterModule]
   })
+
 export class CoreRoutingModule { }

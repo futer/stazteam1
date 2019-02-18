@@ -28,7 +28,7 @@ header {
     cursor: pointer;
     font-size: 25px;
 
-    &:hover{
+    &:hover {
       border-radius: 50%;
       background-color: rgba(0,0,0,0.2);
     }
@@ -103,12 +103,12 @@ header {
     width: 100%;
     align-items: center;
 
-    .img-wrapper{
+    .img-wrapper {
       width: 75px
     }
   }
 
-  .dropdown{
+  .dropdown {
     display:inline-block;
     position:relative;
     margin-right: 40px;
@@ -131,13 +131,14 @@ header {
       text-align: center;
     }
 
-  .dropdown__icon {
+    .dropdown__icon {
     color: $main-color;
     margin-left: 8px;
     transition:.1s;
+    }
   }
- }
- app-router-btn:hover .dropdown__icon {
+
+app-router-btn:hover .dropdown__icon {
   color: #fff;
 }
   .dropdown:hover .dropdown--list{
@@ -155,6 +156,7 @@ header {
     font-size: 0.7rem;
     letter-spacing: 1px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
       &:hover {
         background-color: rgba(224, 169, 5, 0.6);
       }

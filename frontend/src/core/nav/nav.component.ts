@@ -1,10 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NavService } from '../services/nav/nav.service';
-import { AuthService } from '../services/auth/auth.service';
 import { Store } from '@ngrx/store';
-import { AuthState } from '../store/auth/auth.state';
-import { Logout } from '../store/auth/auth.actions';
-import { SubpageService } from 'src/shared/services/subpage.service';
 import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
 import * as AuthActions from '../../core/store/auth/auth.actions';
 import { Router } from '@angular/router';
@@ -12,9 +7,6 @@ import { Subscription, Observable } from 'rxjs';
 import { AuthService as SocialMediaAuthService } from 'angularx-social-login';
 import * as fromAuth from '../store/auth/auth.reducers';
 import { BookmarkState } from '../store/bookmark/bookmark.state';
-import { from } from 'zen-observable';
-import * as pictureUpload from '../../shared/reusable-functions/pictureUpload';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-nav',
@@ -28,12 +20,9 @@ export class NavComponent implements OnInit {
    currentSub: Subscription;
 
     constructor(
-        private authService: AuthService,
         private store: Store<BookmarkState>,
-        private subpageService: SubpageService,
         private router: Router,
         private socialMediaAuthService: SocialMediaAuthService,
-        private sanitizer: DomSanitizer
     ) {}
 
     ngOnInit() {

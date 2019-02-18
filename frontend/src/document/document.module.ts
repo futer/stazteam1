@@ -15,7 +15,12 @@ import { FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
-    declarations: [ContainerComponent, DocPrevComponent, DocComponent, PdfViewComponent],
+    declarations: [
+        ContainerComponent,
+        DocPrevComponent,
+        DocComponent,
+        PdfViewComponent
+    ],
     imports: [
         CommonModule,
         SharedModule,

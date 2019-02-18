@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     padding: 20px 15px;
+
     @media (min-width: $tablet) {
         flex-direction: row;
       }
@@ -35,5 +36,4 @@
     .bookmark-info--data {
         color: $main-color;
     }
-
 }

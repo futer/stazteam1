@@ -10,7 +10,6 @@ export const initialState: userState.State = {
 
 export const userFeature = createFeatureSelector<userState.State>('current');
 
-
 export const Errors = createSelector(
     userFeature,
     (state: userState.State) => state.errorMessage
