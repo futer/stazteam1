@@ -6,7 +6,7 @@ import { PositionModel } from '../models/position.model';
     providedIn: 'root'
 })
 export class PdfGeneratorService {
-    constructor() {}
+    constructor() { }
 
     beginPointXY = 10;
     maxLength = 187;
@@ -41,7 +41,7 @@ export class PdfGeneratorService {
         } else {
             const clearedText = textNode.textContent.replace(/\n/g, '');
             doc.text(clearedText, position.x, position.y);
-            position.x = position.x + textDimensions.w + 0.2;
+            position.x = position.x + textDimensions.w + 0.5;
             position.offset = position.offset - textDimensions.w;
         }
     }
@@ -82,10 +82,6 @@ export class PdfGeneratorService {
                         doc.setFontStyle('bold');
                     }
 
-                    if (position.offset !== this.maxLength) {
-                        position.x = position.x + 0.4;
-                    }
-
                     this.formatText(doc, nodes[processed].childNodes, position);
                     doc.setFontStyle('normal');
                     processed++;
@@ -98,19 +94,25 @@ export class PdfGeneratorService {
                         doc.setFontStyle('italic');
                     }
 
-                    if (position.offset !== this.maxLength) {
-                        position.x = position.x + 0.8;
-                    }
-
                     this.formatText(doc, nodes[processed].childNodes, position);
                     doc.setFontStyle('normal');
                     processed++;
 
                     break;
                 case 'U':
-                    doc.setFontStyle('underline');
+                    this.drawUnderline(doc, nodes[processed], position);
                     this.formatText(doc, nodes[processed].childNodes, position);
-                    doc.setFontStyle('normal');
+                    processed++;
+
+                    break;
+                case 'DIV':
+                    this.formatText(doc, nodes[processed].childNodes, position);
+                    processed++;
+
+                    break;
+                case 'P':
+                    this.formatText(doc, nodes[processed].childNodes, position);
+                    this.moveToNextLine(position);
                     processed++;
 
                     break;
@@ -130,5 +132,34 @@ export class PdfGeneratorService {
                     break;
             }
         }
+    }
+
+    drawUnderline(doc: jsPDF, textNode: Text, position: PositionModel): void {
+        const linePosition: PositionModel = {
+            x: position.x,
+            y: position.y,
+            offset: position.offset,
+            lines: position.lines
+        };
+
+        textNode.childNodes.forEach(node => {
+            if (node.nodeName === 'BR') {
+                this.moveToNextLine(linePosition);
+            }
+
+            const nodeDimensions = doc.getTextDimensions(node.textContent);
+            let lineWidth = nodeDimensions.w;
+
+            while (lineWidth > 0) {
+                if (lineWidth > linePosition.offset) {
+                    doc.line(linePosition.x, linePosition.y, linePosition.x + linePosition.offset, linePosition.y);
+                    lineWidth = lineWidth - linePosition.offset;
+                    this.moveToNextLine(linePosition);
+                } else {
+                    doc.line(linePosition.x, linePosition.y, linePosition.x + lineWidth, linePosition.y);
+                    lineWidth = 0;
+                }
+            }
+        });
     }
 }
