@@ -11,12 +11,15 @@ import { SubpageContainerComponent } from 'src/shared/components/subpage-contain
 import { AdminUserEditorComponent } from 'src/admin/admin-user-editor/admin-user-editor.component';
 import { AdminGuard } from './guards/admin/admin.guard';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { ReviewComponent } from 'src/review/review/review.component';
+import { ReviewGuard } from './guards/review/review.guard';
 
 const routes: Routes = [
     { path: '', redirectTo: '/main', pathMatch: 'full' },
     { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
     { path: 'register', component: RegisterComponent },
     { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
+    { path: 'review', component: ReviewComponent, canActivate: [ReviewGuard] },
     { path: 'favourites', component: MainComponent, canActivate: [AuthGuard] },
     { path: 'bookmark-panel', component: BookmarkPanelComponent, canActivate: [AdminGuard]},
     { path: 'subpage/:title', component: SubpageContainerComponent, canActivate: [AuthGuard]},
@@ -25,6 +28,10 @@ const routes: Routes = [
     {
       path: 'doc/:id',
       loadChildren: '../document/document.module#DocumentModule'
+    },
+    {
+      path: 'review/:id',
+      loadChildren: '..review/review.module#ReviewModule'
     },
     {
       path: 'doc-edit',
