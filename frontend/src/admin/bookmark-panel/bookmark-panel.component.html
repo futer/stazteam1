@@ -1,6 +1,8 @@
 <div class="container">
     <div class="add-bookmark">
-        <p class="add-bookmark--title">Create New Bookmark</p>
+        <p class="add-bookmark--title">
+            Create New Bookmark
+        </p>
         <app-button 
             [class]="'add-bookmark'" 
             (clickEvent)="showModal = !showModal">
@@ -18,7 +20,8 @@
     </div>
     <div *ngIf=" isLoaded$ | async"> 
         <div class="bookmark--item" *ngFor="let item of bookmark$ | async">
-            <app-bookmark-info [data]="item"></app-bookmark-info>
+            <app-bookmark-info [data]="item">
+            </app-bookmark-info>
         </div>
     </div>
 </div>
@@ -28,15 +31,16 @@
         <form 
             [formGroup]="addBookmarkForm" 
             class="bookmark-add__form" 
-            (ngSubmit)="addBookmark(addBookmarkForm)"> 
+            (ngSubmit)="addBookmark(addBookmarkForm)">
             <div class="form-group">
-                <label for="title">Title: </label>
+                <label for="title">
+                    Title: 
+                </label>
                 <app-input 
                     [id]="'title'" 
                     [formInputStyle]="'bookmark-form__input'"
                     [type]="'text'" 
-                    [controlName]="addBookmarkForm.controls.title"
-                >
+                    [controlName]="addBookmarkForm.controls.title">
                 </app-input>
                 <app-error
                     [class]="'error-msg-addBookmark'"
@@ -50,32 +54,40 @@
                 </app-error>
             </div>
             <div class="form-group">
-                <label for="title">Content: </label>
+                <label for="title">
+                    Content: 
+                </label>
                 <textarea
                     class="add-bookmark__form-content" 
                     id="content" 
                     rows="6" 
                     cols="20"
-                    [formControl]="addBookmarkForm.controls.content"
-                >
+                    [formControl]="addBookmarkForm.controls.content">
                 </textarea>
                 <app-error
                     [class]="'error-msg-addBookmark'"
-                    *ngIf="addBookmarkForm.get('content').errors?.required && addBookmarkForm.get('content').touched">
+                    *ngIf="addBookmarkForm.get('content').errors?.required
+                        && addBookmarkForm.get('content').touched">
                     The field is requried
                 </app-error>
             </div>
             <div class="form-group__modal--position">
-                <label for="position">Position: </label>
+                <label for="position">
+                    Position: 
+                </label>
                 <app-radio-buttons 
                 [id]="'position'"
                 [name]="'position'"
                 (radioButtonChange)="getValues($event)"
-                [controlName]="addBookmarkForm.controls.position"
-                 >
+                [controlName]="addBookmarkForm.controls.position">
                 </app-radio-buttons>
             </div>
-            <app-submit-btn  [disabled]="addBookmarkForm.invalid" [buttonStyle]="'button'" [type]="'submit'"> Save changes</app-submit-btn>
+            <app-submit-btn 
+                [disabled]="addBookmarkForm.invalid" 
+                [buttonStyle]="'button'" 
+                [type]="'submit'">
+                Save changes
+            </app-submit-btn>
         </form>
     </div>
 </app-modal>

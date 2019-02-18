@@ -1,15 +1,23 @@
-import { Component, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { UserModel, User } from '../../app/models/user-editor.model';
 import { Store } from '@ngrx/store';
 import { State } from '../store/admin.states';
 import * as Actions from '../store/admin.actions';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators } from '@angular/forms';
 import { passwordMatcher } from 'src/shared/reusable-functions/passwordMatcher';
 import { ErrorData } from '../models/error.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as pictureUploadFunctions from '../../shared/reusable-functions/pictureUpload';
-import { InputComponent } from 'src/shared/forms/input/input.component';
 
 @Component({
   selector: 'app-admin-user-editor',
@@ -19,21 +27,21 @@ import { InputComponent } from 'src/shared/forms/input/input.component';
 
 export class AdminUserEditorComponent implements OnInit, OnDestroy {
   @ViewChild('pic', {read: ElementRef}) myInputVariable: ElementRef;
-  usersub: Subscription;
-  users$: Observable<any>;
+  private usersub: Subscription;
+  private users$: Observable<any>;
 
-  users: UserModel;
-  error: ErrorData;
-  send: boolean;
+  private users: UserModel;
+  private error: ErrorData;
+  private send: boolean;
 
-  usersfiltered: UserModel;
-  selectedUser: User;
+  private usersfiltered: UserModel;
+  private selectedUser: User;
 
-  updateUserForm: FormGroup;
-  pictureUrl;
-  searchbox: string;
-  roles: string[];
-  picture;
+  private updateUserForm: FormGroup;
+  private pictureUrl;
+  private searchbox: string;
+  private roles: string[];
+  private picture;
 
   private validationMessages = {
     password: 'Password must be longer than 5 characters',

@@ -1,6 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SubpageService } from 'src/shared/services/subpage.service';
+import {
+  Component,
+  OnInit,
+  Input
+} from '@angular/core';
+import { FormGroup, FormBuilder} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as bookmarkActions from 'src/core/store/bookmark/bookmark.actions';
 import { BookmarkState } from 'src/core/store/bookmark/bookmark.state';
@@ -13,11 +16,10 @@ import { BookmarkState } from 'src/core/store/bookmark/bookmark.state';
 export class BookmarkInfoComponent implements OnInit {
 
   @Input() data;
-  isShown = false;
-  bookmarkEditForm: FormGroup;
+  private isShown = false;
+  private bookmarkEditForm: FormGroup;
 
   constructor( private editFormBuilder: FormBuilder,
-    private subpageService: SubpageService,
     private store: Store<BookmarkState>) { }
 
   ngOnInit() {
@@ -26,15 +28,11 @@ export class BookmarkInfoComponent implements OnInit {
   toggleForm(data) {
     this.store.dispatch(new bookmarkActions.SetCurrentBookmark(data));
     this.isShown = !this.isShown;
-
    }
-
 
    deleteBookmark(event) {
     if ( window.confirm('Are sure you want to delete this bookmark ?')) {
       this.store.dispatch(new bookmarkActions.Delete(event.id));
      }
    }
-
-
 }
