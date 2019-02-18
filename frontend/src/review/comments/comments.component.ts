@@ -10,7 +10,7 @@ import { ReviewService } from '../services/review.service';
   styleUrls: ['./comments.component.scss']
 })
 export class CommentsComponent {
-
+  // test
   @Input() comments: CommentModel[];
   @Input() commentsStyle: string;
 
