@@ -47,7 +47,7 @@ export class ChatComponent implements OnInit {
 
     this.messages = [];
 
-    this.chatIsHidden = false;
+    this.chatIsHidden = true;
   }
 
   ngOnInit() {

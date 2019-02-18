@@ -69,9 +69,9 @@ export class UserEditorComponent implements OnInit, OnDestroy {
         this.current.pic = user.pic;
         this.current.registered = user.registered;
         this.current.email = user.email;
+        this.picture = this.current.pic;
       }
     });
-    this.picture = this.current.pic;
 
     this.error$ = this.store.select(Errors);
     this.send$ = this.store.select(SendSuccess);

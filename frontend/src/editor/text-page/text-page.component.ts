@@ -5,7 +5,7 @@ import {
     ElementRef,
     HostListener,
     Renderer2,
-    OnDestroy,
+    OnDestroy
 } from '@angular/core';
 import { ToolboxActionsService } from '../services/toolbox-actions.service';
 import { Subscription } from 'rxjs';
@@ -17,8 +17,12 @@ import { Subscription } from 'rxjs';
 })
 export class TextPageComponent implements OnInit, OnDestroy {
     height = 1000;
+    data: string;
     titleStatus = true;
     titleSub: Subscription;
+    uploadSub: Subscription;
+    loadedTitle: string;
+    showModal = false;
 
     @ViewChild('page') page: ElementRef;
     @ViewChild('title', { read: ElementRef }) title: ElementRef;
@@ -35,27 +39,61 @@ export class TextPageComponent implements OnInit, OnDestroy {
     }
 
     constructor(
-      private renderer: Renderer2,
-      private refShare: ToolboxActionsService
-    ) {}
+        private renderer: Renderer2,
+        private refShare: ToolboxActionsService
+    ) {
+
+    }
 
     ngOnInit() {
         this.page.nativeElement.focus();
         this.refShare.shareText(this.page);
         this.refShare.shareTitle(this.title);
 
+        this.uploadSub = this.refShare.pdfSource.subscribe(res => {
+            if (res) {
+                if (this.page.nativeElement.innerText !== '') {
+                    this.showModal = true;
+                } else {
+                    this.loadedTitle = res['title'];
+                    this.insertUploadedText(res['pages']);
+                }
+
+            }
+        });
         this.titleSub = this.refShare.titleExistance.subscribe(res => {
             this.titleStatus = res;
         });
     }
 
     ngOnDestroy() {
+        this.uploadSub.unsubscribe();
         this.titleSub.unsubscribe();
     }
 
-    titleExists() {
+    titleExists(): void {
         if (!this.titleStatus) {
             this.titleStatus = true;
         }
+    }
+
+    insertUploadedText(pages: Array<Object>): void {
+        this.data = '';
+
+        pages.forEach(page => {
+            page['items'].forEach(lines => {
+                this.data += lines.str;
+            });
+        });
+
+        this.page.nativeElement.innerHTML = this.data;
+    }
+
+    swap() {
+        this.refShare.pdfSource.subscribe(res => {
+            this.loadedTitle = res['title'];
+            this.insertUploadedText(res['pages']);
+        }).unsubscribe();
+        this.showModal = false;
     }
 }
