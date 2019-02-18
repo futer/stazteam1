@@ -1,8 +1,10 @@
 <ul 
-    [class]="appChatContextMenuStyles" 
-    [ngStyle]="contexMenuPositionStyles" 
-    (contextmenu)="donotShowDefaultContextMenu()">
-
-    <li [class]="item.classDisabled" *ngFor="let item of contextMenu.items" (click)="onClick(item)">{{ item.value }}</li>
-    
+  [class]="appChatContextMenuStyles" 
+  [ngStyle]="contexMenuPositionStyles" 
+  (contextmenu)="donotShowDefaultContextMenu()">
+  <li 
+    [class]="item.classDisabled" 
+    *ngFor="let item of contextMenu.items" 
+    (click)="onClick(item)">{{ item.value }}
+  </li>    
 </ul>

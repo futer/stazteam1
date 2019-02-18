@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter, AfterViewChecked } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  AfterViewChecked
+} from '@angular/core';
 
 import { MessageModel } from '../models/message.model';
 

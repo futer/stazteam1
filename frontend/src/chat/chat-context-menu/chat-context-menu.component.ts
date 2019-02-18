@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 
 import { ContextMenuModel } from '../models/context-menu.model';
 import { MessageModel } from '../models/message.model';

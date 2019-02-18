@@ -1,6 +1,6 @@
 const userService = require('../services/user.service');
 
-const { banEnum, commandEnum, roleEnum } = require('./models/command.enum');
+const { banEnum, commandEnum } = require('./models/command.enum');
 
 const loginCMDModel = require('./models/login.command.model');
 const messageCMDModel = require('./models/message.command.model');
