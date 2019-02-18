@@ -46,7 +46,6 @@ export class TextPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        // this.allpages = [];
         this.page.nativeElement.focus();
         this.refShare.shareText(this.page);
         this.refShare.shareTitle(this.title);
