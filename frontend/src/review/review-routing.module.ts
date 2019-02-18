@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from 'src/core/guards/auth/auth.guard';
+import { ReviewGuard } from '../core/guards/review/review.guard';
 import { ReviewComponent } from './review/review.component';
 import { ReviewDocComponent } from './review-doc/review-doc.component';
 
@@ -10,11 +10,11 @@ const routes: Routes = [
   {
     path: 'review',
     component: ReviewComponent,
-    canActivate: [AuthGuard]
+    canActivate: [ReviewGuard]
   }, {
     path: 'review/:id',
     component: ReviewDocComponent,
-    canActivate: [AuthGuard]
+    canActivate: [ReviewGuard]
   }
 ];
 

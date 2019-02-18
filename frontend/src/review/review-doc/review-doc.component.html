@@ -1,12 +1,14 @@
 <div>
   <app-doc 
-  [returnTo]="'/review'" 
-  (mouseup)="onMouseUp($event)" 
-  (mousedown)="hideTooltip()"></app-doc>
-  
-  <app-comments [comments]="comments"></app-comments>
+    [returnTo]="'/review'" 
+    (mouseup)="onMouseUp($event)" 
+    (mousedown)="hideTooltip()"></app-doc>
 
-  <app-tooltip 
+  <app-comments 
+    [commentsStyle]="'comments'"
+    [comments]="comments"></app-comments>
+
+  <app-tooltip
     [tooltipPositionStyles]="tooltipPositionStyles" 
     [tooltipStyle]="'tooltip'"
     [markedText]="markedText"

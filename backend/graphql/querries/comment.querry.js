@@ -2,6 +2,7 @@ const {
     GraphQLList,
     GraphQLNonNull,
     GraphQLString,
+    GraphQLInt
   } = require('graphql');
 
 const { commentType, addCommentInput, updateCommentInput } = require('../types/comment.type');
@@ -11,9 +12,9 @@ const commentQueries = {
   comments: {
     type: new GraphQLList(commentType),
     args: {
-      documentId: {
-        type: GraphQLString
-      }
+      documentId: { 
+        type: GraphQLString 
+      },
     },
     resolve: commentResolver.getComments,
   },

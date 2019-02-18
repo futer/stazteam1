@@ -131,3 +131,17 @@ input {
 }
 
 //BOOKMARK-PANEL/MODAL
+
+// tooltip
+
+.tooltip__form__input {
+    padding: 1em;
+    margin: 0;
+    width: 100%;
+    background: $sec-back-color;
+
+    &:focus {
+        border: 1px solid $main-color;
+        outline: none;
+    }
+}

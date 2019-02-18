@@ -8,7 +8,6 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { ReviewComponent } from './review/review.component';
-import { NavMenuPrevComponent } from './nav-menu-prev/nav-menu-prev.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { ReviewDocComponent } from './review-doc/review-doc.component';
 
@@ -23,7 +22,6 @@ import { CommentsComponent } from './comments/comments.component';
   declarations: [
     TooltipComponent,
     ReviewComponent,
-    NavMenuPrevComponent,
     NavMenuComponent,
     ReviewDocComponent,
     MarkedTextComponent,

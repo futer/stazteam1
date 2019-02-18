@@ -9,8 +9,12 @@ import { MarkedTextModel } from '../models/marked-text.model';
 export class MarkedTextComponent implements OnInit {
 
   @Input() markedText: MarkedTextModel[];
+  @Input() markedTextStyle: string;
 
-  constructor() { }
+  constructor() {
+    this.markedText = [];
+    this.markedTextStyle = '';
+  }
 
   ngOnInit() {
   }

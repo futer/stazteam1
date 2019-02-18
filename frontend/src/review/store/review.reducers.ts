@@ -125,9 +125,9 @@ export function commentsReducer(
   switch (action.type) {
     case Actions.fetchDocumentCommentsTypes.FETCH_DOCUMENT_COMMENTS:
       return {
+        ...state,
         loading: true,
         loaded: false,
-        comments: [],
         errorMessage: null,
       };
 

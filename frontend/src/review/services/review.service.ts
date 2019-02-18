@@ -4,7 +4,6 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { environment } from '../../environments/environment';
 import { StatusEnum } from '../models/status.enum';
-import { CommentModel } from 'src/app/models/comment.model';
 import { AddCommentModel } from '../models/add-comment.model';
 
 const DocCommentsQuery = gql`
@@ -57,6 +56,7 @@ const PrevByStatusQuery = gql`
       author
       content
       status
+      preview
       comments {
         reviewer {
           firstName
@@ -85,6 +85,26 @@ mutation Document($input: addCommentInput!){
   }
 }
 `;
+
+const DeleteCommentMutation = gql`
+mutation Document($id: String!){
+  deleteComment(id: $id) {
+    id
+    page
+    content
+    markedText {
+      line
+      content
+    }
+    reviewer {
+      id
+      firstName
+      lastName
+    }
+  }
+}
+`;
+
 
 @Injectable({
   providedIn: 'root'
@@ -127,6 +147,16 @@ export class ReviewService {
       mutation: AddCommentMutation,
       variables: {
         input: comment
+      },
+      fetchPolicy: 'no-cache',
+    });
+  }
+
+  deleteCommentMutation(id: string): Observable<any> {
+    return this.apollo.mutate({
+      mutation: DeleteCommentMutation,
+      variables: {
+        id: id
       },
       fetchPolicy: 'no-cache',
     });

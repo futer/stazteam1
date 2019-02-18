@@ -60,6 +60,15 @@ export class AuthService {
     return false;
   }
 
+  isReviewer(): boolean {
+    const token = this.getToken();
+    const role = (this.jwtHelper.decodeToken(token)).sub.role;
+    if (role === 'admin' || role === 'reviewer') {
+      return true;
+    }
+    return false;
+  }
+
   setToken(JWtoken) {
     localStorage.setItem('token', JWtoken);
   }

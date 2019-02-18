@@ -6,6 +6,11 @@ import { DocumentsModel, DocModel } from '../models/document.model';
 
 export const reviewFeature = createFeatureSelector<States.ReviewModuleState>('review');
 
+export const areCommentsLoaded = createSelector(
+  reviewFeature,
+  (state: States.ReviewModuleState) => state.comments.loaded
+);
+
 export const getComments = (page: number) => createSelector(
   reviewFeature,
   (state: States.ReviewModuleState) => {

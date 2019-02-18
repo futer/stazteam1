@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { StatusEnum } from '../models/status.enum';
 
 import { Store } from '@ngrx/store';

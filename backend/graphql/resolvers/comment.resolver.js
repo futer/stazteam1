@@ -1,14 +1,19 @@
 const commentService = require('../../services/comment.service');
+const userService = require('../../services/user.service');
 
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
 function addComment(root, args, context) {
+  if (!userService.isReviewer(context.user)) { return; }
+
   args.input.reviewer = context.user.sub._id;
   return commentService.addComment(args.input);
 }
 
 function updateComment(root, args, context) {
+  if (!userService.isReviewer(context.user)) { return; }
+
   const id = args.input.id;
   delete args.input.id;
 
@@ -16,12 +21,15 @@ function updateComment(root, args, context) {
 }
 
 function deleteComment(root, args, context) {
+  if (!userService.isReviewer(context.user)) { return; }
+  
   return commentService.deleteComment(args.id);
 }
 
 function getComments(root, args, context) {
   let data = args;
-  if (Object.keys(args).length !== 0) {
+
+  if (Object.keys(data).length !== 0) {
     data = { _id: ObjectId(args.documentId) }
   }
 
