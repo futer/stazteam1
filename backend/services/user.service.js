@@ -133,6 +133,7 @@ async function socialAuthenticate(user) {
             })
             await newUser.save()
                 .catch(err => { throw err; });
+                
             return tokenFromUser(newUser);
 
         } else {
