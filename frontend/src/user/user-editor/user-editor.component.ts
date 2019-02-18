@@ -43,7 +43,7 @@ export class UserEditorComponent implements OnInit, OnDestroy {
   private updateUserForm: FormGroup;
   private disconnectForm: FormGroup;
 
-  disconnectFlags: DisconnectedFlags;
+  private disconnectFlags: DisconnectedFlags;
   private picture;
 
   private validationMessages = {
