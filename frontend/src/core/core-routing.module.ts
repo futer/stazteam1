@@ -10,6 +10,8 @@ import { AdminModule } from 'src/admin/admin.module';
 import { SubpageContainerComponent } from 'src/shared/components/subpage-container/subpage-container.component';
 import { AdminUserEditorComponent } from 'src/admin/admin-user-editor/admin-user-editor.component';
 import { AdminGuard } from './guards/admin/admin.guard';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { EditorGuard } from './guards/editor/editor.guard';
 
 const routes: Routes = [
     {path: '', redirectTo: '/main', pathMatch: 'full'},
@@ -23,12 +25,13 @@ const routes: Routes = [
     },
     { path: 'bookmark-panel', component: BookmarkPanelComponent, canActivate: [AdminGuard]},
     { path: 'subpage/:title', component: SubpageContainerComponent, canActivate: [AuthGuard]},
-    { path: 'user-editor', loadChildren: '../user/user.module#UserModule'},
+    { path: 'user-editor', loadChildren: '../user/user.module#UserModule', canActivate: [AuthGuard]},
     { path: 'admin', component: AdminUserEditorComponent, canActivate: [AdminGuard] },
     {
       path: 'doc-edit',
       loadChildren: '../editor/editor.module#EditorModule'
     },
+    { path: '**', component: ErrorPageComponent, canActivate: [AuthGuard]}
   ];
 
 @NgModule({

@@ -18,6 +18,7 @@ export class BookmarkPanelComponent implements OnInit {
   bookmark$: Observable<any> = this.store.select(bookmarkState.getBookmarks);
   isLoading$: Observable<any> = this.store.select(bookmarkState.getLoading);
   isLoaded$: Observable<any> = this.store.select(bookmarkState.getLoaded);
+  status$: Observable<any> = this.store.select(bookmarkState.getStatus);
   isShown = false;
   addBookmarkForm: FormGroup;
   positions =  {'right': 'RIGHT',  'top': 'TOP'};

@@ -7,7 +7,8 @@ export const initialState: bookmarkState.BookmarkState = {
     bookmarks: [],
     erroMessage: null,
     loading: false,
-    loaded: false
+    loaded: false,
+    status: null
 };
 
 export const bookmarkFeature = createFeatureSelector<bookmarkState.BookmarkState>('bookmarks');
@@ -26,6 +27,12 @@ export const getLoaded = createSelector (
     bookmarkFeature,
     state => state.loaded
 );
+
+export const getStatus = createSelector (
+    bookmarkFeature,
+    state => state.status
+);
+
 
 export function bookmarkReducer(
     state: bookmarkState.BookmarkState = initialState,
@@ -66,6 +73,7 @@ export function bookmarkReducer(
         case bookmarkActions.bookmarkTypes.UPDATE_SUCCESS:
             return {
                 ...state,
+                status: 'bookmark updates successful',
                 bookmarks: state.bookmarks.map(
                     item => action.payload.payload.id
                          === item.id
@@ -83,6 +91,7 @@ export function bookmarkReducer(
         case bookmarkActions.bookmarkTypes.DELETE_SUCCESS:
         return {
             ...state,
+            status: 'bookmark deleted successful',
             bookmarks: state.bookmarks.filter(bookmark => bookmark.id !== action.payload.payload),
             currentBookmarkId: null,
             erroMessage: null
@@ -97,6 +106,7 @@ export function bookmarkReducer(
         case bookmarkActions.bookmarkTypes.ADD_BOOKMARK_SUCCESS:
         return {
             ...state,
+            status: 'bookmark added successful',
             bookmarks: [...state.bookmarks, action.payload],
             erroMessage: null
         };

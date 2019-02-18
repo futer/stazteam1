@@ -69,6 +69,15 @@ export class AuthService {
     return false;
   }
 
+  isEditor(): boolean {
+    const token = localStorage.getItem('token');
+    const role = (this.jwtHelper.decodeToken(token)).sub.role;
+    if (role === 'editor') {
+      return true;
+    }
+    return false;
+  }
+
   setToken(JWtoken) {
     localStorage.setItem('token', JWtoken);
   }

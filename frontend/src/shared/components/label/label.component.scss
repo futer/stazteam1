@@ -51,3 +51,28 @@
        background-color:  #e08505
     }
 }
+
+.doc-editor__upload-pdf {
+    background: $sec-back-color;
+    border: 1px $main-font-color solid;
+    color: $main-font-color;
+    display: block;
+    font-size: 24px;
+    height: 48px;
+    padding: 8px 0;
+    width: 100%;
+    text-align: center;
+    
+    &:active {
+        border: 2px $main-font-color solid;
+    }
+}
+
+.edit-title {
+    color: $main-color;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 1em;
+    width: 15%;
+}

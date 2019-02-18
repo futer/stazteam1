@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {Apollo} from 'apollo-angular';
+import { Observable, Subject } from 'rxjs';
+import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { environment } from '../../environments/environment';
 
