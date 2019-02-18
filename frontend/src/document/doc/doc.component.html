@@ -13,7 +13,7 @@
   <app-pdf-view [adress]="url"></app-pdf-view>
 
   <div class="doc__controls">
-    <app-router-btn [link]="'/main'" [class]="'doc-prev__open'">
+    <app-router-btn [link]="returnTo" [class]="'doc-prev__open'">
       Return
     </app-router-btn>
     <app-submit-btn (click)="downloadPDF()">Download</app-submit-btn>

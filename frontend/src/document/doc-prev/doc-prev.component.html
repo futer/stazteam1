@@ -7,7 +7,7 @@
   <p class="doc-prev__content">
     {{ preview.preview }}
   </p>
-  <app-router-btn [link]="'../doc/'+preview.id" [class]="'doc-prev__open'">
+  <app-router-btn [link]="'../'+prefixAddress+'/'+preview.id" [class]="'doc-prev__open'">
     Show More
   </app-router-btn>
 </article>
