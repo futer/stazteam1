@@ -16,11 +16,11 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./text-page.component.scss']
 })
 export class TextPageComponent implements OnInit, OnDestroy {
-    height = 1000;
-    data: string;
-    titleStatus = true;
-    titleSub: Subscription;
-    uploadSub: Subscription;
+    private height = 1000;
+    private data: string;
+    private titleStatus = true;
+    private titleSub: Subscription;
+    private uploadSub: Subscription;
     loadedTitle: string;
     showModal = false;
 
@@ -41,9 +41,7 @@ export class TextPageComponent implements OnInit, OnDestroy {
     constructor(
         private renderer: Renderer2,
         private refShare: ToolboxActionsService
-    ) {
-
-    }
+    ) { }
 
     ngOnInit() {
         this.page.nativeElement.focus();
@@ -52,13 +50,11 @@ export class TextPageComponent implements OnInit, OnDestroy {
 
         this.uploadSub = this.refShare.pdfSource.subscribe(res => {
             if (res) {
-                if (this.page.nativeElement.innerText !== '') {
-                    this.showModal = true;
-                } else {
+                this.showModal = this.checkInnerHTML();
+                if (!this.showModal) {
                     this.loadedTitle = res['title'];
                     this.insertUploadedText(res['pages']);
                 }
-
             }
         });
         this.titleSub = this.refShare.titleExistance.subscribe(res => {
@@ -69,6 +65,13 @@ export class TextPageComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.uploadSub.unsubscribe();
         this.titleSub.unsubscribe();
+    }
+
+    checkInnerHTML(): boolean {
+        if (this.page.nativeElement.innerText !== '') {
+            return true;
+        }
+        return false;
     }
 
     titleExists(): void {
@@ -89,7 +92,7 @@ export class TextPageComponent implements OnInit, OnDestroy {
         this.page.nativeElement.innerHTML = this.data;
     }
 
-    swap() {
+    swap(): void {
         this.refShare.pdfSource.subscribe(res => {
             this.loadedTitle = res['title'];
             this.insertUploadedText(res['pages']);

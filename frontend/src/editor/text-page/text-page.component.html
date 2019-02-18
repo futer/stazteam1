@@ -1,11 +1,13 @@
-<app-label labelStyle="edit-title" for="title">Title:</app-label>
+<app-label labelStyle="edit-title" for="title">
+    Title:
+</app-label>
+
 <app-textbox 
     #title id="title" 
     placeholder="New Title" 
     textboxStyle="edit-title"
     (keydown)="titleExists()"
-    value="{{loadedTitle}}"
-    >
+    value="{{loadedTitle}}">
 </app-textbox>
 
 <div *ngIf="!titleStatus">
