@@ -21,7 +21,10 @@ import { BookmarkState } from 'src/core/store/bookmark/bookmark.state';
 export class BookmarkFormComponent implements OnInit {
   @Input() data;
   private bookmarkEditForm: FormGroup;
-  private positions =  {'right': 'RIGHT',  'top': 'TOP'};
+  private positions =  {
+    'right': 'RIGHT',
+    'top': 'TOP'
+  };
 
   constructor( private editFormBuilder: FormBuilder,
     private store: Store<BookmarkState> ) { }
