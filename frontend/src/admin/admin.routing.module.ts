@@ -1,6 +1,4 @@
 import { Routes, RouterModule } from '@angular/router';
-
-import { AdminUserEditorComponent } from './admin-user-editor/admin-user-editor.component';
 import { NgModule } from '@angular/core';
 
 const adminRoutes: Routes = [

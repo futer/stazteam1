@@ -1,18 +1,28 @@
 <div class="bookmark-info">
     <div class="bookmark-info--title">
-        <p>Title: <Strong class="bookmark-info--data">{{ (data.title.length > 12)? (data.title | slice:0:12)+'...' : (data.title) }}</Strong></p> 
+        <p>Title: 
+            <Strong class="bookmark-info--data">
+                {{ (data.title.length > 12)? (data.title | slice:0:12)+'...' : (data.title) }}
+            </Strong>
+        </p> 
     </div>
 <div class="bookmark-info--position">
-    <p>Position: <Strong class="bookmark-info--data">{{data.position}}</Strong></p>
+    <p>Position: 
+        <Strong class="bookmark-info--data">
+            {{data.position}}
+        </Strong>
+    </p>
 </div>
     <app-button 
         [class]="'boomark-info__button'" 
-        (clickEvent)="toggleForm(data)">Edit 
+        (clickEvent)="toggleForm(data)">
+         Edit 
         <i class="fa fa-pencil" ></i>
     </app-button>
     <app-button 
         [class]="'boomark-info__button--delete'" 
-        (clickEvent)="deleteBookmark(data)">Delete 
+        (clickEvent)="deleteBookmark(data)">
+            Delete 
         <i class="fa fa-trash"></i>
     </app-button>
 </div>
