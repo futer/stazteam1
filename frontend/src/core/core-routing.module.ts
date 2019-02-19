@@ -47,11 +47,11 @@ const routes: Routes = [
       component: SubpageContainerComponent,
       canActivate: [AuthGuard]
     },
-        {
-          path: 'admin',
-          component: AdminUserEditorComponent,
-          canActivate: [AdminGuard]
-        },
+    {
+      path: 'admin',
+      component: AdminUserEditorComponent,
+      canActivate: [AdminGuard]
+    },
     {
       path: '**',
       component: ErrorPageComponent,
