@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-
 import { CommentModel } from '../../app/models/comment.model';
-
 import { ReviewService } from '../services/review.service';
 
 @Component({

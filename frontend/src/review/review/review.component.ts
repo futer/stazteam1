@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { StatusEnum } from '../models/status.enum';
 
 import { Store } from '@ngrx/store';
@@ -14,7 +14,7 @@ import { DocumentsModel } from '../models/document.model';
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss']
 })
-export class ReviewComponent implements OnInit {
+export class ReviewComponent {
 
   static acceptedPrevPage = -1;
   static pendingPrevPage = -1;
@@ -29,9 +29,6 @@ export class ReviewComponent implements OnInit {
     private store: Store<any>,
   ) {
     this.prevLoading = this.store.select(Selectors.arePrevsLoading);
-  }
-
-  ngOnInit() {
   }
 
   onClickTab(clicked: StatusEnum) {

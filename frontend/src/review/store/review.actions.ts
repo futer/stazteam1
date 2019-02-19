@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
-import { DocumentModel, DocumentsModel } from '../models/document.model';
 import { ErrorData } from '../../app/models/error.model';
-import { StatusEnum } from '../models/status.enum';
+import { DocumentsModel } from '../models/document.model';
 import { CommentModel } from 'src/app/models/comment.model';
 
 export enum fetchDocumentCommentsTypes {

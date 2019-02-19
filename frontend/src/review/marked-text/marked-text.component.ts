@@ -15,5 +15,4 @@ export class MarkedTextComponent {
     this.markedText = [];
     this.markedTextStyle = '';
   }
-
 }

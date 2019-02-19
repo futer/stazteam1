@@ -34,7 +34,10 @@ export function prevsReducer(
         loaded: true,
         previews: {
           data: {
-            documents: [...state.previews.data.documents, ...action.payload.data.documents],
+            documents: [
+              ...state.previews.data.documents,
+              ...action.payload.data.documents
+            ],
           }
         },
         errorMessage: null,
@@ -65,7 +68,10 @@ export function prevsReducer(
         loaded: true,
         previews: {
           data: {
-            documents: [...state.previews.data.documents, ...action.payload.data.documents],
+            documents: [
+              ...state.previews.data.documents,
+              ...action.payload.data.documents
+            ],
           }
         },
         errorMessage: null,
@@ -96,7 +102,10 @@ export function prevsReducer(
         loaded: true,
         previews: {
           data: {
-            documents: [...state.previews.data.documents, ...action.payload.data.documents],
+            documents: [
+              ...state.previews.data.documents,
+              ...action.payload.data.documents
+            ],
           }
         },
         errorMessage: null,

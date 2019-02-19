@@ -18,32 +18,52 @@ const commentType = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLID),
       resolve: data => data._id.toString()
     },
-    page: { type: new GraphQLNonNull(GraphQLInt) },
-    content: { type: new GraphQLNonNull(GraphQLString)},
-    markedText: { type: new GraphQLNonNull(
-      new GraphQLList(markedTextType)
-    )},
-    reviewer: { type: new GraphQLNonNull(userType) },
+    page: { 
+      type: new GraphQLNonNull(GraphQLInt) 
+    },
+    content: { 
+      type: new GraphQLNonNull(GraphQLString)
+    },
+    markedText: { 
+      type: new GraphQLNonNull(
+        new GraphQLList(markedTextType)
+      )
+    },
+    reviewer: { 
+      type: new GraphQLNonNull(userType) 
+    },
   })
 });
 
 const addCommentInput = new GraphQLInputObjectType({
   name: 'addCommentInput',
   fields: () => ({
-    documentId: {type: new GraphQLNonNull(GraphQLString) },
-    page: { type: new GraphQLNonNull(GraphQLInt) },
-    content: { type: new GraphQLNonNull(GraphQLString)},
-    markedText: { type: new GraphQLNonNull(
-      new GraphQLList(addMarkedTextInput)
-    )}
+    documentId: {
+      type: new GraphQLNonNull(GraphQLString) 
+    },
+    page: { 
+      type: new GraphQLNonNull(GraphQLInt) 
+    },
+    content: { 
+      type: new GraphQLNonNull(GraphQLString)
+    },
+    markedText: { 
+      type: new GraphQLNonNull(
+        new GraphQLList(addMarkedTextInput)
+      )
+    }
   })
 })
 
 const updateCommentInput = new GraphQLInputObjectType({
   name: 'updateCommentInput',
   fields: () => ({
-    id: { type: new GraphQLNonNull(GraphQLString) },
-    content: { type: GraphQLString },
+    id: { 
+      type: new GraphQLNonNull(GraphQLString) 
+    },
+    content: { 
+      type: GraphQLString 
+    },
   })
 })
 

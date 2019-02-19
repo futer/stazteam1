@@ -105,7 +105,6 @@ mutation Document($id: String!){
 }
 `;
 
-
 @Injectable({
   providedIn: 'root'
 })

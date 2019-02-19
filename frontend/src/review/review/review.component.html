@@ -1,8 +1,8 @@
 <div class="review">
   <app-nav-menu 
     [navMenuStyle]="'nav-bar'" 
-    (clickedEmitter)="onClickTab($event)"></app-nav-menu>
-
+    (clickedEmitter)="onClickTab($event)">
+  </app-nav-menu>
   <div 
     *ngIf="prevs"
     infiniteScroll
@@ -11,11 +11,10 @@
     [infiniteScrollDisabled]="prevLoading | async"
     (scrolled)="onScrollPrev()"
     [immediateCheck]="true">
-
       <app-doc-prev 
         *ngFor="let prev of (prevs | async).data.documents" 
         [preview]="prev"
-        [prefixAddress]="'review'"></app-doc-prev>
-
+        [prefixAddress]="'review'">
+      </app-doc-prev>
   </div>
 </div>
