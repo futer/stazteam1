@@ -9,6 +9,4 @@ export class SubmitBtnComponent {
   @Input() buttonStyle: string;
   @Input() type?: string;
   @Input() disabled?: boolean;
-
-  onClickEvent(event) {}
 }
