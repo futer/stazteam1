@@ -1,10 +1,5 @@
 <div 
   *ngFor="let comment of comments"
-  infiniteScroll
-  [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="750"
-  (scrolled)="onScrollComments()"
-  [immediateCheck]="true"
   [class]="commentsStyle">
     <div class="comments__nav">
       <span class="comments__nav--author">

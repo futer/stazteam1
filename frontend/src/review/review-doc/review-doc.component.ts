@@ -14,7 +14,6 @@ import { CommentModel } from '../../app/models/comment.model';
 import { DocumentService } from '../../document/services/document.service';
 import { flatMap } from 'rxjs/operators';
 
-
 @Component({
     selector: 'app-review-doc',
     templateUrl: './review-doc.component.html',
