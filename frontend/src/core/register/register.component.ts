@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { passwordMatcher } from '../../shared/reusable-functions/passwordMatcher';
 import { Router } from '@angular/router';
 import { RegisterModel } from '../../app/models/register.model';
@@ -15,7 +19,7 @@ import * as pictureUploadFunctions from '../../shared/reusable-functions/picture
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
+  private registerForm: FormGroup;
 
 private validationMessages = {
   required: 'The field is required',
@@ -24,9 +28,9 @@ private validationMessages = {
   matchingPassword: 'Password doesnt match',
 };
 
-picture;
-user: RegisterModel;
-error: HttpErrorResponse;
+  private picture;
+  private user: RegisterModel;
+  private error: HttpErrorResponse;
 
   constructor(
     private registerFormBuilder: FormBuilder,
@@ -71,10 +75,9 @@ error: HttpErrorResponse;
   register(form): void {
     this.authService.createUser(form.value, this.picture).subscribe(data => {
     this.authService.loginNavigate();
-    },
-    err => {
+    }, err => {
       this.error = err;
-    }
+      }
     );
   }
 }

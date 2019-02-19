@@ -1,6 +1,5 @@
 @import '../../assets/main-style.scss';
 
-
 .container {
     height: 100%;
     text-transform: uppercase;
@@ -9,15 +8,12 @@
     align-items: center;
     justify-content: center;
 
-  
-    
     .register-wrapper {
         background-color: $sec-back-color;
         width: 100%;
         border-radius: 5px;
         padding: 2em;
         
-
         @media(min-width:640px) {
             width: 420px;
             margin-top: -50px;
@@ -46,8 +42,7 @@
                         margin-left: 15px;
                         height: 48px;
                     }
-                }  
-            
+                }    
             }
             .input_file {
                 display: flex;               
@@ -56,25 +51,24 @@
         }
     }
 
-      .login-wrapper{
-        text-align: center;
-        margin-top: 0.5rem;
-        margin-bottom: 1rem;
-        font-size: 0.9rem;
-      
-            & a{
-                text-decoration: none;
-                margin-left: 4px;
-                letter-spacing: 1px;
-                color: $main-color;
-                transition: 0.4s;
-                cursor: pointer;
-            }
-             
-            & a:hover{
-                color: #e09705 ;
-            }
+    .login-wrapper{
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    
+        & .register-form__log-in{
+            text-decoration: none;
+            margin-left: 4px;
+            letter-spacing: 1px;
+            color: $main-color;
+            transition: 0.4s;
+            cursor: pointer;
+        }
             
+        & .register-form__log-in:hover{
+            color: #e09705 ;
         }
     }
+}
     

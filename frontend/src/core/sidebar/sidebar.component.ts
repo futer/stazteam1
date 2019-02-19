@@ -19,8 +19,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   @Input() bookmark$: Observable<any>;
 
   private rolesub: Subscription;
-  role$: Observable<UserModel>;
-  role: RoleEnum;
+  private role$: Observable<UserModel>;
+  private role: RoleEnum;
 
   constructor(
     private store: Store<BookmarkState>,
@@ -51,5 +51,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   navigateToBookmarkEditor() {
     this.router.navigate(['/bookmark-panel']);
+  }
+
+  navigateToReviewerPanel() {
+    this.router.navigate(['/review']);
   }
 }
