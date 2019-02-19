@@ -47,15 +47,15 @@ const routes: Routes = [
       component: SubpageContainerComponent,
       canActivate: [AuthGuard]
     },
+        {
+          path: 'admin',
+          component: AdminUserEditorComponent,
+          canActivate: [AdminGuard]
+        },
     {
       path: '**',
       component: ErrorPageComponent,
       canActivate: [AuthGuard]
-    },
-    {
-      path: 'admin',
-      component: AdminUserEditorComponent,
-      canActivate: [AdminGuard]
     },
     {
       path: 'doc/:id',
