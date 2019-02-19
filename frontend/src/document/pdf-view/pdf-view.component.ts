@@ -1,4 +1,10 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    OnChanges,
+    Input
+} from '@angular/core';
+import { DocumentService } from '../services/document.service';
 
 declare const require;
 const PDFJS = require('pdfjs-dist/build/pdf');
@@ -10,15 +16,18 @@ PDFJS.workerSrc = pdfWorker;
     templateUrl: './pdf-view.component.html',
     styleUrls: ['./pdf-view.component.scss']
 })
+
 export class PdfViewComponent implements OnInit, OnChanges {
-    getPages;
-    actualPage;
     @Input() adress: string;
+    private getPages: any;
+    actualPage: any;
 
-    pagesAmount: number;
-    pageNr: number;
+    private pagesAmount: number;
+    private pageNr: number;
 
-    constructor() {}
+    constructor(
+        private docService: DocumentService,
+    ) {}
 
     ngOnInit() {
         this.pageNr = 1;
@@ -26,7 +35,7 @@ export class PdfViewComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
         if (this.adress) {
-            PDFJS['getDocument'](this.adress).then(pages => {
+            PDFJS['getDocument'](this.adress).then((pages: any) => {
                 this.getPages = pages;
                 this.pagesAmount = pages.numPages;
                 this.changePage();
@@ -34,14 +43,14 @@ export class PdfViewComponent implements OnInit, OnChanges {
         }
     }
 
-    getContent() {
+    getContent(): void {
         if (this.pageNr <= this.pagesAmount && this.pageNr >= 1)  {
             this.pageNr = Number(this.pageNr);
             this.changePage();
         }
     }
 
-    nextPage() {
+    nextPage(): void {
         if (this.pageNr < this.pagesAmount) {
             this.pageNr++;
             if (this.pageNr >= 1) {
@@ -50,7 +59,7 @@ export class PdfViewComponent implements OnInit, OnChanges {
         }
     }
 
-    previousPage() {
+    previousPage(): void {
         if (this.pageNr > 1) {
             this.pageNr--;
             if (this.pageNr <= this.pagesAmount) {
@@ -59,7 +68,9 @@ export class PdfViewComponent implements OnInit, OnChanges {
         }
     }
 
-    changePage() {
-        this.getPages.getPage(this.pageNr).then(page => this.actualPage = page.getTextContent());
+    changePage(): void {
+        this.getPages.getPage(this.pageNr).then((page: any) => {
+            this.actualPage = page.getTextContent();
+        });
     }
 }

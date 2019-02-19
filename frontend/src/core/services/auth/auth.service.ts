@@ -5,31 +5,21 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
-
 import { environment } from '../../../environments/environment';
-import { LoginModel } from 'src/app/models/login.model';
-import { createOfflineCompileUrlResolver } from '@angular/compiler';
-import { Store } from '@ngrx/store';
-import { AuthState } from 'src/core/store/auth/auth.state';
-import { User } from 'src/core/store/auth/auth.reducers';
-
+import { RoleEnum } from 'src/app/models/role.enum';
+import { UserModel } from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-
-
-  adress = environment.adress;
-  jwtHelper: JwtHelperService;
-
+  private adress = environment.adress;
+  private jwtHelper: JwtHelperService;
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private store: Store<any>,
   ) {
     this.jwtHelper = new JwtHelperService();
   }
@@ -45,38 +35,45 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    const token = localStorage.getItem('token');
+    const token = this.getToken();
     // Check whether the token is expired and return
     // true or false
     return !this.jwtHelper.isTokenExpired(token);
   }
 
-  isAdmin(): boolean {
-    const token = localStorage.getItem('token');
+  authorize(incomingRole: RoleEnum): boolean {
+    const token = this.getToken();
     const role = (this.jwtHelper.decodeToken(token)).sub.role;
-    if (role === 'admin') {
+
+    return role === incomingRole || role === RoleEnum.ADMIN;
+  }
+
+  isAdmin(): boolean {
+    return this.authorize(RoleEnum.ADMIN);
+  }
+
+  isReviewer(): boolean {
+    const token = this.getToken();
+    const role = (this.jwtHelper.decodeToken(token)).sub.role;
+    if (role === 'admin' || role === 'reviewer') {
       return true;
     }
     return false;
   }
 
   isEditor(): boolean {
-    const token = localStorage.getItem('token');
-    const role = (this.jwtHelper.decodeToken(token)).sub.role;
-    if (role === 'editor') {
-      return true;
-    }
-    return false;
+    return this.authorize(RoleEnum.EDITOR);
   }
-  setToken(JWtoken) {
+
+  setToken(JWtoken): void {
     localStorage.setItem('token', JWtoken);
   }
 
-  getToken() {
+  getToken(): string {
     return localStorage.getItem('token');
   }
 
-  removeToken() {
+  removeToken(): void {
     localStorage.removeItem('token');
   }
 
@@ -97,19 +94,19 @@ export class AuthService {
       }});
   }
 
-  loginNavigate() {
+  loginNavigate(): void {
     this.router.navigate(['/login']);
   }
 
-  mainNavigate() {
+  mainNavigate(): void {
     this.router.navigate(['/main']);
   }
 
-  errorHandler(error: HttpErrorResponse) {
+  errorHandler(error: HttpErrorResponse): Observable<never> {
     return throwError(error);
   }
 
-  decode(token: string) {
+  decode(token: string): any {
     return this.jwtHelper.decodeToken(token);
   }
 }

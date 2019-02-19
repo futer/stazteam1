@@ -145,15 +145,14 @@
   </app-button>
 </div>
 
-<app-modal [(visible)]="showModal" (visibleChange)="changeKeep($event)">
-    {{disconnectError}}
+<app-modal [(visible)]="showModal" (visibleChange)="deactivateKeep()">
     <div 
       class="user-editor__disconnect-FB-modal-container" 
-      *ngIf="!disconnectError">
+      *ngIf="!disconnectFlags.error">
 
       <div 
         class="user-editor__disconnect-FB-modal-container--FACEBOOK" 
-        *ngIf="(current.registered === 'FACEBOOK') && (!deleted)">
+        *ngIf="(current.registered === 'FACEBOOK') && (!disconnectFlags.accountDeleted)">
         <p>
           Your account was created with your Facebook profile.
           Would you like to delete your account permanently, or would you like
@@ -166,19 +165,19 @@
         </app-button>
         <app-button 
           [class]="'user-editor__disconnect-FB-modal-container-button'"
-          (click)='changeKeep(false)'>
+          (click)='activateKeep()'>
             Keep local account
         </app-button>
         <app-button 
           [class]="'user-editor__disconnect-FB-modal-container-button'" 
-          (clickEvent)="showModal = !showModal; changeKeep(true)">
+          (clickEvent)="showModal = !showModal; deactivateKeep()">
             Cancel
         </app-button> 
       </div>
 
       <div 
         class="user-editor__disconnect-FB-modal-container--LOCAL-FACEBOOK" 
-        *ngIf="(current.registered === 'LOCAL_FACEBOOK' && (!disconnected))">
+        *ngIf="(current.registered === 'LOCAL_FACEBOOK' && (!disconnectFlags.accountDisconnected))">
         <p>
           Are you sure you want to disconnect your account from your Facebook account?
         </p>
@@ -194,7 +193,7 @@
         </app-button>
       </div>
 
-      <div class="user-editor__disconnect-FB-modal-container--keep" *ngIf="keep">
+      <div class="user-editor__disconnect-FB-modal-container--keep" *ngIf="disconnectFlags.keepLocal">
         <p>
           In order to keep local account, you have to set password for your account:
         </p>
@@ -255,7 +254,7 @@
       </div>
       <div 
         class="user-editor__disconnect-FB-modal-container--keep" 
-        *ngIf="deleted">
+        *ngIf="disconnectFlags.accountDeleted">
         <p>
           Your accout has been disconnected from your Facebook account.
           Now you can log in using your email: {{current.email}} and password
@@ -264,14 +263,14 @@
       </div>
       <div 
         class="user-editor__disconnect-FB-modal-container--keep" 
-        *ngIf="disconnected">
+        *ngIf="disconnectFlags.accountDisconnected">
         <p>
           Your account has been disconnected from you Facebook account.
         </p>
       </div>
       <div 
         class="user-editor__disconnect-FB-modal-container--keep" 
-        *ngIf="byebye">
+        *ngIf="disconnectFlags.accountIsBeingDeleted">
         <p>
           <img src="https://media.giphy.com/media/UQaRUOLveyjNC/giphy.gif">
         </p>

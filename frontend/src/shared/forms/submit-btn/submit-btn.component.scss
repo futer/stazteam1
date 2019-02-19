@@ -70,8 +70,33 @@ button {
         outline: none;
     }
 }
-.change-Password-Form__submit{
+
+.change-Password-Form__submit {
     padding: 0.5em;
     margin: 0em;
     width: 100%;
+}
+
+.nav-menu__button {
+    width: 100%;
+    user-select: none;
+    margin: 0;
+    background: $sec-back-color;
+
+    &:hover {
+        transform: none;
+        background: rgba(49, 171, 237, 0.7);
+    }
+
+    &.clicked {
+        pointer-events: none;
+        background: $btn-color;     
+    }
+}
+
+// tooltip
+.tooltip__form__submit {
+    margin: 7px 0 0 0;
+    width: 90px;
+    padding: 1em;
 }

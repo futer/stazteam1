@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import {
+    map,
+    switchMap,
+    catchError
+} from 'rxjs/operators';
 import { AdminUserEditorService } from '../services/admin-user-editor.service';
 import * as userActions from './admin.actions';
 import { UserModel, UserWithoutPass} from '../../app/models/user-editor.model';

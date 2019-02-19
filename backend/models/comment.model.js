@@ -2,16 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
+const MarkedTextModel = require('../models/marked-text.model');
 
 const CommentModel = new Schema({
-    start: {
-        type: Number,
-        required: true,
-    },
-    length: {
-        type: Number,
-        required: true,
-    },
     page: {
         type: Number,
         required: true,
@@ -19,8 +12,8 @@ const CommentModel = new Schema({
     content: {
         type: String,
         required: true,
-        trim: true,
     },
+    markedText: [MarkedTextModel.schema],
     reviewer: {
         type: ObjectId,
         ref: 'UserModel',

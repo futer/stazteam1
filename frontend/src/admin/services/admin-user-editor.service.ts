@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Apollo} from 'apollo-angular';
+import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { environment } from '../../environments/environment';
-import {Observable} from 'rxjs';
-
+import { Observable } from 'rxjs';
 
 const AdminUserEditorQuery = gql`
   query AdminUserEditor {
@@ -16,6 +15,7 @@ const AdminUserEditorQuery = gql`
     }
   }
 `;
+
 const AdminUserEditorMutation = gql`
   mutation EditUser ($us: userInput!) {
     updateUser (user: $us){
@@ -31,6 +31,7 @@ const AdminUserEditorMutation = gql`
 @Injectable({
   providedIn: 'root'
 })
+
 export class AdminUserEditorService {
   adress = environment.adress;
 
@@ -39,9 +40,9 @@ export class AdminUserEditorService {
   ) { }
 
   fetchUser(): Observable<any> {
-    return this.apollo.watchQuery({query: AdminUserEditorQuery}).valueChanges;
+    return this.apollo.watchQuery({ query: AdminUserEditorQuery }).valueChanges;
   }
 
   sendUser(user): Observable<any> {
-    return this.apollo.mutate({mutation: AdminUserEditorMutation, variables: {us: user.payload}});
+    return this.apollo.mutate({ mutation: AdminUserEditorMutation, variables: { us: user.payload }});
 }}
