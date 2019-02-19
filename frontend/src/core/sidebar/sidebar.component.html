@@ -14,6 +14,13 @@
           Bookmark editor
         </a>
     </li>
+    <li 
+      *ngIf="(role$ | async)?.role === 'reviewer' || (role$ | async)?.role === 'admin'"
+      (click)="navigateToReviewerPanel()">
+        <a>
+          Review panel
+        </a>
+    </li>
     <li (click)="navigateToFav()">
       <a>
         Favourites
