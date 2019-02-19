@@ -1,7 +1,14 @@
-import { Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  OnDestroy
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { MarkedTextModel } from '../models/marked-text.model';
+import { CommentModel } from '../../app/models/comment.model';
+
 import { TooltipComponent } from '../tooltip/tooltip.component';
 
 import { Store } from '@ngrx/store';
@@ -10,7 +17,6 @@ import { Subscription } from 'rxjs';
 import * as Actions from '../store/review.actions';
 import * as Selectors from '../store/review.selectors';
 import { ReviewService } from '../services/review.service';
-import { CommentModel } from '../../app/models/comment.model';
 import { DocumentService } from '../../document/services/document.service';
 import { flatMap } from 'rxjs/operators';
 
@@ -38,7 +44,7 @@ export class ReviewDocComponent implements OnDestroy {
     private store: Store<any>,
     private reviewService: ReviewService,
     private docService: DocumentService,
-    ) {
+  ) {
     this.id = this.route.snapshot.paramMap.get('id');
 
     this.store.dispatch(new Actions.FetchDocumentComments(this.id));
@@ -95,8 +101,8 @@ export class ReviewDocComponent implements OnDestroy {
     const startContainer = selection.anchorNode;
     const endContainer =
       (selection.focusNode.nodeType === 3) ?
-      selection.focusNode :
-      selection.focusNode.previousSibling.firstChild;
+        selection.focusNode :
+        selection.focusNode.previousSibling.firstChild;
 
     const startIdx = this.getIdxNode(startContainer.parentNode);
     const endIdx = this.getIdxNode(endContainer.parentNode);
@@ -128,7 +134,11 @@ export class ReviewDocComponent implements OnDestroy {
     return idx;
   }
 
-  createMarkedTextModel(markedTxtArray: string[], firstLine: number, lastLine): MarkedTextModel[] {
+  createMarkedTextModel(
+    markedTxtArray: string[],
+    firstLine: number,
+    lastLine: number
+  ): MarkedTextModel[] {
     const markedTxt: MarkedTextModel[] = [];
 
     for (let i = firstLine; i <= lastLine; i++) {
@@ -141,7 +151,11 @@ export class ReviewDocComponent implements OnDestroy {
     return markedTxt;
   }
 
-  private getTooltipStyles(height: number = -1000, width: number = -1000, visibility: string = 'hidden') {
+  private getTooltipStyles(
+    height: number = -1000,
+    width: number = -1000,
+    visibility: string = 'hidden'
+  ) {
     return {
       position: 'absolute',
       top: `${height}px`,

@@ -2,10 +2,14 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+  catchError
+} from 'rxjs/operators';
 import { ReviewService } from '../services/review.service';
 import * as AllActions from './review.actions';
-import { DocumentsModel, DocumentModel } from '../models/document.model';
+import { DocumentsModel } from '../models/document.model';
 import { ErrorData } from '../../app/models/error.model';
 import { StatusEnum } from '../models/status.enum';
 

@@ -1,6 +1,12 @@
-<div *ngIf="markedText" [class]="markedTextStyle">
-    <span *ngFor="let line of markedText" class="marked-text__item">
-      <span class="marked-text__number">{{ line.line }}</span>
-      {{ line.content }}
+<div 
+  *ngIf="markedText" 
+  [class]="markedTextStyle">
+    <span 
+      *ngFor="let line of markedText" 
+      class="marked-text__item">
+        <span class="marked-text__number">
+          {{ line.line }}
+        </span>
+        {{ line.content }}
     </span>
 </div>

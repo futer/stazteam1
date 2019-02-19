@@ -2,10 +2,13 @@ const {
     GraphQLList,
     GraphQLNonNull,
     GraphQLString,
-    GraphQLInt
   } = require('graphql');
 
-const { commentType, addCommentInput, updateCommentInput } = require('../types/comment.type');
+const { 
+  commentType, 
+  addCommentInput, 
+  updateCommentInput 
+} = require('../types/comment.type');
 const commentResolver = require('../resolvers/comment.resolver');
 
 const commentQueries = {
@@ -33,21 +36,27 @@ const commentMutations = {
   addComment: {
     type: commentType,
     args: {
-      input: { type: new GraphQLNonNull(addCommentInput) },
+      input: { 
+        type: new GraphQLNonNull(addCommentInput) 
+      },
     },
     resolve: commentResolver.addComment,
   },
   updateComment: {
     type: commentType,
     args: {
-      input: { type: new GraphQLNonNull(updateCommentInput) },
+      input: { 
+        type: new GraphQLNonNull(updateCommentInput) 
+      },
     },
     resolve: commentResolver.updateComment,
   },
   deleteComment: {
     type: commentType,
     args: {
-      id: { type: new GraphQLNonNull(GraphQLString) },
+      id: { 
+        type: new GraphQLNonNull(GraphQLString) 
+      },
     },
     resolve: commentResolver.deleteComment,
   }
