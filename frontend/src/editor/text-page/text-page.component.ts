@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { ToolboxActionsService } from '../services/toolbox-actions.service';
 import { Subscription } from 'rxjs';
+import { UploadModel } from '../models/upload.model';
 
 @Component({
     selector: 'app-text-page',
@@ -52,8 +53,7 @@ export class TextPageComponent implements OnInit, OnDestroy {
             if (res) {
                 this.showModal = this.checkInnerText();
                 if (!this.showModal) {
-                    this.loadedTitle = res['title'];
-                    this.insertUploadedText(res['pages']);
+                    this.insertPDFData(res);
                 }
             }
         });
@@ -80,6 +80,12 @@ export class TextPageComponent implements OnInit, OnDestroy {
         }
     }
 
+    insertPDFData(res: UploadModel): void {
+        this.loadedTitle = res['title'];
+        this.insertUploadedText(res['pages']);
+        this.titleExists();
+    }
+
     insertUploadedText(pages: Array<Object>): void {
         this.data = '';
 
@@ -95,8 +101,7 @@ export class TextPageComponent implements OnInit, OnDestroy {
     swapPDFData(): void {
         this.refShare.observePDFData$
             .subscribe(res => {
-                this.loadedTitle = res['title'];
-                this.insertUploadedText(res['pages']);
+                this.insertPDFData(res);
             })
             .unsubscribe();
         this.showModal = false;
