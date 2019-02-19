@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   Input,
   Output,
   EventEmitter
@@ -14,7 +13,7 @@ import { MessageModel } from '../models/message.model';
   templateUrl: './chat-context-menu.component.html',
   styleUrls: ['./chat-context-menu.component.scss']
 })
-export class ChatContextMenuComponent implements OnInit {
+export class ChatContextMenuComponent {
 
   @Input() appChatContextMenuStyles: string;
   @Input() contexMenuPositionStyles: Object;
@@ -28,9 +27,6 @@ export class ChatContextMenuComponent implements OnInit {
     this.contexMenuPositionStyles = {};
     this.clickedMessage = { message: null, user: null };
     this.contextMenu = { items: [] };
-   }
-
-  ngOnInit() {
   }
 
   onClick(contextMenuItem: ContextMenuModel) {

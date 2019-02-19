@@ -44,7 +44,7 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
-    ) {
+  ) {
     this.chatStyle = '';
 
     this.contexMenuPositionStyles = this.getContextMenuStyle();
@@ -200,7 +200,7 @@ export class ChatComponent implements OnInit {
   }
 
   private getBanCMDModel(id: string, ban: BanEnum) {
-    return <BanCMDModel>{
+    return <BanCMDModel> {
       command: CommandEnum.BAN,
       payload: {
         id: id,
@@ -209,7 +209,7 @@ export class ChatComponent implements OnInit {
     };
   }
 
-  private getLoginLogoutCMDModel(loggedUser: UserModel, isLogin: boolean = true)  {
+  private getLoginLogoutCMDModel(loggedUser: UserModel, isLogin: boolean = true) {
     let command;
     (isLogin) ? command = CommandEnum.LOGIN : command = CommandEnum.LOGOUT;
 

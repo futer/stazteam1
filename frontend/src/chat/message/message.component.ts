@@ -1,6 +1,5 @@
 import {
   Component,
-  OnInit,
   Input,
   Output,
   EventEmitter,
@@ -14,7 +13,7 @@ import { MessageModel } from '../models/message.model';
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss']
 })
-export class MessageComponent implements OnInit, AfterViewChecked {
+export class MessageComponent implements AfterViewChecked {
 
   @Input() messages: MessageModel[];
   @Input() messageStyle: string;
@@ -32,9 +31,6 @@ export class MessageComponent implements OnInit, AfterViewChecked {
     this.isMessage = true;
 
     this.messagesLength = 0;
-  }
-
-  ngOnInit() {
   }
 
   ngAfterViewChecked() {
