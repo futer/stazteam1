@@ -8,7 +8,4 @@ import { Component, Input } from '@angular/core';
 export class RouterBTNComponent {
   @Input() link: string;
   @Input() class: string;
-
-  constructor() { }
-
 }

@@ -6,13 +6,15 @@ import { UploadModel } from '../models/upload.model';
   providedIn: 'root'
 })
 export class ToolboxActionsService {
+  private textSource = new BehaviorSubject<ElementRef>(null);
+  private pdfSource = new BehaviorSubject<UploadModel>(null);
+  private titleSource = new BehaviorSubject<ElementRef>(null);
+  private titleStatus = new Subject<boolean>();
 
-  constructor() { }
-
-  textSource = new BehaviorSubject<ElementRef>(null);
-  pdfSource = new BehaviorSubject<UploadModel>(null);
-  titleSource = new BehaviorSubject<ElementRef>(null);
-  titleExistance = new Subject<boolean>();
+  observeText$ = this.textSource.asObservable();
+  observePDFData$ = this.pdfSource.asObservable();
+  observeTitle$ = this.titleSource.asObservable();
+  observeTitleStat$ = this.titleStatus.asObservable();
 
   shareText(elRef: ElementRef): void {
     this.textSource.next(elRef);
@@ -27,6 +29,6 @@ export class ToolboxActionsService {
   }
 
   changeTitleStatus(status: boolean): void {
-    this.titleExistance.next(status);
+    this.titleStatus.next(status);
   }
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {ModalAnimation} from '../../animations/modal-animation';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ModalAnimation } from '../../animations/modal-animation';
 
 
 @Component({
@@ -10,14 +10,9 @@ import {ModalAnimation} from '../../animations/modal-animation';
      ModalAnimation
   ]
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent {
   @Input() visible: boolean;
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
   close() {
     this.visible = false;
