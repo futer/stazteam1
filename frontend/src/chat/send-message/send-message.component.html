@@ -10,9 +10,12 @@
         [placeholder]="'enter your message'" 
         [type]="'text'" 
         [formInputStyle]="'chat__input'"
-        (keyup.enter)="send(sendMessageForm)"></app-input>
+        (keyup.enter)="send(sendMessageForm)">
+      </app-input>
       <app-submit-btn 
         [buttonStyle]="'send-message__submit'"
-        [disabled]="userIsBanned || sendMessageForm.invalid">Send</app-submit-btn>
+        [disabled]="userIsBanned || sendMessageForm.invalid">
+          Send
+      </app-submit-btn>
   </form>
 </div>

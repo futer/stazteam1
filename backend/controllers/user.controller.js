@@ -25,10 +25,6 @@ router.post('/register', register);
 router.get('/getbyid', getById);
 router.post('/authenticate', authenticate)
 router.put('/:id/edit', editUser)
-router.get('/isAdmin', isAdmin);
-router.get('/isEditor', isEditor);
-router.get('/isModerator', isModerator);
-router.get('/isReviewer', isReviewer);
 router.get('/getCurrentUser', getCurrentUser);
 router.post('/socialAuthenticate', socialAuthenticate)
 router.post('/disconnect', disconnect)
@@ -87,31 +83,6 @@ function editUser(req,res,next){
         res.send('user updated');
         });
     }
-
-
-function isAdmin(req,res,next) {
-    userService.isAdmin(req.get('Authorization').slice(7))
-        .then(admin => res.json(admin))
-        .catch(err => next(err));
-}
-
-function isEditor(req,res,next) {
-    userService.isEditor(req.get('Authorization').slice(7))
-        .then(editor => res.json(editor))
-        .catch(err => next(err));
-}
-
-function isReviewer(req,res,next) {
-    userService.isReviewer(req.get('Authorization').slice(7))
-        .then(reviewer => res.json(reviewer))
-        .catch(err => next(err));
-}
-
-function isModerator(req,res,next) {
-    userService.isModerator(req.get('Authorization').slice(7))
-        .then(moderator => res.json(moderator))
-        .catch(err => next(err));
-}
 
 function disconnect(req,res,next) {
     userService.disconnect(req.body)

@@ -1,10 +1,13 @@
-import { Component, OnInit, SimpleChanges, OnChanges } from '@angular/core';
-import { BookmarkModel } from '../../app/models/bookmark.model';
-import { Observable, Subscribable } from 'rxjs/observable';
+import { Component, OnInit } from '@angular/core';
+import { Observable} from 'rxjs/observable';
 import { Store } from '@ngrx/store';
 import * as bookmarkState from '../../core/store/bookmark/bookmark.reducers';
 import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { SubpageService } from 'src/shared/services/subpage.service';
 import { BookmarkState } from 'src/core/store/bookmark/bookmark.state';
 
@@ -15,15 +18,15 @@ import { BookmarkState } from 'src/core/store/bookmark/bookmark.state';
 })
 export class BookmarkPanelComponent implements OnInit {
 
-  bookmark$: Observable<any> = this.store.select(bookmarkState.getBookmarks);
-  isLoading$: Observable<any> = this.store.select(bookmarkState.getLoading);
-  isLoaded$: Observable<any> = this.store.select(bookmarkState.getLoaded);
-  status$: Observable<any> = this.store.select(bookmarkState.getStatus);
-  isShown = false;
-  addBookmarkForm: FormGroup;
-  positions =  {'right': 'RIGHT',  'top': 'TOP'};
-  showModal = false;
-  position: 'TOP';
+  private bookmark$: Observable<any> = this.store.select(bookmarkState.getBookmarks);
+  private isLoading$: Observable<any> = this.store.select(bookmarkState.getLoading);
+  private isLoaded$: Observable<any> = this.store.select(bookmarkState.getLoaded);
+  private status$: Observable<any> = this.store.select(bookmarkState.getStatus);
+  private isShown = false;
+  private addBookmarkForm: FormGroup;
+  private positions =  {'right': 'RIGHT',  'top': 'TOP'};
+  private showModal = false;
+  private position: 'TOP';
 
   constructor(private store: Store<BookmarkState>,
     private formBuilder: FormBuilder,
@@ -51,6 +54,5 @@ export class BookmarkPanelComponent implements OnInit {
   getValues(e) {
     this.addBookmarkForm.controls['position'].setValue(e);
   }
-
 
 }

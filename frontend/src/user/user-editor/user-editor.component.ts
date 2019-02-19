@@ -1,9 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { UserModel, UserFormModel } from '../models/user.model';
 import { ErrorData } from '../models/error.model';
 import { Store } from '@ngrx/store';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators
+} from '@angular/forms';
 import { passwordMatcher, passwordTouchedChecker } from 'src/shared/reusable-functions/passwordMatcher';
 import { UserService } from '../services/user.service';
 import { Send } from '../store/user.actions';
@@ -11,9 +19,9 @@ import { Errors, SendSuccess } from '../store/user.reducers';
 import * as Actions from '../store/user.actions';
 import * as AuthActions from '../../core/store/auth/auth.actions';
 import { Reload } from '../../core/store/auth/auth.actions';
-import { AuthState } from 'src/core/store/auth/auth.state';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as pictureUploadFunctions from '../../shared/reusable-functions/pictureUpload';
+import { DisconnectedFlags } from '../models/flags';
 
 @Component({
   selector: 'app-user-editor',
@@ -21,26 +29,22 @@ import * as pictureUploadFunctions from '../../shared/reusable-functions/picture
   styleUrls: ['./user-editor.component.scss']
 })
 export class UserEditorComponent implements OnInit, OnDestroy {
-  currentsub: Subscription;
-  errorsub: Subscription;
-  sentsub: Subscription;
+  private currentsub: Subscription;
+  private errorsub: Subscription;
+  private sentsub: Subscription;
 
-  current: UserModel;
-  error: ErrorData;
-  send: boolean;
+  private current: UserModel;
+  private error: ErrorData;
+  private send: boolean;
 
-  error$: Observable<ErrorData>;
-  send$: Observable<boolean>;
+  private error$: Observable<ErrorData>;
+  private send$: Observable<boolean>;
 
-  updateUserForm: FormGroup;
-  disconnectForm: FormGroup;
+  private updateUserForm: FormGroup;
+  private disconnectForm: FormGroup;
 
-  keep: boolean;
-  deleted: boolean;
-  byebye: boolean;
-  disconnected: boolean;
-  disconnectError: string;
-  picture;
+  private disconnectFlags: DisconnectedFlags;
+  private picture;
 
   private validationMessages = {
     password: 'Password must be longer than 5 characters',
@@ -54,32 +58,39 @@ export class UserEditorComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private sanitizer: DomSanitizer
   ) {
-    this.current = { id: '', firstName: '', lastName: '', pic: '' };
-    this.deleted = false;
-    this.byebye = false;
-    this.disconnected = false;
+    this.current = {
+      id: '',
+      firstName: '',
+      lastName: '',
+      pic: ''
+    };
+    this.disconnectFlags = {
+      accountDeleted: false,
+      accountIsBeingDeleted: false,
+      accountDisconnected: false
+    };
   }
 
   ngOnInit() {
-    this.currentsub = this.store.select(wholeStore => wholeStore.auth.user).subscribe(user => {
-      if (user) {
-        this.current.id = user._id;
-        this.current.firstName = user.firstName;
-        this.current.lastName = user.lastName;
-        this.current.pic = user.pic;
-        this.current.registered = user.registered;
-        this.current.email = user.email;
-        this.picture = this.current.pic;
-      }
+    this.currentsub = this.store.select(wholeStore => wholeStore.auth.user)
+      .subscribe(user => {
+        if (user) {
+          this.current.id = user._id;
+          this.current.firstName = user.firstName;
+          this.current.lastName = user.lastName;
+          this.current.pic = user.pic;
+          this.current.registered = user.registered;
+          this.current.email = user.email;
+          this.picture = this.current.pic;
+        }
     });
 
     this.error$ = this.store.select(Errors);
-    this.send$ = this.store.select(SendSuccess);
-
     this.errorsub = this.error$.subscribe(error => {
       this.error = error;
     });
 
+    this.send$ = this.store.select(SendSuccess);
     this.sentsub = this.send$.subscribe(sent => {
       this.send = sent;
     });
@@ -106,6 +117,9 @@ export class UserEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.currentsub.unsubscribe();
+    this.errorsub.unsubscribe();
+    this.sentsub.unsubscribe();
     this.store.dispatch(new Actions.Destroy);
   }
 
@@ -127,44 +141,49 @@ export class UserEditorComponent implements OnInit, OnDestroy {
     this.userService.disconnect(this.current.id, form.value.passwordGroup.password)
       .subscribe(data => {
         if (data === true) {
-          this.keep = false;
-          this.deleted = true;
+          this.disconnectFlags.keepLocal = false;
+          this.disconnectFlags.accountDeleted = true;
           this.store.dispatch(new Reload());
         } else {
-          this.disconnectError = data['name'];
+          this.disconnectFlags.error = data['name'];
         }
       });
   }
 
   disconnect_delete() {
-    this.byebye = true;
+    this.disconnectFlags.accountIsBeingDeleted = true;
     this.userService.disconnect_delete(this.current.id)
       .subscribe(data => {
         if (data === true) {
           this.store.dispatch(new AuthActions.Logout());
           this.store.dispatch(new Reload());
         } else {
-          this.disconnectError = data['name'];
+          this.disconnectFlags.error = data['name'];
         }
       });
   }
 
   disconnect_local() {
-    this.userService.disconnect_local().subscribe(data => {
-      if (data === true) {
-        this.disconnected = true;
-        this.store.dispatch(new Reload());
-      } else {
-        this.disconnectError = data['name'];
-      }
-    });
+    this.userService.disconnect_local()
+      .subscribe(data => {
+        if (data === true) {
+          this.disconnectFlags.accountDisconnected = true;
+          this.store.dispatch(new Reload());
+        } else {
+          this.disconnectFlags.error = data['name'];
+        }
+      });
   }
 
-  changeKeep(i: boolean) {
-    if (i) {
-      this.keep = false;
-    } else {
-      this.keep = true;
+  activateKeep() {
+    if (!this.disconnectFlags.keepLocal) {
+      this.disconnectFlags.keepLocal = true;
+    }
+  }
+
+  deactivateKeep() {
+    if (this.disconnectFlags.keepLocal) {
+      this.disconnectFlags.keepLocal = false;
     }
   }
 

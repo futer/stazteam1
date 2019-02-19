@@ -52,6 +52,15 @@ export class AuthService {
     return this.authorize(RoleEnum.ADMIN);
   }
 
+  isReviewer(): boolean {
+    const token = this.getToken();
+    const role = (this.jwtHelper.decodeToken(token)).sub.role;
+    if (role === 'admin' || role === 'reviewer') {
+      return true;
+    }
+    return false;
+  }
+
   isEditor(): boolean {
     return this.authorize(RoleEnum.EDITOR);
   }

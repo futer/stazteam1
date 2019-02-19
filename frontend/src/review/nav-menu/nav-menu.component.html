@@ -1,0 +1,17 @@
+<div [class]="navMenuStyle">
+  <app-submit-btn 
+    [buttonStyle]="(clickedTab === 'ACCEPTED') ? 'nav-menu__button clicked' : 'nav-menu__button'"
+    (click)="onClick('ACCEPTED')">
+      Accepted
+  </app-submit-btn>
+  <app-submit-btn 
+    [buttonStyle]="(clickedTab === 'PENDING') ? 'nav-menu__button clicked' : 'nav-menu__button'"
+    (click)="onClick('PENDING')">
+      Pending
+  </app-submit-btn>
+  <app-submit-btn 
+    [buttonStyle]="(clickedTab === 'REJECTED') ? 'nav-menu__button clicked' : 'nav-menu__button'"
+    (click)="onClick('REJECTED')">
+      Rejected
+  </app-submit-btn>
+</div>

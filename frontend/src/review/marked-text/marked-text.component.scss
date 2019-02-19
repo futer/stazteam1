@@ -1,0 +1,26 @@
+@import '../../assets/main-style.scss';
+
+.marked-text {
+  text-align: left;
+  font-family: monospace;
+  background-color: #343434;
+  min-width: 200px;
+  margin: 0 .5em;
+
+  &__number {
+    display: inline-block;
+    text-align: right;
+    border-right: 1px solid #727272;
+    padding: 0 .5em;
+    min-width: 35px;
+    margin-right: .5em;
+    color: $main-font-color;
+    user-select: none;
+  }
+
+  &__item {
+    display: block;
+    line-height: 1.5rem;
+    color: $main-font-color;
+  }
+}

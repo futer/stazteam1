@@ -14,7 +14,6 @@ import { CommandCMDModel } from '../models/command-cmd.model';
 import { BanCMDModel } from '../models/ban-cmd.model';
 import { ShortMessageCMDModel } from '../models/short-message.model';
 import { LoginLogoutCMDModel } from '../models/login-logout-cmd.model';
-import { AuthService } from '../../core/services/auth/auth.service';
 
 import { AuthState } from '../../core/store/auth/auth.state';
 import { Reload } from '../../core/store/auth/auth.actions';
@@ -28,7 +27,6 @@ export class ChatService {
   socket: WebSocketSubject<CommandCMDModel>;
 
   constructor(
-    private authService: AuthService,
     private store: Store<AuthState>,
   ) { }
 
@@ -48,7 +46,11 @@ export class ChatService {
     this.socket.unsubscribe();
   }
 
-  handleCommand(messages: MessageModel[], loggedUser: UserModel, message: CommandCMDModel) {
+  handleCommand(
+    messages: MessageModel[],
+    loggedUser: UserModel,
+    message: CommandCMDModel
+  ) {
     switch (message.command) {
       case CommandEnum.MESSAGE:
         this.messageCommand(messages, message);
@@ -139,7 +141,11 @@ export class ChatService {
     messages.push(msgModel);
   }
 
-  banCommand(messages: MessageModel[], user: UserModel, message: CommandCMDModel) {
+  banCommand(
+    messages: MessageModel[],
+    user: UserModel,
+    message: CommandCMDModel
+  ) {
     const msg = <BanCMDModel>message;
     switch (msg.payload.ban) {
       case BanEnum.MESSAGE:
@@ -163,7 +169,11 @@ export class ChatService {
     }
   }
 
-  private banUser(messages: MessageModel[], user: UserModel, message: BanCMDModel) {
+  private banUser(
+    messages: MessageModel[],
+    user: UserModel,
+    message: BanCMDModel
+  ) {
     const userMsg = messages.filter((mess) => mess.message.isMessage && mess.user.id === message.payload.id);
     userMsg.forEach(messageFromArray => {
       messageFromArray.user.isBanned = true;

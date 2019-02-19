@@ -1,6 +1,13 @@
 const { commandEnum } = require('./command.enum');
 
-function messageCMDModel(idUser = null, firstName = null, lastName = null, pic = null, message = null, idMessage = null) {
+function messageCMDModel(
+    idUser = null, 
+    firstName = null, 
+    lastName = null, 
+    pic = null, 
+    message = null, 
+    idMessage = null
+  ) {
   const obj = {
     command: commandEnum.MESSAGE,
     payload: {

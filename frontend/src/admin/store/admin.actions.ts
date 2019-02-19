@@ -1,5 +1,9 @@
 import { Action } from '@ngrx/store';
-import { UserModel, UserWithoutPass, User } from '../../app/models/user-editor.model';
+import {
+    UserModel,
+    UserWithoutPass,
+    User
+} from '../../app/models/user-editor.model';
 import { ErrorData } from '../models/error.model';
 
 export enum userTypes {

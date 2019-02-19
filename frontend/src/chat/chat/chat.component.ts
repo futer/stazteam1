@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
 
 import { ChatService } from '../services/chat.service';
 
@@ -38,7 +44,7 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private chatService: ChatService,
-    ) {
+  ) {
     this.chatStyle = '';
 
     this.contexMenuPositionStyles = this.getContextMenuStyle();
@@ -97,7 +103,6 @@ export class ChatComponent implements OnInit {
 
   private toggleChat() {
     this.chatIsHidden ? (this.chatIsHidden = false) : (this.chatIsHidden = true);
-    // this.chatIsHidden ? (this.logoutUser()) : (this.loginUser());
   }
 
   private onMessage(message: string) {
@@ -181,7 +186,11 @@ export class ChatComponent implements OnInit {
     this.hideContextMenu();
   }
 
-  private getContextMenuStyle(height: number = 0, width: number = 0, visibility: string = 'hidden') {
+  private getContextMenuStyle(
+    height: number = 0,
+    width: number = 0,
+    visibility: string = 'hidden'
+  ) {
     return {
       position: 'absolute',
       top: `${height}px`,
@@ -191,7 +200,7 @@ export class ChatComponent implements OnInit {
   }
 
   private getBanCMDModel(id: string, ban: BanEnum) {
-    return <BanCMDModel>{
+    return <BanCMDModel> {
       command: CommandEnum.BAN,
       payload: {
         id: id,
@@ -200,7 +209,7 @@ export class ChatComponent implements OnInit {
     };
   }
 
-  private getLoginLogoutCMDModel(loggedUser: UserModel, isLogin: boolean = true)  {
+  private getLoginLogoutCMDModel(loggedUser: UserModel, isLogin: boolean = true) {
     let command;
     (isLogin) ? command = CommandEnum.LOGIN : command = CommandEnum.LOGOUT;
 

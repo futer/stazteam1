@@ -134,7 +134,7 @@ async function socialAuthenticate(user) {
             await newUser.save()
                 .catch(err => { throw err; });
 
-            return tokenFromUser(values[1]);
+            return tokenFromUser(newUser);
 
         } else {
             if (values[1].registered === 'LOCAL'){
@@ -212,15 +212,14 @@ async function isAdmin(token) {
     return temp;
 }
 
-async function isReviewer(token) {
+async function isReviewer(userFromToken) {
     database.connect();
     var temp = false;
-    const user = await this.getById(jwt.decode(token).sub._id)
+    await this.getById(userFromToken.sub._id)
         .then(user => {
-            if (user.role === jwt.decode(token).sub.role && (user.role == "reviewer" || user.role == "admin")){
+            if (user.role == "reviewer" || user.role == "admin") {
                 temp = true;
-            }
-            else {
+            } else {
                 value = 'You are not authorized to visit this page';
                 const err = new Error(value);
                 err.status = 500;
@@ -228,6 +227,7 @@ async function isReviewer(token) {
                 throw err;
             }
         });
+
     return temp;
 }
 

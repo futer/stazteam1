@@ -1,0 +1,27 @@
+<div 
+  [ngStyle]="tooltipPositionStyles" 
+  [class]="tooltipStyle">
+    <app-marked-text 
+      [markedTextStyle]="'marked-text'"
+      [markedText]="markedText">
+    </app-marked-text>
+    <form 
+      [class]="'tooltip__form'"
+      [formGroup]="addCommentForm" 
+      [autocomplete]="'off'"
+      (ngSubmit)="send(addCommentForm)">
+      <app-input 
+        [class]="'tooltip__form__input'"
+        [id]="'comment'"
+        [controlName]="addCommentForm.controls.content" 
+        [placeholder]="'enter your comment'" 
+        [type]="'text'" 
+        [formInputStyle]="'tooltip__form__input'">
+      </app-input>
+      <app-submit-btn 
+        [buttonStyle]="'tooltip__form__submit'"
+        [disabled]="addCommentForm.invalid">
+          Add
+      </app-submit-btn>
+    </form>
+</div>

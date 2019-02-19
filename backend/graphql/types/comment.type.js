@@ -4,10 +4,12 @@ const {
   GraphQLNonNull,
   GraphQLString,
   GraphQLInt,
-  GraphQLID
+  GraphQLID,
+  GraphQLList,
 } = require('graphql');
 
 const { userType } = require('../types/user.type');
+const { markedTextType, addMarkedTextInput } = require('../types/marked-text.type');
 
 const commentType = new GraphQLObjectType({
   name: 'commentType',
@@ -16,10 +18,11 @@ const commentType = new GraphQLObjectType({
       type: new GraphQLNonNull(GraphQLID),
       resolve: data => data._id.toString()
     },
-    start: { type: new GraphQLNonNull(GraphQLInt) },
-    length: { type: new GraphQLNonNull(GraphQLInt) },
     page: { type: new GraphQLNonNull(GraphQLInt) },
-    content: { type: new GraphQLNonNull(GraphQLString) },
+    content: { type: new GraphQLNonNull(GraphQLString)},
+    markedText: { type: new GraphQLNonNull(
+      new GraphQLList(markedTextType)
+    )},
     reviewer: { type: new GraphQLNonNull(userType) },
   })
 });
@@ -28,11 +31,11 @@ const addCommentInput = new GraphQLInputObjectType({
   name: 'addCommentInput',
   fields: () => ({
     documentId: {type: new GraphQLNonNull(GraphQLString) },
-    start: { type: new GraphQLNonNull(GraphQLInt) },
-    length: { type: new GraphQLNonNull(GraphQLInt) },
     page: { type: new GraphQLNonNull(GraphQLInt) },
-    content: { type: new GraphQLNonNull(GraphQLString) },
-    reviewer: { type: new GraphQLNonNull(GraphQLString) },
+    content: { type: new GraphQLNonNull(GraphQLString)},
+    markedText: { type: new GraphQLNonNull(
+      new GraphQLList(addMarkedTextInput)
+    )}
   })
 })
 
@@ -40,9 +43,6 @@ const updateCommentInput = new GraphQLInputObjectType({
   name: 'updateCommentInput',
   fields: () => ({
     id: { type: new GraphQLNonNull(GraphQLString) },
-    start: { type: GraphQLInt },
-    length: { type: GraphQLInt },
-    page: { type: GraphQLInt },
     content: { type: GraphQLString },
   })
 })

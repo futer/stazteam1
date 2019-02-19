@@ -31,6 +31,10 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
         StoreModule.forFeature('docModule', docModuleReducers ),
         EffectsModule.forFeature([DocumentEffects]),
     ],
-    exports: [ContainerComponent]
+    exports: [
+        ContainerComponent,
+        DocComponent,
+        DocPrevComponent,
+    ]
 })
 export class DocumentModule {}

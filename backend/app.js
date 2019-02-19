@@ -34,7 +34,7 @@ const corsOptions = {
 app.options(corsOptions, cors());
 
 //GRAPHQL
-app.use('/graphql',jwt(),/*cors(),*/ graphqlHTTP(req => ({
+app.use('/graphql', jwt(),/*cors(),*/ graphqlHTTP(req => ({
   schema,
   graphiql: true,
   formatError: error => ({

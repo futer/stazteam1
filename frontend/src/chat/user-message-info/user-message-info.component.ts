@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -6,7 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './user-message-info.component.html',
   styleUrls: ['./user-message-info.component.scss']
 })
-export class UserMessageInfoComponent implements OnInit {
+export class UserMessageInfoComponent {
 
   @Input() userMessageInfoStyle: string;
   @Input() pic: string;
@@ -16,9 +16,6 @@ export class UserMessageInfoComponent implements OnInit {
   ) {
     this.userMessageInfoStyle = '';
     this.pic = '';
-  }
-
-  ngOnInit() {
   }
 
   getPic() {

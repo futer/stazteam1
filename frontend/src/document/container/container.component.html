@@ -9,7 +9,8 @@
     [immediateCheck]="true">
     <app-doc-prev 
       *ngFor="let prev of (prevs$ | async)" 
-      [preview]="prev">
+      [preview]="prev" 
+      [prefixAddress]="'doc'">
     </app-doc-prev>
   </div>
 
@@ -23,7 +24,8 @@
     [immediateCheck]="true">
     <app-doc-prev 
       *ngFor="let prev of (liked$ | async)" 
-      [preview]="prev">
+      [preview]="prev" 
+      [prefixAddress]="'doc'">
     </app-doc-prev>
   </div>
 </section>

@@ -1,6 +1,7 @@
 import {
     Component,
     OnInit,
+    Input,
     OnDestroy
 } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -17,6 +18,9 @@ import { DocumentModel } from '../models/document.model';
     styleUrls: ['./doc.component.scss']
 })
 export class DocComponent implements OnInit, OnDestroy {
+
+    @Input() returnTo = '/main';
+
     checkRoute: Subscription;
     private docData: Subscription;
     private url: string;
