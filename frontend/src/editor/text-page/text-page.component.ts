@@ -21,6 +21,7 @@ export class TextPageComponent implements OnInit, OnDestroy {
     private titleSub: Subscription;
     private uploadSub: Subscription;
     loadedTitle: string;
+    titleStatus = true;
     showModal = false;
 
     @ViewChild('page') page: ElementRef;
@@ -28,7 +29,6 @@ export class TextPageComponent implements OnInit, OnDestroy {
     @HostListener('document:keydown', ['$event']) onkeydownHandler(
         event: KeyboardEvent
     ) {
-        this.loadedTitle = this.title.nativeElement.firstChild.value;
         if (this.page.nativeElement.offsetHeight > this.height) {
             this.renderer.setStyle(
                 this.page.nativeElement,
@@ -50,15 +50,15 @@ export class TextPageComponent implements OnInit, OnDestroy {
 
         this.uploadSub = this.refShare.observePDFData$.subscribe(res => {
             if (res) {
-                this.showModal = this.checkInnerHTML();
+                this.showModal = this.checkInnerText();
                 if (!this.showModal) {
                     this.loadedTitle = res['title'];
                     this.insertUploadedText(res['pages']);
                 }
             }
         });
-        this.titleSub = this.refShare.observeTitle$.subscribe(res => {
-            this.loadedTitle = res.nativeElement.firstChild.value;
+        this.titleSub = this.refShare.observeTitleStat$.subscribe(res => {
+            this.titleStatus = res;
         });
     }
 
@@ -67,11 +67,17 @@ export class TextPageComponent implements OnInit, OnDestroy {
         this.titleSub.unsubscribe();
     }
 
-    checkInnerHTML(): boolean {
+    checkInnerText(): boolean {
         if (this.page.nativeElement.innerText !== '') {
             return true;
         }
         return false;
+    }
+
+    titleExists(): void {
+        if (!this.titleStatus) {
+            this.titleStatus = true;
+        }
     }
 
     insertUploadedText(pages: Array<Object>): void {
@@ -87,10 +93,12 @@ export class TextPageComponent implements OnInit, OnDestroy {
     }
 
     swapPDFData(): void {
-        this.refShare.observePDFData$.subscribe(res => {
-            this.loadedTitle = res['title'];
-            this.insertUploadedText(res['pages']);
-        }).unsubscribe();
+        this.refShare.observePDFData$
+            .subscribe(res => {
+                this.loadedTitle = res['title'];
+                this.insertUploadedText(res['pages']);
+            })
+            .unsubscribe();
         this.showModal = false;
     }
 }

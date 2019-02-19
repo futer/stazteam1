@@ -6,10 +6,11 @@
     #title id="title" 
     placeholder="New Title" 
     textboxStyle="edit-title"
+    (keydown)="titleExists()"
     value="{{loadedTitle}}">
 </app-textbox>
 
-<div *ngIf="!loadedTitle">
+<div *ngIf="!titleStatus">
     <app-error class="error-msg">Title Required</app-error>
 </div>
 
