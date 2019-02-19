@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PdfGeneratorService } from 'src/editor/services/pdf-generator.service';
 import { ToolboxActionsService } from 'src/editor/services/toolbox-actions.service';
 import { Store } from '@ngrx/store';
@@ -15,15 +15,13 @@ import { OperationsService } from 'src/editor/services/operations.service';
     templateUrl: './send-btn.component.html',
     styleUrls: ['./send-btn.component.scss']
 })
-export class SendBtnComponent implements OnInit {
+export class SendBtnComponent {
     constructor(
         private pdfGenerator: PdfGeneratorService,
         private textRef: ToolboxActionsService,
         private operations: OperationsService,
         private store: Store<any>
     ) {}
-
-    ngOnInit() {}
 
     sendPDF() {
         zip(

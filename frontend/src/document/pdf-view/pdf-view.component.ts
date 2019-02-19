@@ -24,8 +24,6 @@ export class PdfViewComponent implements OnInit, OnChanges {
     private pagesAmount: number;
     private pageNr: number;
 
-    constructor() {}
-
     ngOnInit() {
         this.pageNr = 1;
     }

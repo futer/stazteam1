@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './editor-view.component.html',
   styleUrls: ['./editor-view.component.scss']
 })
-export class EditorViewComponent {
-  constructor() { }
-}
+export class EditorViewComponent {}

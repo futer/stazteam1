@@ -5,7 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './cancel-btn.component.html',
   styleUrls: ['./cancel-btn.component.scss']
 })
-export class CancelBtnComponent {
-
-  constructor() { }
-}
+export class CancelBtnComponent {}

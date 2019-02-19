@@ -5,7 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './edit-toolbox.component.html',
   styleUrls: ['./edit-toolbox.component.scss']
 })
-export class EditToolboxComponent {
-
-  constructor() { }
-}
+export class EditToolboxComponent {}

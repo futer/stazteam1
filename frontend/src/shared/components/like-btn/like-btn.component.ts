@@ -8,6 +8,4 @@ import { Component, Input } from '@angular/core';
 export class LikeBtnComponent {
   @Input() buttonStyle: string;
   @Input() isChecked: boolean;
-
-  constructor() { }
 }

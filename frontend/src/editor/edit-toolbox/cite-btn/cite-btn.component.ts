@@ -6,8 +6,6 @@ import { Component } from '@angular/core';
     styleUrls: ['./cite-btn.component.scss']
 })
 export class CiteBtnComponent {
-    constructor() {}
-
     toggleQuoteMarks() {
         const sel = window.getSelection().getRangeAt(0);
         sel.startContainer['data'] =

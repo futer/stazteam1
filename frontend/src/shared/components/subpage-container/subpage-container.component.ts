@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SubpageService } from 'src/shared/services/subpage.service';
-import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as bookmarkActions from '../../../core/store/bookmark/bookmark.actions';
 import * as bookmarkStore from '../../../core/store/bookmark/bookmark.reducers';
-import { BookmarkModel } from 'src/app/models/bookmark.model';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { BookmarkState } from 'src/core/store/bookmark/bookmark.state';
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PdfGeneratorService } from 'src/editor/services/pdf-generator.service';
 import { ToolboxActionsService } from 'src/editor/services/toolbox-actions.service';
 import { zip } from 'rxjs';
@@ -8,13 +8,11 @@ import { zip } from 'rxjs';
     templateUrl: './save-btn.component.html',
     styleUrls: ['./save-btn.component.scss']
 })
-export class SaveBtnComponent implements OnInit {
+export class SaveBtnComponent {
     constructor(
         private pdfGenerator: PdfGeneratorService,
         private textRef: ToolboxActionsService
     ) {}
-
-    ngOnInit() {}
 
     savePDF() {
         zip(this.textRef.observeText$, this.textRef.observeTitle$)

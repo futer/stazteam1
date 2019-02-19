@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './edit-controls.component.html',
   styleUrls: ['./edit-controls.component.scss']
 })
-export class EditControlsComponent {
-  constructor() { }
-}
+export class EditControlsComponent {}

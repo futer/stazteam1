@@ -1,4 +1,4 @@
-import { Component , EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-submit-btn',
@@ -10,9 +10,5 @@ export class SubmitBtnComponent {
   @Input() type?: string;
   @Input() disabled?: boolean;
 
-  constructor() {}
-
-  onClickEvent(event) {
-
-  }
+  onClickEvent(event) {}
 }

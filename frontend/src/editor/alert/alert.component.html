@@ -2,13 +2,13 @@
   <app-error 
     [class]="'edit-alert__error'"
     *ngSwitchCase="'error'">
-    {{alert.message}}
+      {{alert.message}}
   </app-error>
 
   <app-success 
     [class]="'edit-alert__success'"
     *ngSwitchCase="'success'">
-    {{alert.message}}
+      {{alert.message}}
   </app-success>
   
   <p *ngSwitchDefault></p>

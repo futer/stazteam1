@@ -6,8 +6,6 @@ import { PositionModel } from '../models/position.model';
     providedIn: 'root'
 })
 export class PdfGeneratorService {
-    constructor() { }
-
     private beginPointXY = 10;
     private maxLength = 187;
 

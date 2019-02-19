@@ -6,9 +6,6 @@ import { UploadModel } from '../models/upload.model';
   providedIn: 'root'
 })
 export class ToolboxActionsService {
-
-  constructor() { }
-
   private textSource = new BehaviorSubject<ElementRef>(null);
   private pdfSource = new BehaviorSubject<UploadModel>(null);
   private titleSource = new BehaviorSubject<ElementRef>(null);
