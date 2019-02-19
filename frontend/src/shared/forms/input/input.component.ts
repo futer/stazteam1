@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss']
 })
-export class InputComponent implements OnInit {
+export class InputComponent {
   @Input() id ? = '';
   @Input() formInputStyle: string;
   @Input() controlName: FormControl;
@@ -19,16 +19,7 @@ export class InputComponent implements OnInit {
 
   @Output() changeValue = new EventEmitter();
 
-
-  constructor() { }
-
-  ngOnInit() {
-
-  }
-
   change() {
     this.changeValue.emit(this.value);
   }
-
-
 }

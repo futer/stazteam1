@@ -8,6 +8,4 @@ import { Component, Input } from '@angular/core';
 export class DocPrevComponent {
   @Input() preview: any;
   @Input() prefixAddress: string;
-
-  constructor() { }
 }

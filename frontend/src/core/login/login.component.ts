@@ -4,17 +4,12 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { AuthService } from '../services/auth/auth.service';
-import { NavService } from '../services/nav/nav.service';
 import { LoginModel } from 'src/app/models/login.model';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../store/auth/auth.state';
 import { LogIn, SocialLogIn } from '../store/auth/auth.actions';
 import * as loginAuthReducer from '../store/auth/auth.reducers';
-import {
-  AuthService as SocialMediaAuthService,
-  SocialUser
-} from 'angularx-social-login';
+import { AuthService as SocialMediaAuthService } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { Observable, Subscription } from 'rxjs';
 
@@ -29,8 +24,8 @@ export class LoginComponent implements OnInit {
   private user: LoginModel;
   private loggedIn: boolean;
 
-  error$: Observable<any> = this.store.select(loginAuthReducer.Erros);
-  loggedInSub: Subscription;
+  private error$: Observable<any> = this.store.select(loginAuthReducer.Erros);
+  private loggedInSub: Subscription;
 
   constructor(
     private loginFormBuilder: FormBuilder,
@@ -50,25 +45,25 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-      const payload = {
-        email: this.loginForm.value.email,
-        password: this.loginForm.value.password
-      };
-      this.store.dispatch(new LogIn(payload));
-    }
+    const payload = {
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password
+    };
+    this.store.dispatch(new LogIn(payload));
+  }
 
-    signInWithGoogle(): void {
-      this.socialMediaAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    }
+  signInWithGoogle(): void {
+    this.socialMediaAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
 
-    signInWithFB(): void {
-      this.socialMediaAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-      this.loggedInSub = this.socialMediaAuthService.authState.subscribe((user) => {
-        this.user = user;
-        this.loggedIn = (user != null);
-        if (this.loggedIn) {
-          this.store.dispatch(new SocialLogIn(this.user));
-        }
-      });
-    }
+  signInWithFB(): void {
+    this.socialMediaAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.loggedInSub = this.socialMediaAuthService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+      if (this.loggedIn) {
+        this.store.dispatch(new SocialLogIn(this.user));
+      }
+    });
+  }
 }

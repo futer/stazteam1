@@ -14,11 +14,11 @@ export class AlertComponent implements OnInit, OnDestroy {
     private operations: OperationsService
   ) { }
 
+  private alertStatus: Subscription;
   alert: AlertModel;
-  alertStatus: Subscription;
 
   ngOnInit() {
-    this.alertStatus = this.operations.sendStatus.subscribe(res => {
+    this.alertStatus = this.operations.observeStatus$.subscribe(res => {
       this.alert = res;
     });
   }

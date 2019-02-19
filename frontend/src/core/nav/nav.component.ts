@@ -1,4 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    Input
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
 import * as AuthActions from '../../core/store/auth/auth.actions';
@@ -15,9 +19,9 @@ import { BookmarkState } from '../store/bookmark/bookmark.state';
 })
 export class NavComponent implements OnInit {
    @Input() bookmark$: Observable<any>;
-   name$: Observable<any> = this.store.select(fromAuth.User);
-   pic$ = this.store.select(fromAuth.User);
-   currentSub: Subscription;
+   private name$: Observable<any> = this.store.select(fromAuth.User);
+   private pic$ = this.store.select(fromAuth.User);
+   private currentSub: Subscription;
 
     constructor(
         private store: Store<BookmarkState>,
@@ -42,6 +46,5 @@ export class NavComponent implements OnInit {
     navigateToProfileEditor() {
         this.router.navigate(['/user-editor']);
     }
-
 }
 

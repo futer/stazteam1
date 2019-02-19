@@ -1,10 +1,6 @@
 import * as authState from './auth.state';
 import * as authActions from './auth.actions';
-
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { Actions } from '@ngrx/effects';
-import { AuthGuard } from 'src/core/guards/auth/auth.guard';
-import { store } from '@angular/core/src/render3';
 
 
 export const initialState: authState.AuthState = {

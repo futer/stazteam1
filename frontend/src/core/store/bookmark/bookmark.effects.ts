@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect } from '@ngrx/effects';
 import { SubpageService } from 'src/shared/services/subpage.service';
 import { Observable, of } from 'rxjs';
 import * as bookmarkActions from './bookmark.actions';
@@ -29,48 +29,47 @@ export class BookmarkEffect {
             )
         );
 
-        @Effect()
-        Update$: Observable<any> = this.actions$
-            .ofType(bookmarkActions.bookmarkTypes.UPDATE)
-            .pipe(
-                switchMap((payload) =>
-                    this.subpageService.update(payload).pipe(
-                        map(() => {
-                            return new bookmarkActions.UpdateSucces(payload);
-                        }),
-                        catchError((error: ErrorData) => of(new bookmarkActions.UpdateFaild(error)))
-                    )
-                )
-            );
-
-        @Effect()
-        Delete$: Observable<any> = this.actions$
-            .ofType(bookmarkActions.bookmarkTypes.DELETE)
-            .pipe(
-                switchMap((payload) =>
-                this.subpageService.delete(payload).pipe(
+    @Effect()
+    Update$: Observable<any> = this.actions$
+        .ofType(bookmarkActions.bookmarkTypes.UPDATE)
+        .pipe(
+            switchMap((payload) =>
+                this.subpageService.update(payload).pipe(
                     map(() => {
-                        return new bookmarkActions.DeleteSucces(payload);
+                        return new bookmarkActions.UpdateSucces(payload);
                     }),
-                    catchError((error: ErrorData) => of(new bookmarkActions.DeleteFaild(error)))
+                    catchError((error: ErrorData) => of(new bookmarkActions.UpdateFaild(error)))
                 )
             )
         );
 
-        @Effect()
-        AddBookmark$: Observable<any> = this.actions$
-            .ofType(bookmarkActions.bookmarkTypes.ADD_BOOKMARK)
-            .pipe(
-                switchMap((payload) => {
-                  return  this.subpageService.addBookmark(payload).pipe(
-                        map(() => {
-                            return new bookmarkActions.AddBookmarkSuccess(payload['payload']);
-                        }),
-                        catchError((error: ErrorData) => of(new bookmarkActions.AddBookmarkFaild(error)))
-                    );
-                }
-
+    @Effect()
+    Delete$: Observable<any> = this.actions$
+        .ofType(bookmarkActions.bookmarkTypes.DELETE)
+        .pipe(
+            switchMap((payload) =>
+            this.subpageService.delete(payload).pipe(
+                map(() => {
+                    return new bookmarkActions.DeleteSucces(payload);
+                }),
+                catchError((error: ErrorData) => of(new bookmarkActions.DeleteFaild(error)))
             )
-        );
+        )
+    );
 
+    @Effect()
+    AddBookmark$: Observable<any> = this.actions$
+        .ofType(bookmarkActions.bookmarkTypes.ADD_BOOKMARK)
+        .pipe(
+            switchMap((payload) => {
+                return  this.subpageService.addBookmark(payload).pipe(
+                    map(() => {
+                        return new bookmarkActions.AddBookmarkSuccess(payload['payload']);
+                    }),
+                    catchError((error: ErrorData) => of(new bookmarkActions.AddBookmarkFaild(error)))
+                );
+            }
+
+        )
+    );
 }

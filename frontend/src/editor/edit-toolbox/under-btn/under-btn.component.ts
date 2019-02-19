@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ToolboxActionsService } from 'src/editor/services/toolbox-actions.service';
 
 @Component({
@@ -6,17 +6,14 @@ import { ToolboxActionsService } from 'src/editor/services/toolbox-actions.servi
   templateUrl: './under-btn.component.html',
   styleUrls: ['./under-btn.component.scss']
 })
-export class UnderBtnComponent implements OnInit {
+export class UnderBtnComponent {
 
   constructor(
     private textRef: ToolboxActionsService
   ) { }
 
-  ngOnInit() {
-  }
-
   toggleUnderline() {
-    this.textRef.textSource.subscribe(ref => {
+    this.textRef.observeText$.subscribe(ref => {
       document.execCommand('underline', false);
       ref.nativeElement.focus();
     }).unsubscribe();

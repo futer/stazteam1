@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-import { LoginModel } from '../../../app/models/login.model';
 import { ErrorData } from 'src/document/models/error.model';
 
 export enum AuthActionTypes {
@@ -24,43 +23,42 @@ export class SocialLogIn implements Action {
     constructor(public payload: any) {}
   }
 
-  export class LogInSucces implements Action {
-      readonly type = AuthActionTypes.LOGIN_SUCCES;
-      constructor( public payload: any) {
-      }
-  }
+export class LogInSucces implements Action {
+    readonly type = AuthActionTypes.LOGIN_SUCCES;
+    constructor( public payload: any) {}
+}
 
-  export class LogInFail implements Action {
-      readonly type = AuthActionTypes.LOGIN_FAIL;
-      constructor( public payload: ErrorData) {}
-  }
+export class LogInFail implements Action {
+    readonly type = AuthActionTypes.LOGIN_FAIL;
+    constructor( public payload: ErrorData) {}
+}
 
-  export class Logout implements Action {
-      readonly type = AuthActionTypes.LOGOUT;
-  }
+export class Logout implements Action {
+    readonly type = AuthActionTypes.LOGOUT;
+}
 
-  export class Reload implements Action {
+export class Reload implements Action {
     readonly type = AuthActionTypes.RELOAD;
     constructor() {}
-  }
+}
 
-  export class ReloadSuccess implements Action {
-      readonly type = AuthActionTypes.RELOAD_SUCCESS;
-      constructor( public payload: any) {
-      }
-  }
+export class ReloadSuccess implements Action {
+    readonly type = AuthActionTypes.RELOAD_SUCCESS;
+    constructor( public payload: any) {
+    }
+}
 
-  export class ReloadFail implements Action {
-      readonly type = AuthActionTypes.RELOAD_FAIL;
-      constructor( public payload: ErrorData) {}
-  }
+export class ReloadFail implements Action {
+    readonly type = AuthActionTypes.RELOAD_FAIL;
+    constructor( public payload: ErrorData) {}
+}
 
-  export class ClearStore implements Action {
-      readonly type = AuthActionTypes.CLEAR_STORE;
-      constructor () {}
-  }
+export class ClearStore implements Action {
+    readonly type = AuthActionTypes.CLEAR_STORE;
+    constructor () {}
+}
 
-  export type All =
+export type All =
     | LogIn
     | SocialLogIn
     | LogInSucces

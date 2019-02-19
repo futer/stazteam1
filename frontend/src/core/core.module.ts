@@ -17,7 +17,7 @@ import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { FacebookLoginProvider } from 'angularx-social-login';
 import { EditorModule } from 'src/editor/editor.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import bookmarkReducer from './store/bookmark/bookmark.reducers';
+import { bookmarkReducer } from './store/bookmark/bookmark.reducers';
 import { ReviewModule } from 'src/review/review.module';
 
 const config = new AuthServiceConfig([

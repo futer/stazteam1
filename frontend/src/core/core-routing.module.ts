@@ -15,16 +15,55 @@ import { ReviewComponent } from 'src/review/review/review.component';
 import { ReviewGuard } from './guards/reviewer/review.guard';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/main', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
-    { path: 'register', component: RegisterComponent },
-    { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
-    { path: 'review', component: ReviewComponent, canActivate: [ReviewGuard] },
-    { path: 'favourites', component: MainComponent, canActivate: [AuthGuard] },
-    { path: 'bookmark-panel', component: BookmarkPanelComponent, canActivate: [AdminGuard]},
-    { path: 'subpage/:title', component: SubpageContainerComponent, canActivate: [AuthGuard]},
-    { path: '**', component: ErrorPageComponent, canActivate: [AuthGuard]},
-    { path: 'admin', component: AdminUserEditorComponent, canActivate: [AdminGuard] },
+    {
+      path: '',
+      redirectTo: '/main',
+      pathMatch: 'full'
+    },
+    {
+      path: 'login',
+      component: LoginComponent,
+      canActivate: [LoginGuard]
+    },
+    {
+      path: 'register',
+      component: RegisterComponent
+    },
+    {
+      path: 'main',
+      component: MainComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'favourites',
+      component: MainComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'bookmark-panel',
+      component: BookmarkPanelComponent,
+      canActivate: [AdminGuard]
+    },
+    {
+      path: 'subpage/:title',
+      component: SubpageContainerComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'admin',
+      component: AdminUserEditorComponent,
+      canActivate: [AdminGuard]
+    },
+    {
+      path: 'review',
+      component: ReviewComponent,
+      canActivate: [ReviewGuard]
+    },
+    {
+      path: '**',
+      component: ErrorPageComponent,
+      canActivate: [AuthGuard]
+    },
     {
       path: 'doc/:id',
       loadChildren: '../document/document.module#DocumentModule'
