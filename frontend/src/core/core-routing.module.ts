@@ -11,6 +11,8 @@ import { SubpageContainerComponent } from 'src/shared/components/subpage-contain
 import { AdminUserEditorComponent } from 'src/admin/admin-user-editor/admin-user-editor.component';
 import { AdminGuard } from './guards/admin/admin.guard';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { ReviewComponent } from 'src/review/review/review.component';
+import { ReviewGuard } from './guards/reviewer/review.guard';
 
 const routes: Routes = [
     {
@@ -53,6 +55,11 @@ const routes: Routes = [
       canActivate: [AdminGuard]
     },
     {
+      path: 'review',
+      component: ReviewComponent,
+      canActivate: [ReviewGuard]
+    },
+    {
       path: '**',
       component: ErrorPageComponent,
       canActivate: [AuthGuard]
@@ -60,6 +67,10 @@ const routes: Routes = [
     {
       path: 'doc/:id',
       loadChildren: '../document/document.module#DocumentModule'
+    },
+    {
+      path: 'review/:id',
+      loadChildren: '../review/review.module#ReviewModule'
     },
     {
       path: 'doc-edit',

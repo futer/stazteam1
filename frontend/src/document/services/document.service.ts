@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { environment } from '../../environments/environment';
@@ -24,6 +24,18 @@ const DocQuery = gql`
       content
       date
       title
+      comments {
+        page
+        content
+        reviewer {
+          firstName
+          lastName
+        }
+        markedText {
+          line
+          content
+        }
+      }
     }
     like(docs:$id)
   }
@@ -71,9 +83,19 @@ mutation DeleteLike($id: String!) {
 export class DocumentService {
   adress = environment.adress;
 
+  private subject = new Subject<Number>();
+
   constructor(
     private apollo: Apollo
   ) { }
+
+  sendPageNr(pageNr: Number) {
+    this.subject.next(pageNr);
+  }
+
+  getPageNr(): Observable<any> {
+    return this.subject.asObservable();
+  }
 
   fetchPrevs(page: number): Observable<any> {
     return this.apollo.watchQuery({

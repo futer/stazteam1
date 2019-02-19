@@ -28,7 +28,17 @@ function init(server) {
       info.req.user = loggedUser.sub;
       info.req.token = info.req.headers['sec-websocket-protocol'];
 
-      done(true, 200, JSON.stringify({command: 'message', payload: { status: 'SUCCESS', message: 'welcome!!!'}}));
+      done(
+        true, 
+        200, 
+        JSON.stringify({
+          command: 'message', 
+          payload: { 
+            status: 'SUCCESS', 
+            message: 'welcome!!!'
+          }
+        })
+      );
     }
   });
 
@@ -57,7 +67,7 @@ function init(server) {
 
   setInterval(() => {
     wss.clients.forEach(client => {
-      if (client.isAlive === false) {
+      if (!client.isAlive) {
         return client.terminate();
       }
 

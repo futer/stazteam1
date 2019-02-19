@@ -1,11 +1,13 @@
-<app-label labelStyle="edit-title" for="title">Title:</app-label>
+<app-label labelStyle="edit-title" for="title">
+    Title:
+</app-label>
+
 <app-textbox 
     #title id="title" 
     placeholder="New Title" 
     textboxStyle="edit-title"
     (keydown)="titleExists()"
-    value="{{loadedTitle}}"
-    >
+    value="{{loadedTitle}}">
 </app-textbox>
 
 <div *ngIf="!titleStatus">
@@ -22,13 +24,12 @@
     </p>
     <app-button
         [class]=''
-        (clickEvent)="swap()">
+        (clickEvent)="swapPDFData()">
             Yes
-
     </app-button>
     <app-button
         [class]=''
         (clickEvent)="showModal = !showModal">
-        No
+            No
     </app-button>
 </app-modal>

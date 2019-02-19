@@ -1,20 +1,19 @@
 const database = require('../helpers/database');
 const Document = require('../models/document.model');
 
-async function getDocuments(data) {
+async function getDocuments(page, data) {
   database.connect();
-  const documents = await Document.find()
+
+  return await Document.find(data)
     .populate('comments.reviewer')
     .sort({'date': -1})
     .limit(10)
-    .skip(data.page*10);
-
-  return documents;
+    .skip(page*10);
 }
 
 async function getDocument(data) {
   database.connect();
-  const document = await Document.findById({ _id: data.id });
+  const document = await Document.findById({ _id: data.id }).populate('comments.reviewer');
 
   return document;
 }

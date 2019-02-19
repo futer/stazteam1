@@ -12,14 +12,13 @@ PDFJS.workerSrc = pdfWorker;
   styleUrls: ['./upload-btn.component.scss']
 })
 export class UploadBtnComponent {
-  allPages: Array<Object>;
-  pdfTitle: string;
+  private allPages: Array<Object>;
+  private pdfTitle: string;
 
   constructor(
     private refShare: ToolboxActionsService,
   ) { this.allPages = []; }
 
-  // my brain hurts when i see so many callbacks >.< --Szw4gier
   async pdfUpload(event) {
     this.allPages = [];
     let pdf = event.target.files[0];

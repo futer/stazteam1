@@ -1,4 +1,10 @@
 <div [class]="userMessageInfoStyle">
-  <app-image [url]="getPic()" [class]="''" [size]="[30, 30]"></app-image>
-  <div><ng-content></ng-content></div>
+  <app-image 
+    [url]="getPic()" 
+    [class]="''" 
+    [size]="[30, 30]">
+  </app-image>
+  <div>
+    <ng-content></ng-content>
+  </div>
 </div>

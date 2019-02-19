@@ -1,0 +1,22 @@
+<div 
+  *ngFor="let comment of comments"
+  [class]="commentsStyle">
+    <div class="comments__nav">
+      <span class="comments__nav--author">
+        {{ comment.reviewer.firstName }} {{ comment.reviewer.lastName }}
+      </span>
+    </div>
+    <app-marked-text
+      [markedTextStyle]="'marked-text'"
+      [markedText]="comment.markedText">
+    </app-marked-text>
+    <div class="comments__content">
+      {{ comment.content }}
+    </div>
+    <div class="comments__control">
+      <app-submit-btn 
+        (click)="onClick(comment)">
+          Delete
+      </app-submit-btn>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ToolboxActionsService } from 'src/editor/services/toolbox-actions.service';
 
 @Component({
@@ -6,17 +6,14 @@ import { ToolboxActionsService } from 'src/editor/services/toolbox-actions.servi
   templateUrl: './bold-btn.component.html',
   styleUrls: ['./bold-btn.component.scss']
 })
-export class BoldBtnComponent implements OnInit {
+export class BoldBtnComponent {
 
   constructor(
     private textRef: ToolboxActionsService
   ) { }
 
-  ngOnInit() {
-  }
-
   toggleBold() {
-    this.textRef.textSource.subscribe(ref => {
+    this.textRef.observeText$.subscribe(ref => {
       document.execCommand('bold', false);
       ref.nativeElement.focus();
     }).unsubscribe();

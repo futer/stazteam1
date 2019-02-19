@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as bookmarkActions from '../../core/store/bookmark/bookmark.actions';
 import { Router } from '@angular/router';
@@ -51,5 +51,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   navigateToBookmarkEditor() {
     this.router.navigate(['/bookmark-panel']);
+  }
+
+  navigateToReviewerPanel() {
+    this.router.navigate(['/review']);
   }
 }
