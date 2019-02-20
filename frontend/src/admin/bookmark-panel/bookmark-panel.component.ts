@@ -13,6 +13,7 @@ import { BookmarkState } from 'src/core/store/bookmark/bookmark.state';
 import { TranslateService } from '@ngx-translate/core';
 import ita_adminModuleTranslation from '../../shared/translations/ita_adminModuleTranslation.json';
 import fr_adminModuleTranslation from '../../shared/translations/fr_adminModuleTranslation.json';
+import en_adminModuleTranslation from '../../shared/translations/en_adminModuleTranslation.json';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class BookmarkPanelComponent implements OnInit {
      ) {
       this.translate.setTranslation('ita', ita_adminModuleTranslation);
       this.translate.setTranslation('fr', fr_adminModuleTranslation);
+      this.translate.setTranslation('en', en_adminModuleTranslation);
       }
 
   ngOnInit() {

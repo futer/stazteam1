@@ -1,21 +1,21 @@
 <div class="admin-user-editor__error-msg" *ngIf="error">
-    {{'Error during update' | translate}}: {{error}}
+    {{'error_during_update' | translate}}: {{error}}
   </div>
   
   <div class="admin-user-editor__success-msg" *ngIf="send">
-    {{'User has been updated' | translate}}
+    {{'user_has_been_updated' | translate}}
   </div>
 
   <div class='admin-user-editor__container'>
-    <p class="admin-user-editor__text">{{'User editor:' | translate}}</p>
+    <p class="admin-user-editor__text">{{'user_editor' | translate}}</p>
     <input 
       [(ngModel)]="searchbox" 
-      placeholder="{{'Search...' | translate}}" 
+      placeholder="{{'search' | translate}}" 
       class="admin-user-editor__searchbox" 
       (keyup)="filter()">
   
     <select *ngIf="users" [(ngModel)]="selectedUser" class="admin-user-editor__selector" (change)='updatePic()'>
-      <option class="admin-user-editor__selected" [ngValue]="undefined" selected hidden>{{'Select user' | translate}}</option>
+      <option class="admin-user-editor__selected" [ngValue]="undefined" selected hidden>{{'select_user' | translate}}</option>
       <option class="admin-user-editor__options" *ngFor="let user of usersfiltered.data.users" [ngValue]="user">
         {{ user.firstName }} {{ user.lastName }}
       </option>
@@ -26,7 +26,7 @@
         class="admin-user-editor__update-user"
         [formGroup]="updateUserForm"
         (ngSubmit)="updateUser(updateUserForm)">
-        <p class="change-creds">{{'Change first name:' | translate}}</p>
+        <p class="change-creds">{{'change_first_name' | translate}}</p>
   
         <div class="admin-user-editor__input-group">
           <app-input
@@ -39,7 +39,7 @@
           </app-input>
         </div>
   
-        <p class="change-creds">{{'Change last name:' | translate}}</p>
+        <p class="change-creds">{{'change_last_name' | translate}}</p>
         <div class="input-group">
           <app-input
             [id]="'lastName'"
@@ -51,10 +51,10 @@
           </app-input>
   
           <div class="admin-user-editor__change-pic-form-wrapper">
-            <p class="admin-user-editor__change-creds">{{'Change your profile picture:' | translate}}</p>
+            <p class="admin-user-editor__change-creds">{{'change_profile_picture' | translate}}</p>
             <div class="admin-user-editor__input-file">
               <app-label [for]="'pic__input'" [labelStyle]="'admin-user-editor__form-file'">
-                <i class="fa fa-arrow-down" aria-hidden="true"></i> {{'Select your profile image' | translate}}
+                <i class="fa fa-arrow-down" aria-hidden="true"></i> {{'select_profile_image' | translate}}
               </app-label>
 
               <app-input #pic
@@ -77,7 +77,7 @@
               </div>
           </div>
 
-          <p>{{'Change user role:' | translate}}</p>
+          <p>{{'change_role' | translate}}</p>
           <select 
             formControlName="role" 
             class="admin-user-editor__selector--role">
@@ -89,7 +89,7 @@
           </select>
   
           <div class="admin-user-editor__input-group">
-            <p>{{'New password:' | translate}}</p>
+            <p>{{'new_password' | translate}}</p>
             <app-input
               [id]="'password'"
               [formInputStyle]="'admin-user-editor__input'"
@@ -111,7 +111,7 @@
               {{ validationMessages.password }}
             </app-error>
   
-            <p>{{'Confirm new password:' | translate}}</p>
+            <p>{{'confirm_password' | translate}}</p>
             <app-input
               ng-blur="visitedEmail=true"
               [id]="'repeatPassword'"
@@ -138,7 +138,7 @@
           [buttonStyle]="''"
           [type]="'submit'"
           [disabled]="updateUserForm.invalid">
-            {{'Update user' | translate}}
+            {{'update_user' | translate}}
         </app-submit-btn>
       </form>
     </div>

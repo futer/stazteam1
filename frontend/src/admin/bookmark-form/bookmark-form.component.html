@@ -4,7 +4,7 @@
     (ngSubmit)="updateBookmark(bookmarkEditForm)"
     >
     <div class="form-group">
-      <label for="title">{{'Title:' | translate}}</label>
+      <label for="title">{{'title' | translate}}</label>
       <app-input 
         [id]="'title'" 
         [formInputStyle]="'bookmark-editor__input'" 
@@ -15,11 +15,11 @@
       <app-error 
         [class]="'error-msg-addBookmark'" 
         *ngIf="bookmarkEditForm.get('title').errors?.required && bookmarkEditForm.get('title').touched">
-        {{'Title cannot be empty' | translate}}
+        {{'title_empty' | translate}}
       </app-error>
     </div>
     <div class="form-group">
-      <label for="content">{{'Content:' | translate}} </label>
+      <label for="content">{{'content' | translate}} </label>
       <textarea 
         class="bookmark-ediotr__textarea" 
         id="content" 
@@ -30,11 +30,11 @@
       <app-error 
         [class]="'error-msg-addBookmark'" 
         *ngIf="bookmarkEditForm.get('content').errors?.required && bookmarkEditForm.get('content').touched">
-        {{'Content cannot be empty'| translate}}
+        {{'content_empty'| translate}}
       </app-error>
     </div>
     <div class="form-group_position">
-      <label for="position">{{'Position:' | translate}} </label>
+      <label for="position">{{'position' | translate}} </label>
       <label class="bookmar-edit-form__label--position">
         <app-input 
             [id]="'position'" 
@@ -53,13 +53,13 @@
             [controlName]="bookmarkEditForm.controls.position"
             [value]="positions.right" 
             [checked]="bookmarkEditForm.controls['position'].value === 'RIGHT'? true : false ">
-        </app-input>{{'RIGHT' | translate}}
+        </app-input>{{'right' | translate}}
       </label>
     </div>
     <app-submit-btn 
         [disabled]="bookmarkEditForm.invalid" 
         [buttonStyle]="'button'" 
-        [type]="'submit'"> {{'Save changes' | translate}}
+        [type]="'submit'"> {{'save_changes' | translate}}
     </app-submit-btn>
   </form>
 </div>

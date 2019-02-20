@@ -1,7 +1,7 @@
 <div class="container">
     <div class="add-bookmark">
         <p class="add-bookmark--title">
-            {{'Create New Bookmark' | translate}}
+            {{'create_bookmark' | translate}}
         </p>
         <app-button 
             [class]="'add-bookmark'" 
@@ -34,7 +34,7 @@
             (ngSubmit)="addBookmark(addBookmarkForm)">
             <div class="form-group">
                 <label for="title">
-                    {{'Title:' | translate}} 
+                    {{'title' | translate}} 
                 </label>
                 <app-input 
                     [id]="'title'" 
@@ -45,12 +45,12 @@
                 <app-error
                     [class]="'error-msg-addBookmark'"
                     *ngIf="addBookmarkForm.get('title').errors?.required && addBookmarkForm.get('title').touched">
-                    {{'The field is requried' | translate}}
+                    {{'field_required' | translate}}
                 </app-error>
                 <app-error
                     [class]="'error-msg-addBookmark'"
                     *ngIf="addBookmarkForm.get('title').errors?.maxlength">
-                    {{'Title is too long, max 20 characters'| translate}}
+                    {{'title_too_long'| translate}}
                 </app-error>
             </div>
             <div class="form-group">
