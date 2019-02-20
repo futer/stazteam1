@@ -1,13 +1,13 @@
 <div class="bookmark-info">
     <div class="bookmark-info--title">
-        <p>Title: 
+        <p>{{'Title:' | translate}} 
             <Strong class="bookmark-info--data">
                 {{ (data.title.length > 12)? (data.title | slice:0:12)+'...' : (data.title) }}
             </Strong>
         </p> 
     </div>
 <div class="bookmark-info--position">
-    <p>Position: 
+    <p>{{'Position:' | translate}} 
         <Strong class="bookmark-info--data">
             {{data.position}}
         </Strong>
@@ -16,13 +16,13 @@
     <app-button 
         [class]="'boomark-info__button'" 
         (clickEvent)="toggleForm(data)">
-            Edit 
+            {{'Edit' | translate}} 
         <i class="fa fa-pencil" ></i>
     </app-button>
     <app-button 
         [class]="'boomark-info__button--delete'" 
         (clickEvent)="deleteBookmark(data)">
-            Delete 
+            {{'Delete' | translate}} 
         <i class="fa fa-trash"></i>
     </app-button>
 </div>

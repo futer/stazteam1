@@ -19,6 +19,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import authReducer from '../core/store/auth/auth.reducers';
 import { AuthEffect } from '../core/store/auth/auth.effects';
 import { ChatModule } from 'src/chat/chat.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const rootReducer = {
   auth: authReducer
@@ -54,7 +55,8 @@ export const metaReducers: MetaReducer<any>[] = [clearState];
     StoreDevtoolsModule.instrument({
       maxAge: 10
     }),
-    ChatModule
+    ChatModule,
+    TranslateModule.forRoot(),
   ],
   providers: [
   ],

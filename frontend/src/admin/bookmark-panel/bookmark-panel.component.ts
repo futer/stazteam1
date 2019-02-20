@@ -10,6 +10,10 @@ import {
 } from '@angular/forms';
 import { SubpageService } from 'src/shared/services/subpage.service';
 import { BookmarkState } from 'src/core/store/bookmark/bookmark.state';
+import { TranslateService } from '@ngx-translate/core';
+import ita_adminModuleTranslation from '../../shared/translations/ita_adminModuleTranslation.json';
+import fr_adminModuleTranslation from '../../shared/translations/fr_adminModuleTranslation.json';
+
 
 @Component({
   selector: 'app-bookmark-panel',
@@ -30,8 +34,12 @@ export class BookmarkPanelComponent implements OnInit {
 
   constructor(private store: Store<BookmarkState>,
     private formBuilder: FormBuilder,
-    private subpageService: SubpageService
-     ) { }
+    private subpageService: SubpageService,
+    private translate: TranslateService,
+     ) {
+      this.translate.setTranslation('ita', ita_adminModuleTranslation);
+      this.translate.setTranslation('fr', fr_adminModuleTranslation);
+      }
 
   ngOnInit() {
     this.createForm();

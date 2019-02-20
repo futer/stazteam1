@@ -18,6 +18,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { NavImgComponent } from './components/nav-img/nav-img.component';
 import { SuccessComponent } from './components/success/success.component';
 import { TextboxComponent } from './components/textbox/textbox.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { TextboxComponent } from './components/textbox/textbox.component';
     CommonModule,
     ReactiveFormsModule,
     RouterModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TranslateModule,
   ],
   exports: [
     SubmitBtnComponent,

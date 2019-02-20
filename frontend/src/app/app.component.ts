@@ -9,6 +9,7 @@ import { Reload } from '../core/store/auth/auth.actions';
 import { User } from 'src/core/store/auth/auth.reducers';
 import { ChatComponent } from 'src/chat/chat/chat.component';
 import { UserModel } from './models/user.model';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class AppComponent implements OnInit  {
 
 constructor(
   private router: Router,
-  private store: Store<any>
+  private store: Store<any>,
+  private translate: TranslateService
   ) {
     this.store.select(s => s).subscribe(auth => {
       const authStore = <AuthState> auth.auth;
@@ -37,6 +39,9 @@ constructor(
         this.chatComonent.logoutUser();
       }
     });
+
+    translate.setDefaultLang('en');
+    translate.use('en');
   }
 
 ngOnInit() {
