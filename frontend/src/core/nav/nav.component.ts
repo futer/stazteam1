@@ -11,6 +11,7 @@ import { Subscription, Observable } from 'rxjs';
 import { AuthService as SocialMediaAuthService } from 'angularx-social-login';
 import * as fromAuth from '../store/auth/auth.reducers';
 import { BookmarkState } from '../store/bookmark/bookmark.state';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-nav',
@@ -27,6 +28,7 @@ export class NavComponent implements OnInit {
         private store: Store<BookmarkState>,
         private router: Router,
         private socialMediaAuthService: SocialMediaAuthService,
+        private translate: TranslateService,
     ) {}
 
     ngOnInit() {
@@ -45,6 +47,24 @@ export class NavComponent implements OnInit {
 
     navigateToProfileEditor() {
         this.router.navigate(['/user-editor']);
+    }
+
+    changeLang(lang: string) {
+        switch (lang) {
+            case 'english':
+                this.translate.use('en');
+                break;
+            case 'french':
+                this.translate.use('fr');
+                break;
+            case 'italian':
+                this.translate.use('ita');
+                break;
+
+            default:
+                this.translate.use('en');
+                break;
+        }
     }
 }
 

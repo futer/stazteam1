@@ -1,7 +1,7 @@
 <div class="container">
     <div class="add-bookmark">
         <p class="add-bookmark--title">
-            Create New Bookmark
+            {{'create_bookmark' | translate}}
         </p>
         <app-button 
             [class]="'add-bookmark'" 
@@ -34,7 +34,7 @@
             (ngSubmit)="addBookmark(addBookmarkForm)">
             <div class="form-group">
                 <label for="title">
-                    Title: 
+                    {{'title' | translate}} 
                 </label>
                 <app-input 
                     [id]="'title'" 
@@ -45,17 +45,17 @@
                 <app-error
                     [class]="'error-msg-addBookmark'"
                     *ngIf="addBookmarkForm.get('title').errors?.required && addBookmarkForm.get('title').touched">
-                    The field is requried
+                    {{'field_required' | translate}}
                 </app-error>
                 <app-error
                     [class]="'error-msg-addBookmark'"
                     *ngIf="addBookmarkForm.get('title').errors?.maxlength">
-                    Title is too long, max 20 characters
+                    {{'title_too_long'| translate}}
                 </app-error>
             </div>
             <div class="form-group">
                 <label for="title">
-                    Content: 
+                    {{'Content:' | translate}} 
                 </label>
                 <textarea
                     class="add-bookmark__form-content" 
@@ -68,12 +68,12 @@
                     [class]="'error-msg-addBookmark'"
                     *ngIf="addBookmarkForm.get('content').errors?.required
                         && addBookmarkForm.get('content').touched">
-                    The field is requried
+                        {{'The field is requried' | translate}}
                 </app-error>
             </div>
             <div class="form-group__modal--position">
                 <label for="position">
-                    Position: 
+                    {{'Position:' | translate}}
                 </label>
                 <app-radio-buttons 
                 [id]="'position'"
@@ -86,7 +86,7 @@
                 [disabled]="addBookmarkForm.invalid" 
                 [buttonStyle]="'button'" 
                 [type]="'submit'">
-                Save changes
+                {{'Save changes' | translate}}
             </app-submit-btn>
         </form>
     </div>

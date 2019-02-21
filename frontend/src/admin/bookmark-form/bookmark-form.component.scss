@@ -16,7 +16,7 @@
             vertical-align: middle;
             border: 1px solid #A5B1BE;
             color: $main-font-color;
-
+            resize: vertical;
             &:focus {
                 border: 1px solid $main-color;
                 outline: none;

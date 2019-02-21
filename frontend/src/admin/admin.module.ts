@@ -12,6 +12,7 @@ import { SharedModule } from 'src/shared/shared.module';
 import { BookmarkInfoComponent } from './bookmark-info/bookmark-info.component';
 import { BookmarkFormComponent } from './bookmark-form/bookmark-form.component';
 import { AdminRouting } from './admin.routing.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { AdminRouting } from './admin.routing.module';
     ReactiveFormsModule,
     AdminRouting,
     SharedModule,
+    TranslateModule,
   ],
   exports: [
     BookmarkPanelComponent,

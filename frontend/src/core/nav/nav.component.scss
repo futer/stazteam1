@@ -166,4 +166,14 @@ app-router-btn:hover .dropdown__icon {
         padding-right: 15px;
       }
   }
+
+  .flag_wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  .flag {
+    margin: 0.2em;
+    height: 1em;
+    width: 2em;
+  }
 }
